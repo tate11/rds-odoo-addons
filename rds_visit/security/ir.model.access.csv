@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_rds_visit_user,access.rds.visit.user,model_rds_visit,rds_visit.group_visit_user,1,1,1,0
-access_rds_visit_manager,access.rds.visit.manager,model_rds_visit,rds_visit.group_visit_manager,1,1,1,1

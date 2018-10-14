@@ -1,1 +1,0 @@
-from . import partner_pricelist_lock, mail_compose_message

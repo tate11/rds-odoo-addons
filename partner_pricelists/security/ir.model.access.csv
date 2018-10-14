@@ -1,7 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-partner_pricelist_salesman,rule.pp.sm,partner_pricelists.model_partner_pricelist,sales_team.group_sale_salesman,1,1,1,0
-partner_pricelist_manager,rule.pp.man,partner_pricelists.model_partner_pricelist,sales_team.group_sale_manager,1,1,1,1
-partner_pricelist_accountant,rule.pp.ac,partner_pricelists.model_partner_pricelist,account.group_account_user,1,1,0,0
-
-partner_pricelist_line_salesman,rule.ppl.sm,partner_pricelists.model_partner_pricelist_line,sales_team.group_sale_salesman,1,1,1,1
-partner_pricelist_line_accountant,rule.ppl.acc,partner_pricelists.model_partner_pricelist_line,account.group_account_user,1,1,0,0

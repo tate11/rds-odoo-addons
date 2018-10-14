@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-usr_dia_transfer,rule.usr.transf,rds_dia_revised.model_dia_transfer,base.group_user,1,0,0,0
-mgr_dia_transfer,rule.mgr.transf,rds_dia_revised.model_dia_transfer,base.group_erp_manager,1,1,1,1

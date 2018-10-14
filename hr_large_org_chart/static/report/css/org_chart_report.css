@@ -1,0 +1,236 @@
+.main_wrapper {
+    overflow: scroll;
+    width: 100%;
+}
+
+h1, h2, p1, p2 {
+	display: block;
+	margin-top:10pt;
+	font-family: Helvetica, Arial, sans-serif
+}
+
+h1, p1 {
+	width:200pt;
+}
+h1 {
+	font-size: 14pt;
+	margin-bottom:5pt;
+}
+p1 {
+	margin-top:5pt;
+    font-size: 12pt;
+}
+h2 {
+	font-size: 12pt;
+	margin-bottom:5pt;
+}
+p2 {
+	margin-top: 0pt;
+    font-size: 11pt;
+
+}
+
+
+.kanban-employee {
+	margin-left: 20pt;
+	margin-right: 20pt;
+	display: inline-block;
+	position: relative;
+}
+.kanban-employee.haschildren::before {
+	content: '';
+	background-color: #ffffff;
+	border: 0pt solid #bfbfbf;
+	    border-left-width: 0pt;
+	border-left-width: 3pt;
+	height: 24pt;
+	position: absolute;
+    top: 100%;
+    left: 50%;
+}
+.kanban-employee.ischild::after {
+	content: '';
+	background-color: #ffffff;
+	border: 0pt solid #bfbfbf;
+	    border-left-width: 0pt;
+	border-left-width: 0pt;
+	border-left-width: 3pt;
+	height: 22pt;
+	position: absolute;
+    top: -22pt;
+    left: 50%;
+}
+
+.kanban-cc {
+    width:200pt;
+	margin-left: 20pt;
+	margin-right: 20pt;
+	display: inline-block;
+	position: relative;
+	border-radius: 20pt;
+}
+
+.kanban-cc.ischild::after {
+	content: '';
+	background-color: #ffffff;
+	border: 0pt solid #bfbfbf;
+	border-left-width: 0pt;
+	border-left-width: 0pt;
+	border-left-width: 3pt;
+	height: 22pt;
+	position: absolute;
+    top: -22pt;
+    left: 50%;
+}
+
+.collapsed-employee {
+	display: block;
+	font-size: 10pt;
+	clear: both;
+	padding: 10pt;
+	height: 60pt;
+}
+
+.container {
+	text-align: center;
+}
+.container::after {
+	content: '';
+    display: block;
+   	margin: 100pt;
+    margin-top: 25pt;
+	margin-bottom: 19pt;
+	height: 1pt;
+}
+
+.wrapper {
+	float:left;
+	position: relative;
+}
+
+.wrapper::before {
+	content: '';
+	border-bottom: 3pt solid #bfbfbf;
+	display: block;
+	position: absolute;
+	width: 100%;
+	top: -22pt;
+}
+
+.wrapper.leftmost::before {
+	width: 50%;
+	right: 0;
+}
+.wrapper.rightmost::before {
+	width: 50%;
+}
+.wrapper.single::before {
+	width: 0;
+}
+
+.employee-image {
+    width: 80pt;
+    height: 80pt;
+    border-radius: 1000pt;
+    display: inline-block;
+    background-size: cover;
+	background-position: center center;
+	border: solid 3pt black;
+	background-color:white;
+}
+
+.collapsed-employee .employee-image {
+    margin-top: 5pt;
+    width: 50pt;
+	height: 50pt;
+	float: left;
+	border:none;
+}
+
+.clearer-bg {
+	background-color: rgba(255, 255, 255, 0.65)
+}
+
+/** L'elemento root dovrebbe essere più in risalto! **/
+
+
+#root-emp > h1, #root-emp > p1 {
+	font-size: 22pt;
+	width: 400pt;
+}
+#root-emp > .employee-image {
+	width: 110pt;
+	height: 110pt;
+	border: solid 5pt;
+}
+
+/** COLORS **/
+
+.employee-image.dept-color-1, .wrapper.dept-color-1::before, .kanban-employee.dept-color-1::before, .kanban-employee.dept-color-1::after, .kanban-cc.dept-color-1::after {
+	border-color: #f06050!important;
+}
+.employee-image.dept-color-2, .wrapper.dept-color-2::before, .kanban-employee.dept-color-2::before, .kanban-employee.dept-color-2::after, .kanban-cc.dept-color-2::after {
+	border-color: #f4a460!important;
+}
+.employee-image.dept-color-3, .wrapper.dept-color-3::before, .kanban-employee.dept-color-3::before, .kanban-employee.dept-color-3::after, .kanban-cc.dept-color-3::after {
+	border-color: #f7cd1f!important;
+}
+.employee-image.dept-color-4, .wrapper.dept-color-4::before, .kanban-employee.dept-color-4::before, .kanban-employee.dept-color-4::after, .kanban-cc.dept-color-4::after {
+	border-color: #6cc1ed!important;
+}
+.employee-image.dept-color-5, .wrapper.dept-color-5::before, .kanban-employee.dept-color-5::before, .kanban-employee.dept-color-5::after, .kanban-cc.dept-color-5::after {
+	border-color: #814968!important;
+}
+.employee-image.dept-color-6, .wrapper.dept-color-6::before, .kanban-employee.dept-color-6::before, .kanban-employee.dept-color-6::after, .kanban-cc.dept-color-6::after {
+	border-color: #eb7e7f!important;
+}
+.employee-image.dept-color-7, .wrapper.dept-color-7::before, .kanban-employee.dept-color-7::before, .kanban-employee.dept-color-7::after, .kanban-cc.dept-color-7::after {
+	border-color: #2c8397!important;
+}
+.employee-image.dept-color-8, .wrapper.dept-color-8::before, .kanban-employee.dept-color-8::before, .kanban-employee.dept-color-8::after, .kanban-cc.dept-color-8::after {
+	border-color: #475577!important;
+}
+.employee-image.dept-color-9, .wrapper.dept-color-9::before, .kanban-employee.dept-color-9::before, .kanban-employee.dept-color-9::after, .kanban-cc.dept-color-9::after {
+	border-color: #d6145f!important;
+}
+.employee-image.dept-color-10, .wrapper.dept-color-10::before, .kanban-employee.dept-color-10::before, .kanban-employee.dept-color-10::after, .kanban-cc.dept-color-10::after {
+	border-color: #30c381!important;
+}
+.employee-image.dept-color-11, .wrapper.dept-color-11::before, .kanban-employee.dept-color-11::before, .kanban-employee.dept-color-11::after, .kanban-cc.dept-color-11::after {
+	border-color: #9365b8!important;
+}
+
+.kanban-cc.dept-color-1 {
+	background-color: #f0605030;
+}
+.kanban-cc.dept-color-2 {
+	background-color: #f4a46030;
+}
+.kanban-cc.dept-color-3 {
+	background-color: #f7cd1f30;
+}
+.kanban-cc.dept-color-4 {
+	background-color: #6cc1ed30;
+}
+.kanban-cc.dept-color-5 {
+	background-color: #81496830;
+}
+.kanban-cc.dept-color-6 {
+	background-color: #eb7e7f30;
+}
+.kanban-cc.dept-color-7 {
+	background-color: #2c839730;
+}
+.kanban-cc.dept-color-8 {
+	background-color: #47557730;
+}
+.kanban-cc.dept-color-9 {
+	background-color: #d6145f30;
+}
+.kanban-cc.dept-color-10 {
+	background-color: #30c38130;
+}
+.kanban-cc.dept-color-11 {
+	background-color: #9365b830;
+}
+

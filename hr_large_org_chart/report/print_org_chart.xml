@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_org_chart" model="report.paperformat">
+        <field name="name">A1 Margini Piccoli</field>
+        <field name="default" eval="True"/>
+        <field name="format">A0</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">50</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="True"/>
+        <field name="header_spacing">30</field>
+        <field name="dpi">300</field>
+    </record>
+
+    <report
+        id="rds_employee_print_org_chart"
+        string="Stampa Organigramma"
+        model="orgchart.printer"
+        report_type="qweb-pdf"
+        name="rds_hr.print_org_chart"
+        file="rds_hr.print_org_chart"
+        print_report_name="'Stampa Organigramma'"
+        paperformat="paperformat_org_chart"
+        menu="False"
+    />
+
+    <template id="print_org_chart">   
+        <t t-call="web.basic_layout">
+            <t t-set="company" t-value="res_company"/>         
+            <t t-foreach="docs" t-as="batch">
+                <link type="text/css" rel="stylesheet" href="/rds_hr/static/report/css/org_chart_report.css" />
+                <div class="page" style="page-break-after: always;">
+                    <div class="main_wrapper">
+                        <t t-raw="batch.get_employees_xml_tree()"/>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

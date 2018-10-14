@@ -1,0 +1,264 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_adv_working_hours
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e-20181004\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-10 21:09+0000\n"
+"PO-Revision-Date: 2018-10-10 23:14+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: it\n"
+"X-Generator: Poedit 2.0.4\n"
+
+#. module: hr_adv_working_hours
+#: model_terms:ir.ui.view,arch_db:hr_adv_working_hours.turn_printer_view_form
+msgid "Cancel"
+msgstr "Annulla"
+
+#. module: hr_adv_working_hours
+#: model:ir.model.fields,field_description:hr_adv_working_hours.field_turn_printer__create_uid
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: hr_adv_working_hours
+#: model:ir.model.fields,field_description:hr_adv_working_hours.field_turn_printer__create_date
+msgid "Created on"
+msgstr "Creato il"
+
+#. module: hr_adv_working_hours
+#: model_terms:ir.ui.view,arch_db:hr_adv_working_hours.print_schedule_list
+msgid "Department"
+msgstr "Reparto"
+
+#. module: hr_adv_working_hours
+#: model:ir.model.fields,field_description:hr_adv_working_hours.field_turn_printer__dep_do
+msgid "Department Filter"
+msgstr "Filtraggio su Reparto"
+
+#. module: hr_adv_working_hours
+#: model:ir.model.fields,field_description:hr_adv_working_hours.field_turn_printer__dep
+msgid "Departments"
+msgstr "Reparti"
+
+#. module: hr_adv_working_hours
+#: model_terms:ir.ui.view,arch_db:hr_adv_working_hours.turn_printer_view_form
+msgid "Departments..."
+msgstr "Reparti..."
+
+#. module: hr_adv_working_hours
+#: model:ir.model.fields,field_description:hr_adv_working_hours.field_turn_printer__display_name
+msgid "Display Name"
+msgstr "Nome Completo"
+
+#. module: hr_adv_working_hours
+#: model:ir.model,name:hr_adv_working_hours.model_hr_employee
+msgid "Employee"
+msgstr "Dipendente"
+
+#. module: hr_adv_working_hours
+#: model:ir.model.fields,field_description:hr_adv_working_hours.field_turn_printer__emp_do
+msgid "Employee Filter"
+msgstr "Filtraggio su Dipendente"
+
+#. module: hr_adv_working_hours
+#: model_terms:ir.ui.view,arch_db:hr_adv_working_hours.print_turns
+msgid "Employee Skill"
+msgstr "Abilità\tDipendente"
+
+#. module: hr_adv_working_hours
+#: model:ir.model.fields,field_description:hr_adv_working_hours.field_turn_printer__emp
+msgid "Employees"
+msgstr "Dipendenti"
+
+#. module: hr_adv_working_hours
+#: model_terms:ir.ui.view,arch_db:hr_adv_working_hours.turn_printer_view_form
+msgid "Employees..."
+msgstr "Dipendenti..."
+
+#. module: hr_adv_working_hours
+#: selection:turn.printer,dep_do:0 selection:turn.printer,emp_do:0
+msgid "Exclude"
+msgstr "Escludi"
+
+#. module: hr_adv_working_hours
+#: model:ir.model,name:hr_adv_working_hours.model_hr_department
+msgid "HR Department"
+msgstr "Reparto HR"
+
+#. module: hr_adv_working_hours
+#: model:ir.model.fields,field_description:hr_adv_working_hours.field_turn_printer__id
+msgid "ID"
+msgstr "ID"
+
+#. module: hr_adv_working_hours
+#: model:ir.model,name:hr_adv_working_hours.model_hr_job
+#: model_terms:ir.ui.view,arch_db:hr_adv_working_hours.print_schedule_list
+msgid "Job Position"
+msgstr "Mansione"
+
+#. module: hr_adv_working_hours
+#: model:ir.model.fields,field_description:hr_adv_working_hours.field_hr_job__report_style
+msgid "Kanban style sul report"
+msgstr "Stile Kanban sul report"
+
+#. module: hr_adv_working_hours
+#: model:ir.model.fields,field_description:hr_adv_working_hours.field_turn_printer____last_update
+msgid "Last Modified on"
+msgstr "Data di ultima modifica"
+
+#. module: hr_adv_working_hours
+#: model:ir.model.fields,field_description:hr_adv_working_hours.field_turn_printer__write_uid
+msgid "Last Updated by"
+msgstr "Ultima modifica di"
+
+#. module: hr_adv_working_hours
+#: model:ir.model.fields,field_description:hr_adv_working_hours.field_turn_printer__write_date
+msgid "Last Updated on"
+msgstr "Ultima modifica il"
+
+#. module: hr_adv_working_hours
+#: selection:turn.printer,dep_do:0 selection:turn.printer,emp_do:0
+msgid "Limit to"
+msgstr "Limita a"
+
+#. module: hr_adv_working_hours
+#: selection:turn.printer,print_format:0
+msgid "List"
+msgstr "Lista"
+
+#. module: hr_adv_working_hours
+#: model_terms:ir.ui.view,arch_db:hr_adv_working_hours.print_schedule_list
+msgid "Name and Surname"
+msgstr "Nome Completo"
+
+#. module: hr_adv_working_hours
+#: model:ir.model.fields,field_description:hr_adv_working_hours.field_hr_employee__next_week_resource_calendar_id
+msgid "Next Shift"
+msgstr "Prossimo Turno"
+
+#. module: hr_adv_working_hours
+#: selection:turn.printer,week:0
+msgid "Next Week"
+msgstr "Prossima Settimana"
+
+#. module: hr_adv_working_hours
+#: model_terms:ir.ui.view,arch_db:hr_adv_working_hours.rds_hr_extended_employee_filter
+msgid "Orario"
+msgstr "Orario"
+
+#. module: hr_adv_working_hours
+#: model_terms:ir.ui.view,arch_db:hr_adv_working_hours.rds_hr_extended_employee_filter
+msgid "Orario (Prossima Settimana)"
+msgstr ""
+
+#. module: hr_adv_working_hours
+#: model_terms:ir.ui.view,arch_db:hr_adv_working_hours.turn_printer_view_form
+msgid "Print"
+msgstr "Stampa"
+
+#. module: hr_adv_working_hours
+#: model:ir.model.fields,field_description:hr_adv_working_hours.field_turn_printer__print_format
+msgid "Print Format"
+msgstr "Formato di Stampa"
+
+#. module: hr_adv_working_hours
+#: model:ir.actions.report,name:hr_adv_working_hours.rds_employee_print_turns
+msgid "Print Shifts"
+msgstr "Stampa Turni"
+
+#. module: hr_adv_working_hours
+#: model:ir.actions.act_window,name:hr_adv_working_hours.act_print_turns
+#: model:ir.actions.report,name:hr_adv_working_hours.rds_employee_print_schedule_list
+#: model:ir.ui.menu,name:hr_adv_working_hours.menu_print_turns
+#: model_terms:ir.ui.view,arch_db:hr_adv_working_hours.turn_printer_view_form
+msgid "Print Working Hours"
+msgstr "Stampa Orari Lavorativi"
+
+#. module: hr_adv_working_hours
+#: model_terms:ir.ui.view,arch_db:hr_adv_working_hours.turn_printer_view_form
+msgid "Printing Format..."
+msgstr "Formato di Stampa"
+
+#. module: hr_adv_working_hours
+#: model:ir.model.fields,field_description:hr_adv_working_hours.field_hr_job__priority
+msgid "Priorità"
+msgstr "Priorità"
+
+#. module: hr_adv_working_hours
+#: model:ir.model,name:hr_adv_working_hours.model_resource_calendar
+msgid "Resource Working Time"
+msgstr ""
+
+#. module: hr_adv_working_hours
+#: model:ir.model.fields,field_description:hr_adv_working_hours.field_resource_calendar__shift_code
+msgid "Shift Code"
+msgstr "Codice Turno"
+
+#. module: hr_adv_working_hours
+#: model:ir.model.fields,field_description:hr_adv_working_hours.field_resource_calendar__shift_index
+msgid "Shift Index"
+msgstr "Indice Turno"
+
+#. module: hr_adv_working_hours
+#: model:ir.model.fields,field_description:hr_adv_working_hours.field_hr_employee__does_turns
+msgid "Shift Worker"
+msgstr "Turnista"
+
+#. module: hr_adv_working_hours
+#: model_terms:ir.ui.view,arch_db:hr_adv_working_hours.print_schedule_list
+msgid "Shift Worker - See shifts sheet."
+msgstr "Turnista - Vedi il foglio turni."
+
+#. module: hr_adv_working_hours
+#: model:ir.actions.server,name:hr_adv_working_hours.resource_calendar_shift_rotate_ir_actions_server
+#: model:ir.cron,cron_name:hr_adv_working_hours.resource_calendar_shift_rotate
+#: model:ir.cron,name:hr_adv_working_hours.resource_calendar_shift_rotate
+msgid "Shifts: Rotate Employees"
+msgstr ""
+
+#. module: hr_adv_working_hours
+#: selection:turn.printer,week:0
+msgid "This Week"
+msgstr "Questa Settimana"
+
+#. module: hr_adv_working_hours
+#: model:ir.model,name:hr_adv_working_hours.model_turn_printer
+msgid "Turn Printer"
+msgstr "Stampa Orari"
+
+#. module: hr_adv_working_hours
+#: selection:turn.printer,print_format:0
+msgid "Turns"
+msgstr "Turni"
+
+#. module: hr_adv_working_hours
+#: model:ir.model.fields,field_description:hr_adv_working_hours.field_turn_printer__week
+msgid "Week"
+msgstr "Settimana"
+
+#. module: hr_adv_working_hours
+#: model_terms:ir.ui.view,arch_db:hr_adv_working_hours.print_schedule_list
+msgid "Working Hours"
+msgstr "Orari Lavorativi"
+
+#. module: hr_adv_working_hours
+#: model_terms:ir.ui.view,arch_db:hr_adv_working_hours.print_turns
+msgid "Working Shifts: from"
+msgstr "Turni di lavoro: Da"
+
+#. module: hr_adv_working_hours
+#: model:ir.model.fields,field_description:hr_adv_working_hours.field_resource_calendar__abstract
+msgid "Written Form"
+msgstr "Forma Scritta"
+
+#. module: hr_adv_working_hours
+#: model_terms:ir.ui.view,arch_db:hr_adv_working_hours.print_turns
+msgid "to"
+msgstr "a"

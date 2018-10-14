@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_turns_a1" model="report.paperformat">
+        <field name="name">Shifts Sheet</field>
+        <field name="default" eval="True"/>
+        <field name="format">A1</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="True"/>
+        <field name="header_spacing">30</field>
+        <field name="dpi">180</field>
+    </record>
+
+    <template id="print_turns">   
+        <t t-call="web.basic_layout">
+        <t t-set="company" t-value="res_company"/>         
+            <t t-foreach="docs" t-as="batch">
+                <t t-foreach="batch.get_report_obj()" t-as="turnset">
+                    <div class="page" style="page-break-after: always;">
+                        <div class="sp_title">
+                            <span class="logo-image" t-field="res_company.logo" t-options="{'widget': 'image'}" t-att-alt="'Logo of %s' % res_company.name" t-att-title="res_company.name"/>
+                            <h class="title-line">Working Shifts: from <t t-set="week" t-value="batch.get_week()"/><t t-esc="week[0]"/> to <t t-esc="week[1]"/></h>
+                        </div>
+
+                        <div class="colhead">
+                            <t t-esc="turnset[0].name"/>
+                        </div>
+                        
+                        <t t-foreach="turnset[1]" t-as="employee_set">           
+                            <div class="column">
+                                <t t-foreach="employee_set" t-as="employee"> 
+                                    <div class="kanban" t-att-style="employee.job_id.report_style">
+                                        <div class="kanban_image" t-att-style="'background-image:url(data:image/png;base64,%s)' % to_text(employee.image)"/>
+                                        <div class="kanban_details">
+
+                                            <div class="kanban_header">
+                                                <strong class="kanban_title">
+                                                    <t t-esc="employee.name"/>
+                                                </strong>
+                                                <span t-if="employee.job_id.name" class="kanban_subtitle"><t t-esc="employee.job_id.name"/></span>
+                                            </div>
+
+                                            <div class="kanban_icons">
+                                                <img src="/rds_hr/static/report/img/fix.png" class="employee-tag-icon" alt="Employee Skill"/>
+                                                <t t-foreach="employee.category_ids" t-as="tag">
+                                                    <img t-if="tag.icon" t-att-src="'data:image/png;base64,%s' % to_text(tag.icon)" class="employee-tag-icon" alt="Employee Skill"/>
+                                                </t>
+                                                <img src="/rds_hr/static/report/img/fix.png" class="employee-tag-icon" alt="Employee Skill"/>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="print_schedule_list">   
+        <t t-call="web.internal_layout">
+        <t t-set="company" t-value="res_company"/>         
+            <t t-foreach="docs" t-as="batch">
+                <table class="sp_list">
+                    <col width="8%"/><col width="25%"/><col width="25%"/><col width="42%"/>              
+                    <tr class="emph1">
+                        <th>Department</th>
+                        <th>Name and Surname</th>
+                        <th>Job Position</th>
+                        <th>Working Hours</th>
+                    </tr>
+                    <t t-foreach="batch.get_report_obj()" t-as="department">
+                        <tr t-attf-class="emph2 dept-color-#{department[0].color}">
+                            <th colspan="4"><t t-esc="department[0].name"/></th>
+                        </tr>
+                        <t t-foreach="department[1]" t-as="employee">
+                            <tr t-attf-class="p dept-color-#{department[0].color}">
+                                <td class="joined_bu"></td>
+                                <td><t t-esc="employee.name"/></td>
+                                <td><t t-esc="employee.job_id.name"/></td>
+                                <td><t t-if="employee.does_turns != True" t-esc="employee.resource_calendar_id.abstract"/><t t-else="">Shift Worker - See shifts sheet.</t></td>                    
+                            </tr>
+                        </t>
+                    </t>
+                </table>
+            </t>
+        </t>
+    </template>
+
+    <report
+        id="rds_employee_print_turns"
+        string="Print Shifts"
+        model="turn.printer"
+        report_type="qweb-pdf"
+        name="hr_adv_working_hours.print_turns"
+        file="hr_adv_working_hours.print_turns"
+        print_report_name="'Shifts Sheet'"
+        paperformat="paperformat_turns_a1"
+        menu="False"
+    />
+
+    <report
+        id="rds_employee_print_schedule_list"
+        string="Print Working Hours"
+        model="turn.printer"
+        report_type="qweb-pdf"
+        name="hr_adv_working_hours.print_schedule_list"
+        file="hr_adv_working_hours.print_schedule_list"
+        print_report_name="'Working Hours Sheet'"
+        menu="False"
+    />
+
+
+</odoo>
