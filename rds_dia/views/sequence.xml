@@ -1,0 +1,9 @@
+<data noupdate="1"> 
+    <record id="rds_partner_sequence" model="ir.sequence">
+        <field name="name">RDS_PARNER_SEQUENCE</field> 
+        <field name="code">RDS_PARNER_SEQUENCE</field>
+        <field name="active">True</field>
+        <field name="padding">5</field>
+        <field name="number_increment">1</field>
+    </record>
+</data>

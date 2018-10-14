@@ -1,0 +1,934 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* omnia_mold
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e-20180731\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-08-09 08:47+0000\n"
+"PO-Revision-Date: 2018-08-09 08:47+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mrp_production.py:121
+#, python-format
+msgid "<div style=\"margin: 5px\">%r </div></br>"
+msgstr "<div style=\"margin: 5px\">%r </div></br>"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mrp_production.py:124
+#, python-format
+msgid "<div style=\"margin: 5px\">You can produce this product with the following tools</div></br>"
+msgstr "<div style=\"margin: 5px\">Puoi produrre questo prodotto con delle attrezzature.</div></br>"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.omnia_mold_mrp_bom_form
+msgid "<span class=\"fa fa-exclamation-triangle\" style=\"color:red;width:100%;text-align:center;font-size:60px\"/><br/>Attenzione: L'attrezzatura è in manutenzione!"
+msgstr "<span class=\"fa fa-exclamation-triangle\" style=\"color:red;width:100%;text-align:center;font-size:60px\"/><br/>Attenzione: L'attrezzatura è in manutenzione!"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/stock_production_lot.py:21
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_mold_tracked_actual_shot
+#: model:ir.model.fields,field_description:omnia_mold.field_stock_production_lot_n_shots
+#, python-format
+msgid "Actual shot"
+msgstr "Processi Sostenuti"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mrp_production.py:48
+#, python-format
+msgid "Analytic Account"
+msgstr "Conto Analitico"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.maintenance_equipment_mold_form
+msgid "Attenzione !! Lo stampo non e' piu' in garanzia"
+msgstr "Attenzione !! Lo stampo non e' piu' in garanzia"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_toolkit_line_kit_equimpent_id
+msgid "Attrezzatura"
+msgstr "Attrezzatura"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_maintenance_equipment_toolkit_lines
+msgid "Attrezzatura di Corredo"
+msgstr "Attrezzatura di Corredo"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_maintenance_equipment_is_mold
+msgid "Attrezzatura di Produzione"
+msgstr "Attrezzatura di Produzione"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_toolkit_line_equipment_id
+msgid "Attrezzatura di Riferimento"
+msgstr "Attrezzatura di Riferimento"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.maintenance_equipment_mold_form
+msgid "Attrezzature di Corredo"
+msgstr "Attrezzature di Corredo"
+
+#. module: omnia_mold
+#: model:ir.model,name:omnia_mold.model_mrp_bom
+msgid "Bill of Material"
+msgstr "Distinta Base"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.maintenance_equipment_mold_form
+msgid "Byproduct"
+msgstr "Prodotto Collaterale"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.mrp_production_lable
+msgid "CODICE PRODOTTO<br/>"
+msgstr "CODICE PRODOTTO<br/>"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.mrp_production_lable
+msgid "COLLAUDATO IL <br/>FIRMA"
+msgstr "COLLAUDATO IL <br/>FIRMA"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.mrp_production_lable
+msgid "CONFORME"
+msgstr "CONFORME"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_mrp_routing_workcenter_ids
+msgid "Centri di Lavoro"
+msgstr "Centri di Lavoro"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_toolkit_line_workcenter_id
+msgid "Centro di Lavoro"
+msgstr "Centro di Lavoro"
+
+#. module: omnia_mold
+#: model:ir.model,name:omnia_mold.model_change_production_qty
+msgid "Change Quantity of Products"
+msgstr "Cambia Quantità dei Prodotti"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.act_merge_mold_production_view
+#: model:ir.ui.view,arch_db:omnia_mold.mold_post_qty_form
+msgid "Close"
+msgstr "Chiudi"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.rds_report_mold_tooling
+msgid "Cod. Attrezzatura"
+msgstr "Cod. Attrezzatura"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.act_merge_mold_production_view
+msgid "Compute"
+msgstr "Calcola"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mold.py:135
+#: model:ir.model.fields,field_description:omnia_mold.field_maintenance_equipment_state
+#, python-format
+msgid "Condizione"
+msgstr "Condizione"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mold.py:76
+#: selection:maintenance.equipment,state:0
+#, python-format
+msgid "Confirmed"
+msgstr "Confermato"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_maintenance_equipment_project_id
+msgid "Conto Analitico"
+msgstr "Conto Analitico"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_mold_post_qty_create_report
+msgid "Create Report"
+msgstr "Crea Report"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_merge_mold_production_create_uid
+#: model:ir.model.fields,field_description:omnia_mold.field_mold_post_qty_create_uid
+#: model:ir.model.fields,field_description:omnia_mold.field_mold_post_qty_line_create_uid
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_mold_configuration_create_uid
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_mold_tracked_create_uid
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_routing_workcenter_create_uid
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_toolkit_line_create_uid
+#: model:ir.model.fields,field_description:omnia_mold.field_workorder_replan_create_uid
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_merge_mold_production_create_date
+#: model:ir.model.fields,field_description:omnia_mold.field_mold_post_qty_create_date
+#: model:ir.model.fields,field_description:omnia_mold.field_mold_post_qty_line_create_date
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_mold_configuration_create_date
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_mold_tracked_create_date
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_routing_workcenter_create_date
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_toolkit_line_create_date
+#: model:ir.model.fields,field_description:omnia_mold.field_workorder_replan_create_date
+msgid "Created on"
+msgstr "Creato il"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_mrp_production_def_date_planned_start
+msgid "Creation Deadline Start"
+msgstr "Inizio Deadline per la Creazione"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mrp_production.py:51
+#: model:ir.model.fields,field_description:omnia_mold.field_mrp_production_customer_id
+#, python-format
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.mrp_production_lable
+msgid "DESCRIZIONE<br/>"
+msgstr "DESCRIZIONE<br/>"
+
+#. module: omnia_mold
+#: selection:maintenance.equipment,warranty_type:0
+msgid "Data"
+msgstr "Data"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_mrp_production_def_date_planned_finished
+msgid "Deadline End"
+msgstr "Fine deadline"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_merge_mold_production_display_name
+#: model:ir.model.fields,field_description:omnia_mold.field_mold_post_qty_display_name
+#: model:ir.model.fields,field_description:omnia_mold.field_mold_post_qty_line_display_name
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_mold_configuration_display_name
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_mold_tracked_display_name
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_routing_workcenter_display_name
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_toolkit_line_display_name
+#: model:ir.model.fields,field_description:omnia_mold.field_workorder_replan_display_name
+msgid "Display Name"
+msgstr "Visualizza Nome"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_maintenance_equipment_bom_id
+msgid "Distinta Tecnica Attrezzatura"
+msgstr "Distinta Tecnica Attrezzatura"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mold.py:75
+#: selection:maintenance.equipment,state:0
+#, python-format
+msgid "Draft"
+msgstr "Bozza"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.rds_report_mold_tooling
+msgid "Employee Image"
+msgstr "Employee Image"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mrp_production.py:42
+#: model:ir.model,name:omnia_mold.model_maintenance_equipment
+#: model:ir.model.fields,field_description:omnia_mold.field_mrp_production_mold_id
+#, python-format
+msgid "Equipment"
+msgstr "Attrezzatura"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_mold_tracked_exclude
+msgid "Escludi"
+msgstr "Escludi"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mold.py:18
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_mold_configuration_exclude
+#, python-format
+msgid "Exclude"
+msgstr "Exclude"
+
+#. module: omnia_mold
+#: model:ir.actions.report,name:omnia_mold.action_report_mold_tooling
+#: model:ir.ui.view,arch_db:omnia_mold.rds_report_mold_tooling
+msgid "Foglio di Attrezzaggio"
+msgstr "Foglio di Attrezzaggio"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/wizard/wizard.py:188
+#: model:ir.model.fields,field_description:omnia_mold.field_workorder_replan_from_date_plan
+#, python-format
+msgid "From date"
+msgstr "From date"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.rds_report_mold_tooling
+msgid "Garanzia"
+msgstr "Garanzia"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_merge_mold_production_id
+#: model:ir.model.fields,field_description:omnia_mold.field_mold_post_qty_id
+#: model:ir.model.fields,field_description:omnia_mold.field_mold_post_qty_line_id
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_mold_configuration_id
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_mold_tracked_id
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_routing_workcenter_id
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_toolkit_line_id
+#: model:ir.model.fields,field_description:omnia_mold.field_workorder_replan_id
+msgid "ID"
+msgstr "ID"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_maintenance_equipment_mold_configuration
+msgid "Impronte"
+msgstr "Impronte"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.rds_report_mold_tooling
+msgid "Installato su Macchina"
+msgstr "Installato su Macchina"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_stock_move_is_materozza
+msgid "Is Materozza move"
+msgstr "E' un prodotto collaterale"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_merge_mold_production___last_update
+#: model:ir.model.fields,field_description:omnia_mold.field_mold_post_qty___last_update
+#: model:ir.model.fields,field_description:omnia_mold.field_mold_post_qty_line___last_update
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_mold_configuration___last_update
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_mold_tracked___last_update
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_routing_workcenter___last_update
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_toolkit_line___last_update
+#: model:ir.model.fields,field_description:omnia_mold.field_workorder_replan___last_update
+msgid "Last Modified on"
+msgstr "Data di ultima modifica"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_merge_mold_production_write_uid
+#: model:ir.model.fields,field_description:omnia_mold.field_mold_post_qty_line_write_uid
+#: model:ir.model.fields,field_description:omnia_mold.field_mold_post_qty_write_uid
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_mold_configuration_write_uid
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_mold_tracked_write_uid
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_routing_workcenter_write_uid
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_toolkit_line_write_uid
+#: model:ir.model.fields,field_description:omnia_mold.field_workorder_replan_write_uid
+msgid "Last Updated by"
+msgstr "Ultima modifica di"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_merge_mold_production_write_date
+#: model:ir.model.fields,field_description:omnia_mold.field_mold_post_qty_line_write_date
+#: model:ir.model.fields,field_description:omnia_mold.field_mold_post_qty_write_date
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_mold_configuration_write_date
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_mold_tracked_write_date
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_routing_workcenter_write_date
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_toolkit_line_write_date
+#: model:ir.model.fields,field_description:omnia_mold.field_workorder_replan_write_date
+msgid "Last Updated on"
+msgstr "Ultima modifica il"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_mold_post_qty_lines
+msgid "Lines"
+msgstr "Linee"
+
+#. module: omnia_mold
+#: model:ir.model,name:omnia_mold.model_stock_production_lot
+msgid "Lot/Serial"
+msgstr "Lot/Serial"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.mrp_production_lable
+msgid "Lotto di stampaggio:"
+msgstr "Lotto di stampaggio:"
+
+#. module: omnia_mold
+#: model:ir.model,name:omnia_mold.model_mrp_production
+msgid "Manufacturing Order"
+msgstr "Ordine di Produzione"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_maintenance_equipment_image_medium
+msgid "Medium-sized photo"
+msgstr "Medium-sized photo"
+
+#. module: omnia_mold
+#: model:ir.model.fields,help:omnia_mold.field_maintenance_equipment_image_medium
+msgid "Medium-sized photo of the employee. It is automatically resized as a 128x128px image, with aspect ratio preserved. Use this field in form views or some kanban views."
+msgstr "Medium-sized photo of the employee. It is automatically resized as a 128x128px image, with aspect ratio preserved. Use this field in form views or some kanban views."
+
+#. module: omnia_mold
+#: model:ir.actions.server,name:omnia_mold.action_server_merge_mrp_production
+#: model:ir.ui.view,arch_db:omnia_mold.act_merge_mold_production_view
+msgid "Merge"
+msgstr "Unisci"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.act_merge_mold_production_view
+msgid "Merge Mold"
+msgstr "Unisci attezzatura"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/wizard/wizard.py:140
+#: code:addons/omnia_mold/wizard/wizard.py:174
+#, python-format
+msgid "Merge Tool"
+msgstr "Unisci attrezzatura"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mold.py:27
+#: model:ir.actions.act_window,name:omnia_mold.mrp_mold_form_action
+#: model:ir.model.fields,field_description:omnia_mold.field_merge_mold_production_mold_id
+#: model:ir.model.fields,field_description:omnia_mold.field_mrp_workorder_mold_id
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_mold_configuration_mold_id
+#: model:ir.ui.menu,name:omnia_mold.menu_mrp_mold_form_action
+#, python-format
+msgid "Mold"
+msgstr "Attrezzatura"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_mold_post_qty_line_mold_post_qty_id
+msgid "Mold Post Qty"
+msgstr "Posta n. processi"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mrp_production.py:57
+#: model:ir.model.fields,field_description:omnia_mold.field_mrp_production_mold_qty
+#, python-format
+msgid "Mold Qty"
+msgstr "Processi"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_merge_mold_production_mold_routing_id
+#: model:ir.model.fields,field_description:omnia_mold.field_mrp_production_mold_routing_id
+msgid "Mold Routing"
+msgstr "Flussi"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_merge_mold_production_check_result
+msgid "Mold check result "
+msgstr "Controlla risultati attrezzatura"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mrp_production.py:120
+#, python-format
+msgid "Mold no. %s with Products: %s"
+msgstr "Attrezzatura no. %s con Prodotti: %s"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_mrp_production_mould_cavity_close
+msgid "Mould Cavity Close"
+msgstr "Impronta Attrezzatura Chiusa"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_mrp_production_mould_maintenance
+msgid "Mould Maintenance"
+msgstr "Manutenzione Attrezzatura"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_mrp_production_mould_routings
+msgid "Mould Routings"
+msgstr "Flusso Attrezzatura"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_mrp_routing_workcenter_time_mount_machine
+msgid "Mount Time"
+msgstr "Tempo di Attrezzaggio"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_mold_post_qty_line_move_id
+msgid "Move"
+msgstr "Muovi"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_mrp_production_msg_mold
+msgid "Msg Mold"
+msgstr "Msg Mold"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.rds_report_mold_tooling
+msgid "N. Seriale"
+msgstr "N. Seriale"
+
+#. module: omnia_mold
+#: selection:maintenance.equipment,warranty_type:0
+msgid "N. di Processi"
+msgstr "N. di Processi"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.mrp_production_lable
+msgid "NR. ORDINE PRODOTTO<br/>"
+msgstr "NR. ORDINE PRODOTTO<br/>"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_mold_configuration_name
+msgid "Name"
+msgstr "Nome"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.omnia_mold_mrp_bom_form
+msgid "Nello stampo ci sono cavità chiuse"
+msgstr "Nello stampo ci sono cavità chiuse"
+
+#. module: omnia_mold
+#: selection:maintenance.equipment,warranty_type:0
+msgid "Nessuna"
+msgstr "Nessuna"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_routing_workcenter_name
+msgid "Nome"
+msgstr "Nome"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mold.py:21
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_mold_configuration_description
+#, python-format
+msgid "Notes"
+msgstr "Note"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_merge_mold_production_number_of_shut
+msgid "Number of Shuts"
+msgstr "Numero di Processi"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/stock_production_lot.py:19
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_mold_tracked_actual_shot_guarantee
+#: model:ir.model.fields,field_description:omnia_mold.field_stock_production_lot_n_shots_guarantee
+#, python-format
+msgid "Number of guarantee shot"
+msgstr "Numero di Processi Garantiti"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_maintenance_equipment_warranted_processes
+msgid "Numero di Processi Garantiti"
+msgstr "Numero di Processi Garantiti"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_maintenance_equipment_sustained_processes
+msgid "Numero di Processi Subiti"
+msgstr "Numero di Processi Subiti"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_merge_mold_production_manufactory_ids
+msgid "Orders"
+msgstr "Ordini"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/stock_production_lot.py:30
+#: model:ir.model.fields,field_description:omnia_mold.field_stock_production_lot_no_more_guarantee
+#, python-format
+msgid "Out Of Guarantee"
+msgstr "Fuori Garanzia"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_maintenance_equipment_image
+msgid "Photo"
+msgstr "Foto"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mrp_workorder.py:71
+#, python-format
+msgid "Plan Tool"
+msgstr "Pianifica Attrezzatura"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mrp_workorder.py:87
+#, python-format
+msgid "Please set the quantity you are currently producing. It should be different from zero."
+msgstr "Inserisci la quantità che stai producendo, diversa da zero."
+
+#. module: omnia_mold
+#: model:ir.actions.server,name:omnia_mold.action_server_post_mrp_production
+#: model:ir.actions.server,name:omnia_mold.action_server_post_mrp_workorder
+#: model:ir.ui.view,arch_db:omnia_mold.mold_post_qty_form
+msgid "Post"
+msgstr "Effettua il Post"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.mold_post_qty_form
+msgid "Post Inventoty"
+msgstr "Effettua il post dell'inventario"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_mold_post_qty_post_move
+msgid "Post Move"
+msgstr "Effettua i Movimenti"
+
+#. module: omnia_mold
+#: model:ir.actions.report,name:omnia_mold.report_omnia_mold_labels
+msgid "Print lables"
+msgstr "Stampa Etichette"
+
+#. module: omnia_mold
+#: selection:mrp.bom,routing_type:0
+msgid "Process-oriented"
+msgstr "Orientato a Processo"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.maintenance_equipment_mold_form
+msgid "Prodotti in Tracking"
+msgstr "Prodotti in Tracking"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_maintenance_equipment_mold_tracking
+msgid "Prodotti soggetti a usura"
+msgstr "Prodotti soggetti a usura"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mrp_production.py:146
+#: model:ir.model.fields,field_description:omnia_mold.field_mrp_production_mold_product_ids
+#, python-format
+msgid "Prodotti stampo"
+msgstr "Prodotti Attrezzatura"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_mold_tracked_product_id
+msgid "Prodotto di Riferimento"
+msgstr "Prodotto di Riferimento"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mrp_workcenter_productivity.py:15
+#: model:ir.model.fields,field_description:omnia_mold.field_mrp_workcenter_productivity_produced_qty
+#, python-format
+msgid "Produced Qty"
+msgstr "Qt.a Prodotta"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_mold_post_qty_line_product_id
+#: model:ir.model.fields,field_description:omnia_mold.field_mold_post_qty_production_id
+msgid "Product"
+msgstr "Prodotto"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_mrp_production_product_molds
+msgid "Product Molds"
+msgstr "Prodotto Attrezzatura"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_merge_mold_production_product_id
+msgid "Product to use"
+msgstr "Prodotto da Usare"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.filter_mold
+msgid "Production Tool"
+msgstr "Attr. di Produzione"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.maintenance_equipment_mold_form
+msgid "Productions"
+msgstr "Produzione"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mold.py:174
+#: model:ir.model.fields,field_description:omnia_mold.field_maintenance_equipment_product_ids
+#: model:ir.ui.view,arch_db:omnia_mold.maintenance_equipment_mold_form
+#, python-format
+msgid "Products"
+msgstr "Prodotti"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_maintenance_equipment_owner_partner
+msgid "Propietario"
+msgstr "Propietario"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.mrp_production_lable
+msgid "QUANTITA' <br/>"
+msgstr "QUANTITA' <br/>"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_maintenance_equipment_product_raw_sprue_qty
+#: model:ir.model.fields,field_description:omnia_mold.field_maintenance_equipment_product_sprue_qty
+msgid "Qty of Sprue"
+msgstr "Qt.a"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_mold_post_qty_line_qty
+msgid "Quantity"
+msgstr "Quantità"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.mrp_production_lable
+msgid "REV.00 29/03/99 DO/CO/OO"
+msgstr "REV.00 29/03/99 DO/CO/OO"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mold.py:150
+#: model:ir.model.fields,field_description:omnia_mold.field_maintenance_equipment_product_raw_sprue_id
+#, python-format
+msgid "Raw Sprue Product"
+msgstr "Prodotto Collat. Consumato"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_merge_mold_production_location_src_id
+msgid "Raw location"
+msgstr "Raw location"
+
+#. module: omnia_mold
+#: model:ir.actions.act_window,name:omnia_mold.plan_selected
+msgid "Re-Plan Workorder"
+msgstr "Re-Plan Workorder"
+
+#. module: omnia_mold
+#: model:ir.model,name:omnia_mold.model_mrp_product_produce
+msgid "Record Production"
+msgstr "Record Production"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mold.py:20
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_mold_configuration_product_id
+#, python-format
+msgid "Reference Product"
+msgstr "Reference Product"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_maintenance_equipment_product_raw_sprue_uom
+#: model:ir.model.fields,field_description:omnia_mold.field_maintenance_equipment_product_sprue_uom
+msgid "Reference Unit of Measure"
+msgstr "Reference Unit of Measure"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mrp_production.py:45
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_routing_workcenter_routing_id
+#, python-format
+msgid "Routing"
+msgstr "Routing"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_mrp_bom_routing_type
+msgid "Routing Type"
+msgstr "Routing Type"
+
+#. module: omnia_mold
+#: model:ir.model,name:omnia_mold.model_mrp_routing
+#: model:ir.model.fields,field_description:omnia_mold.field_maintenance_equipment_mold_wc_routing
+#: model:ir.model.fields,field_description:omnia_mold.field_maintenance_equipment_routings_ids
+#: model:ir.ui.view,arch_db:omnia_mold.maintenance_equipment_mold_form
+msgid "Routings"
+msgstr "Routings"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.filter_mold
+msgid "Search for mold Production Tools"
+msgstr "Search for mold Production Tools"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_mold_tracked_lot_id
+msgid "Serial Number"
+msgstr "Numero di Serie"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_maintenance_equipment_image_small
+msgid "Small-sized photo"
+msgstr "Small-sized photo"
+
+#. module: omnia_mold
+#: model:ir.model.fields,help:omnia_mold.field_maintenance_equipment_image_small
+msgid "Small-sized photo of the employee. It is automatically resized as a 64x64px image, with aspect ratio preserved. Use this field anywhere a small image is required."
+msgstr "Small-sized photo of the employee. It is automatically resized as a 64x64px image, with aspect ratio preserved. Use this field anywhere a small image is required."
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mold.py:146
+#: model:ir.model.fields,field_description:omnia_mold.field_maintenance_equipment_product_sprue_id
+#, python-format
+msgid "Sprue Product"
+msgstr "Prodotto Coll."
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.omnia_mold_mrp_bom_form
+msgid "Processi)"
+msgstr "Processi)"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_routing_workcenter_mold_id
+msgid "Stampo"
+msgstr "Stampo"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mold.py:290
+#, python-format
+msgid "State not allowed %r "
+msgstr "State not allowed %r "
+
+#. module: omnia_mold
+#: model:ir.model,name:omnia_mold.model_stock_move
+msgid "Stock Move"
+msgstr "Stock Move"
+
+#. module: omnia_mold
+#: selection:maintenance.equipment,warranty_type:0
+msgid "Su componente"
+msgstr "Su componente"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mold.py:77
+#: selection:maintenance.equipment,state:0
+#, python-format
+msgid "Suspended"
+msgstr "Sospeso"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.maintenance_equipment_mold_form
+msgid "Technical"
+msgstr "Technical"
+
+#. module: omnia_mold
+#: model:ir.model.fields,help:omnia_mold.field_maintenance_equipment_image
+msgid "This field holds the image used as photo for the tool, limited to 1024x1024px."
+msgstr "This field holds the image used as photo for the tool, limited to 1024x1024px."
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_maintenance_equipment_warranty_type
+msgid "Tipo di Garanzia"
+msgstr "Tipo di Garanzia"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.maintenance_equipment_mold_form
+msgid "Tool name or code..."
+msgstr "Tool name or code..."
+
+#. module: omnia_mold
+#: selection:mrp.bom,routing_type:0
+msgid "Tool-oriented"
+msgstr "Orientato a Attrezzatura"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.mrp_bom_form_view_rds_routing_type
+msgid "Tool-oriented product BOMs need a tool to be configured with from the equipment menu."
+msgstr "Per le distinte base orientate ad attrezzatura è necessario impostare una attrezzature dalla anagrafica attrezzature."
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_mrp_bom_tool_ids
+#: model:ir.model.fields,field_description:omnia_mold.field_mrp_routing_tools_ids
+msgid "Tools"
+msgstr "Attrezzature"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mold.py:23
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_mold_configuration_product_uom
+#, python-format
+msgid "UOM"
+msgstr "UdM"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.omnia_mold_mrp_bom_form
+msgid "Update"
+msgstr "Aggiorna"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mold.py:255
+#: model:ir.model.fields,field_description:omnia_mold.field_maintenance_equipment_warranty_expired
+#, python-format
+msgid "Warranty Expired"
+msgstr "Garanzia Scaduta"
+
+#. module: omnia_mold
+#: model:ir.model,name:omnia_mold.model_mrp_routing_workcenter
+msgid "Work Center Usage"
+msgstr "Work Center Usage"
+
+#. module: omnia_mold
+#: model:ir.model,name:omnia_mold.model_mrp_workorder
+msgid "Work Order"
+msgstr "Ordine di Lavoro"
+
+#. module: omnia_mold
+#: model:ir.model.fields,field_description:omnia_mold.field_omnia_mold_routing_workcenter_workcenter_id
+msgid "Workcenter"
+msgstr "Centro di Lavoro"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mrp_production.py:70
+#: model:ir.model.fields,field_description:omnia_mold.field_mrp_production_tool_workcenter_ids
+#, python-format
+msgid "Workcenter Flow"
+msgstr "Flusso di Lavoro"
+
+#. module: omnia_mold
+#: model:ir.model,name:omnia_mold.model_mrp_workcenter_productivity
+msgid "Workcenter Productivity Log"
+msgstr "Workcenter Productivity Log"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mrp_production.py:387
+#, python-format
+msgid "You can not consume without telling for which lot you consumed it"
+msgstr "You can not consume without telling for which lot you consumed it"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mrp_workorder.py:112
+#, python-format
+msgid "You should provide a lot/serial number for a component"
+msgstr "You should provide a lot/serial number for a component"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/module/mrp_workorder.py:90
+#, python-format
+msgid "You should provide a lot/serial number for the final product"
+msgstr "You should provide a lot/serial number for the final product"
+
+#. module: omnia_mold
+#: model:ir.ui.view,arch_db:omnia_mold.mold_post_qty_form
+msgid "line to Post"
+msgstr "line to Post"
+
+#. module: omnia_mold
+#: model:ir.model,name:omnia_mold.model_merge_mold_production
+msgid "merge_mold_production"
+msgstr "merge_mold_production"
+
+#. module: omnia_mold
+#: model:ir.model,name:omnia_mold.model_mold_post_qty
+msgid "mold_post_qty"
+msgstr "mold_post_qty"
+
+#. module: omnia_mold
+#: model:ir.model,name:omnia_mold.model_mold_post_qty_line
+msgid "mold_post_qty_line"
+msgstr "mold_post_qty_line"
+
+#. module: omnia_mold
+#: model:ir.model,name:omnia_mold.model_omnia_mold_mold_configuration
+msgid "omnia_mold.mold_configuration"
+msgstr "omnia_mold.mold_configuration"
+
+#. module: omnia_mold
+#: model:ir.model,name:omnia_mold.model_omnia_mold_mold_tracked
+msgid "omnia_mold.mold_tracked"
+msgstr "omnia_mold.mold_tracked"
+
+#. module: omnia_mold
+#: model:ir.model,name:omnia_mold.model_omnia_mold_routing_workcenter
+msgid "omnia_mold.routing_workcenter"
+msgstr "omnia_mold.routing_workcenter"
+
+#. module: omnia_mold
+#: model:ir.model,name:omnia_mold.model_omnia_mold_toolkit_line
+msgid "omnia_mold.toolkit_line"
+msgstr "omnia_mold.toolkit_line"
+
+#. module: omnia_mold
+#: code:addons/omnia_mold/wizard/wizard.py:189
+#: model:ir.model.fields,field_description:omnia_mold.field_workorder_replan_work_order_ids
+#, python-format
+msgid "work Order to plan"
+msgstr "work Order to plan"
+
+#. module: omnia_mold
+#: model:ir.model,name:omnia_mold.model_workorder_replan
+msgid "workorder_replan"
+msgstr "workorder_replan"
+

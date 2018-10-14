@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+      <report id="report_plan_order_report_user_call"
+            model="sale.order"
+            string="Print Production"
+            report_type="qweb-html"   
+            name="rds_extension.report_plan_manufactory_order_report"   
+             /> 
+             	
+    <record id="view_export_csv_production" model="ir.ui.view">
+        <field name="name">export.production.csv</field>
+        <field name="model">export.production_csv</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+        <form string="Export Production CSV">
+        	<group>
+	        	<field name="datas_name"/>	
+        		<field name="datas" filename="datas_name"/>
+        	</group>
+            <footer>
+            	<button special="cancel" string="Cancel"/>
+            	<button string="Create CSV Export" name="generate_report" type="object"/>
+            </footer>
+        </form>
+        </field>
+    </record>	
+    	   
+    <act_window
+    	id="act_export_csv_production"
+     	name="Export CSV Production"
+        res_model="export.production_csv"
+        src_model="sale.order"
+        view_mode="form" 
+    	view_id="view_export_csv_production"
+        target="new"
+        key2="client_action_multi"
+        />
+             	
+	</data>
+</openerp>   

@@ -1,0 +1,29 @@
+<data>
+	<record id="model_dia_causale_security_user" model="ir.model.access">
+	    <field name="name">RDS Causale security user</field>
+	    <field name="model_id" ref="model_dia_causale"/>
+	    <field name="group_id" eval="ref('omnia_ddt.group_DDT_viewuser')"/>
+	    <field name="perm_read" eval="True"/>
+	    <field name="perm_write" eval="False"/>
+	    <field name="perm_create" eval="False"/>
+	    <field name="perm_unlink" eval="False"/>
+	</record>
+    <record id="model_dia_lastnumber_security_user" model="ir.model.access">
+        <field name="name">Dia Last number created</field>
+        <field name="model_id" ref="model_dia_lastnumber"/>
+        <field name="group_id" eval="ref('omnia_ddt.group_DDT_viewuser')"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+	<record id="model_dia_causale_security_admin" model="ir.model.access">
+	    <field name="name">RDS Causale security Admin</field>
+	    <field name="model_id" ref="model_dia_causale"/>
+	    <field name="group_id" eval="ref('omnia_ddt.group_DDT_admin')"/>
+	    <field name="perm_read" eval="True"/>
+	    <field name="perm_write" eval="True"/>
+	    <field name="perm_create" eval="True"/>
+	    <field name="perm_unlink" eval="True"/>
+	</record>
+</data>

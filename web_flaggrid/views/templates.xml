@@ -1,0 +1,11 @@
+<odoo>
+    <template id="assets_backend" name="grid assets" inherit_id="web.assets_backend" priority="2000">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/web_flaggrid/static/src/less/flaggrid_view.less"/>
+            <script type="text/javascript" src="/web_flaggrid/static/src/js/flaggrid_view.js"/>
+            <script type="text/javascript" src="/web_flaggrid/static/src/js/flaggrid_model.js"/>
+            <script type="text/javascript" src="/web_flaggrid/static/src/js/flaggrid_controller.js"/>
+            <script type="text/javascript" src="/web_flaggrid/static/src/js/flaggrid_renderer.js"/>
+        </xpath>
+    </template>
+</odoo>

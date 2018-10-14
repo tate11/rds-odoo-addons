@@ -1,0 +1,111 @@
+<odoo>
+    <data>
+        <record id="rds_extention_view_picking_withcarrier_out_form" model="ir.ui.view">
+            <field name="name">rds.extention.view.picking.withcarrier.out.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="delivery.view_picking_withcarrier_out_form"/>
+            <field name="arch" type="xml">
+                <field name="number_of_packages" position="replace">
+                    <field name="weight_ddt"/>
+                    <field name="number_of_packages"/>
+                </field>    
+                <field name="partner_id" position="before">
+                    <field name="main_partner_id"/>
+                </field>   
+                <field name="name" position="before">
+                	<field name="check_bvit_price" invisible="1"/>
+                    <div attrs="{'invisible': [('check_bvit_price', '=', False)]}"
+                    		style="background-color: #fadad7;
+    								border-left: 8px solid red;
+    								padding-left: 10px;
+    								color: black;
+    								font-weight: bold;
+    								font-size: large;
+    								height: 30px;">Alcune righe di questo ordine non hanno il prezzo !! </div>
+                </field>  
+            </field>
+        </record>  
+        
+        <record id="rds_extention_stock_vpicktree" model="ir.ui.view">
+            <field name="name">rds.extention.stock.vpicktree</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml"> 
+                <field name="partner_id" position="before">
+                    <field name="main_partner_id"/>
+                </field>   
+				<field name="scheduled_date" position="attributes">
+					<attribute name="string">Data/ora ritiro</attribute>
+				</field>
+            </field>
+        </record>
+
+
+		<record id="act_lista_grezzi" model="ir.ui.view">
+	        <field name="name">picking.lista_grezzi</field>
+	        <field name="model">raw.picking_list</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	        <form string="Export Form">
+	        	<group>
+	        		<field name="file_name"/>
+        			<field name="file_to_download" colspan="2" readonly="1" filename="file_name"/>
+        			<field name="separator" colspan="2"/>
+        			<field name="delimiter" colspan="2"/>
+			    </group>
+	            <separator string=""/>
+	            <footer>
+	            	<button special="cancel" string="Cancel"/>
+	            	<button string="Compute" name="computeExportRaw" type="object"/>
+	            </footer>
+	        </form>
+	        </field>
+    </record>
+    
+    
+    <act_window name="Lista Materiali grezzi"
+        res_model="raw.picking_list" 
+        src_model="stock.picking"
+        view_mode="form"
+        view_id="act_lista_grezzi"
+        target="new"
+        key2="client_action_multi"
+        id="act_picking_raw_list" 
+        	/>
+
+	<record id="stock_view_picking_form_rds_extension" model="ir.ui.view">
+		<field name="name">stock.view.picking.form.rds.extension</field>
+		<field name="model">stock.picking</field>
+		<field name="inherit_id" ref="stock.view_picking_form"/>
+		<field name="arch" type="xml">
+			<field name="scheduled_date" position="attributes">
+				<attribute name="string">Data/ora ritiro</attribute>
+			</field>
+            <xpath expr="//field[@name='move_lines']//field[@name='product_id']" position="replace">
+            </xpath>
+            <xpath expr="//field[@name='move_lines']//field[@name='name']" position="before">
+            	<field name="product_id"></field>
+            </xpath>
+		</field>
+	</record>
+
+    <record id="group_DDT_admin_change_partner" model="res.groups">
+            <field name="name">DDT / Administrator / Change Partner</field>
+    </record>
+        
+	<record id="stock_view_picking_form_rds_extension_admin" model="ir.ui.view">
+		<field name="name">stock.view.picking.form.rds.extension.admin</field>
+		<field name="model">stock.picking</field>
+		<field name="inherit_id" ref="stock.view_picking_form"/>
+		<field name="groups_id" eval="[(4, ref('rds_extension.group_DDT_admin_change_partner'))]"/>
+		<field name="arch" type="xml">
+			<field name="partner_id" position="attributes">
+				<attribute name="attrs">{'invisible': [('picking_type_code', '=', 'internal')],'readonly': []}</attribute>
+			</field>
+		</field>
+	</record>
+	
+    </data>
+</odoo>    
+    
+    

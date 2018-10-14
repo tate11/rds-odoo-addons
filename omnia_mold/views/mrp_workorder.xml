@@ -1,0 +1,49 @@
+<odoo>
+    <data>     
+ 
+        <record id="omnia_mold_mrp_workorder_viw" model="ir.ui.view">
+            <field name="name">omnia.mold.mrp.workorder.view</field>
+            <field name="model">mrp.workorder</field>
+            <field name="inherit_id" ref="mrp.mrp_production_workcenter_tree_view_inherit"/>
+            <field name="arch" type="xml">
+                <field name="date_planned_start" position="after">
+                    <field name="date_planned_finished"/>
+                </field>
+                <field name="product_id" position="after">
+                    <field name="mold_id"/>
+                </field>
+            </field>
+        </record>
+        
+        <record id="omnia_mrp_production_workcenter_form_view_inherit" model="ir.ui.view">
+            <field name="name">omnia.mrp.production.workcenter.form.view.inherit</field>
+            <field name="model">mrp.workorder</field>
+            <field name="inherit_id" ref="mrp.mrp_production_workcenter_form_view_inherit"/>
+            <field name="arch" type="xml">
+			    <field name="product_id" position="after">
+			        <field name="mold_id"/>
+			    </field>
+            </field>
+        </record>
+    
+        <act_window name="Re-Plan Workorder"
+            res_model="workorder_replan"
+            src_model="mrp.workorder"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"
+            id="plan_selected"/>
+      
+	 <record id="action_server_post_mrp_workorder" model="ir.actions.server">
+	     <field name="name">Post</field>
+	     <field name="type">ir.actions.server</field>
+	     <field name="model_id" ref="mrp.model_mrp_workorder" />
+	     <field name="binding_model_id" ref="mrp.model_mrp_workorder" />
+	     <field name="state">code</field>
+	     <field name="code">
+	     action = env['mold_post_qty'].getActionPostWizardWk(env.context.get('active_ids'))  
+	     </field>
+	 </record>
+ 
+    </data>
+</odoo>

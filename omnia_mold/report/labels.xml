@@ -1,0 +1,77 @@
+<odoo>
+<data>
+    <template id="mrp_production_lable">
+		<t t-call="web.internal_layout">
+			<div class="page">
+			<div class="oe_structure"/>
+			<div style="top: 30px;">
+				<table style="width: 100%;height: 100%;border: 1mm solid black;border-collapse: collapse;">
+	                <tr style="border: 1mm solid black;">
+	                    <td style="border: 1mm solid black;font-size: 80px;text-align: center;" colspan="6"><h1>CONFORME</h1></td>
+	                </tr>
+	                <tr style="border: 1mm solid black;">
+	                    <td style="border: 1mm solid black;font-size: 15px;vertical-align: top;padding: 5px;" colspan="3">NR. ORDINE PRODOTTO<br/><span style="padding: 15px;font-size: 40px;" t-esc="doc.mold_post_qty_id.production_id.display_name"/></td>
+	                    <td style="border: 1mm solid black;font-size: 40px;padding: 5px;" colspan="3"><img t-if="doc.mold_post_qty_id.production_id" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Standard39', doc.mold_post_qty_id.production_id.name, 800, 100)" style="width:100%;height:100%;"/></td>
+	                </tr>
+	                <tr style="border: 1mm solid black;">
+	                    <td style="border: 1mm solid black;font-size: 15px;padding: 5px;vertical-align: top;vertical-align: top;" colspan="3">CODICE PRODOTTO<br/><span  style="padding: 15px;font-size: 40px;" t-esc="doc.product_id.default_code"/></td>
+	                    <td style="border: 1mm solid black;font-size: 40px;padding: 5px;" colspan="3"><img t-if="doc.product_id" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Standard39', doc.product_id.default_code, 800, 100)" style="width:100%;height:100%;"/></td>
+	                </tr>
+	                <tr style="border: 1mm solid black;">
+	                    <td style="border: 1mm solid black;font-size:  15px;padding: 5px;vertical-align: top;" colspan="6">DESCRIZIONE<br/><span style="padding: 15px;font-size: 40px;" t-esc="doc.product_id.name"/></td>
+	                </tr>
+	                <tr style="border: 1mm solid black;">
+	                    <td style="border: 1mm solid black;font-size: 20px;padding: 5px;" colspan="2">QUANTITA' <br/><span style="padding: 15px;font-size: 40px;" t-esc="doc.qty"/></td>
+	                    <td style="border: 1mm solid black;font-size: 20px;padding: 5px;" colspan="2"><img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Standard39', doc.qty, 400, 100)" style="width:100%;height:100%;"/></td>
+	                    <td style="border: 1mm solid black;font-size: 20px;padding: 5px;" colspan="2">COLLAUDATO IL <br/>FIRMA</td>
+	                </tr>
+                    <tr style="border: 1mm solid black;">
+                        <td style="border: 1mm solid black;font-size: 20px;padding: 5px;" colspan="2">REV.00 29/03/99 DO/CO/OO</td>
+                        <td style="border: 1mm solid black;font-size: 20px;padding: 5px;" colspan="2"><span t-field="doc.mold_post_qty_id.production_id.name"/> - <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y')"/> </td>
+                        <td style="border: 1mm solid black;font-size: 20px;padding: 5px;" colspan="2">Lotto di stampaggio: <span t-field="doc.mold_post_qty_id.production_id.display_name"/></td>
+                    </tr>
+                </table>
+                <hr/>				
+                <table style="width: 100%;height: 100%;border: 1mm solid black;border-collapse: collapse;">
+                    <tr style="border: 1mm solid black;">
+                        <td style="border: 1mm solid black;font-size: 80px;text-align: center;" colspan="6"><h1>CONFORME</h1></td>
+                    </tr>
+                    <tr style="border: 1mm solid black;">
+                        <td style="border: 1mm solid black;font-size: 15px;vertical-align: top;padding: 5px;" colspan="3">NR. ORDINE PRODOTTO<br/><span style="padding: 15px;font-size: 40px;" t-esc="doc.mold_post_qty_id.production_id.display_name"/></td>
+                        <td style="border: 1mm solid black;font-size: 40px;padding: 5px;" colspan="3"><img t-if="doc.mold_post_qty_id.production_id" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Standard39', doc.mold_post_qty_id.production_id.name, 800, 100)" style="width:100%;height:100%;"/></td>
+                    </tr>
+                    <tr style="border: 1mm solid black;">
+                        <td style="border: 1mm solid black;font-size: 15px;padding: 5px;vertical-align: top;vertical-align: top;" colspan="3">CODICE PRODOTTO<br/><span  style="padding: 15px;font-size: 40px;" t-esc="doc.product_id.default_code"/></td>
+                        <td style="border: 1mm solid black;font-size: 40px;padding: 5px;" colspan="3"><img t-if="doc.product_id" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Standard39', doc.product_id.default_code, 800, 100)" style="width:100%;height:100%;"/></td>
+                    </tr>
+                    <tr style="border: 1mm solid black;">
+                        <td style="border: 1mm solid black;font-size:  15px;padding: 5px;vertical-align: top;" colspan="6">DESCRIZIONE<br/><span style="padding: 15px;font-size: 40px;" t-esc="doc.product_id.name"/></td>
+                    </tr>
+                    <tr style="border: 1mm solid black;">
+                        <td style="border: 1mm solid black;font-size: 20px;padding: 5px;" colspan="2">QUANTITA' <br/><span style="padding: 15px;font-size: 40px;" t-esc="doc.qty"/></td>
+                        <td style="border: 1mm solid black;font-size: 20px;padding: 5px;" colspan="2"><img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Standard39', doc.qty, 400, 100)" style="width:100%;height:100%;"/></td>
+                        <td style="border: 1mm solid black;font-size: 20px;padding: 5px;" colspan="2">COLLAUDATO IL <br/>FIRMA</td>
+                    </tr>
+                    <tr style="border: 1mm solid black;">
+                        <td style="border: 1mm solid black;font-size: 20px;padding: 5px;" colspan="2">REV.00 29/03/99 DO/CO/OO</td>
+                        <td style="border: 1mm solid black;font-size: 20px;padding: 5px;" colspan="2"><span t-field="doc.mold_post_qty_id.production_id.name"/> - <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y')"/></td>
+                        <td style="border: 1mm solid black;font-size: 20px;padding: 5px;" colspan="2">Lotto di stampaggio: <span t-field="doc.mold_post_qty_id.production_id.display_name"/></td>
+                    </tr>               
+               </table>
+               
+			</div>
+			</div>
+		</t>
+    </template>
+    
+	<!-- Main template -->
+	<template id="mrp_production_lables">
+	    <t t-call="web.html_container">
+	        <t t-foreach="docs" t-as="doc">
+	            <t t-call="omnia_mold.mrp_production_lable"/>
+	        </t>
+	    </t>
+	</template>
+	
+	</data>
+</odoo>

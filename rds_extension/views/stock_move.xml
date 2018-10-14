@@ -1,0 +1,74 @@
+<odoo>
+    <data>
+
+        <record id="view_move_tree_rds" model="ir.ui.view">
+            <field name="name">rds.view.move.tree</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_tree"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="main_partner_id"/>
+                </field>
+                <field name="product_uom_qty" position="before">
+                	<field name="price_with_iva"/>
+                    <field name="price_no_iva"/>
+                </field>
+            </field>
+        </record>  
+
+        <record id="view_move_form_rds" model="ir.ui.view">
+            <field name="name">rds.view.move.form</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_form"/>
+            <field name="arch" type="xml">
+                <field name="location_dest_id" position="after">
+                    <field name="main_partner_id"/>
+                    <field name="price_with_iva"/>
+                    <field name="price_no_iva"/>
+                </field>
+            </field>
+        </record>  
+
+        <record id="view_move_search_rds" model="ir.ui.view">
+            <field name="name">rds.view.move.search</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_search"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="before">
+                	<field name="main_partner_id" string="Main Partner"/>
+                </field>
+            </field>
+        </record>  
+
+
+
+        <record id="view_move_line_tree_rds" model="ir.ui.view">
+            <field name="name">rds.view.move.line.tree</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_move_line_tree"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="partner_id"/>
+                    <field name="ddt_number"/>
+                    <field name="pick_scheduled_date"/>
+                </field>
+            </field>
+        </record>  
+
+        <record id="view_move_line_form_rds" model="ir.ui.view">
+            <field name="name">rds.view.move.line.form</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_move_line_form"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="partner_id"/>
+                    <field name="ddt_number"/>
+                    <field name="pick_scheduled_date"/>
+                </field>
+            </field>
+        </record>  
+
+    </data>
+</odoo>    
+    
+    

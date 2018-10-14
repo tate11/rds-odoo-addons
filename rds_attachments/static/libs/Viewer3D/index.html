@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>STL Viewer</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300ita‌​lic,400italic,500,500italic,700,700italic,900italic,900' rel='stylesheet' type='text/css'>
+    <link href="css/stlviewer.css" rel="stylesheet">
+
+    <style>
+      .right-bottom .github-fork-ribbon {
+        background-color: #333;
+      }
+    </style>
+
+    <script src="vendor/three.js"></script>
+    <script src="vendor/jquery.js"></script>
+    <script src="vendor/dat.gui.min.js"></script>
+    <script src="vendor/stats.min.js"></script>
+
+    <script src="main.js"></script>
+
+    <script>
+
+      function findGetParameter(parameterName) {
+        var result = null,
+            tmp = [];
+        location.search
+            .substr(1)
+            .split("&")
+            .forEach(function (item) {
+              tmp = item.split("=");
+              if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+            });
+        return result;
+      }
+
+      $(document).ready(function() {
+        // Enable Stats
+        var stats = new Stats();
+        stats.setMode( 0 ); // 0: fps, 1: ms, 2: mb
+
+        // align top-left
+        stats.domElement.style.position = 'absolute';
+        stats.domElement.style.top = '2px';
+        stats.domElement.style.left = '2px';
+
+        var ctl = document.getElementsByClassName('viewer__container')[0];
+        ctl.appendChild(stats.domElement);
+
+        var id = "stlviewer";
+        var config = {stats: stats, dragDrop: true, autoRotate: false, startupAnimation: false, zoom: true};
+        var viewer = new ModelViewer(document.getElementById(id),config);
+
+        window.viewer = viewer;
+
+        var Configuration = function() {
+          this.color   = "#f2f2f2";
+          this.BodyBgColor = "#000000";
+          this.wireframe = true;
+          this.plane = false;
+          this.boundingBox = false;
+          this.sphere = false;
+          this.axis = false;
+          this.autorotate = true;
+          this.material = true;
+          this.zoom = config.zoom;
+
+          this.model = '';
+        };
+        var cfg = new Configuration();
+
+        // Load default stl
+        viewer.load(findGetParameter('file'));
+
+      });
+    </script>
+
+  </head>
+  <body>
+  <div class="viewer">
+    <div class="viewer__wrapper">
+        <div class="viewer__container" id="stlviewer">
+      </div>
+    </div>
+  </div>
+  </body>
+</html>

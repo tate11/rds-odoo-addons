@@ -1,0 +1,16 @@
+<odoo>
+    <data noupdate="1"> 
+        <record id="ir_rds_dia_res_partner" model="ir.cron">
+            <field name="name">Transfer to Dia</field>
+            <field name="active" eval="True"/>
+            <field name="state">code</field>
+            <field name="interval_number">2</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="dia.transfer"/>
+            <field name="code">model.chron_run()</field>
+            <field name="args">()</field>
+        </record>                       
+    </data>
+</odoo>

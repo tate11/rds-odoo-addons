@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="oee_form_view">
+            <field name="name">mrp.oee.form</field>
+            <field name="model">mrp.workcenter.productivity</field>
+            <field name="inherit_id" ref="mrp.oee_form_view"/>
+            <field name="priority" eval="0"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='loss_id']" position="after">
+                    <field name="cycles"/>
+                    <field name="nominal_cycle" widget="float_time"/>
+                    <field name="average_cycle" widget="float_time"/>
+                    <field name="efficiency"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="oee_loss_form_view">
+            <field name="name">mrp.oee.loss.form</field>
+            <field name="model">mrp.workcenter.productivity.loss</field>
+            <field name="inherit_id" ref="mrp.oee_loss_form_view"/>
+            <field name="priority" eval="0"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='manual']" position="after">
+                    <field name="color"/>
+                </xpath>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

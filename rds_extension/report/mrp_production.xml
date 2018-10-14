@@ -1,0 +1,181 @@
+<odoo>
+<data>
+    <template id="mrp_production_multi_pdf">
+       <t t-foreach="docs" t-as="o">
+            <div class="o_composer_container">
+                <embed width="100%" height="100%" t-att-src="get_content(o)"/>
+            </div> 
+       </t>
+    </template>
+    
+<!-- Main template -->
+<template id="report_plan_order_report">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="rds_extension.report_plan_order_report_single"/>
+        </t>
+    </t>
+</template>
+
+<!-- Translatable template -->
+<template id="report_plan_order_report_single">
+    <!-- Re-browse of the record with the partner lang -->
+    <!-- <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})" />-->
+    <t t-call="web.external_layout">
+        <div class="page">
+            <div class="oe_structure"/>
+            <table style="width: 100%;">
+                <tr>
+	               <td class="production_td">ORDINE DI PRODUZIONE N.</td>
+	               <td class="production_td"><span t-field="doc.name"/><img t-if="doc.name" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', doc.name, 300, 100)" style="width:50%;height:50%;"/></td>
+	            </tr>
+	            <tr>
+		            <td class="production_td">FINE ENTRO</td>
+		            <td class="production_td"><span t-field="doc.date_planned_finished" t-field-options='{"format": "dd/MM/yyyy"}'/></td>
+		        </tr>
+                <tr>
+		            <td class="production_td">CLIENTE</td> 
+		            <td class="production_td"><b><t t-esc="doc.customer_id.name"/></b></td>
+	            </tr>
+            </table>
+            <t t-if="doc.mould_maintenance==True">
+                <div><h1>ATTENZIONE ATTREZZATURA BLOCCATA O IN MANUTENZIONE</h1></div>
+            </t>
+            <hr/>
+            <div>ARTICOLI DA PRODURRE</div>
+            <t t-if="doc.mold_product_ids">
+                <table style="width: 100%;">
+                    <thead>
+	                    <tr>
+		                    <th class="production_td" id="hprodotto">PRODOTTO</th>
+		                    <th class="production_td" id="hdescrizione">DESCRIZIONE</th>
+		                    <th class="production_td" id="hstampate">STAMPATE</th>
+		                    <th class="production_td" id="himpronte">IMPRONTE</th>
+		                    <th class="production_td" id="hprezzi">PEZZI</th>
+		                    <th class="production_td" id="hprezzibuoni">PEZZI BUONI</th>
+		                    <th class="production_td" id="hscarti">SCARTI</th>
+	                    </tr>
+                    </thead>
+                    <tbody>
+		                <t t-foreach="doc.mold_product_ids" t-as="product_id">
+		                    <tr>
+		                        <t t-set="nImpronte" t-value="doc.getNImpronte(product_id)"/>
+		                        <td class="production_td" id="prodotto">
+			                        <div>
+			                            <t t-esc="product_id.default_code"/>
+			                        </div>
+		                        </td>
+		                        <td class="production_td" id="descrizione">
+		                            <t t-esc="product_id.name"/>
+		                        </td>
+		                        <td class="production_td" id="stampate">
+                                   <t t-esc="doc.product_qty"/> 
+                                   <t t-esc="doc.product_qty / nImpronte"/> 
+                                </td>
+                                <td class="production_td" id="impronte">
+                                   <t t-esc="nImpronte"/> 
+                                </td>
+		                        <td class="production_td" id="prezzi">
+		                           <t t-esc="doc.product_qty * nImpronte"/> 
+		                           <t t-esc="doc.product_qty"/> 
+		                        </td>
+		                        <td id="prezzibuoni">
+		                            ---------
+		                        </td>
+		                        <td class="production_td" id="scarti">
+		                            ---------
+		                        </td>
+		                    </tr>
+		                </t>
+                    </tbody>
+                </table>
+            </t>
+           
+            <t t-if="not doc.mold_product_ids">
+            <hr/>
+                 <div>
+                    <t t-esc="doc.product_id.default_code"/>
+                    <img t-if="doc.product_id.default_code" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', doc.product_id.default_code, 300, 50)" style="width:100%;height:35%;"/>
+                 </div>
+            </t>
+            <hr/>
+            <table style="width: 100%;">
+                <thead>
+	                <tr>
+	                    <td class="production_td" >COMPONENTE</td>
+	                    <td class="production_td" >UM</td>
+	                    <td class="production_td" >QT.IMPEGNATA</td>
+	                </tr>
+                </thead>
+                <tbody>
+		            <t t-foreach="doc.getRowMaterialSum()" t-as="move">
+	                    <tr>
+		                    <td class="production_td" ><t t-esc="move[0]"/></td>
+		                    <td class="production_td" ><t t-esc="move[1]"/></td>
+		                    <td class="production_td" ><t t-esc="move[2]"/></td>
+	                    </tr>                
+		            </t>
+                </tbody>
+            </table>
+            <hr/>
+            <t t-if="doc.mold_id">
+                <div>MATRICE: <b><t t-esc="doc.mold_id.name"/></b></div>
+                <t t-foreach="doc.getGuarantes()" t-as="guarante">
+                    <div>
+                    PRODOTTO: <b><t t-esc="guarante['product']"/> </b> 
+                    NUMERO STAMPATE PRODOTTE: <b><t t-esc="guarante['stampate_prodotte']"/> </b> 
+                    NUMERO STAMPATE GARANZIA: <b><t t-esc="guarante['stampate_garanzia']"/> </b>
+                    <b><t t-esc="guarante['stampate_msg']"/> </b>
+                    </div>
+                </t>
+                
+                
+                <div>ROUTING: <b><t t-esc="doc.mold_routing_id.name"/></b></div>
+                <hr/>
+                
+                <table style="display: inline-block;width:50%;">
+                    <thead>
+	                    <tr>
+	                        <th class="production_td" >Lavorazione</th>
+	                        <th class="production_td" >Centro di lavoro</th>
+	                        <th class="production_td" >Tempo Uomo</th>
+	                        <th class="production_td" >Tempo Setup Minuti</th>
+	                        <th class="production_td" >Tempo Ciclo Secondi</th>
+	                    </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="doc.mold_routing_id.operation_ids" t-as="operation">
+	                        <tr>
+	                            <td class="production_td" ><t t-esc="operation.name"/></td>
+	                            <td class="production_td" ><t t-esc="operation.workcenter_id.name"/></td>
+	                            <td class="production_td" ><t t-esc="'%.2f'%(operation.user_time_percentage)"/></td>
+	                            <td class="production_td" ><t t-esc="'%.2f'%(operation.time_mount_machine)"/></td>
+	                            <td class="production_td" ><t t-esc="'%.2f'%(operation.time_cycle_manual * 60)"/></td>
+	                        </tr>
+                        </t>
+                    </tbody>
+                </table>
+                
+                <table style="1px solid black;display:inline-block;margin-left:10%;width:30%;">
+
+                    <tbody>
+	                        <tr>
+	                            <td class="production_td" >Nr. Lotto Materia Prima</td>
+	                            <td class="production_td" >_______________________</td>
+	                        </tr>
+	                        <tr>
+	                            <td class="production_td" >Fornitore</td>
+	                            <td class="production_td" >_______________________</td>
+	                        </tr>
+	                        <tr>
+	                            <td class="production_td" >Data Bolla</td>
+	                            <td class="production_td" >_______________________</td>
+	                        </tr>
+                    </tbody>
+                </table>
+            </t>
+        </div> <!--  PAGE -->
+    </t>
+</template>
+</data>
+</odoo>

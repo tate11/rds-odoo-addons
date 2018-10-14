@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="hr_attendance assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/rds_attachments/static/src/js/widget_binary_document.js"></script>
+            <script type="text/javascript" src="/rds_attachments/static/src/js/thread.js"></script>
+            <link rel="stylesheet" href="/rds_attachments/static/src/less/widget.less"/>
+            <link rel="stylesheet" href="/rds_attachments/static/src/less/mimetypes.less"/>
+        </xpath>
+    </template>
+</odoo>

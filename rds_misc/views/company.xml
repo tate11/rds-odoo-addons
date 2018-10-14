@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<odoo>
+ 
+    <record id="rds_misc_company_form_ext" model="ir.ui.view">
+        <field name="name">rds.misc.company.form.ext</field>
+        <field name="model">res.company</field>
+        <field name="priority" eval="2000"/>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="rea"/>
+                <field name="export"/>
+                <field name="cap_soc"/>
+            </xpath>
+            <xpath expr="//field[@name='report_header']" position="after">
+                <field name="external_report_layout"/>
+                <field name="certificate_logo"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

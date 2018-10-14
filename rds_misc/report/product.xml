@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_a4_sm_ls" model="report.paperformat">
+        <field name="name">A4 Margini Piccoli</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="True"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">300</field>
+    </record>
+
+    <report 
+        id="action_report_mold_tooling"
+        string="Etichetta Prodotto Miscellanea"
+        model="product.template" 
+        report_type="qweb-pdf"
+        file="rds_misc.product_label_misc" 
+        name="rds_misc.product_label_misc"
+        paperformat="paperformat_a4_sm_ls"
+        print_report_name="('Etichetta Prodotto Miscellanea - %s' % (object.name))"
+    />
+
+    <data>
+        <template id="product_label_misc">
+
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <div class="page">
+                        <t t-foreach="docs" t-as="product">
+                            <div class="plb_container-4 plb_borders">
+                                <div class="plb_header plb_borders_b">
+                                    <div class="plb_barcode plb_borders_r">
+                                        <img t-if="product.barcode" t-attf-src="/report/barcode/?type=Code128&amp;value=#{product.barcode}&amp;width=600&amp;height=150" class="plb_img_fit"/>
+                                    </div>
+                                    <div class="plb_image">
+                                        <img t-if="product.image" t-attf-src="/web/image/product.template/#{product.id}/image" class="plb_img_fit"/>
+                                    </div>
+                                </div>
+                                <div class="plb_body">
+                                    <h1 t-field="product.default_code"/>
+                                    <h2 t-field="product.name"/>
+                                </div>
+                                <div class="plb_footer plb_borders_t">
+                                    <div class="plb_footer_half plb_borders_r">
+                                        <h5>Fornitore Principale</h5>
+                                        <h4 t-field="product.default_vendor"/>
+                                    </div>
+                                    <div class="plb_footer_half">
+                                        <h5>Locazione Predefinita</h5>
+                                        <h4 t-field="product.default_location"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+            </t>
+
+
+        </template>
+
+        <template id="report_assets_common" name="rds_product_labels assets" inherit_id="web.report_assets_common">
+            <xpath expr="." position="inside">
+                <link href="/rds_misc/static/report/css/rds_product_labels.css" rel="stylesheet"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

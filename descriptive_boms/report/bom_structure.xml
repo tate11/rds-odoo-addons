@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="mrp.mrp_bom_structure_report">
+            <t t-call="web.html_container">
+                <t t-call="web.internal_layout">
+                    <div class="page">
+                        <h2>BOM Structure</h2>
+                        <div class="table table-condensed table_bom">
+                            <div class="bom_head">
+                                <div class="bom_row">
+                                    <div style="width:60%" class="bom_cell">BOM Name</div>
+                                    <div style="width:10%" class="bom_cell">Quantity</div>
+                                    <div style="width:30%" class="bom_cell">BOM Ref</div>
+                                    <div class="clearfix"/>
+                                </div>
+                            </div>
+                            <div class="bom_body">
+                                <t t-foreach="docs" t-as="o">
+                                    <div class="bom_row" style="font-weight: bold;">
+                                        <div style="width:60%" class="bom_cell">
+                                            <span t-field="o.product_id.default_code"/>
+                                            <span t-field="o.display_name"/>
+                                        </div>
+                                        <div style="width:10%" class="bom_cell">
+                                            <span t-field="o.product_qty"/>
+                                            <span groups="product.group_uom" t-field="o.product_uom_id.name"/>
+                                        </div>
+                                        <div style="width:30%" class="bom_cell">
+                                            <span t-field="o.code"/>
+                                        </div>
+                                        <div class="clearfix"/>
+                                    </div>
+                                    <t t-foreach="get_children(o.bom_line_ids)" t-as="l">
+                                        <div class="bom_row">
+                                            <div t-if="l['level'] != 0" class="bom_cell spacer" t-att-style="'width:{}%'.format(l['level']*5)"></div>
+                                            <div class="bom_cell" t-att-style="'background-color:rgb({0}, {0}, {0});width:{1}%;'.format(max(255-l['level']*15, 150), (60 - l['level']*5))">
+                                                <span t-esc="l['pname']"/>
+                                            </div>
+                                            <div class="bom_cell" t-att-style="'background-color:rgb({0}, {0}, {0});width:10%;'.format(max(255-l['level']*15, 150))">
+                                                <span t-esc="l['pqty']"/>
+                                                <span t-esc="l['uname']" groups="product.group_uom"/>
+                                            </div>
+                                            <div class="bom_cell" t-att-style="'background-color:rgb({0}, {0}, {0});width:30%;'.format(max(255-l['level']*15, 150))">
+                                                <span t-esc="l['code']"/>
+                                            </div>
+                                            <div class="clearfix"/>
+                                        </div>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_assets_common" name="descriptive_boms assets" inherit_id="web.report_assets_common">
+            <xpath expr="." position="inside">
+                <link href="/descriptive_boms/static/report/css/bom.less" rel="stylesheet"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

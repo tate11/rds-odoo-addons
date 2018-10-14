@@ -1,0 +1,25 @@
+.header-fiscal-tag {
+    margin-right:20px;
+    font-weight: 600;
+}
+
+.contact-tag {
+    white-space: pre;
+}
+
+.header-fiscal-cont {
+    margin-right: 30px;
+}
+
+.privacy-policy p {
+    white-space: initial;
+    text-align: justify;
+    font-size: 8px;
+}
+
+.privacy-policy h2 {
+    font-weight: bold;
+    font-size: 11px;
+    margin-top: 4px;
+    margin-bottom: 0px;
+}

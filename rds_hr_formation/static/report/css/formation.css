@@ -1,0 +1,28 @@
+.employee_skill_row_create {
+    color: rgb(55, 55, 175);
+}
+
+.employee_skill_row_increase {
+    color: rgb(30, 150, 70);
+}
+
+.employee_skill_row_decrease {
+    color: rgb(150, 44, 30);
+}
+
+.employee_skill_row_delete {
+    color: rgb(114, 114, 114);
+}
+
+.emp-photo {
+    height: 150px;
+}
+
+.lj_title {
+    padding-top: 10px;
+}
+
+.lj_intestation {
+    padding: 10px;
+    margin-top: 30px;
+}

@@ -1,0 +1,515 @@
+<odoo>
+    <data>
+
+        <act_window 
+            id="rds_open_folders" 
+            name="Cartelle" 
+            res_model="rds.ir.document.folder" 
+            view_mode="kanban,tree,form"
+            view_type="form"
+            />
+
+        <act_window 
+            id="rds_open_documents" 
+            name="Documenti" 
+            res_model="rds.ir.document" 
+            view_mode="kanban,tree,form"
+            view_type="form"
+            />
+
+        <act_window 
+            id="rds_open_links" 
+            name="Collegamenti" 
+            res_model="rds.ir.document.link" 
+            view_mode="tree,form"
+            view_type="form"
+            />
+
+        <act_window 
+            id="rds_open_tags" 
+            name="Tags" 
+            res_model="rds.ir.document.tag" 
+            view_mode="tree,form"
+            view_type="form"
+            />
+
+        <menuitem
+            id="rds_menu_documents_root"
+            name="Gestione Documenti"
+            groups="group_rds_document"
+            web_icon="rds_attachments,static/description/icon.png"
+            sequence="75"/>
+
+        <menuitem
+            id="rds_menu_files_main"
+            name="Tutti i Documenti"
+            action="rds_open_documents"
+            parent="rds_menu_documents_root"
+            sequence="5"/>
+        
+        <menuitem
+            id="rds_menu_folders_main"
+            name="Cartelle"
+            action="rds_open_folders"
+            parent="rds_menu_documents_root"
+            sequence="0"/>
+
+        <menuitem
+            id="rds_menu_doc_config"
+            name="Configurazione"
+            parent="rds_menu_documents_root"
+            sequence="10"/>
+
+        <menuitem
+            id="rds_menu_links_main"
+            name="Collegamenti"
+            action="rds_open_links"
+            parent="rds_menu_doc_config"
+            sequence="10"/>
+    
+        <menuitem
+            id="rds_menu_tags_main"
+            name="Tags"
+            action="rds_open_tags"
+            parent="rds_menu_doc_config"
+            sequence="10"/>
+
+        <record id="view_document_link_tree" model="ir.ui.view">
+            <field name="model">rds.ir.document.link</field>
+            <field name="arch" type="xml">
+                <tree string="Document Links">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>       
+        
+        <record id="view_document_tag_tree" model="ir.ui.view">
+            <field name="model">rds.ir.document.tag</field>
+            <field name="arch" type="xml">
+                <tree string="Document Tag">
+                    <field name="complete_name"/>
+                </tree>
+            </field>
+        </record>               
+        
+        <record id="rds_ir_extended_tags_form" model="ir.ui.view">
+            <field name="name">rds_ir_extended_tags_form</field>
+            <field name="model">rds.ir.document.tag</field>
+            <field name="arch" type="xml">
+                <form string="Attachment Tags">
+                    <group col="4">
+                        <field name="name"/>
+                        <field name="active"/>
+                        <field name="parent_id"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_document_link_form" model="ir.ui.view">
+            <field name="model">rds.ir.document.link</field>
+            <field name="arch" type="xml">
+                <form string="Document Links">
+                    <field name="name"/>
+                </form>
+            </field>
+        </record>
+
+        <!--Attachments--> 
+
+        <record model="ir.ui.view" id="document_search">
+            <field name="name">rds.ir.document</field>
+            <field name="model">rds.ir.document</field>
+            <field name="type">search</field>
+            <field name="priority" eval="1"/>
+            <field name="arch" type="xml">
+                <search string="Documenti">
+                    <field name="name"/>
+                    <field name="links_ids"/>
+                    <field name="tag_ids"/>
+                    <field name="create_date"/>
+                    <field name="create_uid"/>
+                    <filter string="Attivi"
+                            domain="[('state','in',['draft','valid','changing'])]"
+                            help="Documenti in bozza o validi."/>
+                    <filter string="In Revisione"
+                            domain="[('state','in',['changing'])]"
+                            help="Documenti in bozza o validi."/>
+                    <field name="create_uid" nolabel="1">
+                        <filter string="Miei documenti" domain="[('create_uid', '=', uid)]"/>
+                    </field>
+                    <group expand="0" string="Group By...">
+                        <filter string="Data per Mese" domain="[]" context="{'group_by':'create_date'}"/>
+                        <filter string="Creatore" domain="[]" context="{'group_by':'create_uid'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_document_form" model="ir.ui.view">
+            <field name="model">rds.ir.document</field>
+            <field name="arch" type="xml">
+                <form string="Documenti">
+                    <header>
+                        <button name="action_approve" states="draft" type="object" string="Approva"/>
+                        <button name="action_lock" states="valid" type="object" string="Blocca per Revisionare"/>
+                        <button name="action_unlock" states="changing" type="object" string="Annulla Revisione"/>
+
+                        <button name="action_revise" states="changing" type="object" class="oe_highlight" string="Crea nuova Revisione"/>
+                        <button name="save_to_wk_dir" states="draft,valid" type="object" string="Salva nella Cartella di Lavoro"/>
+
+                        <button name="save_to_wk_dir" type="object" attrs="{'invisible': ['|', ('state', '!=', 'changing'), ('working_path', '!=', False)]}" class="oe_highlight" string="Salva nella Cartella di Lavoro"/>
+                        <button name="load_from_wk_dir_nr" attrs="{'invisible': ['|', ('state', '!=', 'changing'), ('working_path', '=', False)]}" type="object" class="oe_highlight" string="Nuova Revisione da Cart. di Lav."/>
+                        <button name="save_to_wk_dir" type="object" attrs="{'invisible': ['|', ('state', '!=', 'changing'), ('working_path', '=', False)]}" string="Salva nella Cartella di Lavoro"/>
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,valid,confirm"/>
+                    </header>
+                    <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_revisions"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-book">
+                            <span class="o_stat_value">Rev.</span><field class="o_stat_text" name="rev_no" string="Rev"/>
+                        </button>                
+                    </div>
+                    <field name="working_path" invisible="1"/>
+                    <div class="alert alert-info" attrs="{'invisible': [('working_user', '=', False)]}">Questo documento è in fase di modifica da parte di <field name="working_user"/>.</div>
+                    <div class="alert alert-info" attrs="{'invisible': [('next_rev', '=', False)]}">Questo documento è sorpassato da: <field name="next_rev"/>.</div>
+    
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <h3 class="o_row" style="font-weight:400;"><field name="links_ids" widget="many2many_tags_link" options="{'color_field': 'color', 'ref_field': 'name', 'no_color_change': true}" placeholder="Collegamenti..."/></h3><br/>
+
+                    <group>
+                        <group>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" placeholder="e.g. Accordo di Confidenzialità"/>
+                            <field name="datas" filename="datas_fname" colspan="2" attrs="{'invisible':[('type','=','url')]}"/>
+                            <field name="datas_fname" invisible="1" attrs="{'invisible':[('type','=','url')]}"/>
+                        </group><group>
+                            <field name="type"/>
+                            <field name="url" widget="url" attrs="{'invisible':[('type','=','binary')]}"/>
+                            <field name="mimetype"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Documento">
+                            <group attrs="{'invisible':[('datas','=',False)]}" string="Anteprima">
+                                <button name="refr_pw"
+                                    style="width:100%!important"
+                                    colspan="4"
+                                    type="object"
+                                    icon="fa-refresh"
+                                    class="oe_inline oe_btn_genant"
+                                    attrs="{'invisible':[('preview_type','!=',False)]}">
+                                    <p>Anteprima Assente. Clicca per generarla.</p>
+                                </button>
+                                <field name="preview_type" invisible="1"/>
+                                <button name="refr_pw"
+                                    style="width:100%!important"
+                                    colspan="4"
+                                    type="object"
+                                    icon="fa-bolt"
+                                    class="oe_inline oe_btn_genant"
+                                    attrs="{'invisible':[('preview_type','!=','none')]}">
+                                    <p>Non sono riuscito a generare una anteprima. Clicca per riprovare.</p>
+                                </button>
+                                <field name="preview_text" nolabel="1" colspan="4" class="o_field_text_preview" attrs="{'invisible':[('preview_type','!=', 'text')]}"/>
+                                <field name="preview_file" nolabel="1" colspan="4" widget="document_viewer" 
+                                                                    filename="preview_fname" pwtype="preview_type" for="datas" forname="datas_fname" attrs="{'invisible':[('preview_type','in', [False, 'none','text'])]}"/>
+                                <field name="preview_fname" invisible="1"/>
+                            </group>
+                        </page>
+                        <page string="Info">
+                            <group string="Descrizione">
+                                <field nolabel="1" colspan="4" name="description"/>
+                            </group>
+
+                            <group string="Copia Fisica">
+                                <field name="building"/>
+                                <field name="section"/>
+                                <field name="place"/>
+                                <field name="subplace"/>
+                                <field name="collector"/>
+                            </group>
+
+                            <group string="Revisioni">
+                                <field name="original"/>
+                                <field name="next_rev"/>
+                                <field name="prev_rev"/>
+                            </group>
+                        </page>
+                        <page string="Controllo Accessi">
+                            <div colspan="4" class="alert alert-info">
+                                Il creatore del documento <field name="create_uid" readonly="True"/> avrà sempre pieni permessi.
+                            </div>
+                            <group>
+                                <field name="folder_id"/>
+                            </group>
+                            <group>
+                                <group string="Scrittura" >
+                                    <field name="restricted_w"/>
+                                    <field nolabel="1" colspan="2" name="users_w" attrs="{'invisible':[('restricted_w','=', False)]}">
+                                        <tree>
+                                            <field name="name"/>
+                                            <field name="partner_id"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                                <group string="Lettura" attrs="{'invisible':[('restricted_w', '=', False)]}">
+                                    <field name="restricted_r" attrs="{'invisible':[('restricted_w', '=', False)]}"/>
+                                    <field nolabel="1" colspan="2" name="users_r" attrs="{'invisible':[('restricted_r','=', False)]}">
+                                        <tree>
+                                            <field name="name"/>
+                                            <field name="partner_id"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+
+                    <!-- <group>                      
+                        <group string="Attached To">
+                            <field name="original"/>
+                            <field name="res_model"/>
+                            <field name="res_field"/>
+                            <field name="res_id"/>
+                            <field name="res_name"/>
+                            <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                            <field name="public"/>
+                        </group>
+                        <group string="History" groups="base.group_no_one">
+                            <label for="create_uid" string="Creation"/>
+                            <div name="creation_div">
+                                <field name="create_uid" readonly="1" class="oe_inline"/> on
+                                <field name="create_date" readonly="1" class="oe_inline"/>
+                            </div>
+                        </group>
+                        <group name="description_group" string="Description" groups="base.group_no_one"  colspan="4">
+                            <field name="description" nolabel="1"/>
+                        </group>
+                        <group groups="base.group_no_one" string="Indexed Content" colspan="4">
+                            <field name="index_content" nolabel="1"/>
+                        </group>   
+                    </group> -->
+
+
+                  </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="base.view_attachment_form" model="ir.ui.view">
+            <field name="model">ir.attachment</field>
+            <field name="arch" type="xml">
+                <form string="Attachments">
+                    <header>
+                        <button name="to_document" type="object" string="Trasforma in Documento" attrs="{'invisible':[('document_id','!=',0)]}"/>
+                    </header>
+                    <sheet>
+                    <field name="document_id" invisible="1"/>
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="datas" filename="datas_fname" colspan="2" attrs="{'invisible':[('type','=','url')]}"/>
+                            <field name="datas_fname" invisible="1" attrs="{'invisible':[('type','=','url')]}"/>
+                        </group><group>
+                            <field name="type"/>
+                            <field name="url" widget="url" attrs="{'invisible':[('type','=','binary')]}"/>
+                            <field name="mimetype"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Documento">
+                            <group string="Anteprima">
+                                <button name="refr_pw"
+                                    style="width:100%!important"
+                                    colspan="4"
+                                    type="object"
+                                    icon="fa-refresh"
+                                    class="oe_inline oe_btn_genant"
+                                    attrs="{'invisible':[('preview_type','!=',False)]}">
+                                    <p>Anteprima assente. Clicca per generarla.</p>
+                                </button>
+                                <field name="preview_type" invisible="1"/>
+                                <button name="refr_pw"
+                                    style="width:100%!important"
+                                    colspan="4"
+                                    type="object"
+                                    icon="fa-bolt"
+                                    class="oe_inline oe_btn_genant"
+                                    attrs="{'invisible':[('preview_type','!=','none')]}">
+                                    <p>Non sono riuscito a generare una anteprima. Clicca per riprovare.</p>
+                                </button>
+                                <field name="preview_text" nolabel="1" colspan="4" class="o_field_text_preview" attrs="{'invisible':[('preview_type','!=', 'text')]}"/>
+                                <field name="preview_file" nolabel="1" colspan="4" widget="document_viewer" 
+                                                                    filename="preview_fname" pwtype="preview_type" for="datas" forname="datas_fname" attrs="{'invisible':[('preview_type','in', [False, 'none','text'])]}"/>
+                                <field name="preview_fname" invisible="1"/>
+                            </group>
+                        </page>
+                        <page string="Tecnico">
+                            <group string="Descrizione">
+                                <field nolabel="1" colspan="4" name="description"/>
+                            </group>
+                            <group string="Attached To">
+                                <field name="res_model"/>
+                                <field name="res_field"/>
+                                <field name="res_id"/>
+                                <field name="res_name"/>
+                                <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                <field name="public"/>
+                            </group>
+                            <group string="History" groups="base.group_no_one">
+                                <label for="create_uid" string="Creation"/>
+                                <div name="creation_div">
+                                    <field name="create_uid" readonly="1" class="oe_inline"/> on
+                                    <field name="create_date" readonly="1" class="oe_inline"/>
+                                </div>
+                            </group>
+                            <group name="description_group" string="Description" groups="base.group_no_one"  colspan="4">
+                                <field name="description" nolabel="1"/>
+                            </group>
+                            <group groups="base.group_no_one" string="Indexed Content" colspan="4">
+                                <field name="index_content" nolabel="1"/>
+                            </group>   
+                        </page>
+                    </notebook>
+                  </sheet>
+                </form>
+            </field>
+        </record>        
+
+        <record model="ir.ui.view" id="rds_view_document_file_kanban">
+            <field name="name">rds.ir.document kanban</field>
+            <field name="model">rds.ir.document</field>
+            <field name="arch" type="xml">
+                <kanban class="rds_document_kanban">
+                    <field name="id"/>
+                    <field name="mimetype"/>
+                    <field name="type"/>
+                    <field name="datas_fname"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="doc_kanban_body">
+                                <div class="doc_kanban_left">
+                                    <field name="links_ids" class="o_document_kanban_links" widget="many2many_tags_link" options="{'color_field': 'color'}"/>
+                                </div>
+                                <div class="doc_kanban_right">
+                                    <div class="doc_kanban_right_main">
+                                        <a class="doc_kanban_image" t-attf-href="/web/content/rds.ir.document/#{record.id.raw_value}/datas/#{record.datas_fname.raw_value}?download=1">
+                                            <div class="o_image o_attachment_image" t-att-data-mimetype="record.mimetype.value"/>
+                                        </a>
+                                        <div class="doc_kanban_title">
+                                            <field name="name"/>
+                                        </div>
+                                    </div>
+
+
+                                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                </div>
+                            </div>
+                            <div class="doc_footer">
+                                <span class="kanban_revision_no">Rev. <field name="rev_no"/></span>
+                                <div class="revision_ribbon">
+                                    <field name="state" widget="label_selection" options="{'classes': {'draft': 'warning',
+                                                                                                        'valid': 'success',
+                                                                                                        'changing': 'info',
+                                                                                                        'cancel': 'default',
+                                                                                                        'surpassed': 'primary'
+                                                                                                        }
+                                                                                            }"/>
+                                </div>
+                            </div>
+                        </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="rds_ir_folder_form" model="ir.ui.view">
+            <field name="name">rds_ir_folder_form</field>
+            <field name="model">rds.ir.document.folder</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button  class="oe_stat_button" name="folder_view_docs" type="object" icon="fa-files-o">
+                                <field string="Documenti" name="doc_count" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <field name="icon" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="name" string="Nome della Cartella"/>
+                            <h1><field name="name" placeholder="Nome Cartella"/></h1>
+                        </div>
+                        <group string="Descrizione">
+                            <field nolabel="1" colspan="4" name="description" type="html"/>
+                            <div class="oe_clear"/>
+                        </group>
+                        <group string="Permessi">
+                            <group string="Scrittura" >
+                                <field name="restricted_w"/>
+                                <field nolabel="1" colspan="2" name="users_w" attrs="{'invisible':[('restricted_w','=', False)]}">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="partner_id"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <group string="Lettura" attrs="{'invisible':[('restricted_w', '=', False)]}">
+                                <field name="restricted_r" attrs="{'invisible':[('restricted_w', '=', False)]}"/>
+                                <field nolabel="1" colspan="2" name="users_r" attrs="{'invisible':[('restricted_r','=', False)]}">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="partner_id"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="rds_view_document_folder_kanban">
+            <field name="name">rds.ir.document_folder_kanban</field>
+            <field name="model">rds.ir.document.folder</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="id"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="o_kanban_image doc_folder_image">
+                                    <img t-att-src="kanban_image('rds.ir.document.folder', 'icon', record.id.raw_value)"/>
+                                </div>
+                                <div class="oe_kanban_details doc_folder_details">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </strong>
+                                    <span class="doc_folder_footer">
+                                        <button type="object" class="btn btn-warning oe_kanban_action oe_kanban_action_button" name="folder_view_docs">Apri <strong><field name="doc_count"/></strong> documenti </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+
+        <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
+
+            <xpath expr="//th[@class='text-right'][1]" position="before">
+                <th t-if="doc.state in ['sale', 'done']">Delivery Date</th>
+            </xpath>
+
+            <xpath expr="//span[@t-field='l.name']/.." position="after">
+                <td t-if="doc.state in ['sale', 'done']">
+                    <span t-field="l.delivery_date" t-field-options="{'widget':'date'}"/>
+                </td>
+            </xpath>
+
+        </template>
+
+    </data>
+</odoo>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="FieldDocumentViewer">
+        <div class="o_docviewer_field">
+            <div t-if="widget.mode !== 'readonly'" class="o_form_pdf_controls mt8">
+                <span class="o_form_binary_progress">Uploading...</span>
+                <button type="button" class="btn btn-sm btn-primary o_select_file_button" title="Select">Upload your file</button>
+                <button class="btn btn-sm btn-default fa fa-pencil o_select_file_button" title="Select" type="button"></button>
+                <button class="btn btn-sm btn-default fa fa-trash-o o_clear_file_button" title="Clear" type="button"></button>
+            </div>
+            <div class="o_docviewer_wrapper">
+                <span class="fa fa-expand dv_btn_expand o_invisible_modifier"/>
+                <iframe class="o_docviewer_frame o_invisible_modifier" allowfullscreen="allowfullscreen" webkitallowfullscreen="webkitallowfullscreen"/>
+                <img class="o_docviewer_image o_invisible_modifier"/>
+                <video class="o_docviewer_video o_invisible_modifier" controls="controls">
+                    <source type="video/mp4"/>
+                </video>
+                <div class="clearfix"/>
+            </div>
+            <t t-call="HiddenInputPDFFile">
+                <t t-set="fileupload_id" t-value="widget.fileupload_id"/>
+                <t t-set="fileupload_style" t-translation="off">overflow-x: hidden</t>
+            </t>
+        </div>
+    </t>
+    <t t-extend="HiddenInputFile" t-name="HiddenInputPDFFile">
+        <!-- remove the inputs and put a new one for pdf only -->
+        <t t-jquery="input[type='file']" t-operation="replace"/>
+        <t t-jquery="form" t-operation="append">
+            <input type="file" class="o_input_file" name="ufile"/>
+        </t>
+    </t>
+
+    <t t-name="FieldMany2ManyTag.colorpicker">
+    <div class="o_colorpicker dropdown-menu" role="menu">
+        <span class="link_open_doc">Apri Documento</span>
+        <ul>
+            <li t-foreach="12" t-as="color">
+                <a href="#"
+                   t-att-data-id="tag_id"
+                   t-att-data-color="color"
+                   t-attf-class="o_tag_color_#{color}"
+                   t-att-title="color === 0 ? 'Not shown in kanban' : ''"/>
+            </li>
+        </ul>
+    </div>
+    </t>
+</templates>

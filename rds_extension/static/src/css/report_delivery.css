@@ -1,0 +1,86 @@
+div.rds_header {
+  width: 100%;
+  text-align: left;
+}
+
+div.rds_header_left {
+  text-align: left;
+  display: inline-block;
+  width: 50%;
+  vertical-align: top;
+}
+
+div.rds_header_right {
+  text-align: left;
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+div.div_hr {
+    background-color: gray;
+    height: 2px;
+}
+
+.align_center {
+  text-align: center;
+}
+.align_left {
+  text-align: left;
+}
+
+.th_title{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 10px;
+}
+
+.th_title2{
+  padding: 5px;
+}
+
+
+.table_rds {
+	width: 100%;
+	page-break-inside:auto;
+}
+
+.footer_font_size {
+  font-size: 11px;
+}
+
+.little_font_size {
+  font-size: 12px;
+}
+
+.th_ddt {
+  background-color: #ffffff !important;
+  border: none !important;
+  text-align: left !important;
+}
+.td_ddt {
+    border: none !important;
+    background-color: white !important;
+    text-align: left !important;
+}
+.table_ddt {
+  border: none !important;
+  text-align: left !important;
+}
+
+.production_td {
+<<<<<<< HEAD
+  padding : 5px;
+}
+tr {
+  page-break-inside:avoid;
+  page-break-after:auto;
+=======
+	padding : 5px;
+}
+tr {
+	page-break-inside:avoid;
+	page-break-after:auto;
+>>>>>>> branch '11.0' of https://mboscolo@bitbucket.org/omniasolutions/rds.git
+}

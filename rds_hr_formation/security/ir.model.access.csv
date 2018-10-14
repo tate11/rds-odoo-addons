@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_rds_hr_course,access_rds_hr_course,model_rds_hr_course,hr.group_hr_user,1,0,0,0
+access_rds_hr_formations,access_rds_hr_formations,model_rds_hr_formation,hr.group_hr_user,1,0,0,0
+
+access_rds_hr_course_mgr,access_rds_hr_course_mgr,model_rds_hr_course,hr.group_hr_manager,1,1,1,1
+access_rds_hr_formations_mgr,access_rds_hr_formations_mgr,model_rds_hr_formation,hr.group_hr_manager,1,1,1,1
+
+
+access_rds_hr_skill,access_rds_hr_skill,model_rds_hr_skill,hr.group_hr_user,1,0,0,0
+access_rds_hr_skill_type,access_rds_hr_skill_type,model_rds_hr_skill_type,hr.group_hr_user,1,0,0,0
+
+access_rds_hr_skill_mgr,access_rds_hr_skill_mgr,model_rds_hr_skill,hr.group_hr_manager,1,1,1,1
+access_rds_hr_skill_type_mgr,access_rds_hr_skill_type_mgr,model_rds_hr_skill_type,hr.group_hr_manager,1,1,1,1
+
+access_rds_hr_skill_log,access_rds_hr_skill_log,model_rds_hr_skill_log,base.group_user,1,1,1,0

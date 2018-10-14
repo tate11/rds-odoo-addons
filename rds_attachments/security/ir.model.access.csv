@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_rds_document_user,access.rds.document.user,model_rds_ir_document,rds_attachments.group_rds_document,1,1,1,0
+access_rds_documenttag_user,access.rds.documenttag.user,model_rds_ir_document_tag,rds_attachments.group_rds_document,1,1,1,0
+access_rds_documentlink_user,access.rds.documenttag.user,model_rds_ir_document_link,rds_attachments.group_rds_document,1,1,1,0
+access_rds_documentfolder_user,access.rds.documenttag.user,model_rds_ir_document_folder,rds_attachments.group_rds_document,1,0,0,0
+
+access_rds_document_manager,access.rds.document.manager,model_rds_ir_document,rds_attachments.group_rds_document_manager,1,1,1,1
+access_rds_documentlink_manager,access.rds.documenttag.manager,model_rds_ir_document_link,rds_attachments.group_rds_document_manager,1,1,1,1
+access_rds_documentfolder_manager,access.rds.documenttag.manager,model_rds_ir_document_folder,rds_attachments.group_rds_document_manager,1,1,1,1

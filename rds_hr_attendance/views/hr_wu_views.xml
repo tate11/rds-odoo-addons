@@ -1,0 +1,395 @@
+<odoo>
+    <data>
+
+        <record id="view_wu_filter" model="ir.ui.view">
+            <field name="name">rds.hr.wu.filter</field>
+            <field name="model">rds.hr.working.unit</field>
+            <field name="arch" type="xml">
+                <search string="Cerca Giorno Lavorativo">
+                    <field name="employee_id"/>
+		            <filter string="Da Sistemare" name="tofix" domain="[['needed_action','!=',0]]"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_employee" string="Employee" context="{'group_by':'employee_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="rds_wu" model="ir.actions.act_window">
+            <field name="name">Giornate Lavorative</field>
+            <field name="res_model">rds.hr.working.unit</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">flaggrid,grid,list,form</field>
+            <field name="search_view_id" ref="view_wu_filter"/>
+        </record>
+
+        <menuitem
+            id="menu_rds_wu_main"
+            name="Situazione Mese Lavorativo"
+            action="rds_wu" 
+            parent="hr_attendance.menu_hr_attendance_manage_attendances"
+            groups="hr_attendance.group_hr_attendance_manager"
+            sequence="10"/>
+
+        <record id="rds_wu_view_tree" model="ir.ui.view"> 
+            <field name="name">rds.wu.view.tree</field> 
+            <field name="model">rds.hr.working.unit</field> 
+            <field name="arch" type="xml"> 
+                <tree>
+                    <field name="employee_id"/>
+                    <field name="date"/>
+                </tree> 
+            </field> 
+        </record>
+
+        <record id="rds_wu_view_flagsgrid" model="ir.ui.view">
+            <field name="name">rds.working.unit.view.flagsgrid</field>
+            <field name="model">rds.hr.working.unit</field>
+            <field name="arch" type="xml">
+                <flaggrid string="Giornate Lavorative">
+                    <field name="employee_id" type="row"/>
+                    <field name="date" type="col">
+                        <range name="month" string="Month" span="month" step="day"/>
+                    </field>
+                    <field name="needed_action" type="measure"/>
+                </flaggrid>
+            </field>
+        </record>
+
+        <record id="rds_wu_view_grid" model="ir.ui.view">
+            <field name="name">rds.working.unit.view.grid</field>
+            <field name="model">rds.hr.working.unit</field>
+            <field name="arch" type="xml">
+                <grid string="Giornate Lavorative">
+                    <field name="employee_id" type="row"/>
+                    <field name="date" type="col">
+                        <range name="month" string="Month" span="month" step="day"/>
+                    </field>
+                    <field name="worked_time" type="measure"/>
+                </grid>
+            </field>
+        </record>
+
+        <record id="rds_wu_view_form" model="ir.ui.view">
+            <field name="name">rds.wu.view.form</field>
+            <field name="model">rds.hr.working.unit</field>
+            <field name="arch" type="xml">
+                <form string="Unità Lavorativa">
+                    <header>
+                        <button class="oe_highlight" type="object" name="calculate_day" string="Ricalcola Giorno"/>
+                        <button type="object" name="reload_day" string="Ricarica Giorno"/>    
+                    </header>
+                    <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <field name="weekday" class="bb_header"/>
+                        <button name="do_nothing" type="object" string="Ieri" class="oe_stat_button disabled" icon="fa-arrow-left" attrs="{'invisible': [('yesterday','!=',False)]}"/>
+                        <button name="go_prev" type="object" string="Ieri" class="oe_stat_button" icon="fa-arrow-left" attrs="{'invisible': [('yesterday','=',False)]}"/>
+                        <button name="go_main" type="object" string="Tutte" class="oe_stat_button" icon="fa-arrow-up"/>
+                        <button name="do_nothing" type="object" string="Domani" class="oe_stat_button disabled" icon="fa-arrow-right" attrs="{'invisible': [('tomorrow','!=',False)]}"/>
+                        <button name="go_next" type="object" string="Domani" class="oe_stat_button" icon="fa-arrow-right" attrs="{'invisible': [('tomorrow','=',False)]}"/>
+                    </div>
+                        <group>
+                            <group>
+                                <field name="tomorrow" invisible="1"/>
+                                <field name="yesterday" invisible="1"/>
+                                <field name="needed_action" invisible="1"/>
+                                <field name="anomaly_type" invisible="1"/>
+                                <field name="employee_id" readonly="1"/>
+                                <field name="working_schedule"/>
+                                <field name="extraordinary_policy"/>
+                                <div colspan="2" style="text-align:center;">
+                                    <button name="pol_rig" type="object" class="o_pres_pol_btn" attrs="{'invisible': [('extraordinary_policy', '=', 'ignore')]}" icon="fa-lock"/>
+                                    <button name="pol_flex" type="object" class="o_pres_pol_btn" attrs="{'invisible': [('extraordinary_policy', '=', 'fill_ignore')]}" icon="fa-unlock"/>
+                                    <button name="pol_flex_stra" type="object" class="o_pres_pol_btn" attrs="{'invisible': [('extraordinary_policy', '=', 'fill_extr')]}" icon="fa-plus"/>
+                                </div>
+                            </group>
+                            <group>
+                                <field name="date" readonly="1"/>
+                                <label for="date" string="Orario"/>
+                                <div>
+                                    <div>
+                                        <strong>Da: </strong> <field name="work_from" class="oe_inline"/><br/>
+                                        <strong>A: </strong> <field name="work_to" class="oe_inline"/>
+                                    </div>
+                                    <div>
+                                        <strong><field name="_worked_time" class="oe_inline"/></strong> ore al netto delle pause
+                                    </div>
+                                </div>
+                                <br/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="intervals_ids" nolabel="1" colspan="2" options="{'no_create': True}">
+                                    <tree editable="bottom" default_order="time_from_o, time_from">
+                                        <field name="employee_id" invisible="1"/>
+                                        <field name="time_from_o"/>
+                                        <field name="time_from" widget="float_time"/>
+                                        <field name="time_to_o"/>
+                                        <field name="time_to" widget="float_time"/>
+                                        <field name="reason" domain="[('system', '=', False)]"/>
+                                        <field name="working_unit_id" invisible="1"/>
+                                    </tree>                           
+                                </field>
+                            </group>
+                            <group>
+                                <div colspan="2" class="alert alert-success" style="font-size:18px;text-align:center;" attrs="{'invisible': [('needed_action', '!=', 0)]}">
+                                    <div class="splat_x_out_y">
+                                        <strong><field name="worked_time" class="oe_inline"/></strong> / <strong><field name="_worked_time" class="oe_inline"/></strong>
+                                    </div>
+                                    <span
+                                        class="fa fa-smile-o" style="color:green;width:100%;text-align:center;font-size:60px;">
+                                    </span><br/>
+                                </div>
+                                <div colspan="2" class="alert alert-info" style="font-size:18px;text-align:center;" attrs="{'invisible': [('needed_action', '!=', 1)]}">
+                                    <div class="splat_x_out_y">
+                                        <strong><field name="worked_time" class="oe_inline"/></strong> / <strong><field name="_worked_time" class="oe_inline"/></strong>
+                                    </div>
+                                    <span
+                                        class="fa fa-info-circle" style="color: rgb(64, 64, 175);width:100%;text-align:center;font-size:60px">
+                                    </span><br/>
+                                    <field name="anomaly_type" readonly="1"/>
+                                </div>
+                                <div colspan="2" class="alert alert-warning" style="font-size:18px;text-align:center;" attrs="{'invisible': [('needed_action', '!=', 2)]}">
+                                    <div class="splat_x_out_y">
+                                        <strong><field name="worked_time" class="oe_inline"/></strong> / <strong><field name="_worked_time" class="oe_inline"/></strong>
+                                    </div>
+                                    <span
+                                        class="fa fa-info-circle" style="color:goldenrod;width:100%;text-align:center;font-size:60px">
+                                    </span><br/>
+                                    <field name="anomaly_type" readonly="1"/>
+                                </div>
+                                <div colspan="2" class="alert alert-danger" style="font-size:18px;text-align:center;" attrs="{'invisible': [('needed_action', '!=', 3)]}">
+                                    <div class="splat_x_out_y">
+                                        <strong><field name="worked_time" class="oe_inline"/></strong> / <strong><field name="_worked_time" class="oe_inline"/></strong>
+                                    </div>
+                                    <span
+                                        class="fa fa-exclamation-triangle" style="color:red;width:100%;text-align:center;font-size:60px">
+                                    </span><br/>
+                                    <field name="anomaly_type" readonly="1"/>
+                                </div>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Giustificativi">
+                                <group string="Timbrature">
+                                    <field name="attendances_ids" readonly="1" nolabel="1" colspan="4" context="{'default_check_in': work_from, 'default_check_out': work_to, 'default_employee_id': employee_id}">
+                                        <tree default_order="check_in">
+                                            <field name="employee_id" invisible="1"/>
+                                            <field name="check_in"/>
+                                            <field name="check_out"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                                <group string="Assenze">
+                                    <field name="holiday_ids" nolabel="1" colspan="4" domain="[('employee_id', '=', employee_id)]" context="{'default_date_from': work_from, 'default_date_to': work_to, 'default_employee_id': employee_id, 'default_type': 'remove'}">
+                                        <tree class="no_delete_records" editable='bottom' decoration-info="longterm == True" default_order="date_from">
+                                            <field name="employee_id" invisible="1"/>
+                                            <field name="name"/>
+                                            <field name="holiday_status_id" context="{'employee_id': employee_id}"/>
+                                            <field name="date_from"/>
+                                            <field name="date_to"/>
+                                            <field name="number_of_days_temp"/>
+                                            <field name="state" invisible="0"/>
+                                            <field name="type" invisible="1"/>
+                                            <field name="longterm" invisible="1"/>
+                                            <button name="force_delete"
+                                                type="object"
+                                                icon="fa-trash-o"
+                                                attrs="{'invisible': [('longterm', '=', True)]}"
+                                                class="oe_edit_only"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Statistiche">
+                                <group string="Contabilizzazione Tecnica">
+                                    <field name="payroll_gis" class="field_technical"/>
+                                </group>
+                            </page>
+                            <page string="Dichiarazioni">
+                                <field name="declarations" nolabel="1" colspan="4"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="rds_hr_extended_employee_form" model="ir.ui.view">
+            <field name="name">rds_hr_extended_employee_form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr_attendance.view_employee_form_inherit_hr_attendance"/>
+            <field name="priority" eval="0"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='manual_attendance']" position="after">
+                    <field name="convoca"/>
+                </xpath>
+                <xpath expr="//field[@name='manual_attendance']/.." position="after">
+                <group string="Informazioni Paghe" groups="hr.group_hr_manager">
+                    <field name="extraordinary_policy"/>
+                    <field name="payroll_id"/>
+                    <field name="payroll_bonus"/>
+                </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="holiday_status_ext" model="ir.ui.view">
+            <field name="name">holiday.status.ext</field>
+            <field name="model">hr.holidays.status</field>
+            <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<data>
+	            	<xpath expr="//group[@name='description']" position="after">
+                        <group string="Paghe">
+		               	    <field name="payroll_code" />
+                            <field name="calc" />
+                            <field name="is_extra" />
+                            <field name="system" />
+                            <field name="is_absence" />
+                            <field name="justification_category" />
+                        </group>
+		           	</xpath>
+	           	</data>
+			</field>
+        </record>
+
+    <record id="rds_hr_show_intervals_graph" model="ir.actions.act_window">
+        <field name="name">Analisi Presenze-Assenze</field>
+        <field name="res_model">rds.hr.working.unit.interval</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_id"></field>
+    </record>
+
+     <menuitem id="hr_attendance.menu_hr_attendance_report" 
+               name="Reporting" 
+               parent="hr_attendance.menu_hr_attendance_root" 
+               sequence="30" 
+               groups="hr_attendance.group_hr_attendance_manager"/>
+
+     <menuitem id="menu_hr_raw_attendance_report" 
+               name="Presenze Grezze" 
+               parent="hr_attendance.menu_hr_attendance_report" 
+               sequence="30" 
+               groups="hr_attendance.group_hr_attendance_manager" 
+               action="hr_attendance.hr_attendance_action_graph"/>
+
+     <menuitem id="menu_hr_attendance_report" 
+               name="Presenze-Assenze" 
+               parent="hr_attendance.menu_hr_attendance_report" 
+               sequence="30" 
+               groups="hr_attendance.group_hr_attendance_manager" 
+               action="rds_hr_show_intervals_graph"/>
+               
+    <record id="rds_hr_intervals_graph" model="ir.ui.view">
+        <field name="name">rds.hr.interval.graph</field>
+        <field name="model">rds.hr.working.unit.interval</field>
+        <field name="arch" type="xml">
+            <graph string="Intervalli Presenze-Assenze">
+                <field name="department_id" type="row"/>
+                <field name="date" type="col"/>
+                <field name="justification_category" type="col"/>
+                <field name="duration" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="rds_hr_interval_pivot" model="ir.ui.view">
+        <field name="name">rds.hr.interval.pivot</field>
+        <field name="model">rds.hr.working.unit.interval</field>
+        <field name="arch" type="xml">
+            <pivot string="Intervalli Presenze-Assenze">
+                <field name="department_id" type="row"/>
+                <field name="date" type="col"/>
+                <field name="is_subworker" type="col"/>
+                <field name="justification_category" type="col"/>
+                <field name="duration" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_intervals_search">
+            <field name="name">rds.hr.interval.search</field>
+            <field name="model">rds.hr.working.unit.interval</field>
+            <field name="type">search</field>
+            <field name="priority" eval="1"/>
+            <field name="arch" type="xml">
+                <search string="Documenti">
+                    <field name="employee_id"/>
+                    <field name="department_id"/>
+                    <field name="reason"/>
+                    <field name="justification_category"/>
+                    <field name="date"/>
+                    <filter string="Ore Ordinarie"
+                            domain="[('justification_category','=','wh')]"
+                            help="Ore Lavorate."/>
+                    <filter string="Straordinari"
+                            domain="[('justification_category','=','extra')]"
+                            help="Ore Extra."/>
+                    <filter string="Assenze"
+                            domain="[('justification_category','in', ['pleave','inps'])]"
+                            help="Ore di Assenza."/>
+                    <group expand="0" string="Raggruppa per...">
+                        <filter string="Dipendente" domain="[]" context="{'group_by':'employee_id'}"/>
+                        <filter string="Reparto" domain="[]" context="{'group_by':'department_id'}"/>
+                        <filter string="Categorie" domain="[]" context="{'group_by':'justification_category'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <act_window 
+            id="rds_open_markers_config" 
+            name="Marcatempi" 
+            res_model="rds.hr.timemarker" />
+
+        <menuitem
+            id="rds_menu_markers_configuration"
+            name="Configura Marcatempi"
+            action="rds_open_markers_config"
+            parent="hr.menu_human_resources_configuration"
+            sequence="100"/>
+
+        <record id="rds_timemarker_view_tree" model="ir.ui.view"> 
+            <field name="name">rds.timemarker.form</field>
+            <field name="model">rds.hr.timemarker</field>
+            <field name="arch" type="xml"> 
+                <tree>
+                    <field name="name"/>
+                    <field name="address"/>
+                </tree> 
+            </field> 
+        </record>
+
+        <record id="rds_timemarker_form" model="ir.ui.view">
+            <field name="name">rds.timemarker.form</field>
+            <field name="model">rds.hr.timemarker</field>
+            <field name="arch" type="xml">
+                <form string="Marcatempo">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="address"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="dep_do"/>
+                                <field name="dep" widget="many2many_tags" attrs="{'invisible': [('dep_do', '=', False)]}" options="{'no_create': True}" placeholder="Reparti..."/>
+                            </group>
+                            <group>
+                                <field name="emp_do"/>
+                                <field name="emp" widget="many2many_tags" attrs="{'invisible': [('emp_do', '=', False)]}" options="{'no_create': True}" placeholder="Dipendenti..."/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

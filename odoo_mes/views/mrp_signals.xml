@@ -1,0 +1,58 @@
+<odoo>
+    <data>
+
+    <record model="ir.actions.act_window" id="mrp_workcenter_signal">
+        <field name="name">Workcenter Signals</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.workcenter.signal</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+          <p>
+            No workcenter signal defined.
+          </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_mrp_workcenter_signals"
+            action="mrp_workcenter_signal"
+            sequence="20"
+            parent="mrp.menu_mrp_configuration"/>
+    </data>
+
+        <record id="view_signal_form" model="ir.ui.view">
+            <field name="name">mes.signal.form</field>
+            <field name="model">mrp.workcenter.signal</field>
+            <field name="arch" type="xml">
+                <form string="Signals">
+                    <header>
+                        <button name="parse_signals" string="Parse Now" type="object" class="btn-primary"/>
+                        <button name="clear_calls" string="Drop Calls" type="object" class="btn-primary"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" />
+                                <field name="workcenter_id"/>
+                                <br/>
+                                <field name="builtin_script"/>
+                            </group>
+                            <group>
+                                <field name="signal_type"/>
+                                <field name="from_coil"/>
+                                <field name="signal_lenght"/>
+                                <field name="frequency"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page attrs="{'invisible': [('builtin_script', '!=', False)]}" string="Code">
+                                <field name="code" widget="ace"  options="{'mode': 'python'}"/>
+                                <div class="oe_clear"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data> 
+
+    	<record id="rds_partner_form_extension_material" model="ir.ui.view">
+            <field name="name">rds.partner.form.extension.material</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="location_id" position="before">
+                    <field name="effective_consumed_material"/>
+                </field>
+            </field>
+        </record>
+    	
+    	
+    </data>
+</odoo>

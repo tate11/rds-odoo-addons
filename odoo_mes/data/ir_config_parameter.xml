@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<openerp>
+    <data noupdate="1">
+    	<record id="still_id" model="ir.config_parameter">
+            <field name="key">mes_loss_still_id</field>
+            <field name="value">1</field>
+        </record>
+        
+        <record id="microstill_id" model="ir.config_parameter">
+            <field name="key">mes_loss_microstill_id</field>
+            <field name="value">2</field>
+        </record>
+        
+        <record id="productive_id" model="ir.config_parameter">
+            <field name="key">mes_loss_productive_id</field>
+            <field name="value">7</field>
+        </record>
+
+        <record id="productive_id" model="ir.config_parameter">
+            <field name="key">mes_loss_setup_id</field>
+            <field name="value">7</field>
+        </record>
+
+                <record id="productive_id" model="ir.config_parameter">
+            <field name="key">mes_loss_productive_anomaly_id</field>
+            <field name="value">7</field>
+    </record>
+    </data>
+</openerp>

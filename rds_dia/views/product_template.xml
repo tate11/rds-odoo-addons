@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <record id="rds_dia_product_template_only_form_view" model="ir.ui.view">
+        <field name="name">rds.dia.product.template.only.form.view</field>
+        <field name="model">product.template</field>
+        <field name="priority" eval="2000"/>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='default_code']/.." position="after">
+                <field name="legacy_code"/>
+            </xpath>
+            <xpath expr="//header/button[last()]" position="after">
+                <button string="Scarica dati da Dia" type="object" name="prendi_dati_da_dia"/>
+            </xpath>
+            <field name="name" position="before">
+                <button name="transfer_to_dia"  string="Transfer to DIA" type="object" groups="base.group_no_one"/>
+                <field name="send_to_dia" groups="base.group_no_one"/>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!--Email template -->
+        <record id="email_template_partner_pricelist" model="mail.template">
+            <field name="name">Pricelist - Send by Email</field>
+            <field name="email_from">${(object.user_id.email and '%s &lt;%s&gt;' % (object.user_id.name, object.user_id.email) or '')|safe}</field>
+            <field name="subject">${object.company_id.name} ${object.state in ('draft', 'confirm') and 'Pricelist Offer' or 'Pricelist Confirmation'} (Ref ${object.name or 'n/a' })</field>
+            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="model_id" ref="partner_pricelists.model_partner_pricelist"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_template" ref="action_report_partner_pricelist"/>
+            <field name="report_name">${(object.name or '').replace('/','_')}${object.state == 'draft' and '_draft' or ''}</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="body_html"><![CDATA[
+<p>Dear ${object.partner_id.name}
+% set doc_name = 'Pricelist Offer' if object.state in ('draft', 'sent') else 'Pricelist Confirmation'
+
+% if object.partner_id.parent_id:
+    (<i>${object.partner_id.parent_id.name}</i>)
+% endif
+,</p>
+<p>
+Here is the ${doc_name} <strong>${object.name}</strong>
+% if object.origin:
+(with reference: ${object.origin} )
+% endif
+from ${object.company_id.name}.
+</p>
+
+<p>You can reply to this email if you have any questions.</p>
+<p>Thank you,</p>
+
+<p style="color:#888888;">
+% if object.user_id and object.user_id.signature:
+    ${object.user_id.signature | safe}
+% endif
+</p>
+]]></field>
+        </record>
+
+    </data>
+</odoo>

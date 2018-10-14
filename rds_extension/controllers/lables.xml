@@ -1,0 +1,46 @@
+<odoo>
+	<data>
+		<template id="lables_main" name="Print lables">
+		    <html>
+				<head>
+				    <script type="text/javascript" src="/web/static/lib/jquery/jquery.js"/>
+				    <script type="text/javascript" src="/web/static/lib/jquery.ui/jquery-ui.js"/>
+                    <link rel="stylesheet" href="/web/static/lib/jquery.ui/jquery-ui.css"/>
+				    <title>Odoo print RDS Lables</title>
+				    <style>
+
+                    </style>
+			    </head>
+			    <body>
+                     <div style="display: inline-block;vertical-align:top;">
+                         <div class="ui-widget" style="width:300px;">
+                             <label for="production">Ordine: </label>
+                             <input type="text" id="production" name="production" placeholder="Ordine" />
+                         </div>
+                     </div>
+			         <div style="display: inline-block;vertical-align:top;">
+				         <div class="ui-widget" style="width:300px;">
+				             <label for="customer">Cliente: </label>
+				             <input type="text" id="customer" name="customer" placeholder="Customer.." />
+				         </div>
+			         </div>
+                     <div style="display: inline-block;vertical-align:top;">
+                        <div class="ui-widget" style="width:300px;">
+                             <label for="product">Prodotto: </label>
+			                 <input type="text" id="product" name="product" placeholder="Product.."/>
+			             </div>
+			             Descrizione:   <div id="descrizione_prodotto"></div>
+			             Codice Cliente:<div id="codice_cliente"></div>
+			             Qty per Package:<input id="qty_pakage"/>
+			             <img id="product_image" class="img img-responsive" border="1" name="image_medium" src="">
+			             </img>
+                     </div>
+                    <div style="display: inline-block;">
+			         <button type="button" onclick="print_lables()">Stampa</button>
+			        </div>
+			        <script type="text/javascript" src="/rds_extension/static/src/js/lables.js"></script>
+			    </body>
+		    </html>
+    	</template>
+    </data>
+</odoo>

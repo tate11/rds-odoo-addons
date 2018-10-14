@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Sequences for sale.order -->
+        <record id="seq_crm_lead" model="ir.sequence">
+            <field name="name">Lead/Opportunity</field>
+            <field name="code">crm.lead</field>
+            <field name="prefix">OP-%(year)s-</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+    </data>
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="view_order_line_tree" model="ir.ui.view">
+            <field name="name">sale.order.line.tree</field>
+            <field name="model">sale.order.line</field>
+            <field name="arch" type="xml">
+                <tree string="Sales Order Lines" create="false">
+                    <field name="name" invisible="1"/>
+                    <field name="product_id" context="{'partner_id': order_partner_id}"/>
+                    <field name="order_partner_id"/>
+                    <field name="order_id"/>
+                    <field name="line_index"/>
+                    <field name="product_uom_qty" string="Qty"/>
+                    <field name="qty_delivered"/>
+                    <field name="remaining_qty"/>
+                    <field name="product_uom" string="Unit of Measure" groups="product.group_uom"/>
+                    <button name="btn_view_pickings" type="object" icon="fa-truck"/>
+                    <field name="amt_to_deliver" sum="Total to Deliver"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="price_subtotal" string="Amount" sum="Total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="price_unit"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_mos_sale_list" model="ir.actions.act_window">
+            <field name="name">Sales Order Lines</field>
+            <field name="res_model">sale.order.line</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_order_line_tree"/>
+        </record>
+
+        <menuitem action="action_mos_sale_list" id="view_sales_mos" parent="sale.menu_sale_report" sequence="1" active="True"/>
+</odoo>

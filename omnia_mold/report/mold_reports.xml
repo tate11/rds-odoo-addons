@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <report 
+        id="action_report_mold_tooling"
+        string="Foglio di Attrezzaggio"
+        model="mrp.production" 
+        report_type="qweb-pdf"
+        file="omnia_mold.rds_report_mold_tooling" 
+        name="omnia_mold.rds_report_mold_tooling"
+        print_report_name="('Foglio di Attrezzaggio - %s' % (object.name))"
+    />
+
+    <template id="rds_report_mold_tooling">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="mo">
+                <t t-call="web.internal_layout">
+                    <div class="page">
+                        <div class="oe_structure"/>
+
+                        <div class="row lj_intestation">
+                            <div name="type" class="lj_title col-xs-8">
+                                <h1>Foglio di Attrezzaggio</h1>
+                                <h3 t-field="mo.name"/>
+                            </div>
+                            <div name="employee-photo" style="text-align: right" class="col-xs-4">
+                                <img t-att-src="'data:image/png;base64,%s' % to_text(mo.mold_id.image)" class="emp-photo" alt="Employee Image"/>
+                            </div>
+                        </div>
+
+                        <table class="table table-condensed">    
+                            <col/><col/><col/><col/><col/>
+                            <thead class="thead_payroll">
+                                <tr>
+                                    <th>Cod. Attrezzatura</th>
+                                    <th>N. Seriale</th>
+                                    <th>Garanzia</th>
+                                    <th>Installato su Macchina</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbody_payroll">
+                                <t t-foreach="mo.get_kitting_lines()" t-as="kit">
+                                    <tr height="18pt">
+                                        <td>
+                                            <div class="cell_wrapper">
+                                                <span><t t-esc="kit.kit_equimpent_id.name"/></span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="cell_wrapper">
+                                                <span><t t-esc="kit.kit_equimpent_id.serial_no"/></span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="cell_wrapper">
+                                                <span t-field="kit.kit_equimpent_id.warranty"/>
+                                            </div>
+                                        </td>                    
+                                        <td>
+                                            <div t-attf-class="cell_wrapper tooled-#{kit.is_mo_tooled(mo, 'bit')}">
+                                                <span t-esc="kit.is_mo_tooled(mo)"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <div class="clearfix">
+                        </div>
+
+                        <div class="oe_structure"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_assets_common" name="omnia_mold assets" inherit_id="web.report_assets_common">
+        <xpath expr="." position="inside">
+            <link rel='stylesheet' href="/omnia_mold/static/report/css/mold_reports.css"/>
+        </xpath>
+    </template>
+
+</odoo>

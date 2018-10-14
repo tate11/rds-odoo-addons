@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="viev_mrp_production">
+            <field name="name">mrp.production.form</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="priority" eval="0"/>
+            <field name="arch" type="xml">
+                <button name="188" position="before">
+                    <button name="show_subc_po" type="object" attrs="{'invisible': [('subcontracting_po', '=', False)]}" class="oe_stat_button" icon="fa-play-circle-o">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="subcontracting_po" invisible="1"/></span>
+                                <span class="o_stat_text">Purchase Order</span>
+                            </div>
+                    </button>
+                </button>
+                <xpath expr="//field[@name='picking_type_id']" position="after">
+                    <field name="available_subcontractors" invisible="1"/>
+                    <field name="available_operations" invisible="1"/>
+                    <field name="subcontractor_id" domain="[('id', 'in', available_subcontractors)]"/>
+                    <field name="subcontracted_operations" widget="many2many_tags" domain="[('id', 'in', available_operations)]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="mrp_bom_form_view">
+            <field name="name">mrp.bom.form</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+            <field name="priority" eval="0"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Subcontracting">
+                        <field name="seller_ids">
+                            <tree editable="bottom">
+                                <field name="bom_id" invisible="1"/>
+                                <field name="sequence" widget="handle"/>
+                                <field name="name"/>
+                                <field name="product_tmpl_id" domain="[('uom_po_id.category_id', '=', product_uom), ('type', '=', 'service')]"/>
+                                <field name="product_name"/>
+                                <field name="product_code"/>
+                                <field name="min_qty" invisible="1"/>
+                                <field name="price"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="product_uom" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_picking_type_form">
+            <field name="name">picking.type.form</field>
+            <field name="model">stock.picking.type</field>
+            <field name="inherit_id" ref="stock.view_picking_type_form"/>
+            <field name="priority" eval="0"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="is_subcontracting"/>
+                </xpath>
+            </field>
+        </record>
+                
+    </data>
+</odoo>

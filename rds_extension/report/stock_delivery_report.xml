@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <template id="omnia_stock_delivery_report_inherit" inherit_id="omnia_stock_delivery_report.stock_move"> 
+            <xpath expr="//th[@id='tr2h']" position="after">
+                    <th id="tr3h">2a Destinazione</th>
+            </xpath>
+            <xpath expr="//td[@id='tr2']" position="after">
+                    <td id="tr3"><div t-field="o.sale_line_id.order_id.partner_shipping_id"/></td>
+            </xpath>
+    </template>
+</odoo>

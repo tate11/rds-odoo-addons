@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="mrp_workorder_view_form_tablet">
+            <field name="name">mrp.workorder.view.form.inherit.quality.tablet.new</field>
+            <field name="model">mrp.workorder</field>
+            <field name="inherit_id" ref="quality_mrp.mrp_workorder_view_form_tablet"/>
+            <field name="priority" eval="0"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='allow_producing_quantity_change']" position="after">
+                    <field name="auto_tracking" invisible="1"/>
+                </xpath>
+                <xpath expr="//button[@name='button_start']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', '|', ('auto_tracking', '=', False), ('is_user_working', '=', False), ('working_state', '=', 'blocked')]}</attribute>
+                </xpath>
+                <xpath expr="//button[@name='button_pending']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', '|', ('auto_tracking', '=', False), ('is_user_working', '=', True), ('working_state', '=', 'blocked')]}</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="mrp_workcenter_view">
+            <field name="name">mrp.workcenter.form</field>
+            <field name="model">mrp.workcenter</field>
+            <field name="inherit_id" ref="mrp.mrp_workcenter_view"/>
+            <field name="priority" eval="0"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='oee_target']/.." position="after">
+                    <field name="auto_tracking"/>
+                </xpath>	
+            </field>
+        </record>
+    </data>
+</odoo>

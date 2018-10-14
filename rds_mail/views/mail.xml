@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem
+        id="mail.mail_channel_menu_root_chat"
+        groups="base.group_no_one"/>
+        
+    <record id="rds_mail.mail_topic_view_form" model="ir.ui.view">
+        <field name="name">mail_topic_view_form</field>
+        <field name="model">rds.mail.topic</field>
+        <field name="arch" type="xml">
+            <form string="Mail Topic">
+                <div class="oe_button_box" style="margin-left:initial;margin-right:initial" name="button_box">
+                    <button name="convert" type="object" string="A Documento" class="oe_stat_button" icon="fa-external-link"/>
+                </div>
+                <div colspan="4" class="o_sheet_subj" >
+                    Soggetto: <field name="name" nolabel="1" placeholder="Name"/>
+                </div>
+                <div colspan="4" class="o_sheet_lastmsg">
+                    Ultimo aggiornamento il <field name="message_last_post" readonly="1" nolabel="1"/>
+                </div>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="rds_mail.mail_topic_view_list" model="ir.ui.view">
+        <field name="name">mail_topic_view_list</field>
+        <field name="model">rds.mail.topic</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="message_needaction==True" decoration-bf="message_needaction==True">
+                <field name="name"/>
+                <field name="message_last_post"/>
+                <field name="message_needaction" invisible="0" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="rds_mail_channel_action_client_chat" model="ir.actions.client">
+        <field name="name">Chat</field>
+        <field name="tag">rds_mail.chat.instant_messaging</field>
+        <field name="res_model">mail.channel</field>
+        <field name="params" eval="&quot;{
+            'default_active_id': 'channel_threads_inbox'
+        }&quot;"/>
+    </record>
+
+    <menuitem
+        id="rds_mail_channel_menu_root_chat"
+        name="Mail"
+        action="rds_mail_channel_action_client_chat"
+        web_icon="rds_mail,static/description/icon.png"
+        groups="base.group_user"
+        sequence="1"/>
+    
+    <record id="user_view_mail_server" model="ir.ui.view">
+        <field name="name">user.view.mail.server</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="mail_server_id"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

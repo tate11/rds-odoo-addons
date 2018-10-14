@@ -1,0 +1,1 @@
+from . import res_company, rds_mixin, product_template, mrp_workcenter, maintenance_equipment

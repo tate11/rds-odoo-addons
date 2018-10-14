@@ -1,0 +1,206 @@
+.o_mail_chat_button_mass_uf {
+    background-color: #f04d4d;
+    color: white;
+
+    &:hover {
+        background-color: #b13131;
+        color: white;
+    }
+}
+
+
+.o_sheet_subj {
+    font-size: 2em;
+    font-weight: 800;
+    text-align: center;
+}
+
+.o_sheet_lastmsg {
+    text-align: center;
+}
+
+.o_followers .o_followers_actions .o_followers_follow_button {
+    width: initial!important;
+}
+
+.rds_mail_noshow {
+    display: none!important
+}
+
+.or_load_more {
+    height: 40px;
+    border-bottom: 1px solid #c8c8c8;
+    background-color: #fafafa;   
+    padding: 5px;
+    padding-left: 5px;
+    font-size: 20px;
+    text-align: center;    
+    font-weight: 900;
+
+    &:hover {
+        background-color: rgb(230, 230, 230);
+        color: rgb(40, 40, 130);
+    }
+}
+
+
+.or_thread_item {
+    height: 40px;
+    border-bottom: 1px solid rgb(200, 200, 200);
+    background-color: rgb(250, 250, 250);
+    padding: 5px;
+    padding-left: 5px;
+
+    .t_check {
+        display: none;
+        color: white;
+        pointer-events: none;
+    }
+
+    &.t_selected, &.t_selected:hover{
+        background-color: rgb(255, 240, 185);
+        .t_check {
+            display: block;
+        }
+        .or_thread_checkbox {
+            background-color: rgb(85, 105, 225)
+        }
+    }
+
+    &:hover {
+        background-color: rgb(230, 230, 230)
+    }
+    
+    &.unread-1 {
+        font-weight: 800!important;
+        background-color: #f2f9ff;
+        
+        &:hover { background-color: #e0f0ff }
+        .thread-cell { font-weight: 800!important}
+    }
+
+    .thread-cell {
+        height: 100%;
+        margin: 0;
+        font-size: 14px;
+        float: left;
+        overflow: hidden;
+        white-space: nowrap;
+        pointer-events: none;
+        line-height: 28px;
+    }
+
+    .thread_select { width: 2%; text-align:center; pointer-events: initial;
+        .or_thread_checkbox {
+            display: block;
+            width: 20px;
+            height: 20px;
+            border: 1px solid #c3c3c3;
+            margin-top:4px;
+        }
+    }
+    .thread_fav { width: 2%; text-align:center; pointer-events: initial;
+
+        .or_thread_fav {
+            font-size: 16px;
+            color: #cfcfcf;
+            &.followstate-starred {
+                color: #ffbe21; }
+        }
+    }
+    .thread_author { width: 12%}
+    .thread_number_unread { width: 2.5%; text-align:center}
+    .thread_type {width: 10%}
+    .thread_thread {width: 64%; text-align:left; font-weight: 300;  strong{font-weight: 400} }
+    .thread_lastmsg_time {width: 7%; text-align: right;
+
+        .thread_last_poster {
+            height: 100%;
+            border-radius: 200px;
+            float: left;
+        }
+    }
+
+    .thread_label {
+        font-size: 12px;
+        background-color: #dbdbdb;
+        padding: 2px;
+        padding-left: 3px;
+        padding-right: 3px;
+    }
+
+}
+
+
+@o-screen-sidechatter-min: 90000px;
+
+.o_mail_chat {
+    .o-position-absolute(0, 0, 0, 0);
+    height: 100%;
+    overflow: hidden;
+
+    .o_mail_annoying_notification_bar {
+        height: 40px;
+        background-color: #DFA941;
+        color: white;
+        text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+        .o-flex-display();
+        border-bottom: 1px solid @odoo-main-color-muted;
+
+        .o_mail_request_permission {
+            .o-flex-display();
+            justify-content: center;
+            .o-flex(1,1, auto);
+        }
+        > span {
+            font-size: 16px;
+            line-height: 40px;
+            > a {
+                color: white;
+                margin-left: 5px;
+                text-decoration: underline;
+            }
+
+            &.fa-close {
+                margin-right: 10px;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .o_mail_chat_sidebar {
+
+        .o_mail_chat_inbox {
+            .o-flex-display();
+            width: 100%;
+            padding: 2px @odoo-horizontal-padding 2px (@odoo-horizontal-padding + 23px); // compensate icon
+
+            .o_channel_name {
+                .o-flex(1, 1, auto);
+                .o-text-overflow();
+            }
+            .o_mail_sidebar_needaction, .o_mail_partner_unpin {
+                .o-flex(0, 0, auto);
+            }
+            .o_mail_sidebar_needaction {
+                margin: 0 0 0 5px;
+            }
+            .o_mail_partner_unpin {
+                padding: 2px 6px;
+            }
+            i.fa-envelope-o {
+                margin-left: 3px;
+            }
+
+            &.o_mail_chat_title_main {
+                padding: @padding-base-vertical @odoo-horizontal-padding;
+                margin-bottom: 2px;
+            }
+        }
+
+        .o_mail_chat_inbox + .o_mail_sidebar_title {
+            margin-top: @padding-base-vertical;
+        }
+
+    }
+}

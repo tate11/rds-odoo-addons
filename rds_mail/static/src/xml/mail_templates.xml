@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+
+    <!-- Buttons of the Control Panel -->
+    <t t-name="rds_mail.ThreadListItem">
+        <div t-attf-class="or_thread_item unread-#{unread}" t-attf-data-model="#{model}" t-attf-data-id="#{id}">
+            <div class="thread-cell thread_select">
+                <span class="or_thread_checkbox" t-attf-data-model="#{model}" t-attf-data-id="#{id}"> <i class="fa fa-check t_check"/> </span>
+            </div>
+            <div class="thread-cell thread_fav">
+                <span t-attf-class="or_thread_fav followstate-#{followstate}"> <i class="fa fa-star btn-fav"/> </span>
+            </div>
+            <div class="thread-cell thread_author"><t t-esc="author_name"/></div>
+            <div class="thread-cell thread_number_unread"><t t-if="unread_n != 0">(<t t-esc="unread_n"/>)</t></div>
+            <div class="thread-cell thread_type"><span class="thread_label"><t t-esc="model_desc"/></span></div>
+            <div class="thread-cell thread_thread"> <strong style="font-weight: 500px;"><t t-esc="name"/>:</strong> <t t-esc="preview"/></div>
+            <div class="thread-cell thread_lastmsg_time">
+                <t t-if="author_id">
+                    <img class="thread_last_poster" t-attf-src="/web/image?model=res.partner&amp;id=#{author_id}&amp;field=image_medium" alt=""/>
+                </t>
+                <t t-esc="last_post_date"/>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="rds_mail.LoadMoreThreads">
+        <div class="or_load_more">
+            Carica altri Threads
+        </div>
+    </t>
+
+    <t t-name="mail.chat.ControlButtons">
+        <div>
+            <button type="button" class="btn btn-primary btn-sm o_mail_chat_button_invite hidden-xs" title="Invite people">Invite</button>
+            <button type="button" class="btn btn-default btn-sm o_mail_chat_button_new" title="New Mail">Nuova Mail</button>
+            <button type="button" class="btn btn-default btn-sm o_mail_chat_button_mark_read" title="Segna come letti">Segna come Letti</button>
+
+            <button type="button" class="btn btn-default btn-sm o_mail_chat_button_mark_read_rds rds_mail_noshow" title="Segna come letti">Segna come Letti</button>
+            <button type="button" class="btn btn-default btn-sm o_mail_chat_button_mass_hide rds_mail_noshow" title="Nascondi">Nascondi</button>
+            <button type="button" class="btn btn-default btn-sm o_mail_chat_button_mass_uf rds_mail_noshow" title="Unfollow">Smetti di Seguire</button>
+
+            <button type="button" class="btn btn-default btn-sm o_mail_chat_button_unstar_all" title="Unstar all messages">Unstar all</button>
+            <button type="button" class="btn btn-default btn-sm o_mail_chat_button_unsubscribe hidden-xs" title="Unsubscribe from channel">Unsubscribe</button>
+            <button type="button" class="btn btn-default btn-sm o_mail_chat_button_dm visible-xs" title="New Message">New Message</button>
+            <button t-if="!disable_add_channel" type="button" class="btn btn-default btn-sm o_mail_chat_button_public o_mail_chat_button_private visible-xs" title="New Channel">New Channel</button>
+            <button t-if="debug" type="button" class="btn btn-default btn-sm o_mail_chat_button_settings" title="Open channel settings">Settings</button>
+        </div>
+    </t>
+
+
+    <t t-name="mail.chat.Sidebar">
+        <div class="o_mail_chat_sidebar">
+            <div t-attf-class="o_mail_chat_title_main o_mail_chat_channel_item #{(active_channel_id === 'channel_threads_inbox') ? 'o_active': ''}"
+                 data-channel-id="channel_threads_inbox">
+                <span class="o_channel_name"><i class="fa fa-inbox mr8"/>Thread Attivi</span>
+            </div>
+            <div t-attf-class="o_mail_chat_title_main o_mail_chat_title_starred o_mail_chat_channel_item #{(active_channel_id === 'channel_threads_starred') ? 'o_active': ''}"
+                 data-channel-id="channel_threads_starred">
+                <span class="o_channel_name"><i class="fa fa-star-o mr8"/>Thread Preferiti</span>
+            </div>
+            <div t-attf-class="o_mail_chat_title_main o_mail_chat_title_starred o_mail_chat_channel_item #{(active_channel_id === 'channel_threads_silenced') ? 'o_active': ''}"
+                 data-channel-id="channel_threads_silenced">
+                <span class="o_channel_name"><i class="fa fa-trash mr8"/>Thread Nascosti</span>
+            </div>
+            <hr class="mb8"/>
+
+            <div t-attf-class="o_mail_chat_title_main o_mail_chat_channel_item #{(active_channel_id === 'channel_inbox') ? 'o_active': ''}"
+                 data-channel-id="channel_inbox">
+                <span class="o_channel_name"><i class="fa fa-inbox mr8"/>Messaggi in Arrivo</span>
+            </div>
+            <div t-attf-class="o_mail_chat_title_main o_mail_chat_title_starred o_mail_chat_channel_item #{(active_channel_id === 'channel_starred') ? 'o_active': ''}"
+                 data-channel-id="channel_starred">
+                <span class="o_channel_name"><i class="fa fa-star-o mr8"/>Messaggi preferiti</span>
+                <t t-set="counter" t-value="starred_counter"/>
+                <t t-call="mail.chat.SidebarNeedaction"/>
+            </div>
+
+            <t t-set="channel_type" t-value="'public'"/>
+            <t t-call="mail.chat.SidebarTitle">
+                <t t-set="channel_title">Channels</t>
+                <t t-set="channel_icon" t-value="fa-users"/>
+            </t>
+            <t t-call="mail.chat.SidebarItems">
+                <t t-set="display_hash" t-value="true"/>
+                <t t-set="input_placeholder">Add a channel</t>
+            </t>
+
+            <t t-set="channel_type" t-value="'dm'"/>
+            <t t-call="mail.chat.SidebarTitle">
+                <t t-set="channel_title">Direct Messages</t>
+                <t t-set="channel_icon" t-value="fa-user"/>
+            </t>
+            <t t-call="mail.chat.SidebarItems">
+                <t t-set="display_status" t-value="true"/>
+                <t t-set="input_placeholder">User name</t>
+            </t>
+
+            <t t-set="channel_type" t-value="'private'"/>
+            <t t-call="mail.chat.SidebarTitle">
+                <t t-set="channel_title">Private Channels</t>
+                <t t-set="channel_icon" t-value="fa-eye-slash"/>
+            </t>
+            <t t-call="mail.chat.SidebarItems">
+                <t t-set="input_placeholder">Add a private channel</t>
+                <t t-set="display_hash" t-value="true"/>
+            </t>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,736 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* partner_pricelists
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-05 10:19+0000\n"
+"PO-Revision-Date: 2018-09-05 12:24+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: it\n"
+"X-Generator: Poedit 2.0.4\n"
+
+#. module: partner_pricelists
+#: model:mail.template,body_html:partner_pricelists.email_template_partner_pricelist
+msgid ""
+"\n"
+"<p>Dear ${object.partner_id.name}\n"
+"% set doc_name = 'Pricelist Offer' if object.state in ('draft', 'sent') else 'Pricelist Confirmation'\n"
+"\n"
+"% if object.partner_id.parent_id:\n"
+"    (<i>${object.partner_id.parent_id.name}</i>)\n"
+"% endif\n"
+",</p>\n"
+"<p>\n"
+"Here is the ${doc_name} <strong>${object.name}</strong>\n"
+"% if object.origin:\n"
+"(with reference: ${object.origin} )\n"
+"% endif\n"
+"from ${object.company_id.name}.\n"
+"</p>\n"
+"\n"
+"<p>You can reply to this email if you have any questions.</p>\n"
+"<p>Thank you,</p>\n"
+"\n"
+"<p style=\"color:#888888;\">\n"
+"% if object.user_id and object.user_id.signature:\n"
+"    ${object.user_id.signature | safe}\n"
+"% endif\n"
+"</p>\n"
+msgstr ""
+"\n"
+"<p>Gentile ${object.partner_id.name}\n"
+"% set doc_name = 'l'Offerta di Listino' if object.state in ('draft', 'sent') else 'il Listino'\n"
+"\n"
+"% if object.partner_id.parent_id:\n"
+"    (<i>${object.partner_id.parent_id.name}</i>)\n"
+"% endif\n"
+",</p>\n"
+"<p>\n"
+"Può trovare allegato ${doc_name} <strong>${object.name}</strong>\n"
+"% if object.origin:\n"
+"(doc. di riferimento: ${object.origin} )\n"
+"% endif\n"
+"da ${object.company_id.name}.\n"
+"</p>\n"
+"\n"
+"<p>Può rispondere a questa email per qualsiasi domanda.</p>\n"
+"<p>Ringraziando,</p>\n"
+"\n"
+"<p style=\"color:#888888;\">\n"
+"% if object.user_id and object.user_id.signature:\n"
+"    ${object.user_id.signature | safe}\n"
+"% endif\n"
+"</p>\n"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_lines_count
+msgid "# of Lines"
+msgstr "Numero Righe"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_orders_count
+msgid "# of Orders"
+msgstr "# Ordini"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_quotations_count
+msgid "# of Quotations"
+msgstr "# di Preventivi"
+
+#. module: partner_pricelists
+#: model:mail.template,report_name:partner_pricelists.email_template_partner_pricelist
+msgid "${(object.name or '').replace('/','_')}${object.state == 'draft' and '_draft' or ''}"
+msgstr "${(object.name or '').replace('/','_')}${object.state == 'draft' and '_draft' or ''}"
+
+#. module: partner_pricelists
+#: model:mail.template,subject:partner_pricelists.email_template_partner_pricelist
+msgid "${object.company_id.name} ${object.state in ('draft', 'confirm') and 'Pricelist Offer' or 'Pricelist Confirmation'} (Ref ${object.name or 'n/a' })"
+msgstr "${object.company_id.name} ${object.state in ('draft', 'confirm') and 'Offerta di Listino' or 'Conferma di Listino'} (Ref ${object.name or 'n/a' })"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.report_partner_pricelist_document
+msgid "<strong>Date Confirmed:</strong>"
+msgstr "<strong>Data di Conferma:</strong>"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.report_saleorder_document
+msgid "<strong>Notes</strong>"
+msgstr "<strong>Note</strong>"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.report_partner_pricelist_document
+msgid "<strong>Payment Terms <br/>(to be applied on future sales):</strong>"
+msgstr "<strong>Termini di Pagamento <br/>(da applicarsi a future vendite):</strong>"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.report_saleorder_document
+msgid "<strong>Payment Terms</strong>"
+msgstr "<strong>Termini di pagamento:</strong>"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.report_saleorder_document
+msgid "<strong>Pricelist Reference:</strong>"
+msgstr "<strong>Riferimento a Listino:</strong>"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.report_partner_pricelist_document
+msgid "<strong>RFQ Date:</strong>"
+msgstr "<strong>Data RFQ:</strong>"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.report_partner_pricelist_document
+msgid "<strong>Valid until:</strong>"
+msgstr "<strong>Valido fino a:</strong>"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.report_partner_pricelist_document
+msgid "<strong>Your Reference:</strong>"
+msgstr "<strong>Il Vostro Riferimento:</strong>"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.report_partner_pricelist_document
+msgid "<strong>Your Salesperson:</strong>"
+msgstr "<strong>Il Vostro Commerciale:</strong>"
+
+#. module: partner_pricelists
+#: code:addons/partner_pricelists/models/partner_pricelist.py:176
+#, python-format
+msgid "Activate Partner Pricelist"
+msgstr "Attiva Listino Cliente"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.view_pricelist_form
+msgid "Activate Pricelist"
+msgstr "Attiva Listino"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.view_pricelist_form
+msgid "Activating the pricelist will cause price computation for the customer to search through this pricelist."
+msgstr "Attivando il listino la computazione del prezzo per gli articoli del cliente passerà attraverso questo listino."
+
+#. module: partner_pricelists
+#: selection:partner.pricelist,state:0
+msgid "Active Pricelist"
+msgstr "Listino Attivo"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_activation_date
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_line_activation_date
+msgid "Active Since"
+msgstr "Attivo dal"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.product_pricelist_view
+msgid "Applicable On"
+msgstr "Applicabile a"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.partner_pricelist_lock_view_form
+#: model:ir.ui.view,arch_db:partner_pricelists.view_pricelist_form
+msgid "Cancel"
+msgstr "Annulla"
+
+#. module: partner_pricelists
+#: selection:partner.pricelist,state:0
+msgid "Cancelled"
+msgstr "Cancellato"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_company_id
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_line_company_id
+msgid "Company"
+msgstr "Azienda"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.partner_pricelist_lock_view_form
+msgid "Confirm"
+msgstr "Conferma"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.view_pricelist_form
+msgid "Confirm Pricelist"
+msgstr "Conferma Listino"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_confirmation_date
+msgid "Confirmation Date"
+msgstr "Data Conferma"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_lock_copy_old_lines
+msgid "Copy old lines"
+msgstr "Copia linee preesistenti"
+
+#. module: partner_pricelists
+#: model:ir.actions.act_window,help:partner_pricelists.action_partner_pricelist
+#: model:ir.actions.act_window,help:partner_pricelists.action_partner_pricelist_offer
+msgid "Create an offer for a customer pricelist, the first step of a new sale."
+msgstr "Crea una offerta di listino, il primo step per una nuova vendita."
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_create_uid
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_line_create_uid
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_lock_create_uid
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_create_date
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_line_create_date
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_lock_create_date
+msgid "Created on"
+msgstr "Creato il"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.view_partner_pricelist_tree
+msgid "Creation Date"
+msgstr "Data creazione"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_currency_id
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_line_currency_id
+msgid "Currency"
+msgstr "Valuta"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_line_partner_id
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_partner_id
+#: model:ir.ui.view,arch_db:partner_pricelists.partner_pricelist_lock_view_form
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_line_customer_ref
+msgid "Customer Ref"
+msgstr "Rif. Cliente"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_customer_ref
+msgid "Customer Reference"
+msgstr "Riferimento cliente"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_rfq_date
+msgid "Customer Request Date"
+msgstr "Data della Richiesta del Cliente"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,help:partner_pricelists.field_partner_pricelist_end_date
+msgid "Date on which the price list expired."
+msgstr "Data in cui il listino è stato sorpassato."
+
+#. module: partner_pricelists
+#: model:ir.model.fields,help:partner_pricelists.field_partner_pricelist_confirmation_date
+msgid "Date on which the price list is confirmed."
+msgstr "Data in cui il listino è stato confermato."
+
+#. module: partner_pricelists
+#: model:ir.model.fields,help:partner_pricelists.field_partner_pricelist_activation_date
+msgid "Date on which the price list was activated."
+msgstr "Data in cui il listino è stato attivato."
+
+#. module: partner_pricelists
+#: model:ir.model.fields,help:partner_pricelists.field_partner_pricelist_line_end_date
+msgid "Date on which the pricelist expired."
+msgstr "Data in cui il listino è scaduto."
+
+#. module: partner_pricelists
+#: model:ir.model.fields,help:partner_pricelists.field_partner_pricelist_line_activation_date
+msgid "Date on which the pricelist was activated."
+msgstr "Data in cui il listino è stato attivato."
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.report_partner_pricelist_document
+msgid "Description"
+msgstr "Descrizione"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_display_name
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_line_display_name
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_lock_display_name
+msgid "Display Name"
+msgstr "Nome Completo"
+
+#. module: partner_pricelists
+#: selection:partner.pricelist,state:0
+msgid "Draft"
+msgstr "Bozza"
+
+#. module: partner_pricelists
+#: model:ir.model,name:partner_pricelists.model_mail_compose_message
+msgid "Email composition wizard"
+msgstr "Wizard composizione email"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_validity_date
+msgid "Expiration Date"
+msgstr "Data di scadenza"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.report_saleorder_document
+msgid "Failure to compy with agreed payment terms will result in the charging of interests as provided by italian Legislative Decree 9/10/2002 n.231 directive 2000/35 CE in addition to any expense."
+msgstr "Il mancato rispetto dei termini di pagamento pattuiti comporterà l'addebito degli interessi come disposto dal decreto legislativo 9/10/2002 n.231 direttiva 2000/35/CE oltre alle eventuali spese."
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_id
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_line_id
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_lock_id
+msgid "ID"
+msgstr "ID"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_end_date
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_line_end_date
+msgid "Inactive Since"
+msgstr "Inattivo Da"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_lock_partner_code
+msgid "Internal Reference"
+msgstr "Riferimento interno"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_sale_order_line_is_on_pricelist
+msgid "Is On Pricelist"
+msgstr "Riga a Listino"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.view_pricelist_form
+#: model:ir.ui.view,arch_db:partner_pricelists.view_pricelist_line_form
+msgid "Item"
+msgstr "Riga"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist___last_update
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_line___last_update
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_lock___last_update
+msgid "Last Modified on"
+msgstr "Data di ultima modifica"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_line_write_uid
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_lock_write_uid
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_write_uid
+msgid "Last Updated by"
+msgstr "Ultima modifica di"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_line_write_date
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_lock_write_date
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_write_date
+msgid "Last Updated on"
+msgstr "Ultima modifica il"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_line_lot_size
+#: model:ir.ui.view,arch_db:partner_pricelists.report_partner_pricelist_document
+msgid "Lot Size"
+msgstr "Dimensioni Lotto"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,help:partner_pricelists.field_partner_pricelist_validity_date
+msgid "Manually set the expiration date of your pricelist."
+msgstr "Imposta la scadenza dei listini manualmente."
+
+#. module: partner_pricelists
+#: code:addons/partner_pricelists/models/partner_pricelist.py:39
+#: code:addons/partner_pricelists/models/partner_pricelist.py:225
+#: code:addons/partner_pricelists/models/partner_pricelist.py:227
+#: code:addons/partner_pricelists/models/partner_pricelist.py:229
+#, python-format
+msgid "New"
+msgstr "Nuovo"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_lock_pl_code
+msgid "New Code"
+msgstr "Nuovo Codice"
+
+#. module: partner_pricelists
+#: model:ir.actions.act_window,help:partner_pricelists.action_partner_pricelist
+#: model:ir.actions.act_window,help:partner_pricelists.action_partner_pricelist_offer
+msgid ""
+"Note that once an offer becomes a Pricelist, it will be moved\n"
+"                from the Pricelist Offers list to the Pricelists list."
+msgstr ""
+"Nota che una volta che una offerta viene confermata, sarà spostata\n"
+"\t\tdalle offerte di listino ai listini."
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_note
+msgid "Notes"
+msgstr "Note"
+
+#. module: partner_pricelists
+#: selection:partner.pricelist,state:0
+msgid "Offer Sent"
+msgstr "Offerta Inviata"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_lock_old_pricelist_id
+msgid "Old Pricelist"
+msgstr "Vecchio Listino"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.view_pricelist_form
+msgid "Orders"
+msgstr "Ordini"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.view_pricelist_form
+msgid "Other Information"
+msgstr "Altre informazioni"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.report_partner_pricelist_document
+#: model:ir.ui.view,arch_db:partner_pricelists.report_saleorder_document
+msgid "Our Code"
+msgstr "Nostro Cod."
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_lock_partner_id
+msgid "Partner"
+msgstr "Partner"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_lock_partner_name
+msgid "Partner Name"
+msgstr "Nome Partner"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_sale_order_line_partner_pricelist_id
+#: model:ir.model.fields,field_description:partner_pricelists.field_sale_order_partner_pricelist_id
+msgid "Partner Pricelist"
+msgstr "Listino Cliente"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.report_partner_pricelist_document
+msgid "Partner Pricelist #"
+msgstr "Listino Cliente #"
+
+#. module: partner_pricelists
+#: model:ir.model,name:partner_pricelists.model_partner_pricelist_line
+msgid "Partner Pricelist Line"
+msgstr "Riga di Listino Cliente"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_product_product_partner_pricelist_lines
+#: model:ir.model.fields,field_description:partner_pricelists.field_product_template_partner_pricelist_lines
+msgid "Partner Pricelist Lines"
+msgstr "Righe di Listino Cliente"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.report_partner_pricelist_document
+msgid "Partner Pricelist Offer #"
+msgstr "Offerta di Listino Cliente #"
+
+#. module: partner_pricelists
+#: model:ir.actions.act_window,name:partner_pricelists.action_partner_pricelist
+#: model:ir.ui.menu,name:partner_pricelists.rds_menu_pricelist
+#: model:ir.ui.view,arch_db:partner_pricelists.partner_pricelists_product_partner_pricelist
+msgid "Partner Pricelists"
+msgstr "Listino Cliente"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,help:partner_pricelists.field_sale_order_line_partner_pricelist_id
+#: model:ir.model.fields,help:partner_pricelists.field_sale_order_partner_pricelist_id
+msgid "Partner pricelist for current sales order."
+msgstr "Listino Cliente per l'ordine di vendita corrente."
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_payment_term_id
+msgid "Payment Terms"
+msgstr "Termini di pagamento"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.product_pricelist_view
+msgid "Price"
+msgstr "Prezzo"
+
+#. module: partner_pricelists
+#: model:ir.model,name:partner_pricelists.model_partner_pricelist
+msgid "Price List"
+msgstr "Listino Prezzi"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_line_price_unit
+msgid "Price per Unit"
+msgstr "Prezzo unitario"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_lock_pricelist_id
+#: model:ir.ui.view,arch_db:partner_pricelists.partner_pricelists_product_partner_pricelist
+#: model:ir.ui.view,arch_db:partner_pricelists.view_partner_pricelist_tree
+#: model:ir.ui.view,arch_db:partner_pricelists.view_pricelist_form
+msgid "Pricelist"
+msgstr "Listino Prezzi"
+
+#. module: partner_pricelists
+#: selection:partner.pricelist,state:0
+msgid "Pricelist Confirmed"
+msgstr "Listino Confermato"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.view_pricelist_form
+#: model:ir.ui.view,arch_db:partner_pricelists.view_pricelist_line_form
+#: model:ir.ui.view,arch_db:partner_pricelists.view_pricelist_line_tree
+msgid "Pricelist Item"
+msgstr "Riga di Listino"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.partner_pricelists_product_partner_pricelist
+#: model:ir.ui.view,arch_db:partner_pricelists.product_pricelist_view
+#: model:ir.ui.view,arch_db:partner_pricelists.view_pricelist_form
+msgid "Pricelist Items"
+msgstr "Articoli Listino"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.view_pricelist_form
+msgid "Pricelist Lines"
+msgstr "Righe di Listino"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.partner_pricelist_lock_view_form
+msgid "Pricelist Locking"
+msgstr "Chiusura Listino"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_name
+msgid "Pricelist Name"
+msgstr "Nome Listino"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.view_partner_pricelist_tree
+msgid "Pricelist Number"
+msgstr "Numero Listino"
+
+#. module: partner_pricelists
+#: model:ir.actions.act_window,name:partner_pricelists.action_partner_pricelist_offer
+msgid "Pricelist Offer"
+msgstr "Offerta di Listino"
+
+#. module: partner_pricelists
+#: model:ir.actions.report,name:partner_pricelists.action_report_partner_pricelist
+msgid "Pricelist Offer / Pricelist"
+msgstr "Offerta di Listino / Listino"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_line_pricelist_id
+msgid "Pricelist Reference"
+msgstr "Riferimento Listino"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_line_state
+msgid "Pricelist Status"
+msgstr "Stato Listino"
+
+#. module: partner_pricelists
+#: model:ir.model,name:partner_pricelists.model_product_pricelist_item
+msgid "Pricelist item"
+msgstr "Articolo Listino"
+
+#. module: partner_pricelists
+#: model:ir.ui.menu,name:partner_pricelists.rds_menu_offers
+msgid "Pricelists Offer"
+msgstr "Offerte di Listino"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.view_pricelist_form
+#: model:ir.ui.view,arch_db:partner_pricelists.view_pricelist_line_form
+msgid "Pricing Info"
+msgstr "Costificazione"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.view_pricelist_form
+msgid "Print"
+msgstr "Stampa"
+
+#. module: partner_pricelists
+#: model:ir.model,name:partner_pricelists.model_product_product
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_line_product_id
+msgid "Product"
+msgstr "Prodotto"
+
+#. module: partner_pricelists
+#: model:ir.model,name:partner_pricelists.model_product_template
+msgid "Product Template"
+msgstr "Modello prodotto"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.product_pricelist_view
+msgid "Products Price List"
+msgstr "Listino prezzi prodotti"
+
+#. module: partner_pricelists
+#: model:ir.model,name:partner_pricelists.model_sale_order
+msgid "Quotation"
+msgstr "Preventivo"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.view_pricelist_form
+msgid "Quotations"
+msgstr "Preventivi"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,help:partner_pricelists.field_partner_pricelist_origin
+msgid "Reference of the document that generated this sales order request."
+msgstr "Riferimento del documento che ha creato questa richiesta d'ordine."
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.partner_pricelists_sale_order
+msgid "Regional Pricelist"
+msgstr "Listino Regionale"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.view_pricelist_form
+msgid "Reporting"
+msgstr "Report"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.view_pricelist_form
+msgid "Revert to Draft"
+msgstr "Riporta a Bozza"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_line_is_unique
+msgid "Riga univoca"
+msgstr "Riga univoca"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_team_id
+msgid "Sales Channel"
+msgstr "Canale di Vendita"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.view_pricelist_form
+msgid "Sales Information"
+msgstr "Informazioni vendite"
+
+#. module: partner_pricelists
+#: model:ir.model,name:partner_pricelists.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Riga Ordine di Vendita"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_user_id
+msgid "Salesperson"
+msgstr "Commerciale"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.view_pricelist_form
+msgid "Send by Email"
+msgstr "Invia per Email"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_sent_date
+msgid "Sent Date"
+msgstr "Data di Invio"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_origin
+msgid "Source Document"
+msgstr "Documento di origine"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_state
+msgid "Status"
+msgstr "Stato"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.report_partner_pricelist_document
+msgid "Total Each"
+msgstr "Totale Cad."
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.partner_pricelist_lock_view_form
+msgid "You are activating a partner pricelist. After this is done, this pricelist's products prices will be calculated using this pricelist, <strong>only for the pricelist's partner</strong>."
+msgstr "Stai attivando un listino cliente. Dopo che ciò sarà fatto, il prezzo dei prodotti in questo listino verrà calcolato al listino stesso, <strong>solo per il cliente del listino</strong>."
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.report_partner_pricelist_document
+#: model:ir.ui.view,arch_db:partner_pricelists.report_saleorder_document
+msgid "Your Code"
+msgstr "Vostro Cod."
+
+#. module: partner_pricelists
+#: model:ir.actions.act_window,help:partner_pricelists.action_partner_pricelist
+#: model:ir.actions.act_window,help:partner_pricelists.action_partner_pricelist_offer
+msgid ""
+"Your next actions should flow efficiently: confirm the Offer\n"
+"                to a Pricelist, then create the orders and quotations."
+msgstr ""
+"Le tue prossime azioni dovrebbero scorrere efficentemente: conferm l'offerta\n"
+"                in un listino, poi crea ordini o preventivi."
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.product_pricelist_view
+msgid "e.g. USD Retailers"
+msgstr "es. Rivenditori Italiani"
+
+#. module: partner_pricelists
+#: model:ir.ui.view,arch_db:partner_pricelists.partner_pricelist_lock_view_form
+msgid "has a currently active partner pricelist. As only one partner pricelist may be active per customer, it will be deactivated."
+msgstr "ha un listino cliente attualmente attivo. Poiché solo un listino può essere attivo per ciascun cliente, questo sarà disattivato."
+
+#. module: partner_pricelists
+#: model:ir.model,name:partner_pricelists.model_partner_pricelist_lock
+msgid "partner.pricelist.lock"
+msgstr "partner.pricelist.lock"
+
+#. module: partner_pricelists
+#: model:ir.model.fields,field_description:partner_pricelists.field_partner_pricelist_pricelist_lines
+msgid "pricelist Items"
+msgstr "pricelist Items"
+
+#. module: partner_pricelists
+#: model:ir.model,name:partner_pricelists.model_res_config_settings
+msgid "res.config.settings"
+msgstr "res.config.settings"

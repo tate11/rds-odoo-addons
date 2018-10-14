@@ -1,0 +1,58 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* partner_pricelists_crm
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-02 19:21+0000\n"
+"PO-Revision-Date: 2018-09-02 21:23+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: it\n"
+"X-Generator: Poedit 2.0.4\n"
+
+#. module: partner_pricelists_crm
+#: model:ir.model.fields,field_description:partner_pricelists_crm.field_crm_lead_pricelists_count
+msgid "# of Pricelists"
+msgstr "# di Listini"
+
+#. module: partner_pricelists_crm
+#: model:ir.ui.view,arch_db:partner_pricelists_crm.partner_pricelists_crm_leads_form
+msgid "<span class=\"o_stat_text\"> Pricelist(s) </span>"
+msgstr "<span class=\"o_stat_text\"> Listino(i) </span>"
+
+#. module: partner_pricelists_crm
+#: model:ir.model,name:partner_pricelists_crm.model_crm_lead
+msgid "Lead/Opportunity"
+msgstr "Pista/Opportunità"
+
+#. module: partner_pricelists_crm
+#: model:ir.ui.view,arch_db:partner_pricelists_crm.partner_pricelists_utm_form
+msgid "Log in the chatter from which opportunity the order originates"
+msgstr "Registra nella chat da quale opportunità l'ordine è stato generato"
+
+#. module: partner_pricelists_crm
+#: model:ir.ui.view,arch_db:partner_pricelists_crm.partner_pricelists_crm_leads_form
+msgid "New Pricelist"
+msgstr "Nuovo Listino"
+
+#. module: partner_pricelists_crm
+#: model:ir.model.fields,field_description:partner_pricelists_crm.field_partner_pricelist_opportunity_id
+msgid "Opportunity"
+msgstr "Opportunità"
+
+#. module: partner_pricelists_crm
+#: model:ir.model,name:partner_pricelists_crm.model_partner_pricelist
+msgid "Price List"
+msgstr "Listino Prezzi"
+
+#. module: partner_pricelists_crm
+#: model:ir.actions.act_window,name:partner_pricelists_crm.sale_action_pricelist_new
+msgid "Pricelist"
+msgstr "Listino"

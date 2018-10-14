@@ -1,0 +1,59 @@
+<odoo>
+    <data> 
+        <record id="act_merge_mold_production_view" model="ir.ui.view">
+	        <field name="name">act.merge.mold.production.view</field>
+	        <field name="model">merge_mold_production</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+		      <form string="Merge Mold">
+		          <group>
+				    <field name="manufactory_ids" groups="base.group_no_one"/>
+				    <field name="mold_id"/>
+				    <field name="mold_routing_id"/>
+				    <field name="check_result" readonly="True"/>
+				    <field name="number_of_shut"/>
+				    <field name="product_id"/>
+				    <field name="location_src_id"/>
+				    <button name="action_compute" type="object" string="Compute"/>
+				  </group>
+				 <footer>
+                    <button name="action_merge" string="Merge" type="object" class="btn-primary"/>
+                    <button special="cancel" string="Close"/>
+                 </footer>
+		      </form>
+		    </field>
+	    </record>
+
+        <record id="mold_post_qty_form" model="ir.ui.view">
+            <field name="name">mold.post.qty.form</field>
+            <field name="model">mold_post_qty</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+              <form string="Post Inventoty">
+              	  <header>
+              	  	<button name="post_report" string="Stampa" type="object" class="btn-primary"/>
+              	  </header>
+                  <group>
+                    <field name="production_id" groups="base.group_no_one"/>
+                    <label for="lines"></label>
+                    <field name="lines" nolabel="1">
+                        <tree string="line to Post" editable="bottom">
+		                    <field name="product_id"/>
+		                    <field name="qty"/>
+                        </tree>
+                    </field>
+                  </group>
+                  <group>
+                    <field name="create_report" invisible="True"/>
+                    <field name="post_move"  invisible="True"/>
+                  </group>
+                 <footer>
+                    <button name="post" string="Post" type="object" class="btn-primary"/>
+                    <button name="post_and_report" string="Post + Stampa" type="object" class="btn-primary"/>
+                    <button special="cancel" string="Close"/>
+                 </footer>
+              </form>
+            </field>
+        </record>
+    </data>
+</odoo>

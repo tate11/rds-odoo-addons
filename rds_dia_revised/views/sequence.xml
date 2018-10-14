@@ -1,0 +1,26 @@
+<data noupdate="1"> 
+    <record id="rds_partner_sequence" model="ir.sequence">
+        <field name="name">Dia Customer Sequence IT</field> 
+        <field name="code">dia.customer</field>
+        <field name="active">True</field>
+        <field name="prefix">081</field>
+        <field name="padding">5</field>
+        <field name="number_increment">1</field>
+    </record>
+    <record id="rds_partner_sequence" model="ir.sequence">
+        <field name="name">Dia Customer Sequence EXT</field> 
+        <field name="code">dia.customer.ext</field>
+        <field name="active">True</field>
+        <field name="prefix">091</field>
+        <field name="padding">5</field>
+        <field name="number_increment">1</field>
+    </record>
+    <record id="rds_partner_sequence" model="ir.sequence">
+        <field name="name">Dia Partner Sequence</field> 
+        <field name="code">dia.supplier</field>
+        <field name="active">True</field>
+        <field name="prefix">261</field>
+        <field name="padding">5</field>
+        <field name="number_increment">1</field>
+    </record>
+</data>

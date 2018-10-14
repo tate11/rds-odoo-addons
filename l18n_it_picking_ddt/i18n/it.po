@@ -1,0 +1,345 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l18n_it_picking_ddt
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-01 10:07+0000\n"
+"PO-Revision-Date: 2018-10-01 12:08+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: it\n"
+"X-Generator: Poedit 2.0.4\n"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.ui.view,arch_db:l18n_it_picking_ddt.report_delivery_document
+msgid "<strong>Carrier:</strong>"
+msgstr "<strong>Vettore:</strong>"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.ui.view,arch_db:l18n_it_picking_ddt.report_delivery_document
+msgid "<strong>Invoicing Address:</strong>"
+msgstr "<strong>Indirizzo di Fatturazione:</strong>"
+
+#. module: l18n_it_picking_ddt
+#: code:addons/l18n_it_picking_ddt/models/stock_picking.py:25
+#, python-format
+msgid "Cannot change DDT type of an operation that has pickings!"
+msgstr "Non è permesso modificare il tipo di DDT di una operazione con movimenti di magazzino collegati!"
+
+#. module: l18n_it_picking_ddt
+#: code:addons/l18n_it_picking_ddt/models/stock_picking.py:134
+#, python-format
+msgid "Cannot change a delivery method that has pickings!"
+msgstr "Non è permesso modificare un metodo di consegna con movimenti di magazzino collegati!"
+
+#. module: l18n_it_picking_ddt
+#: code:addons/l18n_it_picking_ddt/models/stock_picking.py:95
+#, python-format
+msgid "Cannot validate DDT due to missing information:\n"
+msgstr "Impossibile validare DDT per via di informazioni mancanti:\n"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model,name:l18n_it_picking_ddt.model_delivery_carrier
+msgid "Carrier"
+msgstr "Vettore"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_transport_partner_id
+msgid "Carrier Address"
+msgstr "Generalità Vettore"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.ui.view,arch_db:l18n_it_picking_ddt.report_delivery_document
+msgid "Carrier Signature"
+msgstr "Firma Vettore"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_reason_code
+msgid "Code"
+msgstr "Codice"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.actions.act_window,help:l18n_it_picking_ddt.action_stock_picking_goods_description
+msgid "Create some goods description items to be used in your DDTs."
+msgstr "Crea alcune descrizioni di beni per usarle nei tuoi documenti di trasporto."
+
+#. module: l18n_it_picking_ddt
+#: model:ir.actions.act_window,help:l18n_it_picking_ddt.action_stock_picking_reason
+msgid "Create some transfer reasons to be used in your DDTs."
+msgstr "Crea alcune causali di trasferimento per usarle nei tuoi documenti di trasporto."
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_goods_description_create_uid
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_reason_create_uid
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_goods_description_create_date
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_reason_create_date
+msgid "Created on"
+msgstr "Creato il"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_ddt_number
+msgid "DDT No."
+msgstr "Num. DDT"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_reason_sequence_id
+msgid "DDT Sequence"
+msgstr "Contatore DDT"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_ddt_type
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_reason_ddt_type
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_type_ddt_type
+msgid "DDT Type"
+msgstr "Tipo DDT"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_type_reason_id
+msgid "Default reason"
+msgstr "Causale predefinita"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.ui.view,arch_db:l18n_it_picking_ddt.view_picking_form
+msgid "Delivery Address"
+msgstr "Indirizzo di Consegna"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model,name:l18n_it_picking_ddt.model_stock_picking_goods_description
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_goods_description_name
+msgid "Description of Goods"
+msgstr "Descrizione dei Beni\t"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_goods_description_id_5229
+msgid "Description of goods"
+msgstr "Descrizione dei Beni"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_goods_description_display_name
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_reason_display_name
+msgid "Display Name"
+msgstr "Nome Completo"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.actions.act_window,name:l18n_it_picking_ddt.action_stock_picking_goods_description
+#: model:ir.ui.menu,name:l18n_it_picking_ddt.menu_goods_description
+msgid "Goods Description"
+msgstr "Descrizione dei Beni"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.ui.view,arch_db:l18n_it_picking_ddt.stock_picking_goods_description_tree
+msgid "Goods Descriptions"
+msgstr "Descrizioni dei Beni"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_goods_description_id
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_reason_id
+msgid "ID"
+msgstr "ID"
+
+#. module: l18n_it_picking_ddt
+#: selection:stock.picking.reason,ddt_type:0
+#: selection:stock.picking.type,ddt_type:0
+msgid "Incoming"
+msgstr "In Entrata"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_incoterm
+#: model:ir.ui.view,arch_db:l18n_it_picking_ddt.report_delivery_document
+msgid "Incoterms"
+msgstr "Incoterms"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model.fields,help:l18n_it_picking_ddt.field_stock_picking_incoterm
+msgid "International Commercial Terms are a series of predefined commercial terms used in international transactions."
+msgstr "I termini commerciali internazionali sono una serie di termini commerciali predefiniti usati nelle transazioni internazionali"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_partner_invoice_id
+msgid "Invoice Address"
+msgstr "Indirizzo Fatturazione"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model.fields,help:l18n_it_picking_ddt.field_stock_picking_partner_invoice_id
+msgid "Invoice address for current sales order."
+msgstr "Indirizzo di fatturazione per questo ordine di vendita."
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_goods_description___last_update
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_reason___last_update
+msgid "Last Modified on"
+msgstr "Data di ultima modifica"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_goods_description_write_uid
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_reason_write_uid
+msgid "Last Updated by"
+msgstr "Ultima modifica di"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_goods_description_write_date
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_reason_write_date
+msgid "Last Updated on"
+msgstr "Ultima modifica il"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.ui.menu,name:l18n_it_picking_ddt.menu_logistics_config
+msgid "Logistics Management"
+msgstr "Gestione Logistica"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.ui.view,arch_db:l18n_it_picking_ddt.view_picking_form
+msgid "Main Partner"
+msgstr "Partner"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.ui.view,arch_db:l18n_it_picking_ddt.report_delivery_document
+msgid "N. Packages"
+msgstr "N. Colli"
+
+#. module: l18n_it_picking_ddt
+#: selection:stock.picking.reason,ddt_type:0
+#: selection:stock.picking.type,ddt_type:0
+msgid "No DDT"
+msgstr "Nessuno"
+
+#. module: l18n_it_picking_ddt
+#: code:addons/l18n_it_picking_ddt/models/stock_picking.py:104
+#, python-format
+msgid "No sequence configured for this transfer reason!"
+msgstr "Nessun contatore configurato per questa causale!"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.ui.view,arch_db:l18n_it_picking_ddt.report_delivery_document
+msgid "Note"
+msgstr "Note"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_goods_description_note
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_notes
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_reason_note
+#: model:ir.ui.view,arch_db:l18n_it_picking_ddt.view_picking_withcarrier_out_form
+msgid "Notes"
+msgstr "Note"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.ui.view,arch_db:l18n_it_picking_ddt.view_picking_withcarrier_out_form
+msgid "Notes.."
+msgstr "Note..."
+
+#. module: l18n_it_picking_ddt
+#: selection:stock.picking.reason,ddt_type:0
+#: selection:stock.picking.type,ddt_type:0
+msgid "Outgoing"
+msgstr "In Uscita"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.ui.view,arch_db:l18n_it_picking_ddt.report_delivery_document
+msgid "Outside Goods Appearance"
+msgstr "Aspetto esteriore dei beni"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_delivery_carrier_transport_partner_id
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_partner_order_id
+msgid "Partner"
+msgstr "Partner"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.ui.menu,name:l18n_it_picking_ddt.menu_picking_reason
+msgid "Picking Reason"
+msgstr "Causale di Trasferimento"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_reason_id_5230
+msgid "Reason for Transfer"
+msgstr "Causale di Trasferimento"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model,name:l18n_it_picking_ddt.model_stock_picking_type
+msgid "The operation type determines the picking view"
+msgstr "Il tipo di operazione determina la vista picking"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model,name:l18n_it_picking_ddt.model_stock_picking
+msgid "Transfer"
+msgstr "Trasferimento"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model,name:l18n_it_picking_ddt.model_stock_picking_reason
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_reason_name
+msgid "Transfer Reason"
+msgstr "Causale Trasferimento"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.actions.act_window,name:l18n_it_picking_ddt.action_stock_picking_reason
+#: model:ir.ui.view,arch_db:l18n_it_picking_ddt.stock_picking_reason_tree
+msgid "Transfer Reasons"
+msgstr "Causali di Trasferimento"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.ui.view,arch_db:l18n_it_picking_ddt.report_delivery_document
+msgid "Transferor Signature"
+msgstr "Firma del Cedente"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.ui.view,arch_db:l18n_it_picking_ddt.report_delivery_document
+msgid "Weight (Kg)"
+msgstr "Peso (Kg)"
+
+#. module: l18n_it_picking_ddt
+#: model:ir.model.fields,field_description:l18n_it_picking_ddt.field_stock_picking_shipping_weight_free
+msgid "Weight in Kilograms"
+msgstr "Peso in Chilogrammi"
+
+#. module: l18n_it_picking_ddt
+#: code:addons/l18n_it_picking_ddt/models/stock_picking.py:86
+#, python-format
+msgid "â¢ Carrier isn't set"
+msgstr "â¢ Vettore non Impostato"
+
+#. module: l18n_it_picking_ddt
+#: code:addons/l18n_it_picking_ddt/models/stock_picking.py:92
+#, python-format
+msgid "â¢ DDT Number not set"
+msgstr "â¢ Numero DDT non impostato"
+
+#. module: l18n_it_picking_ddt
+#: code:addons/l18n_it_picking_ddt/models/stock_picking.py:87
+#, python-format
+msgid "â¢ Goods description isn't set"
+msgstr "â¢ Aspetto esteriore dei beni non impostato"
+
+#. module: l18n_it_picking_ddt
+#: code:addons/l18n_it_picking_ddt/models/stock_picking.py:89
+#, python-format
+msgid "â¢ Incoterm isn't set"
+msgstr "â¢ Incoterm non impostato"
+
+#. module: l18n_it_picking_ddt
+#: code:addons/l18n_it_picking_ddt/models/stock_picking.py:91
+#, python-format
+msgid "â¢ Number of packages is zero"
+msgstr "â¢ Il numero dei colli è zero"
+
+#. module: l18n_it_picking_ddt
+#: code:addons/l18n_it_picking_ddt/models/stock_picking.py:90
+#, python-format
+msgid "â¢ Shipping Weight is zero"
+msgstr "â¢ Il peso di spedizione è zero"
+
+#. module: l18n_it_picking_ddt
+#: code:addons/l18n_it_picking_ddt/models/stock_picking.py:88
+#, python-format
+msgid "â¢ Transfer Reason isn't set"
+msgstr "â¢ Causale di Trasferimento non impostata"
