@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record model="ir.ui.view" id="view_picking_type_form">
+            <field name="model">stock.picking.type</field>
+            <field name="inherit_id" ref="stock.view_picking_type_form"/>    
+            <field name="arch" type="xml">
+                <field name="sequence_id" position="after">
+                    <field name="sequence_ddt_id"/>    
+                </field>
+            </field>
+        </record>
+
+
+        <record id="stock_picking_goods_description_tree" model="ir.ui.view">
+            <field name="name">stock.picking.goods_description.tree</field>
+            <field name="model">stock.picking.goods_description</field>
+            <field name="priority">4</field>
+            <field name="arch" type="xml">
+                <tree string="Goods Descriptions" editable="bottom">
+                    <field name="name"/>
+                    <field name="note"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_stock_picking_goods_description" model="ir.actions.act_window">
+            <field name="name">Goods Description</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.picking.goods_description</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="stock_picking_goods_description_tree"/>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create some goods description items to be used in your DDTs.
+                </p>
+            </field>
+        </record>
+    
+        <menuitem id="menu_logistics_config" name="Logistics Management" parent="stock.menu_stock_config_settings" groups="stock.group_stock_manager" sequence="1"/>
+
+        <menuitem id="menu_goods_description" name="Goods Description" action="action_stock_picking_goods_description" parent="menu_logistics_config" sequence="1"/>
+        
+        <!--
+        <record id="view_picking_internal_search" model="ir.ui.view">
+            <field name="name">view.picking.internal.search</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+            <field name="priority">4</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="filter_domain">['|','|',('name','ilike', self),('origin','ilike',self),('ddt_number','ilike',self)]</attribute>
+                </xpath>
+            </field>
+        </record>-->
+
+        <record id="view_delivery_carrier_form" model="ir.ui.view">
+            <field name="name">delivery.carrier.form</field>
+            <field name="model">delivery.carrier</field>
+            <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+            <field name="priority">4</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='integration_level']" position="before">
+                    <label for="transport_partner_id"/>
+                    <div>
+                        <field name="transport_partner_id"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_picking_form_ddt" model="ir.ui.view">
+            <field name="name">stock.picking.form.view.ddt</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="after">
+                    <field name="billing_status" widget="statusbar" statusbar_visible="todo,waiting,done" attrs="{'invisible': [('billing_status','=','none')]}"/>
+                </xpath>
+                <xpath expr="//button[@name='action_see_move_scrap']" position="after">
+                    <button name="action_view_ddt"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-barcode"
+                        attrs="{'invisible': [('count_ddt', '=', 0)]}">
+                        <field name="count_ddt" widget="statinfo" string="DDT"/>
+                    </button>
+                </xpath>
+                <xpath expr="//button[@name='action_toggle_is_locked'][1]" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', '|', ('state', 'in', ('draft','cancel')), ('is_locked', '=', False), ('billing_status', 'in', ('draft','waiting','done'))]}</attribute>
+                </xpath>
+            </field>
+        </record>
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template xml:space="preserve">
+    <t t-name="MrpWorkcenterScadaPanel">
+        <div class="o_scada_panel_container o_home_menu_background">
+            <div class="row o_scada_row">
+                <div id="scada_header" class="o_scada_panel col-lg-6">
+                    <div id="o_scada_back" class="fa fa-arrow-left"/>
+                    <h1 class="mb8"><t t-esc="widget.workcenter_id.name"/></h1>
+                    <h3 class="mb8">Current Order: <t t-esc="widget.production_id.name"/> - <t t-esc="widget.name"/></h3>
+                </div>
+                <div class="o_invisible_spacer col-lg-2"/>
+                <div id="scada_parameters" class="o_scada_panel col-lg-4">
+                    <table>
+                        <col width="30%"/><col width="70%"/>
+
+                        <tr>
+                            <th>Status:</th>
+                            <td t-attf-class="color-#{widget.last_efficiency.status_type}">
+                                <t t-esc="widget.last_efficiency.status"/>
+                            </td>
+                        </tr><tr>
+                            <th>Last Update:</th>
+                            <td>
+                                <t t-esc="widget.last_efficiency.date"/>
+                            </td>
+                        </tr><tr>
+                            <th>OEE:</th>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped" role="progressbar" t-attf-style="width: #{widget.workcenter_id.oee}%" t-attf-aria-valuenow="#{widget.workcenter.oee" aria-valuemin="0" aria-valuemax="100"/>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </t>
+</template>

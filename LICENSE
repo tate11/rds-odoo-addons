@@ -1,3 +1,7 @@
+The following license applies to any modules contained in the directories "modules" or "unactive".
+
+    LICENSE:
+
     RDS Modules for Odoo - A collection of modules.
     Copyright (C) 2018 RDS Moulding Technology SpA
 
@@ -14,3 +18,4 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+Any other content of this repository is (c) of its respective owner and here contained under its specific license for sole convenience of RDS Moulding Technology SpA.

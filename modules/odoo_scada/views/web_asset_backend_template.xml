@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="odoo_scada assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/odoo_scada/static/src/js/workcenter_scada_panel.js"></script>
+            <link rel="stylesheet" type="text/scss" href="/odoo_scada/static/src/scss/scada.scss"/>
+        </xpath>
+    </template>
+</odoo>

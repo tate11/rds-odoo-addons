@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<odoo> 
+
+<act_window 
+  id="dia_trasfers_action" 
+  name="Dia Transfers" 
+  res_model="dia.transfer"
+  context="{'search_default_group_by_state' : True, 'search_default_active': True}"
+  />
+
+<!-- Top menu item -->
+<menuitem
+    id="menu_dia_root"
+    name="Integrazioni DIA"
+    groups="base.group_erp_manager"
+    web_icon="odoo_dia,static/description/icon.png"
+    sequence="75"/>
+
+<menuitem
+    id="menu_dia_main"
+    name="Trasferimenti DIA"
+    action="dia_trasfers_action" 
+    parent="menu_dia_root"
+    sequence="0"/>
+
+<record id="dia_transfer_view_form" model="ir.ui.view"> 
+    <field name="name">dia.transfer.form</field> 
+    <field name="model">dia.transfer</field> 
+    <field name="arch" type="xml"> 
+    <form string="Trasferimento DIA">
+        <header>
+            <button name="button_run" states="draft" type="object" string="Esegui Ora"/>
+            <button name="button_retry" states="partial,failed" class="btn-primary" type="object" string="Riprova"/>
+            <button name="button_force" type="object" string="Forza Riinvio"/>
+            <field name="state" statusbar_visible="draft" widget="statusbar"/>
+        </header>
+        <sheet>
+            <div class="oe_title">
+                <label for="name" class="oe_edit_only"/>
+                <h1>
+                    <field name="name" placeholder="Nome" readonly="True"/>
+                </h1>
+            </div>
+            <group>
+                <group>
+                    <field name="creation_date" readonly="True"/>
+                    <field name="scheduled_date"/>
+                </group>
+                <group>
+                    <field name="last_transfer_date" readonly="True"/>
+                </group>
+            </group>
+                <notebook>
+                    <!--
+                    <page string="DDT e Bolle">
+                        <field name="pickings_ids" readonly="1" options="{'no_create': True}">
+                            <tree decoration-success="dia_transfer_status == 'success'" decoration-danger="dia_transfer_status == 'failed'" decoration-muted="dia_transfer_status == 'none'">
+                                <field name="state" invisible="1"/>
+                                <field name="name" readonly="1"/>
+                                <field name="ddt_type" readonly="1"/>
+                                <field name="reason_id" readonly="1"/>
+                                <field name="ddt_number" readonly="1"/>
+                                <field name="dia_transfer_type" readonly="1"/>
+                                <field name="dia_transfer_status" readonly="1"/>
+                                <field name="dia_transfer_notes" readonly="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                    -->
+                    <page string="Prodotti">
+                        <field name="products_ids" readonly="1" options="{'no_create': True}">
+                            <tree decoration-success="dia_transfer_status == 'success'" decoration-danger="dia_transfer_status == 'failed'" decoration-muted="dia_transfer_status == 'none'">
+                                <field name="name" readonly="1"/>
+                                <field name="default_code" readonly="1"/>
+                                <field name="dia_code" readonly="1"/>
+                                <field name="dia_transfer_type" readonly="1"/>
+                                <field name="dia_transfer_status" readonly="1"/>
+                                <field name="dia_transfer_notes" readonly="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Clienti e Fornitori">
+                        <field name="partners_ids" readonly="1" options="{'no_create': True}">
+                            <tree decoration-success="dia_transfer_status == 'success'" decoration-danger="dia_transfer_status == 'failed'" decoration-muted="dia_transfer_status == 'none'">
+                                <field name="name" readonly="1"/>
+                                <field name="dia_ref_customer" readonly="1"/>
+                                <field name="dia_ref_vendor" readonly="1"/>
+                                <field name="dia_transfer_type" readonly="1"/>
+                                <field name="dia_transfer_status" readonly="1"/>
+                                <field name="dia_transfer_notes" readonly="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+        </sheet>
+        </form> 
+  </field>
+</record>
+
+<record id="dia_transfer_view_tree" model="ir.ui.view"> 
+    <field name="name">dia.transfer.list</field> 
+    <field name="model">dia.transfer</field> 
+    <field name="arch" type="xml"> 
+        <tree decoration-info="state == 'draft'" decoration-danger="state in ['partial', 'failed']" decoration-muted="state in ['cancel', 'success']">
+            <field name="name"/>
+            <field name="state"/>
+            <field name="scheduled_date"/>
+        </tree> 
+    </field> 
+</record>
+
+</odoo> 

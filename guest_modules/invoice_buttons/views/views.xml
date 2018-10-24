@@ -1,0 +1,15 @@
+<odoo>
+  <data>
+        <record id="invoice_buttons.account_invoice_supplier_form_inherit" model="ir.ui.view">
+            <field name="name">invoice_buttons_supplier.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet//div" position="before">
+                    <div class="oe_button_box" name="button_box" groups="base.group_user">
+                    </div>
+                </xpath>
+            </field>
+        </record>
+  </data>
+</odoo>

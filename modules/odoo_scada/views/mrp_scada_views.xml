@@ -1,0 +1,254 @@
+<odoo>
+
+        <record model="ir.actions.act_window" id="mrp_scada_devices">
+            <field name="name">SCADA Devices</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">scada.device</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+            <p>
+                No SCADA device defined.
+            </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_mrp_scada_config"
+                sequence="20"
+                name="SCADA Configuration"
+                parent="mrp.menu_mrp_configuration"/>
+
+        <menuitem id="menu_mrp_scada_devices"
+                action="mrp_scada_devices"
+                sequence="20"
+                parent="menu_mrp_scada_config"/>
+
+        <record model="ir.ui.view" id="view_scada_devices_tree">
+            <field name="name">scada.device.tree</field>
+            <field name="model">scada.device</field>
+            <field name="arch" type="xml">
+                <tree string="SCADA Devices">
+                    <field name="name"/>
+                    <field name="device_type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_scada_devices_form">
+            <field name="name">scada.device.form</field>
+            <field name="model">scada.device</field>
+            <field name="arch" type="xml">
+                <form string="SCADA Devices">
+                    <header>
+                        <button name="scada_read" type="object" string="Read Now"/>
+                    </header>
+                    <sheet>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="device_type"/>
+                                <field name="ip_address"/>
+                                <field name="port"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Values">
+                                <field name="values" context="{'default_device': id}"/>
+                            </page>
+                            <page string="Events">
+                                <field name="events"  context="{'default_device': id}"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_scada_values_tree">
+            <field name="name">scada.value.tree</field>
+            <field name="model">scada.value</field>
+            <field name="arch" type="xml">
+                <tree string="SCADA Values">
+                    <field name="name"/>
+                    <field name="value_type"/>
+                    <field name="polling_time"/>
+                    <field name="value"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_scada_value_form">
+            <field name="name">scada.value.form</field>
+            <field name="model">scada.value</field>
+            <field name="arch" type="xml">
+                <form string="SCADA Value">
+                    <sheet>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="device" readonly="True"/>
+                                <field name="device_type"/>
+                                <br/>
+                                <field name="value"/>
+                            </group>
+                            <group>
+                                <field name="read_method" context="{'default_device_type': device_type}" domain="[('device_type', '=', device_type)]"/>
+                                <field name="index"/>
+                                <field name="value_type"/>
+                                <field name="polling_time"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="error_log"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_scada_events_tree">
+            <field name="name">scada.event.tree</field>
+            <field name="model">scada.event</field>
+            <field name="arch" type="xml">
+                <tree string="SCADA Devices">
+                    <field name="name"/>
+                    <field name="value"/>
+                    <field name="conditions"/>
+                    <field name="single_shot"/>
+                    <field name="unfire_conditions" readonly="[['single_shot', '=', True]]"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_scada_event_form" model="ir.ui.view">
+            <field name="name">SCADA Event</field>
+            <field name="model">scada.event</field>
+            <field name="arch" type="xml">
+                <form string="Scada Event">
+                    <header>
+                        <field name="binding_model_id" invisible="1"/>
+                        <button name="run" string="Run" type="object"
+                                class="btn-primary"
+                                attrs="{'invisible':[('model_id', '!=', %(base.model_ir_actions_server)s)]}"
+                                help="Run this action manually."/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="e.g. Update order quantity"/></h1>
+                        </div>
+                        <group name="action_wrapper">
+                            <group name="action_content">
+                                <field name="device" readonly="True"/>
+                                <field name="value"/>
+                                <field name="conditions"/>
+                                <field name="single_shot"/>
+                                <field name="unfire_conditions" attrs="{'invisible': [('single_shot', '!=', True)]}"/>
+                                <field name="fired" attrs="{'invisible': [('single_shot', '!=', True)]}"/>
+                                <br/>
+                                <field name="model_id"/>
+                                <field name="model_name" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="state"/>
+                                <field name="type" invisible="1"/>
+                                <field name="crud_model_id"
+                                    attrs="{'invisible': [('state', '!=', 'object_create')], 'required': [('state', '=', 'object_create')]}"/>
+                                <field name="crud_model_name" invisible="1"/>
+                                <field name="link_field_id"
+                                    domain="[('model_id', '=', model_id), ('relation', '=', crud_model_name), ('ttype', 'in', ['many2one'])]"
+                                    attrs="{'invisible': [('state', '!=', 'object_create')]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Python Code" name='code' autofocus="autofocus"
+                                    attrs="{'invisible': [('state', '!=', 'code')]}">
+                                <field name="code" widget="ace" options="{'mode': 'python'}" placeholder="Enter Python code here. Help about Python expression is available in the help tab of this document."/>
+                            </page>
+
+                            <page string="Data to Write" autofocus="autofocus"
+                                    attrs="{'invisible':[('state', 'not in', ['object_create', 'object_write'])]}">
+                                <p attrs="{'invisible': [('model_id', '!=', False)]}">
+                                    Please set the Model to Create before choosing values
+                                </p>
+                                <field name="fields_lines">
+                                     <tree string="Field Mappings" editable="bottom">
+                                        <field name="col1" domain="['|', ('model_id', '=', parent.crud_model_id), ('model_id', '=', parent.model_id)]"/>
+                                        <field name="type"/>
+                                        <field name="resource_ref" attrs="{'readonly': [('type', '!=', 'reference')]}" options="{'hide_model': True}"/>
+                                        <field name="value" attrs="{'readonly': [('type', '=', 'reference')]}" force_save="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page string="Actions" autofocus="autofocus"
+                                    attrs="{'invisible': [('state', '!=', 'multi')]}">
+                                <p class="oe_grey">
+                                    If several child actions return an action, only the last one will be executed.
+                                    This may happen when having server actions executing code that returns an action, or server actions returning a client action.
+                                </p>
+                                <field name="child_ids" domain="[('model_id', '=', model_id)]"/>
+                            </page>
+
+                            <page string="Help"
+                                    attrs="{'invisible': [('state', '!=', 'code')]}">
+                                <group>
+                                    <div style="margin-top: 4px;">
+                                        <h3>Help with Python expressions</h3>
+                                        <p>Various fields may use Python code or Python expressions. The following variables can be used:</p>
+                                        <ul>
+                                            <li><code>env</code>: Odoo Environment on which the action is triggered</li>
+                                            <li><code>scada_value</code>: SCADA value that triggered the event</li>
+                                            <li><code>model</code>: Odoo Model of the record on which the action is triggered; is a void recordset</li>
+                                            <li><code>record</code>: record on which the action is triggered; may be be void</li>
+                                            <li><code>records</code>: recordset of all records on which the action is triggered in multi mode; may be void</li>
+                                            <li><code>time</code>, <code>datetime</code>, <code>dateutil</code>, <code>timezone</code>: useful Python libraries</li>
+                                            <li><code>log(message, level='info')</code>:logging function to record debug information in <code>ir.logging</code> table</li>
+                                            <li><code>Warning</code>: Warning Exception to use with <code>raise</code></li>
+                                            <li>To return an action, assign: <code>action = {...}</code></li>
+                                        </ul>
+                                        <div attrs="{'invisible': [('state', '!=', 'code')]}">
+                                            <p>Example of Python code</p>
+<code style='white-space: pre-wrap'>
+partner_name = record.name + '_code'
+env['res.partner'].create({'name': partner_name})
+</code>
+                                        </div>
+                                    </div>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_scada_read_methods_tree">
+            <field name="name">scada.readmethod.tree</field>
+            <field name="model">scada.value.readmethod</field>
+            <field name="arch" type="xml">
+                <tree string="SCADA Read Method">
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_scada_read_methods_form">
+            <field name="name">scada.readmethod.form</field>
+            <field name="model">scada.value.readmethod</field>
+            <field name="arch" type="xml">
+                <form string="SCADA Read Method">
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+</odoo>

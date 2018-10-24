@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- DdT Sequence -->
+        <record id="seq_ddt" model="ir.sequence">
+            <field name="name">DDT</field>
+            <field name="code">stock.ddt</field>
+            <field name="prefix">DDT/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <!-- goods descriptions -->
+        <record id="goods_description_CAR" model="stock.picking.goods_description">
+            <field name="name">Cartoni</field>
+        </record>
+        <record id="goods_description_BAN" model="stock.picking.goods_description">
+            <field name="name">Bancali</field>
+        </record>
+        <record id="goods_description_SFU" model="stock.picking.goods_description">
+            <field name="name">A Vista</field>
+        </record>
+        <record id="goods_description_CBA" model="stock.picking.goods_description">
+            <field name="name">Cartoni-Bancali</field>
+        </record>
+        <record id="goods_description_GAB" model="stock.picking.goods_description">
+            <field name="name">Gabbie</field>
+        </record>
+     </data>
+</odoo>

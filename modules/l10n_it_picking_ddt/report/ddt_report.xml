@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report 
+            id="action_report_ddt"
+            string="DDT / Transfer Document"
+            model="stock.ddt" 
+            report_type="qweb-pdf"
+            file="l10n_it_picking_ddt.report_ddt" 
+            name="l10n_it_picking_ddt.report_ddt"
+            print_report_name="'DDT - %s' % (object.name)"
+        />
+
+    </data>
+</odoo>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+     <record id="mrp_workcenter_scada_panel" model="ir.actions.client">
+        <field name="name">SCADA Panel</field>
+        <field name="tag">workcenter_scada_panel</field>
+        <field name="target">main</field>
+    </record>
+
+</odoo>

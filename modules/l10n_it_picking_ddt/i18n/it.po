@@ -1,0 +1,518 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_it_picking_ddt
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e-20181015\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-24 07:57+0000\n"
+"PO-Revision-Date: 2018-10-24 10:56+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: it\n"
+"X-Generator: Poedit 2.2\n"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking__count_ddt
+msgid "# of DDTs"
+msgstr "# di DDT"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
+msgid "<span>Transfer Document # </span>"
+msgstr "<span>Documento di Trasferimento # </span>"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
+msgid "<strong>Carrier Signature:</strong>"
+msgstr "<strong>Firma Vettore:</strong>"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
+msgid "<strong>Carrier:</strong>"
+msgstr "<strong>Vettore:</strong>"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
+msgid "<strong>Goods Description:</strong>"
+msgstr "<strong>Aspetto Beni:</strong>"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
+msgid "<strong>Incoterm:</strong>"
+msgstr "<strong>Incoterm:</strong>"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
+msgid "<strong>Number of Packages:</strong>"
+msgstr "<strong>Colli:</strong>"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
+msgid "<strong>Reason for Transfer:</strong>"
+msgstr "<strong>Causale:</strong>"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
+msgid "<strong>Shipping Date:</strong>"
+msgstr "<strong>Data Spedizione:</strong>"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
+msgid "<strong>Shipping address:</strong>"
+msgstr "<strong>Indirizzo di Spedizione:</strong>"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
+msgid "<strong>Weight of Shipments (Kg):</strong>"
+msgstr "<strong>Peso (Kg):</strong>"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__message_needaction
+msgid "Action Needed"
+msgstr "Azione Richiesta"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.stock_view_ddts_form
+msgid "Add an internal note..."
+msgstr "Aggiungi una nota interna..."
+
+#. module: l10n_it_picking_ddt
+#: code:addons/l10n_it_picking_ddt/models/stock_ddt.py:100
+#, python-format
+msgid "All pickings must be validated!"
+msgstr "Tutti i picking devono essere validati!"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__message_attachment_count
+msgid "Attachment Count"
+msgstr "Numero Allegati"
+
+#. module: l10n_it_picking_ddt
+#: selection:stock.picking,billing_status:0
+msgid "Billed"
+msgstr "Bollettato"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking__billing_status
+msgid "Billing Status"
+msgstr "Stato Bollettazione"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.stock_view_ddts_form
+msgid "Cancel"
+msgstr "Cancella"
+
+#. module: l10n_it_picking_ddt
+#: selection:stock.ddt,state:0
+msgid "Cancelled"
+msgstr "Cancellato"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__carrier_id
+msgid "Carrier"
+msgstr "Vettore"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__transport_partner_id
+msgid "Carrier Address"
+msgstr "Generalità Vettore"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.actions.act_window,help:l10n_it_picking_ddt.action_stock_view_ddts
+msgid "Click to prepare a new package or delivery."
+msgstr "Crea un nuovo DDT."
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.stock_view_ddts_form
+msgid "Confirm"
+msgstr "Conferma"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.actions.act_window,help:l10n_it_picking_ddt.action_stock_picking_goods_description
+msgid "Create some goods description items to be used in your DDTs."
+msgstr "Crea delle descrizioni esteriori dei beni da usare nei DDT."
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__create_uid
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking_goods_description__create_uid
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__create_date
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking_goods_description__create_date
+msgid "Created on"
+msgstr "Creato il"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking__ddt_ids
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.view_picking_form_ddt
+msgid "DDT"
+msgstr "DDT"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.actions.report,name:l10n_it_picking_ddt.action_report_ddt
+msgid "DDT / Transfer Document"
+msgstr "DDT / Documento di Trasferimento"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__name
+msgid "DDT No."
+msgstr "N. DDT"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking__ddt_number
+msgid "DDT Number"
+msgstr "Numero DDT"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking_type__sequence_ddt_id
+msgid "DDT Sequence"
+msgstr "Contatore DDT"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.stock_view_ddts_form
+msgid "Delivery Address"
+msgstr "Indirizzo di Spedizione"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model,name:l10n_it_picking_ddt.model_delivery_carrier
+msgid "Delivery Methods"
+msgstr "Modalità di Consegna"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
+msgid "Description"
+msgstr "Descrizione"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model,name:l10n_it_picking_ddt.model_stock_picking_goods_description
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking_goods_description__name
+msgid "Description of Goods"
+msgstr "Aspetto Beni"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__goods_description_id
+msgid "Description of goods"
+msgstr "Aspetto dei Beni"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__display_name
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking_goods_description__display_name
+msgid "Display Name"
+msgstr "Nome Visualizzato"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__date
+msgid "Document Date"
+msgstr "Data del Documento"
+
+#. module: l10n_it_picking_ddt
+#: selection:stock.ddt,state:0
+msgid "Done"
+msgstr "Completato"
+
+#. module: l10n_it_picking_ddt
+#: selection:stock.ddt,state:0
+msgid "Draft"
+msgstr "Bozza"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__message_follower_ids
+msgid "Followers"
+msgstr "Followers"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Followers (Canale)"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Followers (Partners)"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.actions.act_window,name:l10n_it_picking_ddt.action_stock_picking_goods_description
+#: model:ir.ui.menu,name:l10n_it_picking_ddt.menu_goods_description
+msgid "Goods Description"
+msgstr "Aspetto Beni"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.stock_picking_goods_description_tree
+msgid "Goods Descriptions"
+msgstr "Aspetto Beni"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__id
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking_goods_description__id
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,help:l10n_it_picking_ddt.field_stock_ddt__message_unread
+msgid "If checked new messages require your attention."
+msgstr "Se spuntato, dei messaggi richiedono la tua attenzione."
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,help:l10n_it_picking_ddt.field_stock_ddt__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Se spuntato, dei messaggi richiedono la tua attenzione."
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,help:l10n_it_picking_ddt.field_stock_ddt__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Se spuntato, dei messaggi hanno errori di consegna."
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__incoterm
+msgid "Incoterms"
+msgstr "Incoterms"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,help:l10n_it_picking_ddt.field_stock_ddt__incoterm
+msgid "International Commercial Terms are a series of predefined commercial terms used in international transactions."
+msgstr "Gli incoterm sono dei termini commerciali predefiniti da usare nelle transazioni."
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__partner_invoice_id
+msgid "Invoice Address"
+msgstr "Indirizzo di Fatturazione"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
+msgid "Invoicing address:"
+msgstr "Indirizzo di Fatturazione:"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
+msgid "Invoicing and shipping address:"
+msgstr "Indirizzo di Fatturazione e Spedizione:"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__message_is_follower
+msgid "Is Follower"
+msgstr "E' Follower"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt____last_update
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking_goods_description____last_update
+msgid "Last Modified on"
+msgstr "Ultima modifica il"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__write_uid
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking_goods_description__write_uid
+msgid "Last Updated by"
+msgstr "Ultimo aggiornamento di"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__write_date
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking_goods_description__write_date
+msgid "Last Updated on"
+msgstr "Ultimo aggiornamento il"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.ui.menu,name:l10n_it_picking_ddt.menu_logistics_config
+msgid "Logistics Management"
+msgstr "Gestione Logistica"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Allegato Principale"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__message_has_error
+msgid "Message Delivery error"
+msgstr "Errore di Consegna Messaggio"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__message_ids
+msgid "Messages"
+msgstr "Messaggi"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__move_line_ids_without_package
+msgid "Move Line Ids Without Package"
+msgstr "Linee (Senza Pacchi)"
+
+#. module: l10n_it_picking_ddt
+#: code:addons/l10n_it_picking_ddt/models/stock_ddt.py:20
+#: code:addons/l10n_it_picking_ddt/models/stock_ddt.py:73
+#, python-format
+msgid "New"
+msgstr "Nuovo"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__note
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking_goods_description__note
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
+msgid "Notes"
+msgstr "Note"
+
+#. module: l10n_it_picking_ddt
+#: selection:stock.picking,billing_status:0
+msgid "Nothing to Bill"
+msgstr "Nulla da Bollettare"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Numero di Azioni"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__number_of_packages
+msgid "Number of Packages"
+msgstr "Colli"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__message_has_error_counter
+msgid "Number of error"
+msgstr "Numero di Errori"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,help:l10n_it_picking_ddt.field_stock_ddt__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Numero di messaggi con azioni richieste"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,help:l10n_it_picking_ddt.field_stock_ddt__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,help:l10n_it_picking_ddt.field_stock_ddt__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__picking_type_id
+msgid "Operation Type"
+msgstr "Tipo di Operazione"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.stock_view_ddts_form
+msgid "Operations"
+msgstr "Operazioni"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.stock_view_ddts_form
+msgid "Package Preparation"
+msgstr "Preparazione dei Pacchi"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.stock_view_ddts_tree
+msgid "Package Preparations"
+msgstr "Preparazioni dei Pacchi"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_delivery_carrier__transport_partner_id
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__partner_id
+msgid "Partner"
+msgstr "Partner"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model,name:l10n_it_picking_ddt.model_stock_picking_type
+msgid "Picking Type"
+msgstr "Tipo di Operazione"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.stock_view_ddts_form
+msgid "Print"
+msgstr "Stampa"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
+msgid "Quantity"
+msgstr "Quantità"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__shipping_weight
+msgid "Shipping Weight"
+msgstr "Peso"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__state
+msgid "State"
+msgstr "Stato"
+
+#. module: l10n_it_picking_ddt
+#: selection:stock.picking,billing_status:0
+msgid "To Bill"
+msgstr "Da Bollettare"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model,name:l10n_it_picking_ddt.model_stock_picking
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.stock_view_ddts_form
+msgid "Transfer"
+msgstr "Trasferimento"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model,name:l10n_it_picking_ddt.model_stock_ddt
+msgid "Transfer Document"
+msgstr "Documento di Trasferimento"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.actions.act_window,name:l10n_it_picking_ddt.action_stock_view_ddts
+#: model:ir.ui.menu,name:l10n_it_picking_ddt.menu_stock_ddts
+msgid "Transfer Documents"
+msgstr "Documenti di Trasferimento"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__picking_ids
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.stock_view_ddts_form
+msgid "Transfers"
+msgstr "Trasferimenti"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__picking_type_code
+msgid "Type of Operation"
+msgstr "Tipo di Operazione"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: l10n_it_picking_ddt
+#: selection:stock.ddt,state:0 selection:stock.picking,billing_status:0
+msgid "Waiting"
+msgstr "In Attesa"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,help:l10n_it_picking_ddt.field_stock_ddt__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__shipping_weight_free
+msgid "Weight in Kilograms"
+msgstr "Peso in Kg"
+
+#. module: l10n_it_picking_ddt
+#: code:addons/l10n_it_picking_ddt/models/stock_ddt.py:82
+#, python-format
+msgid "You cannot delete a confirmed DDT."
+msgstr "Non puoi cancellare un DDT confermato."
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
+msgid "Your reference:"
+msgstr "Vs. Riferimento:"
