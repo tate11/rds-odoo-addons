@@ -22,14 +22,14 @@ from .common import FTCL
 from .common import WRITE_PICK_OUT_PATH, WRITE_PICK_IN_PATH
 
 class StockPickingReason(models.Model):
-    _inherit = 'stock.picking.reason'
+    _inherit = 'stock.picking.type'
 
     export_to_dia = fields.Boolean('Esportare a Dia')
     dia_deposit = fields.Char("Deposito DIA", size=2)
+    dia_code = fields.Char("Codice DIA", size=4)
 
-class DiaStockPicking(models.Model):
-    _inherit = ['stock.picking', 'dia.transferable']
-    _name = 'stock.picking'
+class DiaStockDDT(models.Model):
+    _inherit = ['stock.ddt', 'dia.transferable']
 
     @api.multi
     def transfer_to_dia(self):
@@ -69,16 +69,16 @@ class DiaStockPicking(models.Model):
             
             header = "B0000001"                 # Numero documento    1    8    S    Impostare sempre valore B0000001
             header += FTCL(vendor, 8)           # Codice fornitore    9    8    S
-            for line in pick.move_lines:
+            for line in pick.move_line_ids_without_package:
                 lineTXT = header
                 lineTXT += FTCL(line.product_id.dia_code or line.product_id.default_code, 16)       # Articolo    17    16    S
                 lineTXT += FTCL(line.product_qty, 12)                   # Quantita    33    12    S    usare punto come separatore decimali
                 lineTXT += FTCL(datetime.now().strftime("%Y%m%d"), 8)   # Data registrazione    45    8    S    formato yyyymmdd (possiamo preimpostarlo lato nostro con la data odierna)
 
-                reason_code =  pick.reason_id.code or 'CARA'
+                reason_code =  pick.picking_type_id.dia_code or 'CARA'
 
                 lineTXT += FTCL(reason_code, 4)                    # Causale    53    4    S    Impostare sempre CARA (verificare con il cliente se va bene usare sempre questa)
-                lineTXT += FTCL(pick.reason_id.dia_deposit, 2) # Deposito Destinazione 2
+                lineTXT += FTCL(pick.picking_type_id.dia_deposit, 2) # Deposito Destinazione 2
                 lineTXT += safeFTCL(line.purchase_line_id.price_unit, 12)  # prezzo 12
                 lineTXT += "\n"
                 out.append(lineTXT)
@@ -96,28 +96,23 @@ class DiaStockPicking(models.Model):
                 pick.write({'dia_transfer_status': 'failed', 'dia_transfer_notes': _("Partner non presente su DIA!")})
                 continue
 
-            if not pick.reason_id:
-                pick.write({'dia_transfer_status': 'failed', 'dia_transfer_notes': _("Causale DDT assente!")})
-                continue
-
-            if not pick.reason_id.export_to_dia:
+            if not pick.picking_type_id.export_to_dia:
                 pick.write({'dia_transfer_status': 'none', 'dia_transfer_notes': _("La Causale DDT è impostata per non essere trasferita a DIA!")})
                 continue
 
-            if not pick.ddt_number:
+            if not pick.name:
                 pick.write({'dia_transfer_status': 'failed', 'dia_transfer_notes': _("Numero DDT Mancante!")})
                 continue
 
             stop_transfer = False
 
             header = ""
-            date_time = datetime.strptime(pick.scheduled_date, tools.DEFAULT_SERVER_DATETIME_FORMAT)
-            header += FTCL(date_time.year, 4)       # Anno Bolla    1    4        in rosso i dati di testata (da ripetere su tutte le righe)
-            header += FTCL(pick.ddt_number, 8)      # Num Bolla    6    8        in verde i dati di riga
-            header += FTCL(date_time.strftime("%Y%m%d"), 8)        # Data Bolla    15    8
+            header += FTCL(pick.date.year, 4)       # Anno Bolla    1    4        in rosso i dati di testata (da ripetere su tutte le righe)
+            header += FTCL(pick.name, 8)      # Num Bolla    6    8        in verde i dati di riga
+            header += FTCL(pick.date.strftime("%Y%m%d"), 8)        # Data Bolla    15    8
             header += FTCL(pick.partner_id.dia_ref_customer, 8)  # Cod.Cliente    24    8
-            header += FTCL(pick.reason_id.code, 4)   # Causale    33    4
-            header += FTCL(pick.sale_id.payment_term_id.dia_code, 6)    # Pagamento    38    6        campo di testo
+            header += FTCL(pick.picking_type_id.dia_code, 4)   # Causale    33    4
+            header += FTCL(pick.get_first_sale().payment_term_id.dia_code, 6)    # Pagamento    38    6        campo di testo
             header += FTCL("", 6)  # TODO: da definire Banca    45    6        mettere un campo nelle banche di odoo che dica quale e’ il nome della banca in dia
             header += "01"                          # Deposito Pr.    52    2        passo sempre 01
 

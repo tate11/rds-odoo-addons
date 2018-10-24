@@ -44,11 +44,11 @@ class TransferDocument(models.Model):
 
     picking_ids = fields.Many2many(comodel_name='stock.picking', relation='picking_ddt_rel', string='Transfers', copy=False, readonly=True, states={'draft': [('readonly', False)], 'waiting': [('readonly', False)]})
 
-    def _get_move_lines_no_package(self):
+    def _get_moves(self):
         for i in self:
-            i.move_line_ids_without_package = i.picking_ids.mapped(lambda x: x.move_line_ids_without_package)
+            i.move_ids_without_package = i.picking_ids.mapped(lambda x: x.move_ids_without_package)
 
-    move_line_ids_without_package = fields.Many2many('stock.move.line', compute=_get_move_lines_no_package)
+    move_ids_without_package = fields.Many2many('stock.move', compute=_get_moves)
 
     @api.one
     @api.depends('picking_ids', 'shipping_weight_free')
@@ -105,14 +105,16 @@ class TransferDocument(models.Model):
 
     def get_lines_layouted(self):
         self.ensure_one()
-        references = self.move_line_ids_without_package.mapped(lambda x: (x.move_id.sale_line_id and x.move_id.sale_line_id.order_id.client_order_ref))
+        references = self.move_ids_without_package.mapped(lambda x: (x.sale_line_id and x.sale_line_id.order_id.client_order_ref) or False)
 
         lines_layouted = list()
 
         for ref in references:
             if type(ref) != bool:
-                lines_layouted.append((ref, self.move_line_ids_without_package.filtered(lambda x: x.move_id.sale_line_id and (x.move_id.sale_line_id.order_id.client_order_ref == ref))))
+                lines_layouted.append((ref, self.move_ids_without_package.filtered(lambda x: x.sale_line_id and (x.sale_line_id.order_id.client_order_ref == ref))))
             else:
-                lines_layouted.append((False, self.move_line_ids_without_package.filtered(lambda x: (not x.move_id.sale_line_id) or (not x.move_id.sale_line_id.order_id.client_order_ref))))
-
+                lines_layouted.append((False, self.move_ids_without_package.filtered(lambda x: (not x.sale_line_id) or (not x.sale_line_id.order_id.client_order_ref))))
+        import logging
+        logging.warning(lines_layouted)
+        logging.warning(references)
         return lines_layouted

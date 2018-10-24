@@ -9,7 +9,7 @@
 
             <div style="margin-top: 30px" class="row">
                 <div class="col-4">
-                    <strong t-if="doc.partner_id == doc.partner_invoice_id">Invoicing and shipping address:</strong>
+                    <strong t-if="(doc.partner_id == doc.partner_invoice_id) or not doc.partner_invoice_id">Invoicing and shipping address:</strong>
                     <strong t-if="doc.partner_id != doc.partner_invoice_id">Invoicing address:</strong>
                     <div t-field="doc.partner_invoice_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
                 </div>
