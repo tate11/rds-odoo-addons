@@ -4,6 +4,7 @@
     'name': "HR Quality of Life ", 
     'summary': "Adds small quality-of-life improvements to HR management.", 
     'description': """This module adds menuitems and base utilities for other modules, centered on HR reporting.
+                      It also exposes certain fields, menus and views for commodity of RDS.
                    """, 
     'author': "RDS Moulding Technology SpA", 
     'license': "AGPL-3", 

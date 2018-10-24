@@ -61,19 +61,11 @@ class Employee(models.Model):
     ##### --- SECTION END --- ####
 
 
-class Department(models.Model):
-    _inherit = ['hr.department']
-
-    _rec_name = 'name'
-    # We like to se department hierarchy in name_gets
-    
-
-
 class EmployeeCategory(models.Model):
 
     _inherit = ['hr.employee.category']
 
     icon = fields.Binary(
         "Photo", attachment=True,
-        help="This field holds the image used as photo for the employee, limited to 1024x1024px.")
+        help="This field holds an icon to be used as a badge on reports.")
     # Added for flavouring reports or employee badges

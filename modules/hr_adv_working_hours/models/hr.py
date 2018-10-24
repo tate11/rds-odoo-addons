@@ -11,8 +11,6 @@ import logging
     #
     #------------------------------------#
 
-
-
 class Employee(models.Model):
     
     _name = 'hr.employee'
@@ -35,8 +33,6 @@ class Employee(models.Model):
             else:
                 nw = emp.resource_calendar_id.get_next()
                 emp.write({'resource_calendar_id': nw.id, 'next_week_resource_calendar_id': nw.get_next().id})
-
-
 
 
 class ResourceCalendar(models.Model):
