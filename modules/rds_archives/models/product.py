@@ -143,7 +143,7 @@ class ProductProduct(models.Model):
                 logger.warning("Cliente {} non trovato. Salto.".format(row[0][2:].strip()))
                 continue
 
-            cinfo = self.env['res.partner'].search([('name', '=', cli[0].id), ('product_tmpl_id', '=', self.product_tmpl_id.id)])
+            cinfo = self.env['product.customerinfo'].search([('name', '=', cli[0].id), ('product_tmpl_id', '=', self.product_tmpl_id.id)])
             if cinfo:
                 cinfo[0].write({
                             'description': row[2].strip() + row[3].strip(),
