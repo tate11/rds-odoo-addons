@@ -24,8 +24,17 @@ class ProductTemplate(models.Model):
     variant_customers_ids = fields.One2many('product.customerinfo', 'product_tmpl_id')
 
     def _search_product_partner(self, operator, value):
-        ids = self.env['product.customerinfo'].search([('name', operator, value)]).mapped(lambda x: x.product_tmpl_id.id)
-        return [('id', 'in', ids)]
+        if value == False:
+            cinfo = self.env['product.customerinfo'].search([])
+            tmpl_ids = [x.product_tmpl_id.id for x in cinfo]
+            return [('product_tmpl_id', 'in', tmpl_ids)] if operator == "=" else [('product_tmpl_id', 'not in', tmpl_ids)]
+
+        positive_operators = ['=', 'ilike', '=ilike', 'like', '=like']
+        _op = 'in' if operator in positive_operators else 'not in'
+
+        cinfo = self.env['product.customerinfo'].search([('name', operator, value)])
+        tmpl_ids = [x.product_tmpl_id.id for x in cinfo]
+        return ['|', ('product_tmpl_id', _op, tmpl_ids)]
 
     partner_id = fields.Many2many('res.partner', "Customer", store=False, compute=lambda x: False, search=_search_product_partner)
 
@@ -36,9 +45,19 @@ class ProductProduct(models.Model):
 
     def _search_product_partner(self, operator, value):
         if value == False:
-            logging.warning("Alternativa")
-        ids = self.env['product.customerinfo'].search([('name', operator, value)]).mapped(lambda x: x.product_id.id)
-        return [('id', 'in', ids)]
+            cinfo = self.env['product.customerinfo'].search([])
+            tmpl_ids = [x.product_tmpl_id.id for x in cinfo]
+            prod_ids = [x.product_id.id for x in cinfo if x.product_id]
+            return [('product_tmpl_id', 'not in', tmpl_ids)] if operator == "=" else ['|', '&', ('product_tmpl_id', 'in', prod_ids), ('id', 'not in', prod_ids), ('id', 'in', prod_ids)]
+
+        positive_operators = ['=', 'ilike', '=ilike', 'like', '=like']
+        _op = 'in' if operator in positive_operators else 'not in'
+        _nop = 'not in' if operator in positive_operators else 'in'
+
+        cinfo = self.env['product.customerinfo'].search([('name', operator, value)])
+        tmpl_ids = [x.product_tmpl_id.id for x in cinfo]
+        prod_ids = [x.product_id.id for x in cinfo if x.product_id]
+        return ['|', '&', ('product_tmpl_id', _op, prod_ids), ('id', _nop, prod_ids), ('id', _op, prod_ids)]
 
     partner_id = fields.Many2many('res.partner', "Customer", store=False, compute=lambda x: False, search=_search_product_partner)
     
