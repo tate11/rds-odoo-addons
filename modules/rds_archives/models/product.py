@@ -49,7 +49,7 @@ class ProductProduct(models.Model):
 
         desc= t[0]
         if bool(t[1].strip()):
-            desc + " {}".format(t[1].strip())
+            desc += " {}".format(t[1].strip())
 
         vals = {
             'list_price': float(t[2]),
@@ -143,6 +143,15 @@ class ProductProduct(models.Model):
                 logger.warning("Cliente {} non trovato. Salto.".format(row[0][2:].strip()))
                 continue
 
+            cinfo = self.env['res.partner'].search([('name', '=', cli[0].id), ('product_tmpl_id', '=', self.product_tmpl_id.id)])
+            if cinfo:
+                cinfo[0].write({
+                            'description': row[2].strip() + row[3].strip(),
+                            'code': row[1].strip(),
+                            'notes': row[4].strip() + row[5].strip()
+                })
+                continue
+
             self.env['product.customerinfo'].create({
                                                         'product_tmpl_id': self.product_tmpl_id.id,
                                                         'name': cli[0].id,
@@ -173,6 +182,11 @@ class ProductProduct(models.Model):
 
             cli.property_product_pricelist = pl
 
+            plline = self.env['product.pricelist.item'].search([('product_tmpl_id', '=', self.product_tmpl_id.id), ('pricelist_id', '=', pl.ids[0]), ('product_id', '=', self.id)])
+            if plline:
+                plline.write({'fixed_price': float(row[1])})
+                continue
+
             self.env['product.pricelist.item'].create(
                 {
                     'product_tmpl_id': self.product_tmpl_id.id,
@@ -193,6 +207,20 @@ class ProductProduct(models.Model):
             logger.warning("Inizio articolo {}. Trovati dati in DIA.".format(i.default_code))
             i.write(vals)
             i.build_bom_from_dia()
+            logger.warning("Ricostruito in toto articolo {} e relativi sottoarticoli. Ricreo relazioni con clienti...".format(i.default_code))
+            i.build_customerinfo()
+            logger.warning("Ricreo listini articolo {}...".format(i.default_code))
+            i.build_pricelists()
+
+    @api.multi
+    def build_article_nobom(self):
+        for i in self:
+            vals = self.dia2vals(i.default_code)
+            if not vals:
+                logger.error("Articolo {} saltato perché non rintracciabile nel DB dia.".format(i.default_code))
+                continue
+            logger.warning("Inizio articolo {}. Trovati dati in DIA.".format(i.default_code))
+            i.write(vals)
             logger.warning("Ricostruito in toto articolo {} e relativi sottoarticoli. Ricreo relazioni con clienti...".format(i.default_code))
             i.build_customerinfo()
             logger.warning("Ricreo listini articolo {}...".format(i.default_code))
