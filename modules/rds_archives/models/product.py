@@ -47,13 +47,17 @@ class ProductProduct(models.Model):
         if not t:
             return False
 
+        desc= t[0]
+        if bool(t[1].strip()):
+            desc + " {}".format(t[1].strip())
+
         vals = {
             'list_price': float(t[2]),
             'standard_price': float(t[3]),
             'weight': float(t[4]) / 1000,
             'sale_ok': bool(t[7].strip()),
             'purchase_ok': bool(t[6].strip()),
-            'name': t[0].strip() + (bool(t[1].strip()) and " {}".format(t[1].strip() or "")),
+            'name': desc,
             'default_code': code,
             'uom_id': self.uom_translate(t[5]).id,
             'uom_po_id': self.uom_translate(t[5]).id,
