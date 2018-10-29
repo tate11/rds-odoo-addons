@@ -8,6 +8,9 @@ from odoo.service.server import Worker
 import subprocess
 
 import logging, traceback, time
+from datetime import timedelta
+
+_logger = logging.getLogger()
 
 # LIBRARIES
 import pymodbus.client.sync as pymcs
@@ -63,10 +66,22 @@ class ScadaValue(models.Model):
 
     error_log = fields.Text("Error Log")
 
+    def scada_cron_loop(self):
+        #action = self.env.ref("odoo_scada.cron_scada_read")
+        #action.nextcall = fields.Datetime.now() + timedelta(0.007)
+
+        now = time.time()
+        stop = now + 10
+        while now <= stop:
+            self.read_hook()
+            now = time.time()
+            time.sleep(0.05)
+            _logger.info("Reading SCADA values...")
+
     @api.model
     def read_hook(self):
         now = time.time()
-        self.search([('nextcall', '<=', now)]).scada_read(now)
+        self.search([('nextcall', '<=', now)]).scada_read(now)           
 
     def scada_read(self, now=time.time()):
         for i in self:
@@ -81,7 +96,7 @@ class ScadaValue(models.Model):
 
                 i.value = i.encode(value)
             except:
-                i.error_log = "{}\n{}".format(i.errorlog, traceback.format_exc())
+                i.error_log = "{}\n{}".format(i.error_log, traceback.format_exc())
                 continue
         
         self.checkdo_events()
