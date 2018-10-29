@@ -24,17 +24,17 @@ class ProductTemplate(models.Model):
     variant_customers_ids = fields.One2many('product.customerinfo', 'product_tmpl_id')
 
     def _search_product_partner(self, operator, value):
-        if value == False:
-            cinfo = self.env['product.customerinfo'].search([])
-            tmpl_ids = [x.product_tmpl_id.id for x in cinfo]
-            return [('product_tmpl_id', 'in', tmpl_ids)] if operator == "=" else [('product_tmpl_id', 'not in', tmpl_ids)]
-
         positive_operators = ['=', 'ilike', '=ilike', 'like', '=like']
         _op = 'in' if operator in positive_operators else 'not in'
 
+        if value == False:
+            cinfo = self.env['product.customerinfo'].search([])
+            tmpl_ids = [x.product_tmpl_id.id for x in cinfo]
+            return [('id', _op, tmpl_ids)]
+
         cinfo = self.env['product.customerinfo'].search([('name', operator, value)])
         tmpl_ids = [x.product_tmpl_id.id for x in cinfo]
-        return ['|', ('product_tmpl_id', _op, tmpl_ids)]
+        return ['|', ('id', _op, tmpl_ids)]
 
     partner_id = fields.Many2many('res.partner', "Customer", store=False, compute=lambda x: False, search=_search_product_partner)
 
@@ -45,19 +45,20 @@ class ProductProduct(models.Model):
 
     def _search_product_partner(self, operator, value):
         if value == False:
+            positive_operators = ['=', 'ilike', '=ilike', 'like', '=like']
+            _op = 'in' if operator in positive_operators else 'not in'
+            _nop = 'not in' if operator in positive_operators else 'in'
             cinfo = self.env['product.customerinfo'].search([])
-            tmpl_ids = [x.product_tmpl_id.id for x in cinfo]
+            tmpl_ids = [x.product_tmpl_id.id for x in cinfo if x.product_id == False]
             prod_ids = [x.product_id.id for x in cinfo if x.product_id]
-            return [('product_tmpl_id', 'not in', tmpl_ids)] if operator == "=" else ['|', '&', ('product_tmpl_id', 'in', prod_ids), ('id', 'not in', prod_ids), ('id', 'in', prod_ids)]
-
-        positive_operators = ['=', 'ilike', '=ilike', 'like', '=like']
-        _op = 'in' if operator in positive_operators else 'not in'
-        _nop = 'not in' if operator in positive_operators else 'in'
+            if operator in positive_operators:
+                return ['&', ('product_tmpl_id', 'not in', tmpl_ids), ('id', 'not in', prod_ids)]
+            return ['|', ('product_tmpl_id', 'in', tmpl_ids), ('id', 'in', prod_ids)]
 
         cinfo = self.env['product.customerinfo'].search([('name', operator, value)])
-        tmpl_ids = [x.product_tmpl_id.id for x in cinfo]
+        tmpl_ids = [x.product_tmpl_id.id for x in cinfo if x.product_id == False]
         prod_ids = [x.product_id.id for x in cinfo if x.product_id]
-        return ['|', '&', ('product_tmpl_id', _op, prod_ids), ('id', _nop, prod_ids), ('id', _op, prod_ids)]
+        return ['|', ('product_tmpl_id', 'in', tmpl_ids), ('id', 'in', prod_ids)]
 
     partner_id = fields.Many2many('res.partner', "Customer", store=False, compute=lambda x: False, search=_search_product_partner)
     
