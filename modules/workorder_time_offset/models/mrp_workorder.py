@@ -36,7 +36,6 @@ class MrpRoutingWorkcenter(models.Model):
 
 class ReportBomStructure(models.AbstractModel):
     _inherit = 'report.mrp.report_bom_structure'
-    _description = 'BOM Structure Report'
 
     def _get_operation_line(self, routing, qty, level):
         operations = super(ReportBomStructure, self)._get_operation_line(routing, qty, level)
