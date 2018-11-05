@@ -39,7 +39,7 @@
             <field name="priority" eval="0"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='oee_target']/.." position="after">
-                    <field name="kiosk_type"/>
+                    <field name="time_logging"/>
                 </xpath>	
             </field>
         </record>
