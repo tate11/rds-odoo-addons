@@ -15,7 +15,7 @@ class MrpWorkcenter(models.Model):
 class MrpWorkorder(models.Model):
     _inherit = 'mrp.workorder'
 
-    time_logging = fields.Selection([('standard', 'Interface-Detection'), ('manual', 'Manual')], string="Time Logging", related="workcenter_id.kiosk_type")
+    time_logging = fields.Selection([('standard', 'Interface-Detection'), ('manual', 'Manual')], string="Time Logging", related="workcenter_id.time_logging")
 
     def open_tablet_view(self):
         self.ensure_one()
