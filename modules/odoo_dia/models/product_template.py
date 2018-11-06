@@ -26,13 +26,13 @@ class ProductTemplate(models.Model):
     def get_transfer_data(self):
         ins = []
         upd = []
-
+        
         for product in self:
             lineTXT = ""
             code = product.dia_code or product.default_code
             if not code:
                 product.write({'dia_transfer_status': 'failed', 'dia_transfer_notes': _("Codice Articolo DIA non valido o non impostato!")})
-                return None
+                continue
 
             lineTXT += FTCL(code, 16)                           # Codice    1    16    S
             lineTXT += FTCL(product.name[:30], 30)              # Descrizione    17    30    N
@@ -45,6 +45,7 @@ class ProductTemplate(models.Model):
                 product.legacy_code_gruppo_merciologico = gruppo_merc
             lineTXT += FTCL(gruppo_merc, 2)             # Gruppo merc.  81    2    S    (può essere eventualmente inserito un valore di default)
             acquisto = "A"          # DEFAULT VALUE NOT SURE IF IT'S CORRECT
+
             for route in product.route_ids:
                 if route.name in ['Manufacture']:
                     acquisto = "P"
@@ -52,10 +53,10 @@ class ProductTemplate(models.Model):
                 elif route.name in ['Buy']:
                     acquisto = "A"
                     break
-            lineTXT += acquisto                         # Acquistato/Prodotto    83    1    S    (può essere eventualmente inserito un valore di default)
+            lineTXT += acquisto                       # Acquistato/Prodotto    83    1    S    (può essere eventualmente inserito un valore di default)
             lineTXT += "I"                              # deciso con consulente dia di mettere I di default Prod.interno/esterno    84    1    S    I/E (se prodotto) - (può essere eventualmente inserito un valore di default)
             lineTXT += "\n"
-
+  
             if product.dia_transfer_type == 'insert':
                 ins.append(lineTXT)
             else:

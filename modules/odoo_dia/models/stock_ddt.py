@@ -29,24 +29,25 @@ class StockPickingReason(models.Model):
     dia_code = fields.Char("Codice DIA", size=4)
 
 class DiaStockDDT(models.Model):
+    _name = 'stock.ddt'
     _inherit = ['stock.ddt', 'dia.transferable']
 
     @api.multi
     def transfer_to_dia(self):
-        outgoing = self.filtered(lambda x: x.ddt_type == 'outgoing')
+        outgoing = self.filtered(lambda x: x.picking_type_code == 'outgoing')
         if outgoing:
             if os.path.exists(WRITE_PICK_OUT_PATH):
-                self.filtered(lambda x: x.ddt_type == 'outgoing').write({'dia_transfer_notes': _('Trasferimento fallito: Il file ddt_vendite.txt non è ancora stato processato da DIA!'), 'dia_transfer_status': 'failed'})
+                self.filtered(lambda x: x.picking_type_code == 'outgoing').write({'dia_transfer_notes': _('Trasferimento fallito: Il file ddt_vendite.txt non è ancora stato processato da DIA!'), 'dia_transfer_status': 'failed'})
             else:
                 with open(WRITE_PICK_OUT_PATH, 'wb') as f:
                     for line in outgoing.get_transfer_to_dia_out():
                         f.write(bytearray(line, encoding='utf-8'))
 
         
-        incoming = self.filtered(lambda x: x.ddt_type == 'incoming')
+        incoming = self.filtered(lambda x: x.picking_type_code == 'incoming')
         if incoming:
             if os.path.exists(WRITE_PICK_IN_PATH):
-                self.filtered(lambda x: x.ddt_type == 'incoming').write({'dia_transfer_notes': _('Trasferimento fallito: Il file ddt_acquisti.txt non è ancora stato processato da DIA!'), 'dia_transfer_status': 'failed'})
+                self.filtered(lambda x: x.picking_type_code == 'incoming').write({'dia_transfer_notes': _('Trasferimento fallito: Il file ddt_acquisti.txt non è ancora stato processato da DIA!'), 'dia_transfer_status': 'failed'})
             else:
                 with open(WRITE_PICK_IN_PATH, 'wb') as f:
                     for line in incoming.get_transfer_to_dia_in():
@@ -69,7 +70,7 @@ class DiaStockDDT(models.Model):
             
             header = "B0000001"                 # Numero documento    1    8    S    Impostare sempre valore B0000001
             header += FTCL(vendor, 8)           # Codice fornitore    9    8    S
-            for line in pick.move_line_ids_without_package:
+            for line in pick.move_ids_without_package:
                 lineTXT = header
                 lineTXT += FTCL(line.product_id.dia_code or line.product_id.default_code, 16)       # Articolo    17    16    S
                 lineTXT += FTCL(line.product_qty, 12)                   # Quantita    33    12    S    usare punto come separatore decimali
@@ -110,17 +111,17 @@ class DiaStockDDT(models.Model):
             header += FTCL(pick.date.year, 4)       # Anno Bolla    1    4        in rosso i dati di testata (da ripetere su tutte le righe)
             header += FTCL(pick.name, 8)      # Num Bolla    6    8        in verde i dati di riga
             header += FTCL(pick.date.strftime("%Y%m%d"), 8)        # Data Bolla    15    8
-            header += FTCL(pick.partner_id.dia_ref_customer, 8)  # Cod.Cliente    24    8
+            header += FTCL(pick.partner_invoice_id and pick.partner_invoice_id.dia_ref_customer or pick.partner_id.dia_ref_customer, 8)  # Cod.Cliente    24    8
             header += FTCL(pick.picking_type_id.dia_code, 4)   # Causale    33    4
-            header += FTCL(pick.get_first_sale().payment_term_id.dia_code, 6)    # Pagamento    38    6        campo di testo
+            header += FTCL(pick.get_first_sale() and pick.get_first_sale().payment_term_id.dia_code or " ", 6)    # Pagamento    38    6        campo di testo
             header += FTCL("", 6)  # TODO: da definire Banca    45    6        mettere un campo nelle banche di odoo che dica quale e’ il nome della banca in dia
             header += "01"                          # Deposito Pr.    52    2        passo sempre 01
 
-            notes = str(pick.notes).replace("\n", "")
+            notes = str(pick.note).replace("\n", "")
             header += FTCL(notes[:60], 60)  # Note1    55    60        note_ddt
             header += FTCL(notes[60:], 60)  # Note2    116    60        note_ddt >60
             i = 0
-            for line in pick.move_lines:
+            for line in pick.move_ids_without_package:
                 i += 1
                 lineTXT = header
                 lineTXT += FTCL(i, 4)                               # Riga    177    4        progressivo di righa
@@ -142,11 +143,11 @@ class DiaStockDDT(models.Model):
                 lineTXT += FTCL(line.sale_line_id.order_id.origin, 60)    # note2    285    60        riferimento cliente da sale order    nove_line.sale_line_id.sale_id.origin
                 lineTXT += FTCL(line.sale_line_id.order_id.analytic_account_id.name, 12)  # Commessa    346    12        nove_line.sale_id.account_analytic.name
                 
-                lineTXT += FTCL(pick.reason_id.dia_deposit, 2) # Deposito Destinazione 2
+                lineTXT += FTCL(pick.picking_type_id.dia_deposit, 2) # Deposito Destinazione 2
                     
                 lineTXT += FTCL(getattr(line, 'data_decorrenza', ""), 8)             # Data decorrenza    345    8    N
                 
-                delivery_address = pick.delivery_address or pick.partner_id
+                delivery_address = pick.partner_id
 
                 lineTXT += FTCL(delivery_address.display_name, 30)    # Ragione sociale destinazione    353    30    N
                 lineTXT += FTCL("", 30)           # Ragione sociale 2 destinazione    383    30    N
@@ -172,9 +173,9 @@ class DiaStockDDT(models.Model):
         return out
 
     def action_done(self):
-        res = super(DiaStockPicking, self).action_done()
+        res = super(DiaStockDDT, self).action_done()
 
-        if self.reason_id.export_to_dia:
+        if self.picking_type_id.export_to_dia:
            self.dia_transfer_id = self.sudo().env['dia.transfer'].get_next()
            self.dia_transfer_status = 'draft'
 

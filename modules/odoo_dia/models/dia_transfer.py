@@ -70,7 +70,7 @@ class DiaTransfer(models.Model):
 
     ###### IMPLEMENTARE IN SEGUITO I MODELLI DA TRASFERIRE
 
-    #pickings_ids = fields.One2many('stock.picking', 'dia_transfer_id', string="Bolle & DDT", readonly=True)
+    ddt_ids = fields.One2many('stock.ddt', 'dia_transfer_id', string="Documenti di Trasporto", readonly=True)
     products_ids = fields.One2many('product.template', 'dia_transfer_id', string="Prodotti", readonly=True)
     partners_ids = fields.One2many('res.partner', 'dia_transfer_id', string="Clienti & Fornitori", readonly=True)
 
@@ -88,7 +88,7 @@ class DiaTransfer(models.Model):
         result = list()
         totransfer = ((force and ['draft', 'failed', 'success']) or (retry and ['draft', 'failed']) or ['draft'])
         
-        #result += self.pickings_ids.filtered(lambda x: x.dia_transfer_status in totransfer).transfer_to_dia()
+        result += self.ddt_ids.filtered(lambda x: x.dia_transfer_status in totransfer).transfer_to_dia()
         result += self.partners_ids.filtered(lambda x: x.dia_transfer_status in totransfer).transfer_to_dia()
         result += self.products_ids.filtered(lambda x: x.dia_transfer_status in totransfer).transfer_to_dia()
 

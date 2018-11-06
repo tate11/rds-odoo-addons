@@ -118,3 +118,10 @@ class TransferDocument(models.Model):
         logging.warning(lines_layouted)
         logging.warning(references)
         return lines_layouted
+
+    def get_first_sale(self):
+        self.ensure_one()
+        sales = self.move_ids_without_package.mapped(lambda x: x.sale_line_id)
+
+        if sales:
+            return sales[0].order_id

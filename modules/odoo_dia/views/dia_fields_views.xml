@@ -18,20 +18,19 @@
         </field> 
         </record>
 
-        <!-- DISABLED
-        <record id="dia_pickings_view_list" model="ir.ui.view"> 
-        <field name="name">dia.picking.list</field> 
-        <field name="model">stock.picking</field> 
+        <record id="dia_ddt_view_list" model="ir.ui.view"> 
+        <field name="name">dia.ddt.list</field>
+        <field name="priority" eval="5000"/>
+        <field name="model">stock.ddt</field> 
             <field name="arch" type="xml"> 
                 <tree editable="bottom">
                     <field name="name" readonly="1"/>
-                    <field name="reason_id" readonly="1"/>
-                    <field name="ddt_number" readonly="1"/>
+                    <field name="picking_type_id" readonly="1"/>
+                    <field name="partner_id" readonly="1"/>
                     <field name="dia_transfer_status" readonly="1" />
                 </tree> 
             </field> 
         </record>
-        -->
 
         <record id="dia_products_view_list" model="ir.ui.view"> 
         <field name="name">dia.product.list</field>
@@ -71,6 +70,23 @@
         </field> 
         </record>
 
+
+        <record id="dia_stock_picking_type_view_list" model="ir.ui.view"> 
+        <field name="name">dia.picking.type.list</field> 
+        <field name="model">stock.picking.type</field>
+        <field name="priority" eval="5000"/>
+        <field name="arch" type="xml"> 
+            <tree editable="bottom">
+                <field name="id" readonly="1"/>
+                <field name="name" readonly="1"/>
+                <field name="export_to_dia"/>
+                <field name="dia_code" />
+                <field name="dia_deposit" />
+                <field name="code" />
+            </tree> 
+        </field> 
+        </record>
+
         <!-- Menuitems -->
 
         <menuitem
@@ -95,22 +111,19 @@
         action="dia_fields_partners"
         sequence="0"/>
 
-        
-        <!-- Bolle DISABLED
-
         <act_window 
-        id="dia_fields_pickings" 
+        id="dia_fields_ddt" 
         name="Dia Partners" 
-        res_model="stock.picking"
-        view_id="dia_pickings_view_list"
+        res_model="stock.ddt"
+        view_id="dia_ddt_view_list"
         />
 
         <menuitem
-        id="menu_dia_fields_pickings"
-        name="DDT e Bolle"
+        id="menu_dia_fields_ddt"
+        name="Documenti di Trasporto"
         parent="menu_dia_fields"
-        action="dia_fields_pickings"
-        sequence="0"/>-->
+        action="dia_fields_ddt"
+        sequence="0"/>
 
         <!-- Prodotti -->
 
@@ -159,5 +172,22 @@
         parent="menu_dia_fields"
         action="dia_fields_paymentst"
         sequence="0"/>
+
+        <!-- Picking Types -->
+
+        <act_window 
+        id="dia_fields_pickingtype" 
+        name="Causali di Trasferimento" 
+        res_model="stock.picking.type"
+        view_id="dia_stock_picking_type_view_list"
+        />
+
+        <menuitem
+        id="menu_dia_fields_pickingtype"
+        name="Causali di Trasferimento"
+        parent="menu_dia_fields"
+        action="dia_fields_pickingtype"
+        sequence="0"/>
+
     </data>
 </odoo>
