@@ -13,7 +13,7 @@
     'category': 'hr', 
     'version': '12.0', 
     'depends': [
-                'product'
+                'product', 'sale'
                ], 
     'data': [
     ],

@@ -1,1 +1,1 @@
-from . import product, res_partner
+from . import product, res_partner, sale_order
