@@ -157,7 +157,7 @@ COPY (
                             <p><font style="color: rgb(66, 66, 66);"><b>L'ordine è stato importato da ODOO v11.</b></font></p>
                             <p></p>
                             <p>
-                                <a href="https://odoo.rdsmoulding.com/web#id={}&amp;view_type=form&amp;model=sale.order&amp;action=374&amp;menu_id=255" class="btn btn-default" target="_blank" data-original-title="" title="" aria-describedby="tooltip650682"><b><font class="text-alpha" style="">Visualizza ordine originale</font></b></a>
+                                <a href="https://odoo-old.rdsmoulding.com/web#id={}&amp;view_type=form&amp;model=sale.order&amp;action=374&amp;menu_id=255" class="btn btn-default" target="_blank" data-original-title="" title="" aria-describedby="tooltip650682"><b><font class="text-alpha" style="">Visualizza ordine originale</font></b></a>
                                 <br>
                                 </p><p>
                             </p>
