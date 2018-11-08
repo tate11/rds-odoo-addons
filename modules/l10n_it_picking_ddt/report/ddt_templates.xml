@@ -33,15 +33,15 @@
             </h2>
 
             <div class="row col mt32 mb32" id="informations">
-                <div t-if="doc.date" class="mr32">
+                <div t-if="doc.date" style="width: 30%" class="mr32">
                     <strong>Shipping Date:</strong>
                     <p t-field="doc.date"/>
                 </div>
-                <div t-if="doc.incoterm" class="mr32">
+                <div t-if="doc.incoterm" style="width: 30%" class="mr32">
                     <strong>Reason for Transfer:</strong>
                     <p t-field="doc.picking_type_id.name"/>
                 </div>
-                <div t-if="doc.incoterm" class="mr32">
+                <div t-if="doc.incoterm" style="width: 30%" class="mr32">
                     <strong>Incoterm:</strong>
                     <p t-field="doc.incoterm"/>
                 </div>
@@ -76,25 +76,25 @@
                 </tbody>
             </table>
 
-            <div style="background-color:rgba(100,100,100,0.2);margin-top:40px;margin-bottom:40px;padding:1em;">
+            <div style="background-color:rgba(100,100,100,0.10);margin-top:40px;margin-bottom:40px;padding:1em;">
                 <strong><p>Notes</p></strong>
                 <p t-field="doc.note"/>
             </div>
 
             <div class="row col mt32 mb32" id="informations">
-                <div t-if="doc.goods_description_id" class="mr32">
+                <div t-if="doc.goods_description_id" style="width: 20%" class="mt32 mr32 mb32">
                     <strong>Goods Description:</strong>
                     <p t-field="doc.goods_description_id"/>
                 </div>
-                <div t-if="doc.number_of_packages" class="mr32">
+                <div t-if="doc.number_of_packages" style="width: 20%" class="mt32 mr32 mb32">
                     <strong>Number of Packages:</strong>
                     <p t-field="doc.number_of_packages"/>
                 </div>
-                <div t-if="doc.shipping_weight" class="mr32">
+                <div t-if="doc.shipping_weight" style="width: 20%" class="mt32 mr32 mb32">
                     <strong>Weight of Shipments (Kg):</strong>
                     <p t-field="doc.shipping_weight"/>
                 </div>
-                <div class="mr32">
+                <div style="width: 20%" class="mt32 mr32 mb32">
                     <strong>Carrier Signature:</strong>
                 </div>
             </div>

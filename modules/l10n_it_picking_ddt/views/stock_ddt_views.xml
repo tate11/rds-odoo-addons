@@ -5,10 +5,37 @@
             <field name="model">stock.ddt</field>
             <field name="arch" type="xml">
                 <tree string="Package Preparations">
+                    <field name="picking_type_code"/>
                     <field name="name"/>
                     <field name="partner_id"/>
+                    <field name="picking_type_id"/>
                     <field name="state"/>
                 </tree>
+            </field>
+        </record>
+
+        <record id="view_stock_ddt_search" model="ir.ui.view">
+            <field name="name">stock.ddt.search</field>
+            <field name="model">stock.ddt</field>
+            <field name="arch" type="xml">
+                <search string="DDTs">
+                    <filter string="Outgoing DDTs" name="outgoing" domain="[('picking_type_code','=','outgoing')]"/>
+                    <filter string="Incoming DDTs" name="incoming" domain="[('picking_type_code','=','incoming')]"/>
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="date"/>
+                    <field name="picking_type_id"/>
+                    <field name="picking_type_code"/>
+                    <group expand="1" string="Group By">
+                        <field name="picking_type_code"/>
+                        <filter string="Type" name="type" context="{'group_by': 'picking_type_code'}"/>
+                        <filter string="Operation" name="op" context="{'group_by': 'picking_type_id'}"/>
+                        <separator/>
+                        <filter string="Partner" name="partner" context="{'group_by': 'partner_id'}"/>
+                        <separator/>
+                        <filter string="Date" name="date" context="{'group_by': 'date:week'}"/>
+                    </group>
+                </search>
             </field>
         </record>
 
@@ -27,7 +54,8 @@
                         <div class="oe_right oe_button_box">
                         </div>
                         <h1>
-                            <field name="name" class="oe_inline" attrs="{'invisible': [('name','=','/')]}" readonly="1"/>
+                            <field name="name" class="oe_inline" placeholder="DDT Reference..." attrs="{'invisible': ['&amp;', ('name', '=', False), ('picking_type_code', '!=', 'incoming')], 'readonly': [('picking_type_code', '!=', 'incoming')], 'required': [('picking_type_code', '=', 'incoming')]}"/>
+                            <span attrs="{'invisible': ['|', ('name', '!=', False), ('picking_type_code', '=', 'incoming')]}">New</span>
                         </h1>
                         <group>
                             <group>
@@ -38,6 +66,7 @@
                                 <field name="date"/>
                                 <field name="picking_type_id" domain="[('code', 'in', ['outgoing', 'incoming'])]"/>
                                 <field name="picking_type_code" invisible="1"/>
+                                <field name="auto_complete" options="{'no_create': True}" domain="[('billing_status', '=', 'todo'), ('id', 'not in', picking_ids)]"/>
                             </group>
                             <group>
                                 <field name="shipping_weight" attrs="{'required': [('picking_type_code','=','outgoing')]}"/>

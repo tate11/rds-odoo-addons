@@ -8,16 +8,16 @@ class StockPickingGoodsDescription(models.Model):
     name = fields.Char('Description of Goods', required=True, readonly=False)
     note = fields.Text('Notes')
 
-class TransferDocument(models.Model):
+class TransportDocument(models.Model):
     _name = 'stock.ddt'
-    _description = 'Transfer Document'
+    _description = 'Transport Document'
 
     _inherit = ['mail.thread']
 
     partner_id = fields.Many2one('res.partner', "Partner", readonly=True, required=True, states={'draft': [('readonly', False)]})
     partner_invoice_id = fields.Many2one('res.partner', "Invoice Address", readonly=True, states={'draft': [('readonly', False)]})
 
-    name = fields.Char(string="DDT No.", copy=False, default=_("New"))
+    name = fields.Char(string="DDT No.", copy=False)
     state = fields.Selection(selection=[('draft', 'Draft'), ('waiting', 'Waiting'), ('done', 'Done'), ('cancel', 'Cancelled')], string="State", required=True, default='draft')  
 
     date = fields.Date("Document Date", default=fields.Date.today(), readonly=True, states={'draft': [('readonly', False)], 'waiting': [('readonly', False)]})
@@ -31,7 +31,7 @@ class TransferDocument(models.Model):
         ('incoming', 'Vendors'),
         ('outgoing', 'Customers'),
         ('internal', 'Internal')], related='picking_type_id.code',
-        readonly=True)
+        readonly=True, store=True, index=True)
 
     transport_partner_id = fields.Many2one('res.partner', "Carrier Address", readonly=True, related="carrier_id.transport_partner_id")
     carrier_id = fields.Many2one("delivery.carrier", string="Carrier", readonly=True, states={'draft': [('readonly', False)], 'waiting': [('readonly', False)]})
@@ -68,12 +68,31 @@ class TransferDocument(models.Model):
 
     note = fields.Text(string="Notes", copy=False,  readonly=True, states={'draft': [('readonly', False)], 'waiting': [('readonly', False)]})
 
+    #Auto Bill
+    auto_complete = fields.Many2one(
+        'stock.picking',
+        'Auto Bill'
+    )
+
+    @api.onchange('auto_complete')
+    def onchange_auto_bill(self):
+        if self.auto_complete:
+            self.update({
+                'picking_ids': (self.picking_ids + self.auto_complete).ids,
+                'picking_type_id': self.auto_complete.picking_type_id.id,
+                'carrier_id': self.auto_complete.carrier_id.id,
+                'partner_id': self.auto_complete.partner_id.id,
+                'partner_invoice_id': (self.auto_complete.sale_id and self.auto_complete.sale_id.partner_invoice_id.id) or False,
+                'auto_complete': False
+            })
+
+
     @api.model
     def create(self, vals):
-        if vals.get('name', _('New')) == _('New'):
+        if not vals.get('name', False):
             vals['name'] = self.env['stock.picking.type'].browse(vals.get('picking_type_id')).sequence_ddt_id.next_by_id()
         
-        return super(TransferDocument, self).create(vals)
+        return super(TransportDocument, self).create(vals)
 
     @api.multi
     def unlink(self):
@@ -81,7 +100,7 @@ class TransferDocument(models.Model):
             if i.state == 'done':
                 raise UserError(_("You cannot delete a confirmed DDT."))
 
-        return super(TransferDocument, self).unlink()
+        return super(TransportDocument, self).unlink()
 
     @api.multi
     def action_print(self):
