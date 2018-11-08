@@ -56,7 +56,7 @@ class ResPartner(models.Model):
                 LEFT JOIN XLDB01.PAGAMENTI p ON p.PAGAMENTO = d.PAGAMENTO
                 WHERE d.CONTO LIKE '1 {}%'
                 """.format(str(code))).fetchone()
-            pcode = 'property_supplier_term_id'
+            pcode = 'property_supplier_payment_term_id'
 
         if not t:
             return False
@@ -85,6 +85,8 @@ class ResPartner(models.Model):
                 if vals:
                     for key in f_vals.keys():
                         vals[key] = f_vals[key]
+                else:
+                    vals = f_vals
 
             if not vals:
                 logger.error("Cliente ({}) {} saltato perché non rintracciabile nel DB dia.".format(i.id, i.name))
