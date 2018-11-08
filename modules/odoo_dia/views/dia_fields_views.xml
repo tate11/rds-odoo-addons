@@ -7,7 +7,7 @@
         <field name="model">res.partner</field>
         <field name="priority" eval="5000"/>
         <field name="arch" type="xml"> 
-            <tree editable="bottom">
+            <tree create="false" editable="bottom">
                 <field name="id" readonly="1"/>
                 <field name="name" readonly="1"/>
                 <field name="vat"/>
@@ -21,13 +21,13 @@
         <record id="dia_ddt_view_list" model="ir.ui.view"> 
         <field name="name">dia.ddt.list</field>
         <field name="priority" eval="5000"/>
-        <field name="model">stock.ddt</field> 
+        <field name="model">stock.ddt</field>
             <field name="arch" type="xml"> 
-                <tree editable="bottom">
+                <tree create="false" editable="bottom">
                     <field name="name" readonly="1"/>
                     <field name="picking_type_id" readonly="1"/>
                     <field name="partner_id" readonly="1"/>
-                    <field name="dia_transfer_status" readonly="1" />
+                    <field name="dia_transfer_status" />
                 </tree> 
             </field> 
         </record>
@@ -37,11 +37,11 @@
         <field name="model">product.template</field>
         <field name="priority" eval="5000"/> 
         <field name="arch" type="xml"> 
-            <tree editable="bottom">
+            <tree create="false" editable="bottom">
                 <field name="name" readonly="1"/>
                 <field name="default_code" readonly="1"/>
-                <field name="dia_code" readonly="1"/>
-                <field name="dia_transfer_status" readonly="1" />
+                <field name="dia_code"/>
+                <field name="dia_transfer_status" />
             </tree> 
         </field> 
         </record>
@@ -51,9 +51,9 @@
         <field name="model">account.tax</field>
         <field name="priority" eval="5000"/>
         <field name="arch" type="xml">
-            <tree editable="bottom">
+            <tree create="false" editable="bottom">
                 <field name="name" readonly="1"/>
-                <field name="dia_code" readonly="1"/>
+                <field name="dia_code"/>
             </tree>
         </field>
         </record>
@@ -63,9 +63,9 @@
         <field name="model">account.payment.term</field>
         <field name="priority" eval="5000"/>
         <field name="arch" type="xml">
-            <tree editable="bottom">
+            <tree create="false" editable="bottom">
                 <field name="name" readonly="1"/>
-                <field name="dia_code" readonly="1"/>
+                <field name="dia_code"/>
             </tree>
         </field> 
         </record>
@@ -76,7 +76,7 @@
         <field name="model">stock.picking.type</field>
         <field name="priority" eval="5000"/>
         <field name="arch" type="xml"> 
-            <tree editable="bottom">
+            <tree create="false" editable="bottom">
                 <field name="id" readonly="1"/>
                 <field name="name" readonly="1"/>
                 <field name="export_to_dia"/>
