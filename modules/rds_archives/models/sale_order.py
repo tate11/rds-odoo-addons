@@ -27,7 +27,7 @@ class SaleOrder(models.Model):
         PRODUCT = self.env['product.product']
 
         """
-        -- CSV Generation Query
+-- CSV Generation Query
 COPY (
     SELECT 
         o.id order_id, o.name order_name, o.client_order_ref, -- 0, 1, 2

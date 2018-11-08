@@ -7,6 +7,7 @@ from odoo import fields
 from odoo import models
 from odoo import _
 from odoo.exceptions import UserError
+import csv
 
 logger = logging.getLogger()
 
@@ -225,3 +226,34 @@ class ProductProduct(models.Model):
             i.build_customerinfo()
             logger.warning("Ricreo listini articolo {}...".format(i.default_code))
             i.build_pricelists()
+
+    @api.model
+    def load_costs_from_csv(self):
+        with open("/tmp/clav.csv") as file:
+            raw_data = list(csv.reader(file))
+
+        PARTNER = self.env['res.partner']
+        PROD = self
+
+        SINF = self.env['product.supplierinfo']
+
+        logger.warning(raw_data)
+        for i in raw_data:
+            supplier = PARTNER.search([("dia_ref_vendor", '=', str(i[0]))])
+            if not supplier:
+                continue
+
+            prd = PROD.search([("default_code", '=', str(i[1]))])
+            if not prd:
+                continue
+            try:
+                SINF.create({
+                    'product_tmpl_id': prd.product_tmpl_id.id,
+                    'name': supplier.id,
+                    'delay': 1,
+                    'min_qty': 0,
+                    'product_code': "CL/{}-{}".format(prd.default_code,i[2]),
+                    'price': float(i[3].replace(',','.'))
+                })
+            except ValueError:
+                continue
