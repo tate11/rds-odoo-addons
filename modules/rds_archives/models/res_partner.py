@@ -26,7 +26,7 @@ class PaymentTerm(models.Model):
         res = self.search([('dia_code', '=', code.strip())])
         if not res:
             res = self.create({'name': desc, 'dia_code': code.strip()})
-        return res
+        return res and res.id or False
 
 class ResPartner(models.Model):
 
@@ -65,7 +65,7 @@ class ResPartner(models.Model):
         vals = {
             'vat': t[1].strip(),
             'fiscalcode': (t[5] and t[5].strip()) or (t[4] and t[4].strip()) or "",
-            pcode: self.env['account.payment.term'].get_or_make(t[2], t[3]).id
+            pcode: self.env['account.payment.term'].get_or_make(t[2], t[3])
         }
 
         return vals
