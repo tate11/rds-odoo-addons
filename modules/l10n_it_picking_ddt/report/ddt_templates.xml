@@ -3,6 +3,7 @@
 <template id="report_ddt_document">
     <t t-call="web.external_layout">
         <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})" />
+        <t t-set="doc" t-value="doc.with_context({'partner_id': doc.partner_invoice_id.id or doc.partner_id.id})" />
 
         <div class="page">
             <div class="oe_structure"/>
@@ -61,13 +62,13 @@
                                     <td colspan="3"><span t-if="not ref[0]">Other</span>
                                                     <span t-if="ref[0]"><strong>Our ref:  </strong><span t-esc="ref[0].name"/> - </span>
                                                     <span t-if="ref[0] and ref[0].client_order_ref"><strong>Your ref:  </strong><span t-esc="ref[0].client_order_ref"/> - </span>
-                                                    <span t-if="ref[0]"><span t-esc="ref[0].date_order" /></span>
+                                                    <span t-if="ref[0]"><span t-field="ref[0].date_order" t-options="{'widget': 'date'}" /></span>
                                                     </td>
                                 </tr>
                                 <t t-foreach="ref[1]" t-as="line">
                                     <tr>
                                         <td/>
-                                        <td><span t-field="line.product_id"/></td>
+                                        <td><span t-esc="line.product_id._customer_name_get()"/></td>
                                         <td class="text-right">
                                             <span t-field="line.product_uom_qty"/>
                                             <span t-field="line.product_uom" groups="uom.group_uom"/>
@@ -80,7 +81,7 @@
                     <t t-else="">
                         <t t-foreach="doc.move_ids_without_package" t-as="line">
                             <tr>
-                                <td><span t-field="line.product_id"/></td>
+                                <td><span t-esc="line.product_id._customer_name_get()"/></td>
                                 <td class="text-right">
                                     <span t-field="line.product_uom_qty"/>
                                     <span t-field="line.product_uom" groups="uom.group_uom"/>

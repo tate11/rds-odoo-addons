@@ -132,7 +132,7 @@ class TransportDocument(models.Model):
         self.ensure_one()
         references = self.env['sale.order']
         for i in self.move_ids_without_package:
-            if i.sale_line_id:
+            if i.sale_line_id and (i.sale_line_id.order_id not in references):
                 references += (i.sale_line_id.order_id)
 
         lines_layouted = list()
