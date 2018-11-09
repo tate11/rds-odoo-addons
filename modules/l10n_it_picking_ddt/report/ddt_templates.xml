@@ -56,22 +56,35 @@
                     </tr>
                 </thead>
                 <tbody class="sale_tbody">
-                    <t t-foreach="doc.get_lines_layouted()" t-as="ref">
-                        <t t-if="ref[1]">
-                            <tr>
-                                <td colspan="3"><strong t-if="ref[0]">Your reference:  </strong><span t-esc="ref[0] or 'Other'"/></td>
-                            </tr>
-                            <t t-foreach="ref[1]" t-as="line">
+                    <t t-if="doc.do_layouted()">
+                        <t t-foreach="doc.get_lines_layouted()" t-as="ref">
+                            <t t-if="ref[1]">
                                 <tr>
-                                    <td/>
-                                    <td><span t-field="line.product_id"/></td>
-                                    <td class="text-right">
-                                        <span t-field="line.product_uom_qty"/>
-                                        <span t-field="line.product_uom" groups="uom.group_uom"/>
-                                    </td>
+                                    <td colspan="3"><strong t-if="ref[0]">Your reference:  </strong><span t-esc="ref[0] or 'Other'"/></td>
                                 </tr>
+                                <t t-foreach="ref[1]" t-as="line">
+                                    <tr>
+                                        <td/>
+                                        <td><span t-field="line.product_id"/></td>
+                                        <td class="text-right">
+                                            <span t-field="line.product_uom_qty"/>
+                                            <span t-field="line.product_uom" groups="uom.group_uom"/>
+                                        </td>
+                                    </tr>
+                                </t>
                             </t>
                         </t>
+                    </t>
+                    <t t-else="">
+                        <t t-foreach="doc.move_ids_without_package" t-as="line">
+                            <tr>
+                                <td colspan="2"><span t-field="line.product_id"/></td>
+                                <td class="text-right">
+                                    <span t-field="line.product_uom_qty"/>
+                                    <span t-field="line.product_uom" groups="uom.group_uom"/>
+                                </td>
+                            </tr>
+                        </t>                    
                     </t>
                 </tbody>
             </table>
