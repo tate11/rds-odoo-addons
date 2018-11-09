@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e-20181015\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-08 17:39+0000\n"
-"PO-Revision-Date: 2018-11-08 18:42+0100\n"
+"POT-Creation-Date: 2018-11-09 09:50+0000\n"
+"PO-Revision-Date: 2018-11-09 10:52+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,12 @@ msgstr "<span attrs=\"{'invisible': ['|', ('name', '!=', False), ('picking_type_
 #. module: l10n_it_picking_ddt
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
 msgid "<span>Transfer Document # </span>"
-msgstr "<span>Documento di Trasporto # </span>"
+msgstr "<span>Documento di Trasferimento # </span>"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
+msgid "<strong>Addressee:</strong>"
+msgstr "<strong>Destinatario: </strong>"
 
 #. module: l10n_it_picking_ddt
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
@@ -50,7 +55,12 @@ msgstr "<strong>Aspetto Beni:</strong>"
 #. module: l10n_it_picking_ddt
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
 msgid "<strong>Incoterm:</strong>"
-msgstr "<strong>Incoterm:</strong>"
+msgstr "<strong> Incoterm: </strong>"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
+msgid "<strong>Invoicing address:</strong>"
+msgstr "<strong>Indirizzo di Fatturazione: </strong>"
 
 #. module: l10n_it_picking_ddt
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
@@ -169,7 +179,7 @@ msgstr ""
 #. module: l10n_it_picking_ddt
 #: model:ir.actions.report,name:l10n_it_picking_ddt.action_report_ddt
 msgid "DDT / Transfer Document"
-msgstr "DDT / Documento di Trasporto"
+msgstr "DDT / Documento di Trasferimento"
 
 #. module: l10n_it_picking_ddt
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__name
@@ -322,16 +332,6 @@ msgid "Invoice Address"
 msgstr "Indirizzo Fatturazione"
 
 #. module: l10n_it_picking_ddt
-#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
-msgid "Invoicing address:"
-msgstr "Indirizzo di fatturazione:"
-
-#. module: l10n_it_picking_ddt
-#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
-msgid "Invoicing and shipping address:"
-msgstr "Indirizzo di fatturazione e spedizione:"
-
-#. module: l10n_it_picking_ddt
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__message_is_follower
 msgid "Is Follower"
 msgstr "È Follower"
@@ -456,7 +456,7 @@ msgstr "Preparazioni dei Pacchi"
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__partner_id
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.view_stock_ddt_search
 msgid "Partner"
-msgstr "Partner"
+msgstr ""
 
 #. module: l10n_it_picking_ddt
 #: model:ir.model,name:l10n_it_picking_ddt.model_stock_picking_type
@@ -507,7 +507,7 @@ msgstr "Trasferisci"
 #: model:ir.actions.act_window,name:l10n_it_picking_ddt.action_stock_view_ddts
 #: model:ir.ui.menu,name:l10n_it_picking_ddt.menu_stock_ddts
 msgid "Transfer Documents"
-msgstr "Documenti di Trasporto"
+msgstr "Documenti di Trasferimento"
 
 #. module: l10n_it_picking_ddt
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__picking_ids
@@ -518,7 +518,7 @@ msgstr "Trasferimenti"
 #. module: l10n_it_picking_ddt
 #: model:ir.model,name:l10n_it_picking_ddt.model_stock_ddt
 msgid "Transport Document"
-msgstr "DDT / Documento di Trasporto"
+msgstr "Documento di Trasporto"
 
 #. module: l10n_it_picking_ddt
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.view_stock_ddt_search

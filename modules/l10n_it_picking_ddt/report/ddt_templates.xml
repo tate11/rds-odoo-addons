@@ -7,14 +7,17 @@
         <div class="page">
             <div class="oe_structure"/>
 
-            <div style="margin-top: 30px" class="row">
-                <div class="col-4">
-                    <strong t-if="(doc.partner_id == doc.partner_invoice_id) or not doc.partner_invoice_id">Invoicing and shipping address:</strong>
-                    <strong t-if="doc.partner_id != doc.partner_invoice_id">Invoicing address:</strong>
+           <div style="margin-top: 30px" class="row">
+                <div t-if="(doc.partner_id == doc.partner_invoice_id) or not doc.partner_invoice_id" class="col-4">
+                    <strong>Addressee:</strong>
+                    <div t-field="doc.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
+                </div>
+                <div t-if="(doc.partner_id != doc.partner_invoice_id) and doc.partner_invoice_id">
+                    <strong>Invoicing address:</strong>
                     <div t-field="doc.partner_invoice_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
                 </div>
                 <div class="col-4">
-                    <t t-if="doc.partner_id != doc.partner_invoice_id">
+                    <t t-if="(doc.partner_id != doc.partner_invoice_id) and doc.partner_invoice_id">
                         <strong>Shipping address:</strong>
                         <div t-field="doc.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
                     </t>
@@ -37,7 +40,7 @@
                     <strong>Shipping Date:</strong>
                     <p t-field="doc.date"/>
                 </div>
-                <div t-if="doc.incoterm" style="width: 30%" class="mr32">
+                <div t-if="doc.picking_type_id" style="width: 30%" class="mr32">
                     <strong>Reason for Transfer:</strong>
                     <p t-field="doc.picking_type_id.name"/>
                 </div>
@@ -48,10 +51,11 @@
             </div>
 
             <table class="table table-sm">
-                <col width="10%"/><col/><col/>
+                <col t-if="doc.do_layouted()" width="10%"/><col/><col/>
                 <thead>
                     <tr>
-                        <th colspan="2" class="text-left">Description</th>
+                        <th t-if="doc.do_layouted()" colspan="2" class="text-left">Description</th>
+                        <th t-else="" class="text-left">Description</th>
                         <th class="text-right">Quantity</th>
                     </tr>
                 </thead>
@@ -78,7 +82,7 @@
                     <t t-else="">
                         <t t-foreach="doc.move_ids_without_package" t-as="line">
                             <tr>
-                                <td colspan="2"><span t-field="line.product_id"/></td>
+                                <td><span t-field="line.product_id"/></td>
                                 <td class="text-right">
                                     <span t-field="line.product_uom_qty"/>
                                     <span t-field="line.product_uom" groups="uom.group_uom"/>
