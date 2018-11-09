@@ -14,7 +14,7 @@ class TransportDocument(models.Model):
 
     _inherit = ['mail.thread']
 
-    partner_id = fields.Many2one('res.partner', "Partner", readonly=True, required=True, states={'draft': [('readonly', False)]})
+    partner_id = fields.Many2one('res.partner', "Partner", required=True, states={'draft': [('readonly', False)]})
     partner_invoice_id = fields.Many2one('res.partner', "Invoice Address", readonly=True, states={'draft': [('readonly', False)]})
 
     name = fields.Char(string="DDT No.", copy=False)
