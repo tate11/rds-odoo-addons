@@ -130,8 +130,12 @@ class TransportDocument(models.Model):
 
     def get_lines_layouted(self):
         self.ensure_one()
-        references = self.move_ids_without_package.mapped(lambda x: (x.sale_line_id and x.sale_line_id.order_id.client_order_ref) or False)
+        references = []
+        for i in self.move_ids_without_package:
+            if i.sale_line_id:
+                references.append(i.sale_line_id.order_id.client_order_ref)
 
+        references = set(references)
         lines_layouted = list()
 
         for ref in references:
