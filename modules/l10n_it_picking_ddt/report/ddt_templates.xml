@@ -68,7 +68,7 @@
                                 <t t-foreach="ref[1]" t-as="line">
                                     <tr>
                                         <td/>
-                                        <td><span t-esc="line.product_id._customer_name_get()"/></td>
+                                        <td><span t-field="line.product_id"/></td>
                                         <td class="text-right">
                                             <span t-field="line.product_uom_qty"/>
                                             <span t-field="line.product_uom" groups="uom.group_uom"/>
@@ -81,7 +81,7 @@
                     <t t-else="">
                         <t t-foreach="doc.move_ids_without_package" t-as="line">
                             <tr>
-                                <td><span t-esc="line.product_id._customer_name_get()"/></td>
+                                <td><span t-field="line.product_id"/></td>
                                 <td class="text-right">
                                     <span t-field="line.product_uom_qty"/>
                                     <span t-field="line.product_uom" groups="uom.group_uom"/>
