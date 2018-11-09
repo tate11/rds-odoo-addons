@@ -7,25 +7,19 @@
         <div class="page">
             <div class="oe_structure"/>
 
-           <div style="margin-top: 30px" class="row">
-                <div t-if="(doc.partner_id == doc.partner_invoice_id) or not doc.partner_invoice_id" class="col-4">
+           <div class="mt32 row">
+                <div t-if="(doc.partner_id == doc.partner_invoice_id) or not doc.partner_invoice_id" class="col-6 mb32">
                     <strong>Addressee:</strong>
                     <div t-field="doc.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
                 </div>
-                <div t-if="(doc.partner_id != doc.partner_invoice_id) and doc.partner_invoice_id">
+                <div t-if="(doc.partner_id != doc.partner_invoice_id) and doc.partner_invoice_id" class="col-6 mb32">
                     <strong>Invoicing address:</strong>
                     <div t-field="doc.partner_invoice_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
                 </div>
-                <div class="col-4">
+                <div class="col-6 mb32">
                     <t t-if="(doc.partner_id != doc.partner_invoice_id) and doc.partner_invoice_id">
                         <strong>Shipping address:</strong>
                         <div t-field="doc.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
-                    </t>
-                </div>
-                <div class="col-4">
-                    <t t-if="doc.transport_partner_id">
-                        <strong>Carrier:</strong>
-                        <div t-field="doc.transport_partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
                     </t>
                 </div>
             </div>
@@ -64,7 +58,11 @@
                         <t t-foreach="doc.get_lines_layouted()" t-as="ref">
                             <t t-if="ref[1]">
                                 <tr>
-                                    <td colspan="3"><strong t-if="ref[0]">Your reference:  </strong><span t-esc="ref[0] or 'Other'"/></td>
+                                    <td colspan="3"><span t-if="not ref[0]">Other</span>
+                                                    <span t-if="ref[0]"><strong>Our ref:  </strong><span t-esc="ref[0].name"/> - </span>
+                                                    <span t-if="ref[0] and ref[0].client_order_ref"><strong>Your ref:  </strong><span t-esc="ref[0].client_order_ref"/> - </span>
+                                                    <span t-if="ref[0]"><span t-esc="ref[0].date_order" /></span>
+                                                    </td>
                                 </tr>
                                 <t t-foreach="ref[1]" t-as="line">
                                     <tr>
@@ -98,21 +96,34 @@
                 <p t-field="doc.note"/>
             </div>
 
-            <div class="row col mt32 mb32" id="informations">
-                <div t-if="doc.goods_description_id" style="width: 20%" class="mt32 mr32 mb32">
-                    <strong>Goods Description:</strong>
-                    <p t-field="doc.goods_description_id"/>
+            <hr/>
+
+           <div style="margin-top: 30px" class="mt32 row">
+                <div class="col-3">
+                    <div t-if="doc.goods_description_id">
+                        <strong>Goods Description:</strong>
+                        <p t-field="doc.goods_description_id"/>
+                    </div>
                 </div>
-                <div t-if="doc.number_of_packages" style="width: 20%" class="mt32 mr32 mb32">
-                    <strong>Number of Packages:</strong>
-                    <p t-field="doc.number_of_packages"/>
+                <div class="col-2">
+                    <div t-if="doc.number_of_packages">
+                        <strong>Number of Packages:</strong>
+                        <p t-field="doc.number_of_packages"/>
+                    </div>
                 </div>
-                <div t-if="doc.shipping_weight" style="width: 20%" class="mt32 mr32 mb32">
-                    <strong>Weight of Shipments (Kg):</strong>
-                    <p t-field="doc.shipping_weight"/>
+                <div class="col-2">
+                    <div t-if="doc.shipping_weight">
+                        <strong>Weight of Shipments (Kg):</strong>
+                        <p t-field="doc.shipping_weight"/>
+                    </div>
                 </div>
-                <div style="width: 20%" class="mt32 mr32 mb32">
-                    <strong>Carrier Signature:</strong>
+                <div class="col-5">
+                    <t t-if="doc.transport_partner_id">
+                        <strong>Carrier:</strong>
+                        <div t-field="doc.transport_partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
+                        <br/>
+                        <u><i style="colror:#f2f2f2">________Signature________</i></u>
+                    </t>
                 </div>
             </div>
 

@@ -34,7 +34,7 @@ class TransportDocument(models.Model):
         readonly=True, store=True, index=True)
 
     transport_partner_id = fields.Many2one('res.partner', "Carrier Address", readonly=True, related="carrier_id.transport_partner_id")
-    carrier_id = fields.Many2one("delivery.carrier", string="Carrier", readonly=True, states={'draft': [('readonly', False)], 'waiting': [('readonly', False)]})
+    carrier_id = fields.Many2one("delivery.carrier", string="Carrier", readonly=False, states={'draft': [('readonly', False)], 'waiting': [('readonly', False)]})
 
     goods_description_id = fields.Many2one('stock.picking.goods_description', 'Description of goods', readonly=True, states={'draft': [('readonly', False)], 'waiting': [('readonly', False)]})
 
@@ -130,17 +130,16 @@ class TransportDocument(models.Model):
 
     def get_lines_layouted(self):
         self.ensure_one()
-        references = []
+        references = self.env['sale.order']
         for i in self.move_ids_without_package:
             if i.sale_line_id:
-                references.append(i.sale_line_id.order_id.client_order_ref)
+                references += (i.sale_line_id.order_id)
 
-        references = set(references)
         lines_layouted = list()
 
         for ref in references:
             if type(ref) != bool:
-                lines_layouted.append((ref, self.move_ids_without_package.filtered(lambda x: x.sale_line_id and (x.sale_line_id.order_id.client_order_ref == ref))))
+                lines_layouted.append((ref, self.move_ids_without_package.filtered(lambda x: x.sale_line_id and (x.sale_line_id.order_id == ref))))
             else:
                 lines_layouted.append((False, self.move_ids_without_package.filtered(lambda x: (not x.sale_line_id) or (not x.sale_line_id.order_id.client_order_ref))))
         return lines_layouted
