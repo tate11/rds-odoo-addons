@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0+e-20181105\n"
+"Project-Id-Version: Odoo Server 12.0+e-20181015\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-09 11:25+0000\n"
-"PO-Revision-Date: 2018-11-09 12:27+0100\n"
+"POT-Creation-Date: 2018-11-09 11:35+0000\n"
+"PO-Revision-Date: 2018-11-09 12:36+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,10 +24,8 @@ msgstr "# di DDT"
 
 #. module: l10n_it_picking_ddt
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
-msgid ""
-"<br/>\n"
-"                        <u><i style=\"colror:#f2f2f2\">________Signature________</i></u>"
-msgstr "<br/> <u> < i style = \"color: #f2f2f2\" > ________Signature________ </i> </u>"
+msgid "                            <span style=\"color:#f2f2f2\">________Signature________</span>"
+msgstr "                            <span style=\"color:#f2f2f2\">________Firma________</span>"
 
 #. module: l10n_it_picking_ddt
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.stock_view_ddts_form
@@ -206,7 +204,7 @@ msgstr "Numero DDT"
 #. module: l10n_it_picking_ddt
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.stock_view_ddts_form
 msgid "DDT Reference..."
-msgstr "Riferimento DDT..."
+msgstr "Riferimento DDT"
 
 #. module: l10n_it_picking_ddt
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking_type__sequence_ddt_id
@@ -311,12 +309,12 @@ msgstr ""
 #. module: l10n_it_picking_ddt
 #: model:ir.model.fields,help:l10n_it_picking_ddt.field_stock_ddt__message_unread
 msgid "If checked new messages require your attention."
-msgstr "Se selezionato, nuovi messaggi richiedono la tua attenzione."
+msgstr "Se selezionato, nuovi messaggi richiedono la tua attenzione"
 
 #. module: l10n_it_picking_ddt
 #: model:ir.model.fields,help:l10n_it_picking_ddt.field_stock_ddt__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "Se selezionato, nuovi messaggi richiedono la tua attenzione."
+msgstr "Se selezionato, nuovi messaggi richiedono la tua attenzione"
 
 #. module: l10n_it_picking_ddt
 #: model:ir.model.fields,help:l10n_it_picking_ddt.field_stock_ddt__message_has_error
@@ -336,7 +334,7 @@ msgstr ""
 #. module: l10n_it_picking_ddt
 #: model:ir.model.fields,help:l10n_it_picking_ddt.field_stock_ddt__incoterm
 msgid "International Commercial Terms are a series of predefined commercial terms used in international transactions."
-msgstr "I termini commerciali internazionali sono una serie di termini commerciali predefiniti usati nelle transazioni internazionali."
+msgstr "I termini commerciali internazionali sono una serie di termini commerciali predefiniti usati nelle transazioni internazionali"
 
 #. module: l10n_it_picking_ddt
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__partner_invoice_id

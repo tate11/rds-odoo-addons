@@ -122,7 +122,9 @@
                         <strong>Carrier:</strong>
                         <div t-field="doc.transport_partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
                         <br/>
-                        <u><i style="colror:#f2f2f2">________Signature________</i></u>
+                        <u><i>
+                            <span style="color:#f2f2f2">________Signature________</span>
+                        </i></u>
                     </t>
                 </div>
             </div>
