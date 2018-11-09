@@ -33,6 +33,15 @@ class DiaTransferable(models.AbstractModel):
     
     dia_transfer_id = fields.Many2one('dia.transfer', 'Trasferimento', copy=False)
 
+    def action_transfer(self):
+        self.dia_transfer_id = self.sudo().env['dia.transfer'].get_next()
+        self.dia_transfer_status = 'draft'
+
+    def action_notransfer(self):
+        self.dia_transfer_id = False
+        self.dia_transfer_status = 'none'
+
+
 class DiaTransfer(models.Model):
     _name = 'dia.transfer'
     _description = 'Gruppi di Trasferimento a DIA'
