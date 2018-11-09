@@ -124,7 +124,7 @@ class TransportDocument(models.Model):
 
     def do_layouted(self):
         self.ensure_one()
-        if self.move_ids_without_package.filtered(lambda x: x.sale_line_id and bool(self.sale_line_id.order_id.client_order_ref)):
+        if self.move_ids_without_package.filtered(lambda x: x.sale_line_id and bool(x.sale_line_id.order_id.client_order_ref)):
           return True
         return False  
 
