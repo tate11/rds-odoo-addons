@@ -72,7 +72,7 @@ class ProductTemplate(models.Model):
 
         if p_ins:
             if os.path.exists(PRODUCT_FILE):
-                self.filtered(lambda x: x.customer and (x.dia_transfer_type == 'insert')).write({'dia_transfer_notes': _('Trasferimento fallito: Il file prodotti.txt non è ancora stato processato da DIA!'), 'dia_transfer_status': 'failed'})
+                self.filtered(lambda x: (x.dia_transfer_type == 'insert')).write({'dia_transfer_notes': _('Trasferimento fallito: Il file prodotti.txt non è ancora stato processato da DIA!'), 'dia_transfer_status': 'failed'})
             else:
                 with open(PRODUCT_FILE, 'wb') as f:
                     for lineTXT in p_ins:
@@ -80,7 +80,7 @@ class ProductTemplate(models.Model):
 
         if p_upd:
             if os.path.exists(UPDATE_PRODUCT_FILE):
-                self.filtered(lambda x: x.customer and (x.dia_transfer_type == 'insert')).write({'dia_transfer_notes': _('Trasferimento fallito: Il file u_prodotti.txt non è ancora stato processato da DIA!'), 'dia_transfer_status': 'failed'})
+                self.filtered(lambda x: (x.dia_transfer_type == 'update')).write({'dia_transfer_notes': _('Trasferimento fallito: Il file u_prodotti.txt non è ancora stato processato da DIA!'), 'dia_transfer_status': 'failed'})
             else:
                 with open(UPDATE_PRODUCT_FILE, 'wb') as f:
                     for lineTXT in p_upd:
