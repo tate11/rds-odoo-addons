@@ -93,7 +93,7 @@ class DiaStockDDT(models.Model):
         out = []
         for pick in self:
             to_write = []
-            if not pick.partner_id.dia_ref_customer:
+            if (pick.partner_invoice_id and (not pick.partner_invoice_id.dia_ref_customer)) or ((not pick.partner_invoice_id) and n(ot pick.partner_id.dia_ref_customer)):
                 pick.write({'dia_transfer_status': 'failed', 'dia_transfer_notes': _("Partner non presente su DIA!")})
                 continue
 
