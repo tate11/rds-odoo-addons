@@ -7,7 +7,7 @@ from odoo import fields
 from odoo import models
 from odoo import _
 from odoo.exceptions import UserError
-import csv
+import csv, datetime
 
 logger = logging.getLogger()
 
@@ -257,3 +257,56 @@ class ProductProduct(models.Model):
                 })
             except ValueError:
                 continue
+
+class StockMove(models.Model):
+    _inherit = 'stock.inventory'
+
+    @api.model
+    def load_from_csv(self):
+        LOCATION = self.env['stock.location']
+        PRODUCT = self.env['product.product']
+        INVLINE = self.env['stock.inventory.line']
+
+        with open("/tmp/giacenze.csv") as file:
+            raw_data = list(csv.reader(file))[1:]
+
+        failed = list()
+
+        for i in raw_data:
+            if (not i[0]) or (not i[1]) or (float(i[2])==0):
+                continue
+
+            if float(i[2]) < 0:
+                failed.append([*i, 'N'])
+                continue               
+
+            loc = LOCATION.search([('barcode', '=', i[1])], limit=1)
+            if not loc:
+                failed.append([*i, 'L'])
+                continue
+                
+            prod = PRODUCT.search([('default_code', '=', i[0])], limit=1)
+            if not prod:
+                failed.append([*i, 'P'])
+                continue
+            if prod.type != 'product':
+                failed.append([*i, 'NS'])
+                continue
+
+            inv = self.search([
+                ('location_id', '=', loc.id)
+            ], limit=1)
+
+            if not inv:
+                inv = self.create({
+                'name': ("Inventario di Migrazione da v11: {}").format(loc.name),
+                'location_id': loc.id,
+                'filter': 'partial'
+                })
+                inv.action_start()
+
+            INVLINE.create({'inventory_id': inv.id, 'location_id': loc.id, 'product_id': prod.id, 'product_qty': float(i[2])})
+
+        with open("/tmp/giacenze_non_importate.csv", 'w', newline='') as file:
+            wr = csv.writer(file, quoting=csv.QUOTE_ALL)
+            wr.writerows(failed) 
