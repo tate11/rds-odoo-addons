@@ -122,6 +122,12 @@ class TransportDocument(models.Model):
 
             doc.write({'state': 'done'})
 
+    def do_layouted(self):
+        self.ensure_one()
+        if self.move_ids_without_package.filtered(lambda x: x.sale_line_id and bool(self.sale_line_id.order_id.client_order_ref)):
+          return True
+        return False  
+
     def get_lines_layouted(self):
         self.ensure_one()
         references = self.move_ids_without_package.mapped(lambda x: (x.sale_line_id and x.sale_line_id.order_id.client_order_ref) or False)
@@ -133,9 +139,6 @@ class TransportDocument(models.Model):
                 lines_layouted.append((ref, self.move_ids_without_package.filtered(lambda x: x.sale_line_id and (x.sale_line_id.order_id.client_order_ref == ref))))
             else:
                 lines_layouted.append((False, self.move_ids_without_package.filtered(lambda x: (not x.sale_line_id) or (not x.sale_line_id.order_id.client_order_ref))))
-        import logging
-        logging.warning(lines_layouted)
-        logging.warning(references)
         return lines_layouted
 
     def get_first_sale(self):
