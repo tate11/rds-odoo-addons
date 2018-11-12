@@ -1,5 +1,6 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError, UserError
+from odoo.addons import decimal_precision as dp
 
 class StockPickingGoodsDescription(models.Model):
     _name = 'stock.picking.goods_description'
@@ -7,6 +8,26 @@ class StockPickingGoodsDescription(models.Model):
 
     name = fields.Char('Description of Goods', required=True, readonly=False)
     note = fields.Text('Notes')
+
+
+class TransportDocumentLine(models.Model):
+    _name = 'stock.ddt.line'
+    _description = 'Transport Document Descriptive Line'
+
+    def _get_default_uom_id(self):
+        return self.env["uom.uom"].search([], limit=1, order='id').id
+
+    sequence = fields.Integer(default="10")
+
+    ddt_id = fields.Many2one('stock.ddt', 'DDT', required=True, ondelete="cascade")
+    name = fields.Char("Description", required=True, readonly=True, states={'draft': [('readonly', False)], 'waiting': [('readonly', False)]})
+
+    quantity = fields.Float('Quantity', required=True, readonly=True, states={'draft': [('readonly', False)], 'waiting': [('readonly', False)]}, digits=dp.get_precision('Product Unit of Measure'))
+    uom_id = fields.Many2one('uom.uom', 'UoM', required=True, readonly=True, default=_get_default_uom_id, states={'draft': [('readonly', False)], 'waiting': [('readonly', False)]})
+
+    reference = fields.Char('Reference')
+    state = fields.Selection(selection=[('draft', 'Draft'), ('waiting', 'Waiting'), ('done', 'Done'), ('cancel', 'Cancelled')], string="State", default="draft", related="ddt_id.state")  
+
 
 class TransportDocument(models.Model):
     _name = 'stock.ddt'
@@ -49,6 +70,7 @@ class TransportDocument(models.Model):
             i.move_ids_without_package = i.picking_ids.mapped(lambda x: x.move_ids_without_package)
 
     move_ids_without_package = fields.Many2many('stock.move', compute=_get_moves)
+    descriptive_lines_id = fields.One2many('stock.ddt.line', 'ddt_id', "Descriptive Lines", states={'draft': [('readonly', False)], 'waiting': [('readonly', False)]})
 
     @api.one
     @api.depends('picking_ids', 'shipping_weight_free')
@@ -125,8 +147,11 @@ class TransportDocument(models.Model):
     def do_layouted(self):
         self.ensure_one()
         if self.move_ids_without_package.filtered(lambda x: x.sale_line_id and bool(x.sale_line_id.order_id.client_order_ref)):
-          return True
-        return False  
+            return True
+        elif self.descriptive_lines_id.filtered(lambda x: x.reference):
+            return True
+            
+        return False
 
     def get_lines_layouted(self):
         self.ensure_one()
@@ -143,6 +168,25 @@ class TransportDocument(models.Model):
             else:
                 lines_layouted.append((False, self.move_ids_without_package.filtered(lambda x: (not x.sale_line_id) or (not x.sale_line_id.order_id.client_order_ref))))
         return lines_layouted
+
+    def get_descriptive_lines_layouted(self):
+        self.ensure_one()
+        
+        references = list()
+
+        for i in self.descriptive_lines_id:
+            if i.reference not in references:
+                references.append(i.reference)
+
+        lines_layouted = list()
+
+        for ref in references:
+            if type(ref) != bool:
+                lines_layouted.append((ref, self.descriptive_lines_id.filtered(lambda x: x.reference == ref)))
+            else:
+                lines_layouted.append((False, self.descriptive_lines_id.filtered(lambda x: x.reference == False)))
+        return lines_layouted
+
 
     def get_first_sale(self):
         self.ensure_one()

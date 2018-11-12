@@ -89,6 +89,39 @@
                             </tr>
                         </t>                    
                     </t>
+                    <tr/>
+                    <t t-if="doc.do_layouted()">
+                        <t t-foreach="doc.get_descriptive_lines_layouted()" t-as="ref">
+                            <t t-if="ref[1]">
+                                <tr>
+                                    <td colspan="3"><span t-if="not ref[0]">Other</span> 
+                                                    <span t-if="ref[0]" t-esc="ref[0]"/>
+                                                    </td>
+                                </tr>
+                                <t t-foreach="ref[1]" t-as="line">
+                                    <tr>
+                                        <td/>
+                                        <td><span t-field="line.name"/></td>
+                                        <td class="text-right">
+                                            <span t-field="line.quantity"/>
+                                            <span t-field="line.uom_id" groups="uom.group_uom"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </t>
+                    </t>
+                    <t t-else="">
+                        <t t-foreach="doc.descriptive_lines_id" t-as="line">
+                            <tr>
+                                <td><span t-field="line.name"/></td>
+                                <td class="text-right">
+                                    <span t-field="line.quantity"/>
+                                    <span t-field="line.uom_id" groups="uom.group_uom"/>
+                                </td>
+                            </tr>
+                        </t>                    
+                    </t>
                 </tbody>
             </table>
 
