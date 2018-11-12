@@ -10,10 +10,12 @@
     'category': 'hr', 
     'version': '12.0', 
     'depends': [
-                'mrp'
+                'mrp', 'mrp_workorder'
                ], 
     'data': [
-        'views/mrp_bom_views.xml'
+        'security/ir.model.access.csv',
+        'views/mrp_bom_views.xml',
+        'views/mrp_production_views.xml'
     ],
     'application': False,
     'installable': True,

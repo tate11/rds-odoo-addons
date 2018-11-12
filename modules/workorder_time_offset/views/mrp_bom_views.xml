@@ -2,11 +2,31 @@
 <odoo>
     <data>
 
+        <record id="mrp_bom_alternative_routings" model="ir.ui.view">
+            <field name="name">mrp.bom.form.alternativeroutings</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='routing_id']" position="after">
+                    <field name="alternative_routings" attrs="{'invisible': [('routing_id', '=', False)]}" widget="many2many_tags"/>
+                </xpath>
+                <xpath expr="//field[@name='bom_line_ids']/tree/field[@name='operation_id']" position="attributes">
+                    <attribute name="attrs">{'column_invisible': ['|', ('parent.type', '=', 'phantom'), ('parent.alternative_routings', '!=', [])]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='bom_line_ids']/tree/field[@name='operation_id']" position="after">
+                    <field name="tag_ids" string="Consumed on Operations" attrs="{'column_invisible': [('parent.alternative_routings', '=', [])]}" widget="many2many_tags" />
+                </xpath>
+            </field>
+        </record>
+
         <record id="mrp_routing_workcenter_form_view" model="ir.ui.view">
             <field name="name">mrp.routing.workcenter.form.offset</field>
             <field name="model">mrp.routing.workcenter</field>
             <field name="inherit_id" ref="mrp.mrp_routing_workcenter_form_view"/>
             <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="tag_id"/>
+                </field>
                 <xpath expr="//field[@name='time_cycle']" position="after">
                     <label for="time_offset" string="Added Duration (Static)"/>
                     <div>
@@ -18,11 +38,14 @@
             </field>
         </record>
 
-            <record id="mrp_routing_workcenter_tree_view" model="ir.ui.view">
+        <record id="mrp_routing_workcenter_tree_view" model="ir.ui.view">
             <field name="name">mrp.routing.workcenter.tree.offset</field>
             <field name="model">mrp.routing.workcenter</field>
             <field name="inherit_id" ref="mrp.mrp_routing_workcenter_tree_view"/>
             <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="tag_id"/>
+                </field>
                 <field name="time_cycle" position="after">
                     <field name="time_offset" string="Added Duration (Static)" widget="float_time" class="oe_inline"/>
                 </field>
