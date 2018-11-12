@@ -113,13 +113,11 @@ class MrpProduction(models.Model):
         else:
             if self.routing_id != self.default_routing:
                 self.routing_id_force = self.routing_id
+                for i in self.move_raw_ids:
+                    operation_consumption = self.routing_id.operation_ids.filtered(lambda x: x.tag_id in i.bom_line_id.tag_ids)
+                    i.operation_id =  operation_consumption and operation_consumption[0] or False
             else:
-                self.default_routing = False
-
-            for i in self.move_raw_ids:
-                operation_consumption = self.routing_id.operation_ids.filtered(lambda x: x.tag_id in i.bom_line_id.tag_ids)
-                i.operation_id = operation_consumption[0] or False
-
+                self.routing_id_force = False
 
     def _workorders_create(self, bom, bom_data):
         """
