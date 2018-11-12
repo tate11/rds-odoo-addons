@@ -92,7 +92,7 @@ class MrpProduction(models.Model):
             routing = self.bom_id.routing_id
 
         operation_consumption = routing.operation_ids.filtered(lambda x: x.tag_id in bom_line.tag_ids)
-        line.operation_id = operation_consumption[0] or line.operation_id
+        line.operation_id = operation_consumption and operation_consumption[0] or line.operation_id
 
         return line
 
