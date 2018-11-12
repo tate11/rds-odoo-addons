@@ -10,23 +10,12 @@ class StockPickingGoodsDescription(models.Model):
     note = fields.Text('Notes')
 
 
-class TransportDocumentLine(models.Model):
-    _name = 'stock.ddt.line'
-    _description = 'Transport Document Descriptive Line'
+class QuickTransportDocument(models.TransientModel):
+    _name = 'stock.quickddt'
+    _description = 'Quick Transport Document'
 
-    def _get_default_uom_id(self):
-        return self.env["uom.uom"].search([], limit=1, order='id').id
-
-    sequence = fields.Integer(default="10")
-
-    ddt_id = fields.Many2one('stock.ddt', 'DDT', required=True, ondelete="cascade")
-    name = fields.Char("Description", required=True, readonly=True, states={'draft': [('readonly', False)], 'waiting': [('readonly', False)]})
-
-    quantity = fields.Float('Quantity', required=True, readonly=True, states={'draft': [('readonly', False)], 'waiting': [('readonly', False)]}, digits=dp.get_precision('Product Unit of Measure'))
-    uom_id = fields.Many2one('uom.uom', 'UoM', required=True, readonly=True, default=_get_default_uom_id, states={'draft': [('readonly', False)], 'waiting': [('readonly', False)]})
-
-    reference = fields.Char('Reference')
-    state = fields.Selection(selection=[('draft', 'Draft'), ('waiting', 'Waiting'), ('done', 'Done'), ('cancel', 'Cancelled')], string="State", default="draft", related="ddt_id.state")  
+    ddt_number = fields.Char(string="DDT No.", copy=False)
+    goods_description_id = fields.Many2one('stock.picking.goods_description', 'Description of goods')
 
 
 class TransportDocument(models.Model):
@@ -194,3 +183,22 @@ class TransportDocument(models.Model):
 
         if sales:
             return sales[0].order_id
+
+
+class TransportDocumentLine(models.Model):
+    _name = 'stock.ddt.line'
+    _description = 'Transport Document Descriptive Line'
+
+    def _get_default_uom_id(self):
+        return self.env["uom.uom"].search([], limit=1, order='id').id
+
+    sequence = fields.Integer(default="10")
+
+    ddt_id = fields.Many2one('stock.ddt', 'DDT', required=True, ondelete="cascade")
+    name = fields.Char("Description", required=True, readonly=True, states={'draft': [('readonly', False)], 'waiting': [('readonly', False)]})
+
+    quantity = fields.Float('Quantity', required=True, readonly=True, states={'draft': [('readonly', False)], 'waiting': [('readonly', False)]}, digits=dp.get_precision('Product Unit of Measure'))
+    uom_id = fields.Many2one('uom.uom', 'UoM', required=True, readonly=True, default=_get_default_uom_id, states={'draft': [('readonly', False)], 'waiting': [('readonly', False)]})
+
+    reference = fields.Char('Reference')
+    state = fields.Selection(selection=[('draft', 'Draft'), ('waiting', 'Waiting'), ('done', 'Done'), ('cancel', 'Cancelled')], string="State", default="draft", related="ddt_id.state")  
