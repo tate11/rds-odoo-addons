@@ -10,14 +10,6 @@ class StockPickingGoodsDescription(models.Model):
     note = fields.Text('Notes')
 
 
-class QuickTransportDocument(models.TransientModel):
-    _name = 'stock.quickddt'
-    _description = 'Quick Transport Document'
-
-    ddt_number = fields.Char(string="DDT No.", copy=False)
-    goods_description_id = fields.Many2one('stock.picking.goods_description', 'Description of goods')
-
-
 class TransportDocument(models.Model):
     _name = 'stock.ddt'
     _description = 'Transport Document'
@@ -97,7 +89,6 @@ class TransportDocument(models.Model):
                 'auto_complete': False
             })
 
-
     @api.model
     def create(self, vals):
         if not vals.get('name', False):
@@ -121,7 +112,12 @@ class TransportDocument(models.Model):
     def action_cancel(self):
         for doc in self:
             doc.write({'state': 'cancel'})
-   
+
+    @api.multi
+    def action_draft(self):
+        for doc in self:
+            doc.write({'state': 'draft'})
+
     @api.multi
     def action_done(self):
         for doc in self:
@@ -183,6 +179,56 @@ class TransportDocument(models.Model):
 
         if sales:
             return sales[0].order_id
+
+    @api.multi
+    def action_ddt_send(self):
+        '''
+        This function opens a window to compose an email, with the edi sale template message loaded by default
+        '''
+        self.ensure_one()
+        ir_model_data = self.env['ir.model.data']
+        try:
+            template_id = ir_model_data.get_object_reference('l10n_it_picking_ddt', 'email_template_edi_ddt')[1]
+        except ValueError:
+            template_id = False
+        try:
+            compose_form_id = ir_model_data.get_object_reference('mail', 'email_compose_message_wizard_form')[1]
+        except ValueError:
+            compose_form_id = False
+        ctx = {
+            'default_model': 'stock.ddt',
+            'default_res_id': self.ids[0],
+            'default_use_template': bool(template_id),
+            'default_template_id': template_id,
+            'default_composition_mode': 'comment',
+            'force_email': True
+        }
+        return {
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'mail.compose.message',
+            'views': [(compose_form_id, 'form')],
+            'view_id': compose_form_id,
+            'target': 'new',
+            'context': ctx,
+        }
+
+    def is_sale(self):
+        self.ensure_one()
+        if any(self.picking_ids.mapped(lambda x: x.sale_id)):
+            return True
+
+    def get_orders_references(self):
+        self.ensure_one()
+        sales = self.picking_ids.mapped(lambda x: x.sale_id)
+        
+        refs = [str(x.client_order_ref) for x in sales if x and bool(x.client_order_ref)]
+        return ",".join(refs)
+
+    def is_final_shipment(self):
+        self.ensure_one()
+        return not self.picking_ids.mapped(lambda x: x.sale_id).mapped(lambda x: x.picking_ids).filtered(lambda x: x.state not in ['done', 'cancelled'])
 
 
 class TransportDocumentLine(models.Model):

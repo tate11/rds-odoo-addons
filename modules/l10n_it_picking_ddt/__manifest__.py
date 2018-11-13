@@ -23,7 +23,8 @@
             'report/ddt_report.xml',
             'views/stock_picking_views.xml',
             'views/stock_ddt_views.xml',
-            'data/ddt_data.xml'
+            'data/ddt_data.xml',
+            'data/mail_data.xml'
             ],
     'application': False,
     'installable': True,

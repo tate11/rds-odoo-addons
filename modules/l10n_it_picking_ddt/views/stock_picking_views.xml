@@ -41,18 +41,51 @@
 
         <menuitem id="menu_goods_description" name="Goods Description" action="action_stock_picking_goods_description" parent="menu_logistics_config" sequence="1"/>
         
-        <!--
-        <record id="view_picking_internal_search" model="ir.ui.view">
-            <field name="name">view.picking.internal.search</field>
+
+        <record id="view_picking_form_locations" model="ir.ui.view">
+            <field name="name">view.picking.locations</field>
             <field name="model">stock.picking</field>
-            <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
             <field name="priority">4</field>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='name']" position="attributes">
-                    <attribute name="filter_domain">['|','|',('name','ilike', self),('origin','ilike',self),('ddt_number','ilike',self)]</attribute>
+                <xpath expr="//field[@name='location_id']" position="attributes">
+                    <attribute name="attrs"></attribute>
+                </xpath>
+                <xpath expr="//field[@name='location_dest_id']" position="attributes">
+                    <attribute name="attrs"></attribute>
                 </xpath>
             </field>
-        </record>-->
+        </record>
+
+        <record id="view_picking_withcarrier_out_form_quickddt" model="ir.ui.view">
+            <field name="name">view.picking.withcarrier.out.form.quickddt</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="delivery.view_picking_withcarrier_out_form"/>
+            <field name="priority">4</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='carrier_id']" position="before">
+                    <field name="picking_type_code" invisible="1"/>
+
+                    <label for="create_uid" string="DDT Auto-register" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>
+                    <div name="ddt_incoming" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}">
+                        <field name="ddt_number" class="oe_inline"/>
+                        <span>, autoconfirm: </span>
+                        <field name="auto_confirm" class="oe_inline" attrs="{'invisible': ['|', ('state', 'in', ['done', 'cancelled']), ('ddt_number', '=', False)]}"/>
+                    </div>
+                    <field name="auto_confirm" attrs="{'invisible': [('picking_type_code', '!=', 'outgoing')]}"/>
+                    <br/>
+                    <field name="incoterm" attrs="{'invisible': [('picking_type_code', '!=', 'outgoing')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='carrier_id']" position="after">
+                    <field name="transport_partner_id"/>
+                </xpath>
+                <xpath expr="//field[@name='shipping_weight']" position="after">
+                    <field name="number_of_packages" attrs="{'invisible': [('picking_type_code', '!=', 'outgoing')]}"/>
+                    <br/>
+                    <field name="goods_description_id" attrs="{'invisible': [('picking_type_code', '!=', 'outgoing')]}"/>
+                </xpath>
+            </field>
+        </record>
 
         <record id="view_delivery_carrier_form" model="ir.ui.view">
             <field name="name">delivery.carrier.form</field>

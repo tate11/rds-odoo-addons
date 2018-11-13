@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0+e-20181015\n"
+"Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-09 11:35+0000\n"
-"PO-Revision-Date: 2018-11-09 12:36+0100\n"
+"POT-Creation-Date: 2018-11-13 07:41+0000\n"
+"PO-Revision-Date: 2018-11-13 08:53+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,14 +23,88 @@ msgid "# of DDTs"
 msgstr "# di DDT"
 
 #. module: l10n_it_picking_ddt
+#: model:mail.template,report_name:l10n_it_picking_ddt.email_template_edi_ddt
+msgid "${(object.name or '').replace('/','_')}"
+msgstr ""
+
+#. module: l10n_it_picking_ddt
+#: model:mail.template,subject:l10n_it_picking_ddt.email_template_edi_ddt
+msgid "${user.company_id.name} Shipping Notice (DDT) (Ref ${object.name or 'n/a' })"
+msgstr "${user.company_id.name} Notifica di Avvenuta Spedizione (DDT) (Rif ${object.name or 'n/a' })"
+
+#. module: l10n_it_picking_ddt
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
-msgid "                            <span style=\"color:#f2f2f2\">________Signature________</span>"
-msgstr "                            <span style=\"color:#f2f2f2\">________Firma________</span>"
+msgid ""
+"<br/>\n"
+"                        <u><i>\n"
+"                            <span style=\"color:#f2f2f2\">________Signature________</span>\n"
+"                        </i></u>"
+msgstr ""
+
+#. module: l10n_it_picking_ddt
+#: model:mail.template,body_html:l10n_it_picking_ddt.email_template_edi_ddt
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        % set doc_name = 'quotation' if object.state in ('draft', 'sent') else 'order'\n"
+"        Dear ${object.partner_id.name}\n"
+"        % if object.partner_id.parent_id:\n"
+"            (${object.partner_id.parent_id.name})\n"
+"        % endif\n"
+"        <br/><br/>\n"
+"        Cheers!\n"
+"        % if object.is_sale():\n"
+"            Your orders ${object.get_orders_references()} have been ${object.is_final_shipment() and 'completely' or 'partially'} shipped.\n"
+"        % else\n"
+"            Shipments are on their way to your plant.\n"
+"        % endif\n"
+"            See the details on the attached document <strong>${object.name}</strong>\n"
+"        % if object.origin:\n"
+"            (with reference: ${object.origin} )\n"
+"        % endif\n"
+"\n"
+"        from ${user.company_id.name}.\n"
+"        <br/><br/>\n"
+"        Do not hesitate to contact us if you have any question.\n"
+"    </p>\n"
+"</div>\n"
+"            "
+msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        % set doc_name = 'quotation' if object.state in ('draft', 'sent') else 'order'\n"
+"        Caro ${object.partner_id.name}\n"
+"        % if object.partner_id.parent_id:\n"
+"            (${object.partner_id.parent_id.name})\n"
+"        % endif\n"
+"        <br/><br/>\n"
+"        Buone notizie!\n"
+"        % if object.is_sale():\n"
+"            I tuoi ordini ${object.get_orders_references()} sono stati ${object.is_final_shipment() and 'completamente' or 'parzialmente'} spediti.\n"
+"        % else\n"
+"            Abbiamo spedito del materiale verso il tuo stabilimento.\n"
+"        % endif\n"
+"            Puoi trovare i dettagli nel documento di trasporto  <strong>${object.name}</strong> allegato\n"
+"        % if object.origin:\n"
+"            (con riferimento: ${object.origin} )\n"
+"        % endif\n"
+"\n"
+"        da ${user.company_id.name}.\n"
+"        <br/><br/>\n"
+"        Non esitare a scriverci per qualsiasi domanda o dubbio.\n"
+"    </p>\n"
+"</div>\n"
+"            "
 
 #. module: l10n_it_picking_ddt
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.stock_view_ddts_form
 msgid "<span attrs=\"{'invisible': ['|', ('name', '!=', False), ('picking_type_code', '=', 'incoming')]}\">New</span>"
 msgstr "<span attrs=\"{'invisible': ['|', ('name', '!=', False), ('picking_type_code', '=', 'incoming')]}\">Nuovo</span>"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.view_picking_withcarrier_out_form_quickddt
+msgid "<span>, autoconfirm: </span>"
+msgstr "<span>, conferma: </span>"
 
 #. module: l10n_it_picking_ddt
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
@@ -108,7 +182,7 @@ msgid "Add an internal note..."
 msgstr "Aggiungi una nota interna…"
 
 #. module: l10n_it_picking_ddt
-#: code:addons/l10n_it_picking_ddt/models/stock_ddt.py:119
+#: code:addons/l10n_it_picking_ddt/models/stock_ddt.py:126
 #, python-format
 msgid "All pickings must be validated!"
 msgstr "Tutti i picking devono essere validati!"
@@ -122,6 +196,17 @@ msgstr "Numero di allegati"
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__auto_complete
 msgid "Auto Bill"
 msgstr "Bolletta Automatico"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking__auto_confirm
+msgid "Auto Confirm"
+msgstr "Conferma Automatica"
+
+#. module: l10n_it_picking_ddt
+#: code:addons/l10n_it_picking_ddt/models/stock_picking.py:93
+#, python-format
+msgid "Auto-creation of DDTs requires a DDT numerator to be properly setup in the corresponding operation. Please ask your system admin correct the setup."
+msgstr "Creare i DDT automaticamente richiede che il numeratore sia correttamente configurato. Chiedi al tuo systemadmin di correggere la configurazione.."
 
 #. module: l10n_it_picking_ddt
 #: selection:stock.picking,billing_status:0
@@ -150,6 +235,7 @@ msgstr "Vettore"
 
 #. module: l10n_it_picking_ddt
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__transport_partner_id
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking__transport_partner_id
 msgid "Carrier Address"
 msgstr "Generalità Vettore"
 
@@ -170,17 +256,20 @@ msgstr "Crea delle descrizioni esteriori dei beni da usare nei DDT."
 
 #. module: l10n_it_picking_ddt
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__create_uid
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt_line__create_uid
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking_goods_description__create_uid
 msgid "Created by"
 msgstr "Creato da"
 
 #. module: l10n_it_picking_ddt
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__create_date
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt_line__create_date
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking_goods_description__create_date
 msgid "Created on"
 msgstr "Creato il"
 
 #. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt_line__ddt_id
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking__ddt_ids
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.view_picking_form_ddt
 msgid "DDT"
@@ -192,14 +281,15 @@ msgid "DDT / Transfer Document"
 msgstr "DDT / Documento di Trasferimento"
 
 #. module: l10n_it_picking_ddt
-#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__name
-msgid "DDT No."
-msgstr "N. DDT"
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.view_picking_withcarrier_out_form_quickddt
+msgid "DDT Auto-register"
+msgstr "Auto registrazione del DDT"
 
 #. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__name
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking__ddt_number
-msgid "DDT Number"
-msgstr "Numero DDT"
+msgid "DDT No."
+msgstr "N. DDT"
 
 #. module: l10n_it_picking_ddt
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.stock_view_ddts_form
@@ -210,6 +300,12 @@ msgstr "Riferimento DDT"
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking_type__sequence_ddt_id
 msgid "DDT Sequence"
 msgstr "Contatore DDT"
+
+#. module: l10n_it_picking_ddt
+#: model:mail.message.subtype,description:l10n_it_picking_ddt.mt_ddt_sent
+#: model:mail.message.subtype,name:l10n_it_picking_ddt.mt_ddt_sent
+msgid "DDT sent"
+msgstr "DDT Inviato"
 
 #. module: l10n_it_picking_ddt
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.view_stock_ddt_search
@@ -232,6 +328,7 @@ msgid "Delivery Methods"
 msgstr "Metodi di Spedizione"
 
 #. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt_line__name
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
 msgid "Description"
 msgstr "Descrizione"
@@ -244,11 +341,19 @@ msgstr "Aspetto Beni"
 
 #. module: l10n_it_picking_ddt
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__goods_description_id
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking__goods_description_id
 msgid "Description of goods"
 msgstr "Aspetto dei Beni"
 
 #. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__descriptive_lines_id
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.stock_view_ddts_form
+msgid "Descriptive Lines"
+msgstr "Linee Descrittive"
+
+#. module: l10n_it_picking_ddt
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__display_name
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt_line__display_name
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking_goods_description__display_name
 msgid "Display Name"
 msgstr "Nome visualizzato"
@@ -285,6 +390,11 @@ msgid "Followers (Partners)"
 msgstr "Followers (Partner)"
 
 #. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking__force_nobill
+msgid "Force Nobill"
+msgstr "Forza Non-bollettazione"
+
+#. module: l10n_it_picking_ddt
 #: model:ir.actions.act_window,name:l10n_it_picking_ddt.action_stock_picking_goods_description
 #: model:ir.ui.menu,name:l10n_it_picking_ddt.menu_goods_description
 msgid "Goods Description"
@@ -302,6 +412,7 @@ msgstr "Raggruppa per"
 
 #. module: l10n_it_picking_ddt
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__id
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt_line__id
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking_goods_description__id
 msgid "ID"
 msgstr ""
@@ -328,11 +439,13 @@ msgstr "DDT in entrata"
 
 #. module: l10n_it_picking_ddt
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__incoterm
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking__incoterm
 msgid "Incoterms"
 msgstr ""
 
 #. module: l10n_it_picking_ddt
 #: model:ir.model.fields,help:l10n_it_picking_ddt.field_stock_ddt__incoterm
+#: model:ir.model.fields,help:l10n_it_picking_ddt.field_stock_picking__incoterm
 msgid "International Commercial Terms are a series of predefined commercial terms used in international transactions."
 msgstr "I termini commerciali internazionali sono una serie di termini commerciali predefiniti usati nelle transazioni internazionali"
 
@@ -348,18 +461,21 @@ msgstr "È Follower"
 
 #. module: l10n_it_picking_ddt
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt____last_update
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt_line____last_update
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking_goods_description____last_update
 msgid "Last Modified on"
 msgstr "Data di ultima modifica"
 
 #. module: l10n_it_picking_ddt
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__write_uid
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt_line__write_uid
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking_goods_description__write_uid
 msgid "Last Updated by"
 msgstr "Ultima modifica di"
 
 #. module: l10n_it_picking_ddt
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__write_date
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt_line__write_date
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking_goods_description__write_date
 msgid "Last Updated on"
 msgstr "Ultima modifica il"
@@ -408,6 +524,7 @@ msgstr "Numero di Azioni"
 
 #. module: l10n_it_picking_ddt
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__number_of_packages
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking__number_of_packages
 msgid "Number of Packages"
 msgstr "Colli"
 
@@ -484,14 +601,30 @@ msgid "Print"
 msgstr "Stampa"
 
 #. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt_line__quantity
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
 msgid "Quantity"
 msgstr "Quantità"
 
 #. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt_line__reference
+msgid "Reference"
+msgstr "Riferimento"
+
+#. module: l10n_it_picking_ddt
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.stock_view_ddts_form
 msgid "Register lots, packs, location"
 msgstr "Registrare lotti, pacchetti, luoghi"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.stock_view_ddts_form
+msgid "Send by Email"
+msgstr "Invia per Email"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt_line__sequence
+msgid "Sequence"
+msgstr "Sequenza"
 
 #. module: l10n_it_picking_ddt
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__shipping_weight
@@ -500,6 +633,7 @@ msgstr "Peso Spedizione"
 
 #. module: l10n_it_picking_ddt
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__state
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt_line__state
 msgid "State"
 msgstr "Stato"
 
@@ -536,6 +670,11 @@ msgid "Transport Document"
 msgstr "Documento di Trasporto"
 
 #. module: l10n_it_picking_ddt
+#: model:ir.model,name:l10n_it_picking_ddt.model_stock_ddt_line
+msgid "Transport Document Descriptive Line"
+msgstr "Linea Descrittiva del Documento di Trasporto"
+
+#. module: l10n_it_picking_ddt
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.view_stock_ddt_search
 msgid "Type"
 msgstr "Tipo"
@@ -561,6 +700,11 @@ msgid "Unread Messages Counter"
 msgstr "Contatore di messaggi non letti"
 
 #. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt_line__uom_id
+msgid "UoM"
+msgstr "UdM"
+
+#. module: l10n_it_picking_ddt
 #: selection:stock.ddt,state:0 selection:stock.picking,billing_status:0
 msgid "Waiting"
 msgstr "In Attesa"
@@ -577,11 +721,12 @@ msgstr "Storico comunicazione sito"
 
 #. module: l10n_it_picking_ddt
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__shipping_weight_free
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking__shipping_weight_free
 msgid "Weight in Kilograms"
 msgstr "Peso in Kg"
 
 #. module: l10n_it_picking_ddt
-#: code:addons/l10n_it_picking_ddt/models/stock_ddt.py:101
+#: code:addons/l10n_it_picking_ddt/models/stock_ddt.py:103
 #, python-format
 msgid "You cannot delete a confirmed DDT."
 msgstr "Non puoi cancellare un DDT confermato."

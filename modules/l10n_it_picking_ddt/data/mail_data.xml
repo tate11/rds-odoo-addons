@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Sale-related subtypes for messaging / Chatter -->
+        <record id="mt_ddt_sent" model="mail.message.subtype">
+            <field name="name">DDT sent</field>
+            <field name="res_model">stock.ddt</field>
+            <field name="default" eval="False"/>
+            <field name="description">DDT sent</field>
+        </record>
+
+    </data>
+
+    <!-- Template and notification section -->
+    <data noupdate="1">
+
+        <record id="email_template_edi_ddt" model="mail.template">
+            <field name="name">Transport Document: Send by email</field>
+            <field name="model_id" ref="l10n_it_picking_ddt.model_stock_ddt"/>
+            <field name="email_from">${user.email_formatted |safe}</field>
+            <field name="partner_to">${object.partner_id.id}${object.partner_invoice_id and (',%s' % object.partner_invoice_id.id) or ''}</field>
+            <field name="subject">${user.company_id.name} Shipping Notice (DDT) (Ref ${object.name or 'n/a' })</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        % set doc_name = 'quotation' if object.state in ('draft', 'sent') else 'order'
+        Dear ${object.partner_id.name}
+        % if object.partner_id.parent_id:
+            (${object.partner_id.parent_id.name})
+        % endif
+        <br /><br />
+        Cheers!
+        % if object.is_sale():
+            Your orders ${object.get_orders_references()} have been ${object.is_final_shipment() and 'completely' or 'partially'} shipped.
+        % else
+            Shipments are on their way to your plant.
+        % endif
+            See the details on the attached document <strong>${object.name}</strong>
+        % if object.origin:
+            (with reference: ${object.origin} )
+        % endif
+
+        from ${user.company_id.name}.
+        <br /><br />
+        Do not hesitate to contact us if you have any question.
+    </p>
+</div>
+            </field>
+            <field name="report_template" ref="action_report_ddt"/>
+            <field name="report_name">${(object.name or '').replace('/','_')}</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="user_signature" eval="False"/>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>
