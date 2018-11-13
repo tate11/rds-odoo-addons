@@ -129,19 +129,26 @@ class DiaStockDDT(models.Model):
                 if line.quantity_done == 0:
                     continue
 
-                lineTXT += FTCL(line.quantity_done, 12)               # Quantita    198    12
-                price = line.sale_line_id.price_unit or 0
+                lineTXT += FTCL(line.quantity_done, 12)             # Quantita    198    12
+
+                price = line.product_id.default_price
+                ord_our_ref, ord_cust_ref = '', False
+                origin = ''
+                project = ''
+                if line.sale_line_id:
+                    price = line.sale_line_id.price_unit
+                    ord_our_ref, ord_cust_ref = line.sale_line_id.order_id.name, line.sale_line_id.order_id.client_order_ref
+                    origin = line.sale_line_id.order_id.origin
+                    project = line.sale_line_id.order_id.analytic_account_id.name
 
                 if (type(price) not in [int, float]) or price < 0:
                     pick.write({'dia_transfer_status': 'failed', 'dia_transfer_notes': _("Alcune righe non hanno un prezzo impostato!")})
                     stop_transfer = True
 
-                lineTXT += FTCL(line.sale_line_id.price_unit, 12)             # line.sale_line_id.price_total ?? Prezzo    211    1
-                
-                ord_our_ref, ord_cust_ref = line.sale_line_id.order_id.name, line.sale_line_id.order_id.client_order_ref
-                lineTXT += FTCL((ord_our_ref or '') + (ord_cust_ref and ("Rif.Ordc.: " + ord_cust_ref) or ''), 60)      # note1    224    60        numero ordine vendita cliente da sale order    nove_line.sale_line_id.sale_id.name
-                lineTXT += FTCL(line.sale_line_id.order_id.origin, 60)    # note2    285    60        riferimento cliente da sale order    nove_line.sale_line_id.sale_id.origin
-                lineTXT += FTCL(line.sale_line_id.order_id.analytic_account_id.name, 12)  # Commessa    346    12        nove_line.sale_id.account_analytic.name
+                lineTXT += FTCL(price, 12)             # line.sale_line_id.price_total ?? Prezzo    211    1
+                lineTXT += FTCL(ord_our_ref + (ord_cust_ref and ("Rif.Ordc.: " + ord_cust_ref) or ''), 60)      # note1    224    60        numero ordine vendita cliente da sale order    nove_line.sale_line_id.sale_id.name
+                lineTXT += FTCL(origin, 60)    # note2    285    60        riferimento cliente da sale order    nove_line.sale_line_id.sale_id.origin
+                lineTXT += FTCL(project, 12)  # Commessa    346    12        nove_line.sale_id.account_analytic.name
                 
                 lineTXT += FTCL(pick.picking_type_id.dia_deposit, 2) # Deposito Destinazione 2
                     

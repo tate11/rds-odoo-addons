@@ -9,7 +9,7 @@
             <field name="numbercall">-1</field>
             <field name="doall" eval="False"/>
             <field name="model_id" ref="odoo_dia.model_dia_transfer"/>
-            <field name="code">model.chron_run()</field>
+            <field name="code">model.cron_run()</field>
         </record>                       
     </data>
 </odoo>
