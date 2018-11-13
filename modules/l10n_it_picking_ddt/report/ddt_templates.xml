@@ -2,7 +2,9 @@
 <odoo>
 <template id="report_ddt_document">
     <t t-call="web.external_layout">
-        <t t-set="doc" t-value="doc.with_context({'lang': doc.partner_invoice_id and doc.partner_invoice_id.lang or doc.partner_id.lang})" />
+        <t t-set="doc" t-value="doc.with_context({'lang': doc.partner_invoice_id and doc.partner_invoice_id.lang or doc.partner_id.lang, 
+                                                  'partner_id': doc.partner_invoice_id and doc.partner_invoice_id.id or doc.partner_id.id
+                                                 })" />
 
         <div class="page">
             <div class="oe_structure"/>
