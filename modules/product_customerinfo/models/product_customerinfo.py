@@ -77,13 +77,14 @@ class ProductProduct(models.Model):
             customers_ids = self.env['product.customerinfo']._search([
                 ('name', '=', self._context.get('partner_id')),
                 '|',
-                ('code', operator, name),
-                ('description', operator, name)], access_rights_uid=name_get_uid)
+                ('product_code', operator, name),
+                ('product_name', operator, name)], access_rights_uid=name_get_uid)
             if customers_ids:
                 product_ids = self._search([('variant_customers_ids', 'in', customers_ids)], limit=limit, access_rights_uid=name_get_uid)
                 if not product_ids:
                     product_ids = self._search([('product_tmpl_id.customers_ids', 'in', customers_ids)], limit=limit, access_rights_uid=name_get_uid)
-                result += self.browse(product_ids).name_get()
+                res_ids = list(map(lambda x: x[0], result))
+                result += [x for x in self.browse(product_ids).name_get() if x[0] not in res_ids]
 
         return result
 
