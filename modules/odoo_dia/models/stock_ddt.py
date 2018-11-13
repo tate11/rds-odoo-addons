@@ -131,7 +131,7 @@ class DiaStockDDT(models.Model):
 
                 lineTXT += FTCL(line.quantity_done, 12)             # Quantita    198    12
 
-                price = line.product_id.default_price
+                price = line.product_id.lst_price
                 ord_our_ref, ord_cust_ref = '', False
                 origin = ''
                 project = ''
