@@ -20,8 +20,8 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name"/>
-                    <field name="code"/>
-                    <field name="description"/>
+                    <field name="product_code"/>
+                    <field name="product_name"/>
                     <field name="notes"/>
                 </tree>
             </field>
@@ -36,8 +36,8 @@
                         <group string="Vendor">
                             <field name="product_id" groups="product.group_product_variant" domain="[('product_tmpl_id', '=', product_tmpl_id)]"/>
                             <field name="name" context="{'default_customer': 0, 'search_default_supplier': 1, 'default_supplier': 1}"/>
-                            <field name="description"/>
-                            <field name="code"/>
+                            <field name="product_name"/>
+                            <field name="product_code"/>
                             <field name="product_tmpl_id" string="Product" invisible="context.get('visible_product_tmpl_id', True)"/>
                         </group>
                         <group string="Other Information">

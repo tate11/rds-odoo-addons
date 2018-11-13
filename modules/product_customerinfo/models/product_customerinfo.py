@@ -7,9 +7,9 @@ class ProductCustomerInfo(models.Model):
     _name = 'product.customerinfo'
     _description = 'Product description for a specific customer'
     
-    name = fields.Many2one('res.partner', "Partner", domain=[('customer', '=', True)])
-    description = fields.Char("Description")
-    code = fields.Char("Code")
+    name = fields.Many2one('res.partner', "Partner", required=True, domain=[('customer', '=', True)])
+    product_name = fields.Char("Description", oldname="description")
+    product_code = fields.Char("Code", oldname="code")
 
     product_tmpl_id = fields.Many2one('product.template', "Product", required=True)
     product_id = fields.Many2one('product.product', "Product Variant", domain=lambda x: [('product_tmpl_id', '=', x.product_tmpl_id.id)])
@@ -85,4 +85,66 @@ class ProductProduct(models.Model):
                     product_ids = self._search([('product_tmpl_id.customers_ids', 'in', customers_ids)], limit=limit, access_rights_uid=name_get_uid)
                 result += self.browse(product_ids).name_get()
 
+        return result
+
+    @api.multi
+    def name_get(self):
+        # TDE: this could be cleaned a bit I think
+
+        def _name_get(d):
+            name = d.get('name', '')
+            code = self._context.get('display_default_code', True) and d.get('default_code', False) or False
+            if code:
+                name = '[%s] %s' % (code,name)
+            return (d['id'], name)
+
+        partner_id = self._context.get('partner_id')
+        if partner_id:
+            partner_ids = [partner_id, self.env['res.partner'].browse(partner_id).commercial_partner_id.id]
+        else:
+            partner_ids = []
+
+        # all user don't have access to seller and partner
+        # check access and use superuser
+        self.check_access_rights("read")
+        self.check_access_rule("read")
+
+        result = []
+        for product in self.sudo():
+            # display only the attributes with multiple possible values on the template
+            variable_attributes = product.attribute_line_ids.filtered(lambda l: len(l.value_ids) > 1).mapped('attribute_id')
+            variant = product.attribute_value_ids._variant_name(variable_attributes)
+
+            name = variant and "%s (%s)" % (product.name, variant) or product.name
+            partnerinfo = []
+            if partner_ids:
+                partnerinfo = [x for x in product.seller_ids if (x.name.id in partner_ids) and (x.product_id == product)]
+                if not partnerinfo:
+                    partnerinfo = [x for x in product.seller_ids if (x.name.id in partner_ids) and not x.product_id]
+                if not partnerinfo:
+                    partnerinfo = [x for x in product.customers_ids if (x.name.id in partner_ids) and (x.product_id == product)]
+                if not partnerinfo:
+                    partnerinfo = [x for x in product.customers_ids if (x.name.id in partner_ids) and not x.product_id]
+
+
+            if partnerinfo:
+                for p in partnerinfo:
+                    partner_variant = p.product_name and (
+                        variant and "%s (%s)" % (p.product_name, variant) or p.product_name
+                        ) or False
+                    mydict = {
+                              'id': product.id,
+                              'name': partner_variant or name,
+                              'default_code': p.product_code or product.default_code,
+                              }
+                    temp = _name_get(mydict)
+                    if temp not in result:
+                        result.append(temp)
+            else:
+                mydict = {
+                          'id': product.id,
+                          'name': name,
+                          'default_code': product.default_code,
+                          }
+                result.append(_name_get(mydict))
         return result
