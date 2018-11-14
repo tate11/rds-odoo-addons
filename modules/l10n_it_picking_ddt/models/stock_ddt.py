@@ -13,7 +13,7 @@ class StockPickingGoodsDescription(models.Model):
 class TransportDocument(models.Model):
     _name = 'stock.ddt'
     _description = 'Transport Document'
-
+    _order = 'name desc, date desc'
     _inherit = ['mail.thread']
 
     partner_id = fields.Many2one('res.partner', "Partner", required=True,  readonly=True, states={'draft': [('readonly', False)], 'waiting': [('readonly', False)]})

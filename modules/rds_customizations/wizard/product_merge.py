@@ -261,6 +261,18 @@ class MergePartnerAutomatic(models.TransientModel):
         if src_product.product_tmpl_id.product_variant_count != 1:
             raise ValidationError("Il prodotto di origine deve essere senza varianti!")
 
+        for i in src_product.item_ids:
+            i.product_id = src_product
+        
+        for i in src_product.customer_ids:
+            i.product_id = src_product
+
+        for i in src_product.seller_ids:
+            i.product_id = src_product
+            
+        for i in src_product.bom_ids:
+            i.product_id = src_product
+
         # call sub methods to do the merge
         self._update_foreign_keys(src_product, dst_product)
         self._update_reference_fields(src_product, dst_product)
