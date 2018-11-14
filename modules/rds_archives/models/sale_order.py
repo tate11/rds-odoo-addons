@@ -227,7 +227,7 @@ COPY (
     @api.multi
     def fix_prices_rounding(self):
         for order in self:
-            self.state = 'sale'
+            order.action_unlock()
             for line in order.order_line:
                 product = line.product_id.with_context(
                     lang=line.order_id.partner_id.lang,
@@ -241,3 +241,4 @@ COPY (
                 price_unit = self.env['account.tax']._fix_tax_included_price_company(line._get_display_price(product), product.taxes_id, line.tax_id, line.company_id)
                 if abs(price_unit - line.price_unit) <= 0.02:
                     line.price_unit = price_unit
+            order.action_done()
