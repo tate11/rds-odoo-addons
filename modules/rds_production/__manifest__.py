@@ -1,8 +1,8 @@
 # Intended for sole use by RDS Moulding Technology SpA. See README file.
 
 { 
-    'name': "Workorder Time Offset", 
-    'summary': "Adds a fixed time offset to odoo routings operations.",
+    'name': "RDS Production", 
+    'summary': "Adds a number of simple customizations for RDS's usage.",
     'description': """Adds a fixed time offset to odoo routings operations.""",
     'author': "RDS Moulding Technology SpA", 
     'license': "AGPL-3", 
