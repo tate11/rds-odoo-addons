@@ -223,3 +223,9 @@ COPY (
 
             new_ord.message_post(body=body)
         '''
+        
+    @api.multi
+    def fix_prices_rounding(self):
+        for order in self:
+            for line in order.order_line:
+                line.price_unit = self.env['account.tax']._fix_tax_included_price_company(line._get_display_price(product), product.taxes_id, self.tax_id, self.company_id)
