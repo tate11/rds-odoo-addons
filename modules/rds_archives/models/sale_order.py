@@ -227,6 +227,7 @@ COPY (
     @api.multi
     def fix_prices_rounding(self):
         for order in self:
+            self.state = 'sale'
             for line in order.order_line:
                 product = line.product_id.with_context(
                     lang=line.order_id.partner_id.lang,
