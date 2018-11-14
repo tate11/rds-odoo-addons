@@ -264,7 +264,7 @@ class MergePartnerAutomatic(models.TransientModel):
         for i in src_product.item_ids:
             i.product_id = src_product
         
-        for i in src_product.customer_ids:
+        for i in src_product.customers_ids:
             i.product_id = src_product
 
         for i in src_product.seller_ids:
