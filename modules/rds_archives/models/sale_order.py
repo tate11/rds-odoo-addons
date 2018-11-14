@@ -228,4 +228,15 @@ COPY (
     def fix_prices_rounding(self):
         for order in self:
             for line in order.order_line:
-                line.price_unit = self.env['account.tax']._fix_tax_included_price_company(line._get_display_price(product), product.taxes_id, self.tax_id, self.company_id)
+                product = line.product_id.with_context(
+                    lang=line.order_id.partner_id.lang,
+                    partner=line.order_id.partner_id.id,
+                    quantity=line.product_uom_qty,
+                    date=line.order_id.date_order,
+                    pricelist=line.order_id.pricelist_id.id,
+                    uom=line.product_uom.id,
+                    fiscal_position=line.env.context.get('fiscal_position')
+                )
+                price_unit = self.env['account.tax']._fix_tax_included_price_company(line._get_display_price(product), product.taxes_id, line.tax_id, line.company_id)
+                if abs(price_unit - line.price_unit) <= 0.02:
+                    line.price_unit = price_unit
