@@ -16,8 +16,8 @@ class TransportDocument(models.Model):
 
     _inherit = ['mail.thread']
 
-    partner_id = fields.Many2one('res.partner', "Partner", required=True, states={'draft': [('readonly', False)]})
-    partner_invoice_id = fields.Many2one('res.partner', "Invoice Address", readonly=True, states={'draft': [('readonly', False)]})
+    partner_id = fields.Many2one('res.partner', "Partner", required=True,  readonly=True, states={'draft': [('readonly', False)], 'waiting': [('readonly', False)]})
+    partner_invoice_id = fields.Many2one('res.partner', "Invoice Address", readonly=True, states={'draft': [('readonly', False)], 'waiting': [('readonly', False)]})
 
     name = fields.Char(string="DDT No.", copy=False)
     state = fields.Selection(selection=[('draft', 'Draft'), ('waiting', 'Waiting'), ('done', 'Done'), ('cancel', 'Cancelled')], string="State", required=True, default='draft')  

@@ -31,7 +31,7 @@ class StockPicking(models.Model):
             picking.count_ddt = len(picking.ddt_ids) if picking.ddt_ids else 0
 
     @api.one
-    @api.depends('ddt_ids', 'ddt_ids.state', 'picking_type_code', 'state')
+    @api.depends('ddt_ids', 'ddt_ids.state', 'picking_type_code', 'state', 'force_nobill')
     def _compute_billing_status(self):
         if (self.state != 'done') or (self.picking_type_code not in ['outgoing', 'incoming']) or self.force_nobill:
             self.billing_status = 'none'
@@ -45,7 +45,7 @@ class StockPicking(models.Model):
 
     billing_status = fields.Selection([('none', 'Nothing to Bill'), ('todo', 'To Bill'), ('waiting', 'Waiting'), ('done', 'Billed')], 
                                       "Billing Status", readonly=True, required=True, compute='_compute_billing_status', default="none", store=True)
-    force_nobill = fields.Boolean("Force Nobill")
+    force_nobill = fields.Boolean("No Billing")
 
     def _set_shipping_weight(self):
         self.shipping_weight_free = self.shipping_weight

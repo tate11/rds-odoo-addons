@@ -287,7 +287,8 @@ class MergePartnerAutomatic(models.TransientModel):
                 'view_mode': 'form',
                 'target': 'new',
             }
-
+        
+        self.product_ids.check_access_rights('unlink')
         self._merge(self.src_product_id, self.dst_product_id)
 
 

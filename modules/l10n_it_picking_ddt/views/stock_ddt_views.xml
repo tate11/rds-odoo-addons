@@ -5,10 +5,10 @@
             <field name="model">stock.ddt</field>
             <field name="arch" type="xml">
                 <tree string="Package Preparations">
-                    <field name="picking_type_code"/>
+                    <field name="picking_type_id"/>
+                    <field name="date"/>
                     <field name="name"/>
                     <field name="partner_id"/>
-                    <field name="picking_type_id"/>
                     <field name="state"/>
                 </tree>
             </field>
@@ -50,7 +50,7 @@
                         <button name="action_print" string="Print" type="object" class="oe_highlight" states="done"/>
                         <button name="action_cancel" string="Cancel" type="object" states="draft,waiting"/>
                         <button name="action_cancel" string="Cancel" groups="base.group_no_one" type="object" states="done"/>
-                        <button name="action_draft" string="Cancel" type="object" states="cancel"/>
+                        <button name="action_draft" string="Reset to Draft" type="object" states="cancel"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
                     </header>
                     <sheet>
@@ -145,12 +145,88 @@
             </field>
         </record>
 
+
         <record id="action_stock_view_ddts" model="ir.actions.act_window">
-            <field name="name">Transfer Documents</field>
+            <field name="name">Transport Documents</field>
             <field name="res_model">stock.ddt</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to prepare a new Transport Documents. You can do it manually or from a delivery.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_stock_view_ddts_out" model="ir.actions.act_window">
+            <field name="name">Outgoing Transport Documents</field>
+            <field name="res_model">stock.ddt</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="domain">[('picking_type_code', '=', 'outgoing')]</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to prepare a new Transport Documents. You can do it manually or from a delivery.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_stock_view_ddts_in" model="ir.actions.act_window">
+            <field name="name">Incoming Transport Documents</field>
+            <field name="res_model">stock.ddt</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="domain">[('picking_type_code', '=', 'incoming')]</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to prepare a new Transport Documents. You can do it manually or from a delivery.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="menu_stock_ddts"
+                name="Transport Documents"
+                parent="stock.menu_stock_warehouse_mgmt" sequence="8"/>
+
+        <menuitem
+                action="action_stock_view_ddts_out"
+                id="menu_stock_ddts_outgoing"
+                parent="l10n_it_picking_ddt.menu_stock_ddts" sequence="1"/>
+
+        <menuitem
+                action="action_stock_view_ddts_in"
+                id="menu_stock_ddts_incoming"
+                parent="l10n_it_picking_ddt.menu_stock_ddts" sequence="2"/>
+
+
+        <!-- Pickings to Bill -->
+        <record id="picking_view_list_tobill" model="ir.ui.view"> 
+        <field name="name">picking.tobill.list</field>
+        <field name="priority" eval="5000"/>
+        <field name="model">stock.picking</field>
+            <field name="arch" type="xml"> 
+                <tree create="false">
+                    <field name="name" readonly="1"/>
+                    <field name="picking_type_id" readonly="1"/>
+                    <field name="partner_id" readonly="1"/>
+                    <field name="billing_status" />
+                    <button name="action_nothingtobill" type="object" icon="fa-remove" aria-label="No Billing" title="No Billing"/>
+                </tree> 
+            </field> 
+        </record>
+
+        <record id="action_picking_view_list_tobill" model="ir.actions.act_window">
+            <field name="name">Pickings to Bill</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="domain">['&amp;', ('billing_status', '=', 'todo'), ('picking_type_code', 'in', ['incoming', 'outgoing'])]</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="l10n_it_picking_ddt.picking_view_list_tobill"/>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
                     Click to prepare a new package or delivery.
@@ -158,10 +234,12 @@
             </field>
         </record>
 
+
         <menuitem
-                action="action_stock_view_ddts"
-                id="menu_stock_ddts"
-                parent="stock.menu_stock_warehouse_mgmt" sequence="8"/>
+                action="action_picking_view_list_tobill"
+                id="menu_stock_tobill"
+                parent="l10n_it_picking_ddt.menu_stock_ddts" sequence="2"/>
+
 
     </data>
 </odoo>
