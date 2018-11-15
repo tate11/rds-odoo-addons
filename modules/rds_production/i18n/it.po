@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* workorder_time_offset
+# 	* rds_production
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0+e-20181015\n"
+"Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-05 13:16+0000\n"
-"PO-Revision-Date: 2018-11-05 14:18+0100\n"
+"POT-Creation-Date: 2018-11-15 15:03+0000\n"
+"PO-Revision-Date: 2018-11-15 16:09+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,61 +17,266 @@ msgstr ""
 "Language: it\n"
 "X-Generator: Poedit 2.2\n"
 
-#. module: workorder_time_offset
-#: model_terms:ir.ui.view,arch_db:workorder_time_offset.mrp_routing_workcenter_form_view
-#: model_terms:ir.ui.view,arch_db:workorder_time_offset.mrp_routing_workcenter_tree_view
-msgid "Added Duration (Static)"
-msgstr "Durata Aggiunta (Statica)"
+#. module: rds_production
+#: model_terms:ir.ui.view,arch_db:rds_production.pro_production_form_edit_routing
+msgid ""
+"<span class=\"fa fa-exclamation-triangle\" style=\"color:red;width:100%;text-align:center;font-size:40px\"/>\n"
+"                        <br/>Attenzione: Ci sono attrezzature in manutenzione!"
+msgstr ""
 
-#. module: workorder_time_offset
-#: model:ir.model.fields,field_description:workorder_time_offset.field_mrp_routing_workcenter__time_offset
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_mrp_routing_workcenter_tags__active
+msgid "Active"
+msgstr "Attivo"
+
+#. module: rds_production
+#: model_terms:ir.ui.view,arch_db:rds_production.mrp_routing_workcenter_form_view
+#: model_terms:ir.ui.view,arch_db:rds_production.mrp_routing_workcenter_tree_view
+msgid "Added Duration (Static)"
+msgstr "Durata Aggiuntiva"
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_mrp_bom__alternative_routings
+#: model:ir.model.fields,field_description:rds_production.field_mrp_production__alternative_routings
+msgid "Alternative Routings"
+msgstr "Routing Alternativi"
+
+#. module: rds_production
+#: model:ir.model.fields,help:rds_production.field_mrp_bom__alternative_routings
+#: model:ir.model.fields,help:rds_production.field_mrp_production__alternative_routings
+msgid "Alternative routings to be chosen from in manual workorder creation."
+msgstr "Routing alternativi da tra cui scegliere nella creazione manuale degli ordini di produzione."
+
+#. module: rds_production
+#: model:ir.model,name:rds_production.model_report_mrp_report_bom_structure
+msgid "BOM Structure Report"
+msgstr "Esplosione BOM"
+
+#. module: rds_production
+#: model:ir.model,name:rds_production.model_mrp_bom
+msgid "Bill of Material"
+msgstr "Distinta base"
+
+#. module: rds_production
+#: model:ir.model,name:rds_production.model_mrp_bom_line
+msgid "Bill of Material Line"
+msgstr "Linea della Distinta di Base"
+
+#. module: rds_production
+#: code:addons/rds_production/models/mrp_bom.py:22
+#: code:addons/rds_production/models/mrp_bom.py:24
+#, python-format
+msgid "BoM line product %s should not be same as BoM product."
+msgstr "Il prodotto delle linee di distinta %s non dovrebbe coincidere con il prodotto della Distinta."
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_product_product__purchase_ok
+msgid "Can be Purchased"
+msgstr "Può essere acquistato"
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_product_product__sale_ok
+msgid "Can be Sold"
+msgstr "Può essere venduto"
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_mrp_routing_workcenter_tags__color
+msgid "Color Index"
+msgstr "Indice Colore"
+
+#. module: rds_production
+#: model_terms:ir.ui.view,arch_db:rds_production.mrp_bom_alternative_routings
+msgid "Consumed on Operations"
+msgstr "Consumato in fasi"
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_mrp_routing_workcenter_tags__create_uid
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_mrp_routing_workcenter_tags__create_date
+msgid "Created on"
+msgstr "Creato il"
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_mrp_routing_workcenter_tags__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: rds_production
+#: model_terms:ir.ui.view,arch_db:rds_production.mrp_routing_workcenter_form_view
+msgid "Equipments"
+msgstr "Attrezzature"
+
+#. module: rds_production
+#: model_terms:ir.ui.view,arch_db:rds_production.mrp_routing_workcenter_form_view
+msgid "Est. Next Failure"
+msgstr "Prossima rottura (Stima)"
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_mrp_routing_workcenter__time_offset
 msgid "Fixed Offset"
 msgstr "Offset Fisso"
 
-#. module: workorder_time_offset
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_mrp_routing_workcenter_tags__id
+msgid "ID"
+msgstr ""
+
+#. module: rds_production
 #: selection:mrp.workcenter,time_logging:0
 msgid "Interface-Detection"
 msgstr "Rilevamento Interfaccia"
 
-#. module: workorder_time_offset
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_mrp_routing_workcenter_tags____last_update
+msgid "Last Modified on"
+msgstr "Data di ultima modifica"
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_mrp_routing_workcenter_tags__write_uid
+msgid "Last Updated by"
+msgstr "Ultima modifica di"
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_mrp_routing_workcenter_tags__write_date
+msgid "Last Updated on"
+msgstr "Ultima modifica il"
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_maintenance_equipment__maintenance_color
+msgid "Maintenance Color"
+msgstr ""
+
+#. module: rds_production
+#: model:ir.model,name:rds_production.model_maintenance_equipment
+msgid "Maintenance Equipment"
+msgstr "Attrezzatura Manutenzione"
+
+#. module: rds_production
 #: selection:mrp.workcenter,time_logging:0
 msgid "Manual"
 msgstr "Manuale"
 
-#. module: workorder_time_offset
-#: model:ir.model.fields,help:workorder_time_offset.field_mrp_routing_workcenter__unit_operation
-#: model:ir.model.fields,help:workorder_time_offset.field_mrp_workorder__unit_operation
+#. module: rds_production
+#: model:ir.model.fields,help:rds_production.field_mrp_routing_workcenter__unit_operation
+#: model:ir.model.fields,help:rds_production.field_mrp_workorder__unit_operation
 msgid "Marks the operation as a unitary operation. All parts will be processed at once."
-msgstr "Contrassegna l'operazione come operazione unitaria. Tutte le parti saranno processate in una sola volta."
+msgstr "Segna l'operazione come unitaria. Tutti i componenti saranno processati in una volta."
 
-#. module: workorder_time_offset
-#: model:ir.model.fields,field_description:workorder_time_offset.field_mrp_workcenter__time_logging
-#: model:ir.model.fields,field_description:workorder_time_offset.field_mrp_workorder__time_logging
+#. module: rds_production
+#: model:ir.model,name:rds_production.model_mrp_routing_workcenter_tags
+msgid "Operation Tag"
+msgstr "Etichetta Fase"
+
+#. module: rds_production
+#: model:ir.model,name:rds_production.model_product_product
+msgid "Product"
+msgstr "Prodotto"
+
+#. module: rds_production
+#: model:ir.model,name:rds_production.model_mrp_production
+msgid "Production"
+msgstr "Produzione"
+
+#. module: rds_production
+#: model_terms:ir.ui.view,arch_db:rds_production.mrp_routing_workcenter_form_view
+msgid "Required Tools"
+msgstr "Attrezzature Necessarie"
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_mrp_production__default_routing
+#: model:ir.model.fields,field_description:rds_production.field_mrp_production__routing_id
+#: model:ir.model.fields,field_description:rds_production.field_mrp_production__routing_id_force
+msgid "Routing"
+msgstr ""
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_mrp_routing_workcenter__tag_id
+msgid "Tag"
+msgstr ""
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_mrp_routing_workcenter_tags__name
+msgid "Tag Name"
+msgstr "Nome Tag"
+
+#. module: rds_production
+#: sql_constraint:mrp.routing.workcenter.tags:0
+msgid "Tag name must be unique."
+msgstr "Il Tag deve essere unico."
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_mrp_bom_line__tag_ids
+msgid "Tags"
+msgstr ""
+
+#. module: rds_production
+#: model:ir.model.fields,help:rds_production.field_mrp_routing_workcenter_tags__active
+msgid "The active field allows you to hide the category without removing it."
+msgstr "Il campo attivo ti permette di nascondere la categoria senza doverla rimuovere."
+
+#. module: rds_production
+#: code:addons/rds_production/models/mrp_production.py:63
+#, python-format
+msgid "The chosen routing has no operations defined. Please correct the routing."
+msgstr "Il routing scelto non ha operazioni. Perfavore correggere il routing."
+
+#. module: rds_production
+#: model:ir.model.fields,help:rds_production.field_mrp_production__routing_id
+msgid "The list of operations (list of work centers) to produce the finished product. The routing is mainly used to compute work center costs during operations and to plan future loads on work centers based on production planning."
+msgstr "Lista delle operazioni (lista centri di lavoro) per la produzione dei prodotti finiti. Il routing è prevalentemente utilizzato per calcolare i costi dei centri di lavoro durante le operazioni e per la pianificazione del carico basato sulla pianificazione della produzione."
+
+#. module: rds_production
+#: model:ir.model.fields,help:rds_production.field_mrp_bom_line__tag_ids
+msgid "The material will be consumed at the first matching operation."
+msgstr "Il materiale sarà consumato alla prima operazione corrispondente."
+
+#. module: rds_production
+#: model:ir.model.fields,help:rds_production.field_mrp_production__default_routing
+msgid "The operations for producing this BoM.  When a routing is specified, the production orders will  be executed through work orders, otherwise everything is processed in the production order itself. "
+msgstr "Le operazioni per produrre questa Distinta. Quando un routing è specificato, l'ordine di produzione sarà eseguito per mezzo di ordini di lavoro, altrimenti sarà processato dalla schermata dell'ordine stesso."
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_mrp_workcenter__time_logging
+#: model:ir.model.fields,field_description:rds_production.field_mrp_workorder__time_logging
 msgid "Time Logging"
-msgstr "Registrazione temporale"
+msgstr "Scritture Temporali"
 
-#. module: workorder_time_offset
-#: model:ir.model.fields,field_description:workorder_time_offset.field_mrp_routing_workcenter__unit_operation
-#: model:ir.model.fields,field_description:workorder_time_offset.field_mrp_workorder__unit_operation
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_mrp_routing_workcenter__equipment_ids
+msgid "Tools Status"
+msgstr "Stato Attrezzature"
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_mrp_production__equipment_ids
+#: model:ir.model.fields,field_description:rds_production.field_mrp_production__has_maintenance
+msgid "Tools on Maintenance"
+msgstr "Attrezz. in Manutenzione"
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_mrp_routing_workcenter__unit_operation
+#: model:ir.model.fields,field_description:rds_production.field_mrp_workorder__unit_operation
 msgid "Unit Operation"
 msgstr "Operazione Unitaria"
 
-#. module: workorder_time_offset
-#: model:ir.model,name:workorder_time_offset.model_mrp_workcenter
+#. module: rds_production
+#: model:ir.model,name:rds_production.model_mrp_workcenter
 msgid "Work Center"
 msgstr "Centro di Lavoro"
 
-#. module: workorder_time_offset
-#: model:ir.model,name:workorder_time_offset.model_mrp_routing_workcenter
+#. module: rds_production
+#: model:ir.model,name:rds_production.model_mrp_routing_workcenter
 msgid "Work Center Usage"
 msgstr "Utilizzo Centri di Lavoro"
 
-#. module: workorder_time_offset
-#: model:ir.model,name:workorder_time_offset.model_mrp_workorder
+#. module: rds_production
+#: model:ir.model,name:rds_production.model_mrp_workorder
 msgid "Work Order"
 msgstr "Ordine di Lavoro"
 
-#. module: workorder_time_offset
-#: model_terms:ir.ui.view,arch_db:workorder_time_offset.mrp_routing_workcenter_form_view
+#. module: rds_production
+#: model_terms:ir.ui.view,arch_db:rds_production.mrp_routing_workcenter_form_view
 msgid "minutes"
 msgstr "minuti"

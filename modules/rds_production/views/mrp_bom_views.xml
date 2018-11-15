@@ -34,7 +34,22 @@
                     </div>
                     <br/>
                     <field name="unit_operation"/>
+                </xpath>    
+                <xpath expr="//field[@name='note']/.." position="before">
+                    <page string="Required Tools">
+                        <field name="equipment_ids" widget="many2many">
+                            <tree string="Equipments">
+                                <field name="name"/>
+                                <field name="technician_user_id"/>
+                                <field name="category_id"/>
+                                <field name="mtbf"/>
+                                <field name="mttr"/>
+                                <field name="estimated_next_failure" string="Est. Next Failure"/>
+                            </tree>
+                        </field>
+                    </page>
                 </xpath>
+
             </field>
         </record>
 

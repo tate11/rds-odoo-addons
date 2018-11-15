@@ -6,6 +6,9 @@ from odoo.addons import decimal_precision as dp
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import float_round
 
+import logging
+logger = logging.getLogger()
+
 class MrpProduction(models.Model):
     """ Manufacturing Orders """
     _inherit = 'mrp.production'
@@ -21,6 +24,16 @@ class MrpProduction(models.Model):
 
     default_routing = fields.Many2one('mrp.routing', related="bom_id.routing_id")
     alternative_routings = fields.Many2many('mrp.routing', string="Alternative Routings", related="bom_id.alternative_routings", help="Alternative routings to be chosen from in manual workorder creation.")
+
+    has_maintenance = fields.Boolean('Tools on Maintenance', compute='_tools_on_maintenance')
+    equipment_ids = fields.Many2many('maintenance.equipment', compute='_tools_on_maintenance', string="Tools Status")
+    
+    def _tools_on_maintenance(self):
+        for production in self:
+            production.equipment_ids = production.routing_id.operation_ids.mapped(lambda x: x.equipment_ids + x.workcenter_id.equipment_ids) 
+            _tools_on_maintenance = production.equipment_ids.filtered(lambda x: x.maintenance_open_count >= 1)
+            if _tools_on_maintenance:
+                production.has_maintenance = True
 
     def _generate_raw_move(self, bom_line, line_data):
         line = super(MrpProduction, self)._generate_raw_move(bom_line, line_data)

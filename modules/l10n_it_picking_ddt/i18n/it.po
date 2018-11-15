@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-13 07:41+0000\n"
-"PO-Revision-Date: 2018-11-13 08:53+0100\n"
+"POT-Creation-Date: 2018-11-15 15:10+0000\n"
+"PO-Revision-Date: 2018-11-15 16:11+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -241,6 +241,13 @@ msgstr "Generalità Vettore"
 
 #. module: l10n_it_picking_ddt
 #: model_terms:ir.actions.act_window,help:l10n_it_picking_ddt.action_stock_view_ddts
+#: model_terms:ir.actions.act_window,help:l10n_it_picking_ddt.action_stock_view_ddts_in
+#: model_terms:ir.actions.act_window,help:l10n_it_picking_ddt.action_stock_view_ddts_out
+msgid "Click to prepare a new Transport Documents. You can do it manually or from a delivery."
+msgstr "Clicca Crea per creare nuovi documenti di Trasporto. Puoi crearli in manuale o da una consegna."
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.actions.act_window,help:l10n_it_picking_ddt.action_picking_view_list_tobill
 msgid "Click to prepare a new package or delivery."
 msgstr "Crea un nuovo DDT."
 
@@ -273,7 +280,7 @@ msgstr "Creato il"
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking__ddt_ids
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.view_picking_form_ddt
 msgid "DDT"
-msgstr ""
+msgstr "DDT"
 
 #. module: l10n_it_picking_ddt
 #: model:ir.actions.report,name:l10n_it_picking_ddt.action_report_ddt
@@ -390,11 +397,6 @@ msgid "Followers (Partners)"
 msgstr "Followers (Partner)"
 
 #. module: l10n_it_picking_ddt
-#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking__force_nobill
-msgid "Force Nobill"
-msgstr "Forza Non-bollettazione"
-
-#. module: l10n_it_picking_ddt
 #: model:ir.actions.act_window,name:l10n_it_picking_ddt.action_stock_picking_goods_description
 #: model:ir.ui.menu,name:l10n_it_picking_ddt.menu_goods_description
 msgid "Goods Description"
@@ -435,6 +437,12 @@ msgstr "Se attivo, alcuni messaggi presentano un errore di consegna. "
 #. module: l10n_it_picking_ddt
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.view_stock_ddt_search
 msgid "Incoming DDTs"
+msgstr "DDT in entrata"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.actions.act_window,name:l10n_it_picking_ddt.action_stock_view_ddts_in
+#: model:ir.ui.menu,name:l10n_it_picking_ddt.menu_stock_ddts_incoming
+msgid "Incoming Transport Documents"
 msgstr "DDT in entrata"
 
 #. module: l10n_it_picking_ddt
@@ -506,6 +514,12 @@ msgid "Move Ids Without Package"
 msgstr "Linee (Senza Pacchi)"
 
 #. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking__force_nobill
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.picking_view_list_tobill
+msgid "No Billing"
+msgstr "Nessuna Bollettazione"
+
+#. module: l10n_it_picking_ddt
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__note
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking_goods_description__note
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
@@ -574,6 +588,12 @@ msgid "Outgoing DDTs"
 msgstr "DDT in uscita"
 
 #. module: l10n_it_picking_ddt
+#: model:ir.actions.act_window,name:l10n_it_picking_ddt.action_stock_view_ddts_out
+#: model:ir.ui.menu,name:l10n_it_picking_ddt.menu_stock_ddts_outgoing
+msgid "Outgoing Transport Documents"
+msgstr "DDT in uscita"
+
+#. module: l10n_it_picking_ddt
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.stock_view_ddts_form
 msgid "Package Preparation"
 msgstr "Preparazione dei Pacchi"
@@ -596,6 +616,12 @@ msgid "Picking Type"
 msgstr "Tipo Picking"
 
 #. module: l10n_it_picking_ddt
+#: model:ir.actions.act_window,name:l10n_it_picking_ddt.action_picking_view_list_tobill
+#: model:ir.ui.menu,name:l10n_it_picking_ddt.menu_stock_tobill
+msgid "Pickings to Bill"
+msgstr "Movimenti da Bollettare"
+
+#. module: l10n_it_picking_ddt
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.stock_view_ddts_form
 msgid "Print"
 msgstr "Stampa"
@@ -615,6 +641,11 @@ msgstr "Riferimento"
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.stock_view_ddts_form
 msgid "Register lots, packs, location"
 msgstr "Registrare lotti, pacchetti, luoghi"
+
+#. module: l10n_it_picking_ddt
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.stock_view_ddts_form
+msgid "Reset to Draft"
+msgstr "Riportare a bozza"
 
 #. module: l10n_it_picking_ddt
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.stock_view_ddts_form
@@ -653,12 +684,6 @@ msgid "Transfer"
 msgstr "Trasferisci"
 
 #. module: l10n_it_picking_ddt
-#: model:ir.actions.act_window,name:l10n_it_picking_ddt.action_stock_view_ddts
-#: model:ir.ui.menu,name:l10n_it_picking_ddt.menu_stock_ddts
-msgid "Transfer Documents"
-msgstr "Documenti di Trasferimento"
-
-#. module: l10n_it_picking_ddt
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__picking_ids
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.stock_view_ddts_form
 msgid "Transfers"
@@ -673,6 +698,12 @@ msgstr "Documento di Trasporto"
 #: model:ir.model,name:l10n_it_picking_ddt.model_stock_ddt_line
 msgid "Transport Document Descriptive Line"
 msgstr "Linea Descrittiva del Documento di Trasporto"
+
+#. module: l10n_it_picking_ddt
+#: model:ir.actions.act_window,name:l10n_it_picking_ddt.action_stock_view_ddts
+#: model:ir.ui.menu,name:l10n_it_picking_ddt.menu_stock_ddts
+msgid "Transport Documents"
+msgstr "Documenti di Trasporto"
 
 #. module: l10n_it_picking_ddt
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.view_stock_ddt_search

@@ -10,7 +10,7 @@
     'category': 'hr', 
     'version': '12.0', 
     'depends': [
-                'mrp', 'mrp_workorder'
+                'mrp_workorder', 'mrp_maintenance'
                ], 
     'data': [
         'security/ir.model.access.csv',
