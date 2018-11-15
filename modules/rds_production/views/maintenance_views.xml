@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="maintenance_equipment_component_view_tree" model="ir.ui.view">
+            <field name="name">maintenance.equipment.component.view.tree</field>
+            <field name="model">maintenance.equipment.component</field>
+            <field name="arch" type="xml">
+                <tree string="Equipment Components">
+                    <field name="name"/>
+                    <field name="serial"/>
+                    <field name="description"/>
+                    <field name="warranted_cycles"/>
+                    <field name="cycles"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="maintenance_equipment_component_view_form" model="ir.ui.view">
+            <field name="name">maintenance.equipment.component.view.form</field>
+            <field name="model">maintenance.equipment.component</field>
+            <field name="arch" type="xml">
+                <form string="Components">
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="serial"/>
+                        </group><group>
+                            <field name="warranted_cycles"/>
+                            <field name="cycles"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                        <field name="equipment_ids" widget="many2many_tags" readonly="1" options="{'color_field': 'color'}"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="maintenance_equipment_component_view_search" model="ir.ui.view">
+            <field name="name">maintenance.equipment.component.search</field>
+            <field name="model">maintenance.equipment.component</field>
+            <field name="arch" type="xml">
+                <search string="Equipments">
+                    <field name="name" filter_domain="['|', '|', ('name','ilike',self), ('serial','ilike',self), ('description','ilike',self)]" string="Equipments"/>
+                    <field name="equipment_ids" />
+                </search>
+            </field>
+        </record>
+
+        <record id="equipment_form_rd_view" model="ir.ui.view">
+            <field name="name">equipment.form.rds</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+            <field name="arch" type="xml">
+                <field name="warranty_date" position="before">
+                    <field name="warranty_type" />
+                    <field name="warranted_cycles" attrs="{'invisible': [('warranty_type','!=','process')]}"/>
+                    <field name="cycles" attrs="{'invisible': [('warranty_type','!=','process')]}"/>
+                    <field name="component_ids" context="{'default_equipment_ids': [(4, id)]}" attrs="{'invisible': [('warranty_type','!=','component')]}" nolabel="1" colspan="2">
+                        <tree string="Equipment Components">
+                            <field name="name"/>
+                            <field name="serial"/>
+                            <field name="description"/>
+                            <field name="warranted_cycles" string="W"/>
+                            <field name="cycles" string="C"/>
+                        </tree>
+                    </field>
+                </field>
+                <field name="warranty_date" position="attributes">
+                    <attribute name="attrs">{'invisible': [('warranty_type','!=','date')]}</attribute>
+                </field>
+                <field name="partner_ref" position="after">
+                    <br/>
+                    <field name="owner_id"/>
+                    <field name="owner_ref"/>
+                    <br/>
+                </field>
+            </field>
+        </record>
+
+        <record id="action_show_components" model="ir.actions.act_window">
+            <field name="name">Components</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">maintenance.equipment.component</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create some components to track your tools' consumption.
+                </p>
+            </field>
+        </record>
+    
+        <menuitem
+        id="menu_equipment_components"
+        name="Components"
+        parent="maintenance.menu_equipment_form"
+        action="action_show_components"
+        sequence="3"/>
+
+    </data>
+</odoo>

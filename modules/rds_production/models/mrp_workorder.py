@@ -30,6 +30,13 @@ class MrpWorkorder(models.Model):
     unit_operation = fields.Boolean("Unit Operation", related="operation_id.unit_operation", readonly=True, help="Marks the operation as a unitary operation. All parts will be processed at once.")
     time_logging = fields.Selection([('standard', 'Interface-Detection'), ('manual', 'Manual')], string="Time Logging", related="workcenter_id.time_logging")
 
+    @api.multi
+    def button_finish(self):
+        res = super(MrpWorkorder, self).button_finish()
+        consumed_tools = self.operation_id.equipment_ids | self.workcenter_id.equipment_ids
+        consumed_tools.log_consumption(self.qty_produced)
+        return res
+
     def open_tablet_view(self):
         self.ensure_one()
         if not self.is_user_working and (self.working_state != 'blocked'):
