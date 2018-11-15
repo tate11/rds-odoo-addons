@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 15:03+0000\n"
-"PO-Revision-Date: 2018-11-15 16:09+0100\n"
+"POT-Creation-Date: 2018-11-15 17:54+0000\n"
+"PO-Revision-Date: 2018-11-15 18:57+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -85,26 +85,75 @@ msgid "Color Index"
 msgstr "Indice Colore"
 
 #. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_maintenance_equipment_component__name
+msgid "Component"
+msgstr "Componenti"
+
+#. module: rds_production
+#: selection:maintenance.equipment,warranty_type:0
+msgid "Component Cycles"
+msgstr "Cicli dei Componenti"
+
+#. module: rds_production
+#: model:ir.actions.act_window,name:rds_production.action_show_components
+#: model:ir.model.fields,field_description:rds_production.field_maintenance_equipment__component_ids
+#: model:ir.ui.menu,name:rds_production.menu_equipment_components
+#: model_terms:ir.ui.view,arch_db:rds_production.maintenance_equipment_component_view_form
+msgid "Components"
+msgstr "Componenti"
+
+#. module: rds_production
 #: model_terms:ir.ui.view,arch_db:rds_production.mrp_bom_alternative_routings
 msgid "Consumed on Operations"
 msgstr "Consumato in fasi"
 
 #. module: rds_production
+#: model_terms:ir.actions.act_window,help:rds_production.action_show_components
+msgid "Create some components to track your tools' consumption."
+msgstr "Crea alcuni componenti per tracciare l'usura delle tue attrezzature."
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_maintenance_equipment_component__create_uid
 #: model:ir.model.fields,field_description:rds_production.field_mrp_routing_workcenter_tags__create_uid
 msgid "Created by"
 msgstr "Creato da"
 
 #. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_maintenance_equipment_component__create_date
 #: model:ir.model.fields,field_description:rds_production.field_mrp_routing_workcenter_tags__create_date
 msgid "Created on"
 msgstr "Creato il"
 
 #. module: rds_production
+#: selection:maintenance.equipment,warranty_type:0
+msgid "Cycle Number"
+msgstr "Numero di Cicli"
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_maintenance_equipment_component__description
+msgid "Description"
+msgstr "Descrizione"
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_maintenance_equipment_component__display_name
 #: model:ir.model.fields,field_description:rds_production.field_mrp_routing_workcenter_tags__display_name
 msgid "Display Name"
 msgstr "Nome visualizzato"
 
 #. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_maintenance_equipment__cycles
+msgid "Effective Cycles"
+msgstr "Cicli Subiti"
+
+#. module: rds_production
+#: model_terms:ir.ui.view,arch_db:rds_production.equipment_form_rd_view
+#: model_terms:ir.ui.view,arch_db:rds_production.maintenance_equipment_component_view_tree
+msgid "Equipment Components"
+msgstr "Coponenti Attrezzatura"
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_maintenance_equipment_component__equipment_ids
+#: model_terms:ir.ui.view,arch_db:rds_production.maintenance_equipment_component_view_search
 #: model_terms:ir.ui.view,arch_db:rds_production.mrp_routing_workcenter_form_view
 msgid "Equipments"
 msgstr "Attrezzature"
@@ -120,6 +169,7 @@ msgid "Fixed Offset"
 msgstr "Offset Fisso"
 
 #. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_maintenance_equipment_component__id
 #: model:ir.model.fields,field_description:rds_production.field_mrp_routing_workcenter_tags__id
 msgid "ID"
 msgstr ""
@@ -130,16 +180,19 @@ msgid "Interface-Detection"
 msgstr "Rilevamento Interfaccia"
 
 #. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_maintenance_equipment_component____last_update
 #: model:ir.model.fields,field_description:rds_production.field_mrp_routing_workcenter_tags____last_update
 msgid "Last Modified on"
 msgstr "Data di ultima modifica"
 
 #. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_maintenance_equipment_component__write_uid
 #: model:ir.model.fields,field_description:rds_production.field_mrp_routing_workcenter_tags__write_uid
 msgid "Last Updated by"
 msgstr "Ultima modifica di"
 
 #. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_maintenance_equipment_component__write_date
 #: model:ir.model.fields,field_description:rds_production.field_mrp_routing_workcenter_tags__write_date
 msgid "Last Updated on"
 msgstr "Ultima modifica il"
@@ -155,6 +208,11 @@ msgid "Maintenance Equipment"
 msgstr "Attrezzatura Manutenzione"
 
 #. module: rds_production
+#: model:ir.model,name:rds_production.model_maintenance_equipment_component
+msgid "Maintenance Equipment Component"
+msgstr "Componente Attrezzature"
+
+#. module: rds_production
 #: selection:mrp.workcenter,time_logging:0
 msgid "Manual"
 msgstr "Manuale"
@@ -166,9 +224,24 @@ msgid "Marks the operation as a unitary operation. All parts will be processed a
 msgstr "Segna l'operazione come unitaria. Tutti i componenti saranno processati in una volta."
 
 #. module: rds_production
+#: selection:maintenance.equipment,warranty_type:0
+msgid "No Warranty"
+msgstr "Nessuna"
+
+#. module: rds_production
 #: model:ir.model,name:rds_production.model_mrp_routing_workcenter_tags
 msgid "Operation Tag"
 msgstr "Etichetta Fase"
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_maintenance_equipment__owner_id
+msgid "Owner"
+msgstr "Proprietario"
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_maintenance_equipment__owner_ref
+msgid "Owner Reference"
+msgstr "Riferimento Propietario"
 
 #. module: rds_production
 #: model:ir.model,name:rds_production.model_product_product
@@ -181,6 +254,7 @@ msgid "Production"
 msgstr "Produzione"
 
 #. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_mrp_routing_workcenter__equipment_ids
 #: model_terms:ir.ui.view,arch_db:rds_production.mrp_routing_workcenter_form_view
 msgid "Required Tools"
 msgstr "Attrezzature Necessarie"
@@ -191,6 +265,16 @@ msgstr "Attrezzature Necessarie"
 #: model:ir.model.fields,field_description:rds_production.field_mrp_production__routing_id_force
 msgid "Routing"
 msgstr ""
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_maintenance_equipment_component__serial
+msgid "Serial No."
+msgstr "Num. Seriale"
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_maintenance_equipment_component__cycles
+msgid "Sustained Cycles"
+msgstr "Cicli Subiti"
 
 #. module: rds_production
 #: model:ir.model.fields,field_description:rds_production.field_mrp_routing_workcenter__tag_id
@@ -245,12 +329,16 @@ msgid "Time Logging"
 msgstr "Scritture Temporali"
 
 #. module: rds_production
-#: model:ir.model.fields,field_description:rds_production.field_mrp_routing_workcenter__equipment_ids
+#: selection:maintenance.equipment,warranty_type:0
+msgid "Time-Based"
+msgstr "A Tempo"
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_mrp_production__equipment_ids
 msgid "Tools Status"
 msgstr "Stato Attrezzature"
 
 #. module: rds_production
-#: model:ir.model.fields,field_description:rds_production.field_mrp_production__equipment_ids
 #: model:ir.model.fields,field_description:rds_production.field_mrp_production__has_maintenance
 msgid "Tools on Maintenance"
 msgstr "Attrezz. in Manutenzione"
@@ -260,6 +348,17 @@ msgstr "Attrezz. in Manutenzione"
 #: model:ir.model.fields,field_description:rds_production.field_mrp_workorder__unit_operation
 msgid "Unit Operation"
 msgstr "Operazione Unitaria"
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_maintenance_equipment__warranted_cycles
+#: model:ir.model.fields,field_description:rds_production.field_maintenance_equipment_component__warranted_cycles
+msgid "Warranted Cycles"
+msgstr "Cicli Garantiti"
+
+#. module: rds_production
+#: model:ir.model.fields,field_description:rds_production.field_maintenance_equipment__warranty_type
+msgid "Warranty Type"
+msgstr "Tipo Garanzia"
 
 #. module: rds_production
 #: model:ir.model,name:rds_production.model_mrp_workcenter
