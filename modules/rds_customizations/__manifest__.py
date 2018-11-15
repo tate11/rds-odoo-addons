@@ -17,7 +17,8 @@
                ], 
     'data': [
         'wizard/product_merge.xml',
-        'reports/mrp_production_label.xml'
+        'reports/mrp_production_label.xml',
+        'reports/sale_order.xml'
     ],
     'application': False,
     'installable': True,
