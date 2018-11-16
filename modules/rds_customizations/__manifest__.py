@@ -13,7 +13,7 @@
     'category': 'hr', 
     'version': '12.0', 
     'depends': [
-                'mrp', 'sale_management'
+                'mrp',
                ], 
     'data': [
         'wizard/product_merge.xml',
