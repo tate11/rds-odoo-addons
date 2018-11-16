@@ -1,5 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 user_mrptags,rule.usr.mrptags,rds_production.model_mrp_routing_workcenter_tags,base.group_user,1,0,0,0
 mrp_mgr_mrptags,rule.mgr.mrptags,rds_production.model_mrp_routing_workcenter_tags,mrp.group_mrp_manager,1,1,1,1
-user_maintcomponents,rule.usr.maintcomponents,rds_production.model_maintenance_equipment_component,base.group_user,1,0,0,0
-mrp_mgr_maintcomponents,rule.mgr.maintcomponents,rds_production.model_maintenance_equipment_component,mrp.group_mrp_manager,1,1,1,1

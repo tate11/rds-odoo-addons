@@ -20,9 +20,9 @@ class MrpProduction(models.Model):
              "is mainly used to compute work center costs during operations and to plan future loads on "
              "work centers based on production planning.")
 
-    routing_id_force = fields.Many2one('mrp.routing', 'Routing', readonly=True)
+    routing_id_force = fields.Many2one('mrp.routing', 'Forced Routing', readonly=True)
 
-    default_routing = fields.Many2one('mrp.routing', related="bom_id.routing_id")
+    default_routing = fields.Many2one('mrp.routing', related="bom_id.routing_id", string='Default Routing')
     alternative_routings = fields.Many2many('mrp.routing', string="Alternative Routings", related="bom_id.alternative_routings", help="Alternative routings to be chosen from in manual workorder creation.")
 
     has_maintenance = fields.Boolean('Tools on Maintenance', compute='_tools_on_maintenance')

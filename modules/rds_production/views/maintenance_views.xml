@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+    
+    <!--
         <record id="maintenance_equipment_component_view_tree" model="ir.ui.view">
             <field name="name">maintenance.equipment.component.view.tree</field>
             <field name="model">maintenance.equipment.component</field>
@@ -46,7 +48,7 @@
                     <field name="equipment_ids" />
                 </search>
             </field>
-        </record>
+        </record>-->
 
         <record id="equipment_form_rd_view" model="ir.ui.view">
             <field name="name">equipment.form.rds</field>
@@ -57,7 +59,7 @@
                     <field name="warranty_type" />
                     <field name="warranted_cycles" attrs="{'invisible': [('warranty_type','!=','process')]}"/>
                     <field name="cycles" attrs="{'invisible': [('warranty_type','!=','process')]}"/>
-                    <field name="component_ids" context="{'default_equipment_ids': [(4, id)]}" attrs="{'invisible': [('warranty_type','!=','component')]}" nolabel="1" colspan="2">
+                    <!--<field name="component_ids" context="{'default_equipment_ids': [(4, id)]}" attrs="{'invisible': [('warranty_type','!=','component')]}" nolabel="1" colspan="2">
                         <tree string="Equipment Components">
                             <field name="name"/>
                             <field name="serial"/>
@@ -65,7 +67,7 @@
                             <field name="warranted_cycles" string="W"/>
                             <field name="cycles" string="C"/>
                         </tree>
-                    </field>
+                    </field>-->
                 </field>
                 <field name="warranty_date" position="attributes">
                     <attribute name="attrs">{'invisible': [('warranty_type','!=','date')]}</attribute>
@@ -79,6 +81,7 @@
             </field>
         </record>
 
+        <!--
         <record id="action_show_components" model="ir.actions.act_window">
             <field name="name">Components</field>
             <field name="type">ir.actions.act_window</field>
@@ -98,6 +101,7 @@
         parent="maintenance.menu_equipment_form"
         action="action_show_components"
         sequence="3"/>
+        -->
 
     </data>
 </odoo>

@@ -12,8 +12,8 @@ class MaintenanceEquipment(models.Model):
     warranty_type = fields.Selection([
                                         ('none', 'No Warranty'),
                                         ('date', 'Time-Based'),
-                                        ('process', 'Cycle Number'),
-                                        ('component', 'Component Cycles')
+                                        ('process', 'Cycle Number') #,
+ #                                       ('component', 'Component Cycles')
                                      ], 'Warranty Type', default="none", required=True)
 
     warranted_cycles = fields.Integer('Warranted Cycles')
@@ -30,12 +30,12 @@ class MaintenanceEquipment(models.Model):
   
     @api.multi
     def log_consumption(self, cycles):
-        components = self.env['maintenance.equipment.component']
+        #components = self.env['maintenance.equipment.component']
         for i in self:
             i.cycles += int(cycles)
-            components |= i.component_ids     
-        for t in components:
-            t.cycles += int(cycles)
+        #    components |= i.component_ids     
+        #for t in components:
+        #    t.cycles += int(cycles)
 
 
 class MaintenanceEquipmentComponent(models.Model):
