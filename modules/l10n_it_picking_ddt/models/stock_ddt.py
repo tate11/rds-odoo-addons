@@ -22,7 +22,7 @@ class TransportDocument(models.Model):
     name = fields.Char(string="DDT No.", copy=False)
     state = fields.Selection(selection=[('draft', 'Draft'), ('waiting', 'Waiting'), ('done', 'Done'), ('cancel', 'Cancelled')], string="State", required=True, default='draft')  
 
-    date = fields.Date("Document Date", default=fields.Date.today(), readonly=True, states={'draft': [('readonly', False)], 'waiting': [('readonly', False)]})
+    date = fields.Date("Document Date", default=lambda x: fields.Date.today(), readonly=True, states={'draft': [('readonly', False)], 'waiting': [('readonly', False)]})
 
     picking_type_id = fields.Many2one(
         'stock.picking.type', 'Operation Type',
