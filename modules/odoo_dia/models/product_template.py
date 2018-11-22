@@ -87,21 +87,3 @@ class ProductTemplate(models.Model):
                         f.write(bytearray(lineTXT, encoding='utf-8'))
 
         return self.mapped(lambda x: x.dia_transfer_status)
-
-    @api.multi
-    def write(self, vals):
-        if (not vals.get('dia_transfer_status')) and (self.dia_transfer_status == 'success'):
-            vals['dia_transfer_status'] = vals.get('dia_transfer_status', 'draft')
-            vals['dia_transfer_type'] = vals.get('dia_transfer_type', 'update')
-            vals['dia_transfer_id'] = self.sudo().env['dia.transfer'].get_next().id
-
-        return super(ProductTemplate, self).write(vals)
-
-    @api.model
-    def create(self, vals):
-        res = super(ProductTemplate, self).create(vals)
-
-        res.dia_transfer_id = self.sudo().env['dia.transfer'].get_next()
-        res.dia_transfer_status = 'draft'
-
-        return res

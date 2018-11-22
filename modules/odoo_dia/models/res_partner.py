@@ -213,12 +213,3 @@ class PartnerDIA(models.Model):
             partner.write({'dia_transfer_status': 'success', 'dia_transfer_notes': False})
 
         return i_customers, u_customers, i_suppliers, u_suppliers
-
-    @api.model
-    def create(self, vals):
-        res = super(PartnerDIA, self).create(vals)
-
-        res.dia_transfer_id = self.sudo().env['dia.transfer'].get_next()
-        res.dia_transfer_status = 'draft'
-
-        return res

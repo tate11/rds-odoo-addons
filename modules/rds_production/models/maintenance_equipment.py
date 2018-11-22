@@ -19,7 +19,7 @@ class MaintenanceEquipment(models.Model):
     warranted_cycles = fields.Integer('Warranted Cycles')
     cycles = fields.Integer('Effective Cycles')
 
-    component_ids = fields.Many2many('maintenance.equipment.component', 'equipment_components', string='Components')
+    #component_ids = fields.Many2many('maintenance.equipment.component', 'equipment_components', string='Components')
 
     maintenance_color = fields.Integer('Maintenance Color', compute="_compute_maintenance_color")
     
