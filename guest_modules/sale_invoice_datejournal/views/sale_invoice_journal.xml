@@ -15,7 +15,7 @@
             </field>
         </record>
 
-        <!--<record id="view_account_position_form_journals" model="ir.ui.view">
+        <record id="view_account_position_form_journals" model="ir.ui.view">
             <field name="name">account.position.form.journals</field>
             <field name="model">account.fiscal.position</field>
             <field name="inherit_id" ref="account.view_account_position_form"/>
@@ -24,7 +24,7 @@
                     <field name="sale_journal_id"/>
                 </xpath>
             </field>
-        </record>-->
+        </record>
 
     </data>
 </odoo>
