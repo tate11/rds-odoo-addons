@@ -25,7 +25,6 @@ class SaleAdvancePaymentInv(models.TransientModel):
 
     @api.multi
     def _create_invoice(self, order, so_line, amount):
-
         invoice = super(SaleAdvancePaymentInv,self)._create_invoice(order, so_line, amount)
         if self.journal_id:
             invoice.journal_id = self.journal_id
@@ -50,12 +49,10 @@ class SaleOrder(models.Model):
 
     @api.multi
     def _prepare_invoice(self):
-
         invoice_vals = super(SaleOrder,self)._prepare_invoice()
 
         if self.fiscal_position_id and self.fiscal_position_id.sale_journal_id:
             invoice_vals['journal_id'] = self.fiscal_position_id.sale_journal_id.id
-
         if 'journal_id' in self.env.context:
             invoice_vals['journal_id'] = self.env.context['journal_id'].id
         if 'date_invoice' in self.env.context:
@@ -63,7 +60,21 @@ class SaleOrder(models.Model):
 
         return invoice_vals
 
+class PurchaseOrder(models.Model):
+    _inherit = 'purchase.order'   
+    
+    @api.multi
+    def action_view_invoice(self):
+        result = super(PurchaseOrder, self).action_view_invoice()
+
+        if self.fiscal_position_id and self.fiscal_position_id.purchase_journal_id:
+            result['context']['default_journal_id'] = self.fiscal_position_id.purchase_journal_id.id
+
+        return result
+
+
 class FiscalPosition(models.Model):
     _inherit = 'account.fiscal.position'
 
-    sale_journal_id = fields.Many2one('account.journal', 'Default Journal', domain=[('type', '=', 'sale')], help="Default sale invoicing journal for this fiscal position.")
+    sale_journal_id = fields.Many2one('account.journal', 'Default Sale Journal', domain=[('type', '=', 'sale')], help="Default sale invoicing journal for this fiscal position.")
+    purchase_journal_id = fields.Many2one('account.journal', 'Default Purchase Journal', domain=[('type', '=', 'purchase')], help="Default purschase invoicing journal for this fiscal position.")
