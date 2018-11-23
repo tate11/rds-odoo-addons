@@ -64,6 +64,6 @@ class SaleOrder(models.Model):
         return invoice_vals
 
 class FiscalPosition(models.Model):
-    _name = 'account.fiscal.position'
+    _inherit = 'account.fiscal.position'
 
     sale_journal_id = fields.Many2one('account.journal', 'Default Journal', domain=[('type', '=', 'sale')], help="Default sale invoicing journal for this fiscal position.")
