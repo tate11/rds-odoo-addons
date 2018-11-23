@@ -1,7 +1,7 @@
 # Intended for sole use by RDS Moulding Technology SpA. See README file.
 
 { 
-    'name': "HR Quality of Life ", 
+    'name': "HR Lul", 
     'summary': "Adds small quality-of-life improvements to HR management.", 
     'description': """This module adds menuitems and base utilities for other modules, centered on HR reporting.
                    """, 
@@ -13,8 +13,9 @@
     'depends': [
                 'hr', 'hr_attendance'
                ], 
-    'data': ['report/employee_badge.xml',
-             'views/hr_views.xml',
+    'data': [
+        'security/ir.model.access.csv',
+        'views/attendance_book_views.xml',
     ],
     'application': False,
     'installable': True,

@@ -1,0 +1,62 @@
+<odoo>
+    <data>     
+        <record id="omnia_mrp_routing_workcenter_form" model="ir.ui.view">
+            <field name="name">omnia_mrp.routing.workcenter.form</field>
+            <field name="model">mrp.routing.workcenter</field>
+            <field name="inherit_id" ref="mrp.mrp_routing_workcenter_form_view"/>
+            <field name="arch" type="xml">
+	            <field name="time_mode" position="before">
+	                <field name="time_mount_machine" widget="float_time"/>
+	            </field>
+<!--                
+                <xpath expr="//field[@name='batch']" position="after">
+                    <field name="process_product" type="xml"/>
+                </xpath>
+-->
+            </field>
+        </record>
+        <record id="omnia_mold_mrp_mrp_routing_form_view" model="ir.ui.view">
+            <field name="name">omnia.mold.mrp.mrp.routing.form.view</field>
+            <field name="model">mrp.routing</field>
+            <field name="inherit_id" ref="mrp.mrp_routing_form_view"/>
+            <field name="arch" type="xml">
+                <field name="operation_ids">
+                    <tree>
+	                    <field name="name"/>
+	                    <field name="workcenter_id"/>
+	                    <field name="time_cycle" widget="float_time"/>
+	                    <field name="time_mount_machine" widget="float_time"/>
+	                    <field name="user_time_percentage"/>
+                    </tree>
+                </field>
+            </field>
+        </record>
+    
+	    <record id="mrp_bom_form_view_rds_routing_type" model="ir.ui.view">
+	        <field name="name">mrp.bom.form.view.eds.routing.type</field>
+	        <field name="model">mrp.bom</field>
+	        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+	        <field name="arch" type="xml">
+                <field name="routing_id" position="replace">
+                    <field name="routing_type"/>
+                    <field name="routing_id" attrs="{'invisible': [('routing_type','!=','process')]}"/>
+                </field>
+                <xpath expr="//field[@name='product_tmpl_id']/../.." position="after">
+                    <group>
+                        <div colspan="4" class="alert alert-info" attrs="{'invisible': ['|', ('tool_ids','!=',False), ('routing_type','!=','tool')]}">
+                            Tool-oriented product BOMs need a tool to be configured with from the equipment menu.
+                        </div>
+                        <field name="tool_ids" colspan="4" nolabel="1" attrs="{'invisible': [('routing_type','!=','tool')]}">
+                            <tree>
+                                <field name="name"/>
+                                <field name="product_ids" widget="many2many_tags"/>
+                            </tree>
+                        </field>
+                    </group>
+                </xpath>
+	        </field>
+	    </record>
+
+    </data>
+</odoo>
+

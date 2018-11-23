@@ -1,0 +1,149 @@
+<odoo>
+    <data>     
+        <record model="ir.ui.view" id="omnia_mold.filter_mold">
+	        <field name="name">omnia_mold.filter.mold</field>
+	        <field name="model">maintenance.equipment</field>
+	        <field name="type">search</field>
+	        <field name="priority" eval="15"/>
+	        <field name="inherit_id" ref="maintenance.hr_equipment_view_search"/>
+	        <field name="arch" type="xml">
+	           <xpath expr="//field[@name='owner_user_id']" position="after">
+		                <filter string="Production Tool" domain="[['is_mold','=',True]]" help="Search for mold Production Tools"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="maintenance_equipment_mold_form" model="ir.ui.view">
+            <field name="name">maintenance.equipment.mold.form</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='oe_title']" position="replace">
+                    <div id="o_employee_container">
+                        <div id="o_employee_main">
+                            <field name="image" widget='image' class="oe_avatar" options='{"preview_image":"image_medium"}'/>
+                            <div class="oe_title">
+                                <label for="name" class="oe_edit_only"/>
+                                <h1>
+                                    <field name="name" placeholder="Tool name or code..." required="True"/>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+                <xpath expr="//div[@class='oe_title']" position="before">
+                    <field name="warranty_expired" invisible="True"/>
+                    <div class="alert alert-danger"
+                        attrs="{'invisible': [('warranty_expired','=', False)]}">
+                        Attenzione !! Lo stampo non e' piu' in garanzia
+                     </div>
+                </xpath>
+                <xpath expr="//field[@name='category_id']" position="before">
+	                <field name="is_mold" colspan="2"/>
+	            </xpath>
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="owner_partner_id"/>
+                </xpath>
+                <xpath expr="//field[@name='warranty']" position="replace">
+	                <field name="warranty_type"/>
+	                <field name="warranty" attrs="{'invisible': [('warranty_type', '!=', 'date')]}"/>
+                    <field name="warranted_processes" attrs="{'invisible': [('warranty_type', '!=', 'process')]}"/>
+                    <field name="sustained_processes"/>
+	            </xpath>
+	            <xpath expr="//notebook/page[last()]" position="after">
+	                <page string="Productions" attrs="{'invisible': [('is_mold', '=', False)]}">
+                    <group string="Routings">
+                        <field name="routings_ids" nolabel="1" colspan="4">
+                            <tree editable="bottom">
+                                <field name="name"/>
+								<field name="workcenter_ids" widget="many2many_tags"/>
+                            </tree>
+                        </field>
+                        <br/>
+                    </group><group string="Products">
+                        <field name="mold_configuration" nolabel="1" colspan="4">
+                            <tree editable="bottom">
+                                <field name="exclude"/>
+								<field name="description"/>
+								<field name="product_id"/>
+								<field name="product_uom"/>
+								<field name="mold_id" invisible="True"/>
+                            </tree>
+                        </field>
+                    </group>
+    
+                    <group string="Byproduct">
+                        <group>
+	                        <field name="product_sprue_id"/>
+                            <label for="product_sprue_qty"/>
+                            <div class="o_row">
+                                <field name="product_sprue_qty"/>
+                                <field name="product_sprue_uom"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="product_raw_sprue_id"/>
+                            <label for="product_raw_sprue_qty"/>
+                            <div class="o_row">
+                                <field name="product_raw_sprue_qty"/>
+                                <field name="product_raw_sprue_uom"/>
+                            </div>
+                        </group>
+                    </group>
+
+                    <group string="Technical">
+                        <group>
+                            <label for="bom_id"/>
+                            <div class="o_row">
+                                <field name="bom_id"/>
+                                <button name="extractBittedObject"
+                                        type="object"
+                                        icon="fa-archive"
+                                        class="oe_edit_only"/>
+                            </div>
+                        </group>
+                        <group/>
+                        <group string="Prodotti in Tracking">
+                            <field name="mold_tracking" nolabel="1" colspan="4">
+                            <tree editable="bottom">
+                                <field name="exclude"/>
+                                <field name="product_id"/> 
+                                <field name="lot_id" domain="[('product_id', '=', product_id)]"/>
+                                <field name="actual_shot"/>
+                                <field name="actual_shot_guarantee"/>
+                            </tree>
+                            </field>
+                        </group>
+                        <group string="Attrezzature di Corredo">
+                            <field name="toolkit_lines" nolabel="1" >
+                            <tree editable="bottom">
+                                <field name="equipment_id" invisible="1"/>
+                                <field name="kit_equimpent_id"/> 
+                                <field name="workcenter_id"/>
+                            </tree>
+                            </field>
+                        </group>
+                    </group>
+	               </page>
+	            </xpath>
+            </field>
+        </record>
+        
+        <record id="mrp_mold_form_action" model="ir.actions.act_window">
+            <field name="name">Mold</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">maintenance.equipment</field>
+            <field name="domain">[('is_mold', '=', 1)]</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="search_view_id" ref="maintenance.hr_equipment_view_search"/>
+        </record>
+        
+        <menuitem id="menu_mrp_mold_form_action"
+            action="mrp_mold_form_action"
+            parent="mrp.menu_mrp_bom"
+            sequence="13"/>
+
+    </data>
+</odoo>
+                            

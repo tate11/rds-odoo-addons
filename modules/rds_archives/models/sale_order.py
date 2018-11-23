@@ -44,6 +44,23 @@ COPY (
         LEFT JOIN product_product prd ON l.product_id = prd.id
     WHERE l.state='sale' AND l.product_uom_qty > l.qty_delivered AND prd.default_code<>'Delivery'
 ) TO '/tmp/test.csv' WITH CSV HEADER DELIMITER ',';
+
+COPY (
+    SELECT 
+        o.id order_id, o.name order_name, o.client_order_ref, -- 0, 1, 2
+        p.dia_ref_customer order_partner, p.name, p.vat, -- 3, 4, 5
+        ps.dia_ref_customer shipping_partner, ps.name, ps.vat, -- 6, 7, 8
+        pf.dia_ref_customer invoice_partner, pf.name, pf.vat, -- 9, 10, 11
+        l.id line_id, l.name line_description, prd.default_code, l.product_uom_qty, l.price_unit, l.qty_delivered, -- 12, 13, 14, 15, 16, 17
+        o.date_order, (o.date_order + CONCAT(l.customer_lead::text, ' day')::interval) commitment_date, l.requested_date -- 18, 19, 20
+    FROM sale_order_line l 
+        LEFT JOIN sale_order o ON l.order_id = o.id 
+        LEFT JOIN res_partner p ON p.id = o.partner_id
+        LEFT JOIN res_partner ps ON ps.id = o.partner_shipping_id
+        LEFT JOIN res_partner pf ON pf.id = o.partner_invoice_id
+        LEFT JOIN product_product prd ON l.product_id = prd.id
+    WHERE l.state='draft'
+) TO '/tmp/test.csv' WITH CSV HEADER DELIMITER ',';
         """
         
         partner_errors = list()

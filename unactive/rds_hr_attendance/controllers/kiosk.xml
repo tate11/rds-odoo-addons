@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data noupdate="0">
+    <template id="index" name="Kiosk Index">
+        <head>
+            <link rel="stylesheet" href="../../rds_hr_attendance/static/web/kiosk.css" type="text/css"/>
+            <script type="text/javascript" src="/web/static/lib/jquery/jquery.js"></script>
+        </head>
+        <body>
+            <input type="text" id="barcode_reader" name="barcode" onkeyup="listen_barcode(this.value);"/>
+            
+            <div class="web_kiosk_board web_kiosk_waiting">
+                <img class="web_kiosk_companylogo" src="../../rds_hr_attendance/static/web/company_logo.png" alt="Company Logo"/>
+                <div class="web_kiosk_clock">00:00</div>
+                <h1>Benvenuto</h1>
+                
+                <h2>Scansiona il tuo Badge</h2>
+
+            </div>
+            <div class="web_kiosk_board web_kiosk_loggedin_offline hidden">
+                <h1>Il marcatempo è offline, non è possibile recuperare le tue informazioni.</h1>
+                <h2>Non preoccuparti: verrà comunque registrata una marcatura alle <span id="d_check_time" class="important"/></h2>
+                <h2>Il tuo badge è il n. <span id="d_employee_barcode" class="important"/></h2>
+            </div>
+
+            <div class="web_kiosk_board web_kiosk_loggedin hidden">
+                <img id="employee_image" alt="Immagine Dipendente"/>
+                <div class="info_block">
+                    <h1>Benvenuto, <span id="employee_name" class="important"/></h1>
+                    <h2>Stai <span id="check_type" class="important"/> alle <span id="check_time" class="important"/></h2>
+                    <h1 class="web_kiosk_calltoaction hidden">Sei convocato all'Uff. Risorse Umane!</h1>
+                    <h2 id="punchline"/>
+                </div>
+            </div>
+            <div id="errorbox" class="hidden"/>
+
+            <script type="text/javascript" src="../../rds_hr_attendance/static/web/kiosk.js">
+            </script>
+        </body>
+    </template>
+</data>
+</odoo>

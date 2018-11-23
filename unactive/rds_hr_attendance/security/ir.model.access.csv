@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_rds_hr_wu,access_rds_hr_wu,model_rds_hr_working_unit,hr.group_hr_user,1,1,0,0
+access_rds_hr_wu_interv,access_rds_hr_interv,model_rds_hr_working_unit_interval,base.group_user,1,1,1,1
+access_rds_hr_timemarker,access_rds_hr_timemarker,model_rds_hr_timemarker,base.group_user,1,0,0,0
+access_rds_hr_timemarker_manager,access_rds_hr_timemarker_manager,model_rds_hr_timemarker,hr.group_hr_manager,1,1,1,1

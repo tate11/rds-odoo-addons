@@ -1,0 +1,18 @@
+<odoo>
+    <data>     
+        <record model="ir.ui.view" id="omnia_mold_stock_production_lot">
+            <field name="name">omnia_mold.stock.production.lot</field>
+            <field name="model">stock.production.lot</field>
+            <field name="type">search</field>
+            <field name="priority" eval="15"/>
+            <field name="inherit_id" ref="stock.view_production_lot_form"/>
+            <field name="arch" type="xml">
+               <xpath expr="//field[@name='ref']" position="after">
+                    <field name="n_shots_guarantee"/>
+                    <field name="n_shots"/>
+                    <field name="no_more_guarantee"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

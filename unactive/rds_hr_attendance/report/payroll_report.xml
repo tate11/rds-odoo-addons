@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<report 
+    id="action_report_payroll"
+    string="Report di Busta Paga"
+    model="payroll.printer" 
+    report_type="qweb-pdf"
+    file="rds_hr_attendance.rds_report_payroll" 
+    name="rds_hr_attendance.rds_report_payroll"
+    print_report_name="('Buste Paghe - %s a %s' % (object.date_from, object.date_to))"
+/>
+
+<template id="rds_report_payroll_document">
+    <t t-set="payrolls" t-value="doc.days_by_employee()"/>
+    
+    <t t-foreach="payrolls" t-as="payroll">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <div class="oe_structure"/>
+
+                <div class="row mt32 mb32" id="informations">
+                    <div name="type" class="payroll_header_type col-xs-3">
+                        <strong>Resoconto Lavorato</strong>
+                    </div>
+                    <div name="employee" class="col-xs-3">
+                        <strong>Dipendente:</strong>
+                        <p><t t-esc="'[%s] - %s' % (payroll[0].payroll_id, payroll[0].name)"/></p>
+                    </div>
+                    <div name="from" class="col-xs-3">
+                        <strong>Da:</strong>
+                        <p t-esc="payroll[1][0][0]"/>
+                    </div>
+                    <div name="to" class="col-xs-3">
+                        <strong>A:</strong>
+                        <p t-esc="payroll[1][-1][0]"/>
+                    </div>
+                </div>
+
+                <table class="table table-condensed table-payroll">    
+                    <col width="8%"/><col/><col/><col/><col/>
+                    <thead class="thead_payroll">
+                        <tr>
+                            <th>Gg</th>
+                            <th>Rilievi</th>
+                            <th>Orari Validi</th>
+                            <th class="payroll_events_h">Totali (ore)</th>
+                            <th>Dichiarazioni</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody_payroll">
+                        <t t-foreach="payroll[1]" t-as="k">
+                            <t t-set="l" t-value="k[1]"/>
+                            <tr t-if="l">
+                                <td>
+                                    <div class="cell_wrapper">
+                                        <span><t t-esc="k[0][:2]"/>  <strong t-esc="k[2]"/></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="cell_wrapper">
+<t t-foreach="l.attendances_ids.sorted(key=lambda x: x.check_in)" t-as="m"><span class="intv"><span t-if="m.check_out[:10] != l.date[:10]" class="fa fa-moon"/><span t-esc="m.get_localized_cin()"/>-<span t-if="m.check_out[:10] != l.date[:10]" class="fa fa-moon"/><span t-esc="m.get_localized_cot()"></span></span></t>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="cell_wrapper">
+<t t-foreach="l.intervals_ids" t-as="h"><span t-attf-class="intv abs-#{2 if not h.reason else int(h.reason.is_absence)}"><span t-if="h.time_from_o == 1" class="fa fa-moon"/><span t-field="h.time_from" t-field-options='{"widget": "float_time"}' />-<span t-if="h.time_from_o == 1" class="fa fa-moon"/><span t-field="h.time_to" t-field-options='{"widget": "float_time"}'/> <span t-if="h.reason" t-esc="h.reason.payroll_code"/><span style="font-weight:900" t-else="">N.G.</span></span></t>
+                                    </div>
+                                </td>                    
+                                <td class="payroll_events">
+                                    <div class="cell_wrapper">
+<t t-foreach="l.intervals_ids.get_layouted_intervals()" t-as="i"><span t-attf-class="intv abs-#{2 if not i[0] else int(i[0].is_absence)}"><span t-esc="i[1]"/> <span t-if="i[0]" t-esc="i[0].payroll_code"/><span style="font-weight:900" t-else="">N.G.</span></span></t>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="cell_wrapper">
+                                        <span t-field="l.declarations"/>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <tr t-else="">
+                                <td>
+                                    <div class="cell_wrapper">
+                                        <span><t t-esc="k[0][:2]"/>  <strong t-esc="k[2]"/></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="cell_wrapper">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="cell_wrapper">
+                                    </div>
+                                </td>                    
+                                <td class="payroll_events">
+                                    <div class="cell_wrapper">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="cell_wrapper">
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </t>
+                    </tbody>
+                </table>
+
+                <div class="clearfix">
+                </div>
+
+                <table class="payroll_totals">
+                    <thead>
+                        <tr>
+                            <th>Causale</th>
+                            <th>Totale Ore</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="payroll[2][0]" t-as="kl">
+                            <tr>
+                                <td>
+                                    <span t-esc="kl[0]" class="totintv cumul-1"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-attf-class="totnum"><t t-esc="kl[1]"/>h</span>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-foreach="payroll[2][1]" t-as="kj">
+                            <tr>
+                                <td>
+                                    <span t-if="kj[0]" t-esc="kj[0].name" class="totintv"/><span style="color: rgb(125, 0, 0);font-weight:900" t-else="">N.G.</span>
+                                </td>
+                                <td class="text-right">
+                                    <span t-attf-class="totnum"><t t-esc="kj[1]"/>h</span>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+
+                <div class="payroll_footnotes">
+                    <h3>Resoconto Sessioni Lavorative del Dipendente</h3>
+                    <p>Questi dati, considerati sensibili, sono di propietà di RDS Moulding Technology SpA (da qui "azienda"). Sono condivisi per gestione ai soli incaricati dall'azienda.</p>
+                    <p>Chiunque entri in possesso di questi dati attraverso canali non leciti, intenzionalmente o meno, è tenuto a distruggerli ed informare dell'accaduto l'ufficio R.U. dell'azienda.</p>
+                </div><div class="payroll_footnotes">    
+                    <h3>Note</h3>
+                    <p>Le timbrature rilevate dallo strumento marcapresenze possono differire dagli intervalli di lavoro effettivamente validati dall'ufficio R.U.</p>
+                    <p>Tale circostanza si verifica qualora il dipendente utilizzi lo strumento in maniera scorretta o quando non è autorizzato ad essere presente in azienda.</p>
+                    <p>La azienda comunque non manomette nessuna registrazione dello strumento marcatempo, considerata documento ufficiale.</p>
+                </div>
+
+                <div class="clearfix">
+                </div>
+
+                <div class="oe_structure"/>
+            </div>
+        </t>
+    </t>
+</template>
+
+
+<template id="rds_report_payroll">
+    <t t-foreach="docs" t-as="doc">
+        <t t-call="web.html_container">
+            <t t-call="rds_hr_attendance.rds_report_payroll_document"/>
+        </t>
+    </t>
+</template>
+
+<template id="report_assets_common" name="rds_attendances assets" inherit_id="web.report_assets_common">
+    <xpath expr="." position="inside">
+        <link rel='stylesheet' href="/rds_hr_attendance/static/report/css/payroll.css"/>
+    </xpath>
+</template>
+
+</odoo>

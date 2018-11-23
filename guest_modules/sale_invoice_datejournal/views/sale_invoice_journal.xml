@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="sale_invoice_datejournal.view_sale_advance_payment_inv_inherit" model="ir.ui.view">
+            <field name="name">Date and Journal on Sale Invoice</field>
+            <field name="model">sale.advance.payment.inv</field>
+            <field name="inherit_id" ref="sale.view_sale_advance_payment_inv"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group" position="after">
+                    <group>
+                        <field name="journal_id" />
+                        <field name="date_invoice" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_position_form_journals" model="ir.ui.view">
+            <field name="name">account.position.form.journals</field>
+            <field name="model">account.fiscal.position</field>
+            <field name="inherit_id" ref="account.view_account_position_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="sale_journal_id"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

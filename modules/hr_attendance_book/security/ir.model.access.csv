@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+user_attbook,rule.usr.attbook,hr_attendance_book.model_hr_attendance_book,base.group_user,1,1,0,0
+user_attday,rule.usr.attday,hr_attendance_book.model_hr_attendance_day,base.group_user,1,1,0,0
+user_atttype,rule.usr.atttype,hr_attendance_book.model_hr_attendance_type,base.group_user,1,1,1,1
+user_attinterval,rule.usr.attinterval,hr_attendance_book.model_hr_attendance_interval,base.group_user,1,1,1,1

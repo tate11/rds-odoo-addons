@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<odoo> 
+
+<act_window 
+  id="action_view_attendance_books" 
+  name="Attendance Books" 
+  res_model="hr.attendance.book"
+  context="{'search_default_group_by_state' : True, 'search_default_active': True}"
+  />
+
+<menuitem
+    id="menu_attendance_book"
+    name="Attendance Books"
+    action="action_view_attendance_books" 
+    parent="hr_attendance.menu_hr_attendance_manage_attendances"
+    sequence="0"/>
+
+<record id="attendance_book_view_form" model="ir.ui.view"> 
+    <field name="name">attendance.book.form</field> 
+    <field name="model">hr.attendance.book</field> 
+    <field name="arch" type="xml"> 
+    <form string="Attendance Boook">
+        <!--
+        <header>
+            <button name="button_run" states="draft" type="object" string="Esegui Ora"/>
+            <button name="button_retry" states="partial,failed" class="btn-primary" type="object" string="Riprova"/>
+            <button name="button_force" type="object" string="Forza Riinvio"/>
+            <field name="state" statusbar_visible="draft" widget="statusbar"/>
+        </header>-->
+            <div class="oe_title">
+                <label for="name" class="oe_edit_only"/>
+                <h1>
+                    <field name="name" placeholder="Nome" readonly="True"/>
+                </h1>
+            </div>
+            <group>
+                <group>
+                    <field name="year"/>
+                    <field name="month"/>
+                </group>
+                <group>
+                    <field name="employee_id"/>
+                </group>
+            </group>
+            <group>
+                <field name="day_ids" nolabel="1">
+                    <tree editable="bottom" decoration-muted="not passed">
+                        <field name="passed" invisible="1" />
+                        <field name="day" />
+                        <field name="reason_1" />
+                        <field name="qty_1" widget="float_time"/>
+                        <field name="reason_2" />
+                        <field name="qty_2" widget="float_time"/>
+                        <field name="reason_3" />
+                        <field name="qty_3" widget="float_time"/>
+                        <field name="reason_4" />
+                        <field name="qty_4" widget="float_time"/>
+                    </tree>
+                </field>
+            </group>
+        </form> 
+  </field>
+</record>
+
+<record id="attendance_book_view_tree" model="ir.ui.view"> 
+    <field name="name">attendance.book.list</field> 
+    <field name="model">hr.attendance.book</field> 
+    <field name="arch" type="xml"> 
+        <tree>
+            <field name="name"/>
+            <field name="employee_id"/>
+        </tree> 
+    </field> 
+</record>
+
+</odoo> 
