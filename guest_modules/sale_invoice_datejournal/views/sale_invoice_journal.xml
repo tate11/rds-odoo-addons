@@ -20,9 +20,9 @@
             <field name="model">account.fiscal.position</field>
             <field name="inherit_id" ref="account.view_account_position_form"/>
             <field name="arch" type="xml">
-                <field name="name" position="after">
+                <xpath expr="//field[@name='name']" position="after">
                     <field name="sale_journal_id"/>
-                </field>
+                </xpath>
             </field>
         </record>
 
