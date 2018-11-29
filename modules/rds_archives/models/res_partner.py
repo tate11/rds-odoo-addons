@@ -153,7 +153,7 @@ class ResPartner(models.Model):
                 'is_company': True, 'is_individual': True if line[8] == 'S' else False,
                 'fiscalcode': line[11].strip(), 'vat': line[12].strip(),
                 'phone': line[14],
-                'payment_term_id': getattr(self.env['account-payment.term'].search([('dia_code', 'like', line[15].strip())]), 'id', False),
+                'payment_term_id': getattr(self.env['account.payment.term'].search([('dia_code', 'like', line[15].strip())]), 'id', False),
                 'bank_ids': banks,
                 'property_account_position_id': posiz
             }
