@@ -197,7 +197,17 @@ class ProductProduct(models.Model):
                 }
             )
 
-   
+    @api.multi
+    def build_article_simple(self):
+        for i in self:
+            vals = self.dia2vals(i.default_code)
+            if not vals:
+                continue
+            vals.pop('name', None)
+            vals.pop('default_code', None)
+            vals.pop('description', None)
+            i.write(vals)
+
     @api.multi
     def build_article(self):
         for i in self:

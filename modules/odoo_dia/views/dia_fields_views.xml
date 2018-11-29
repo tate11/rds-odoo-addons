@@ -1,27 +1,40 @@
 <odoo>
     <data>
+
+
+        <record id="dia_partner_view_form" model="ir.ui.view"> 
+            <field name="name">dia.partner.form</field> 
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='industry_id']" >
+                    <field name="dia_ref_customer" />
+                    <field name="dia_ref_vendor" />
+                </xpath> 
+            </field> 
+        </record>
         <!-- Lists -->
 
         <record id="dia_partner_view_list" model="ir.ui.view"> 
-        <field name="name">dia.partner.list</field> 
-        <field name="model">res.partner</field>
-        <field name="priority" eval="5000"/>
-        <field name="arch" type="xml"> 
-            <tree create="false" editable="bottom">
-                <field name="id" readonly="1"/>
-                <field name="name" readonly="1"/>
-                <field name="vat"/>
-                <field name="dia_ref_customer" />
-                <field name="dia_ref_vendor" />
-                <field name="dia_transfer_status" />
-            </tree> 
-        </field> 
+            <field name="name">dia.partner.list</field> 
+            <field name="model">res.partner</field>
+            <field name="priority" eval="5000"/>
+            <field name="arch" type="xml"> 
+                <tree create="false" editable="bottom">
+                    <field name="id" readonly="1"/>
+                    <field name="name" readonly="1"/>
+                    <field name="vat"/>
+                    <field name="dia_ref_customer" />
+                    <field name="dia_ref_vendor" />
+                    <field name="dia_transfer_status" />
+                </tree> 
+            </field> 
         </record>
 
         <record id="dia_ddt_view_list" model="ir.ui.view"> 
-        <field name="name">dia.ddt.list</field>
-        <field name="priority" eval="5000"/>
-        <field name="model">stock.ddt</field>
+            <field name="name">dia.ddt.list</field>
+            <field name="priority" eval="5000"/>
+            <field name="model">stock.ddt</field>
             <field name="arch" type="xml"> 
                 <tree create="false" editable="bottom">
                     <field name="name" readonly="1"/>
@@ -33,58 +46,58 @@
         </record>
 
         <record id="dia_products_view_list" model="ir.ui.view"> 
-        <field name="name">dia.product.list</field>
-        <field name="model">product.template</field>
-        <field name="priority" eval="5000"/> 
-        <field name="arch" type="xml"> 
-            <tree create="false" editable="bottom">
-                <field name="name" readonly="1"/>
-                <field name="default_code" readonly="1"/>
-                <field name="dia_code"/>
-                <field name="dia_transfer_status" />
-            </tree> 
-        </field> 
+            <field name="name">dia.product.list</field>
+            <field name="model">product.template</field>
+            <field name="priority" eval="5000"/> 
+            <field name="arch" type="xml"> 
+                <tree create="false" editable="bottom">
+                    <field name="name" readonly="1"/>
+                    <field name="default_code" readonly="1"/>
+                    <field name="dia_code"/>
+                    <field name="dia_transfer_status" />
+                </tree> 
+            </field> 
         </record>
 
         <record id="dia_taxes_view_list" model="ir.ui.view"> 
-        <field name="name">dia.taxes.list</field> 
-        <field name="model">account.tax</field>
-        <field name="priority" eval="5000"/>
-        <field name="arch" type="xml">
-            <tree create="false" editable="bottom">
-                <field name="name" readonly="1"/>
-                <field name="dia_code"/>
-            </tree>
-        </field>
+            <field name="name">dia.taxes.list</field> 
+            <field name="model">account.tax</field>
+            <field name="priority" eval="5000"/>
+            <field name="arch" type="xml">
+                <tree create="false" editable="bottom">
+                    <field name="name" readonly="1"/>
+                    <field name="dia_code"/>
+                </tree>
+            </field>
         </record>
         
         <record id="dia_payments_view_list" model="ir.ui.view"> 
-        <field name="name">dia.payments.list</field> 
-        <field name="model">account.payment.term</field>
-        <field name="priority" eval="5000"/>
-        <field name="arch" type="xml">
-            <tree create="false" editable="bottom">
-                <field name="name" readonly="1"/>
-                <field name="dia_code"/>
-            </tree>
-        </field> 
+            <field name="name">dia.payments.list</field> 
+            <field name="model">account.payment.term</field>
+            <field name="priority" eval="5000"/>
+            <field name="arch" type="xml">
+                <tree create="false" editable="bottom">
+                    <field name="name" readonly="1"/>
+                    <field name="dia_code"/>
+                </tree>
+            </field> 
         </record>
 
 
         <record id="dia_stock_picking_type_view_list" model="ir.ui.view"> 
-        <field name="name">dia.picking.type.list</field> 
-        <field name="model">stock.picking.type</field>
-        <field name="priority" eval="5000"/>
-        <field name="arch" type="xml"> 
-            <tree create="false" editable="bottom">
-                <field name="id" readonly="1"/>
-                <field name="name" readonly="1"/>
-                <field name="export_to_dia"/>
-                <field name="dia_code" />
-                <field name="dia_deposit" />
-                <field name="code" />
-            </tree> 
-        </field> 
+            <field name="name">dia.picking.type.list</field> 
+            <field name="model">stock.picking.type</field>
+            <field name="priority" eval="5000"/>
+            <field name="arch" type="xml"> 
+                <tree create="false" editable="bottom">
+                    <field name="id" readonly="1"/>
+                    <field name="name" readonly="1"/>
+                    <field name="export_to_dia"/>
+                    <field name="dia_code" />
+                    <field name="dia_deposit" />
+                    <field name="code" />
+                </tree> 
+            </field> 
         </record>
 
         <!-- Menuitems -->
