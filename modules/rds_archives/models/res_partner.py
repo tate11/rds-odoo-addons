@@ -148,12 +148,12 @@ class ResPartner(models.Model):
                 'street': line[3].strip(),
                 'zip': line[4],
                 'city': line[5],
-                'state_id': getattr(self.env['res.country.state'].search([('code', 'ilike', line[6].strip())]), 'id', False),
-                'country_id': getattr(self.env['res.country'].search([('code', 'ilike', line[7].strip() or 'IT')]), 'id', False),
+                'state_id': getattr(self.env['res.country.state'].search([('code', 'ilike', line[6].strip())], limit=1), 'id', False),
+                'country_id': getattr(self.env['res.country'].search([('code', 'ilike', line[7].strip() or 'IT')], limit=1), 'id', False),
                 'is_company': True, 'is_individual': True if line[8] == 'S' else False,
                 'fiscalcode': line[11].strip(), 'vat': line[12].strip(),
                 'phone': line[14],
-                'payment_term_id': getattr(self.env['account.payment.term'].search([('dia_code', 'ilike', line[15].strip())]), 'id', False),
+                'payment_term_id': getattr(self.env['account.payment.term'].search([('dia_code', 'ilike', line[15].strip())], limit=1), 'id', False),
                 'bank_ids': banks,
                 'property_account_position_id': posiz
             }
