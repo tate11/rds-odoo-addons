@@ -222,11 +222,11 @@ class ResPartner(models.Model):
                     else:
                         created_partners |= PARTNER.create(i)
                     
-                    self.cr.savepoint()
+                    self.env.cr.savepoint()
 
                 except Exception as e:
                     log_stream.append("Exception with partner {}: {}.".format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), e))
-                    self.cr.rollback()
+                    self.env.cr.rollback()
 
                     continue
 
