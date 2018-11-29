@@ -221,8 +221,13 @@ class ResPartner(models.Model):
                     
                     else:
                         created_partners |= PARTNER.create(i)
+                    
+                    self.cr.savepoint()
+
                 except Exception as e:
                     log_stream.append("Exception with partner {}: {}.".format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), e))
+                    self.cr.rollback()
+
                     continue
 
         log_stream.append("Created {} partners.".format(len(created_partners)))
