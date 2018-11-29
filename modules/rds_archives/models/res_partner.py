@@ -191,35 +191,39 @@ class ResPartner(models.Model):
                 pass    
             
             else:
-                vendor = i['dia_ref'][0] == '2'
+                try:
+                    vendor = i['dia_ref'][0] == '2'
 
-                if vendor:
-                    i['dia_ref_vendor'] = i.pop('dia_ref')
-                    i['supplier'] = True
-                    i['property_supplier_payment_term_id'] = i.pop('payment_term_id')
+                    if vendor:
+                        i['dia_ref_vendor'] = i.pop('dia_ref')
+                        i['supplier'] = True
+                        i['property_supplier_payment_term_id'] = i.pop('payment_term_id')
 
-                    part = get_partner(i['dia_ref_vendor'], i['name'], i['vat'], type='dia_ref_vendor')
+                        part = get_partner(i['dia_ref_vendor'], i['name'], i['vat'], type='dia_ref_vendor')
 
-                else:
-                    i['dia_ref_customer'] = i.pop('dia_ref')
-                    i['customer'] = True
-                    i['property_payment_term_id'] = i.pop('payment_term_id')
+                    else:
+                        i['dia_ref_customer'] = i.pop('dia_ref')
+                        i['customer'] = True
+                        i['property_payment_term_id'] = i.pop('payment_term_id')
 
-                    part = get_partner(i['dia_ref_customer'], i['name'], i['vat'])
+                        part = get_partner(i['dia_ref_customer'], i['name'], i['vat'])
 
-                if part:
-                    i.pop('name')
-                    i.pop('street')
-                    i.pop('zip')
-                    i.pop('city')
-                    i.pop('state_id')
-                    i.pop('country_id')
-                    i.pop('phone')
+                    if part:
+                        i.pop('name')
+                        i.pop('street')
+                        i.pop('zip')
+                        i.pop('city')
+                        i.pop('state_id')
+                        i.pop('country_id')
+                        i.pop('phone')
 
-                    part.write(i)
-                
-                else:
-                    created_partners |= PARTNER.create(i)
+                        part.write(i)
+                    
+                    else:
+                        created_partners |= PARTNER.create(i)
+                except Exception as e:
+                    log_stream.append("Exception with partner {}: {}.".format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), e))
+                    continue
 
         log_stream.append("Created {} partners.".format(len(created_partners)))
 
