@@ -219,7 +219,7 @@ class ResPartner(models.Model):
                     part.write(i)
                 
                 else:
-                    PARTNER.create(i)
+                    created_partners |= PARTNER.create(i)
 
         log_stream.append("Created {} partners.".format(len(created_partners)))
 
