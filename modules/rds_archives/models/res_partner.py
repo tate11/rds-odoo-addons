@@ -235,7 +235,8 @@ class ResPartner(models.Model):
                 except ValidationError as e:
                     log_stream.append("ValidationError with partner {}: {}. Popping VAT and Banks, and trying again.".format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), e))
                     try:
-                        failed_vats.append('"mild","{}","{}","{}","{}"'.format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), i['vat'], i.get('name', part.name), e))
+                        name = part and part.name or i.get('name', 'unk')
+                        failed_vats.append('"mild","{}","{}","{}","{}"'.format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), i['vat'], name, e))
                         i.pop('vat')
                         i.pop('bank_ids')
                         if part:
@@ -245,8 +246,9 @@ class ResPartner(models.Model):
                         self.env.cr.commit()
 
                     except Exception as e:
+                        name = part and part.name or i.get('name', 'unk')
                         log_stream.append("[ERR] Exception with partner {}: {}.".format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), e))
-                        failed_vats.append('"grave","{}","{}","{}","{}"'.format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), i['vat'], i.get('name', part.name), e))
+                        failed_vats.append('"grave","{}","{}","{}","{}"'.format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), i['vat'], name, e))
                         self.env.cr.rollback()
                         continue
                         
