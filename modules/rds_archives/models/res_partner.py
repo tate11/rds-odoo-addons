@@ -199,13 +199,13 @@ class ResPartner(models.Model):
                 vendor = i['dia_ref'][0] == '2'
 
                 if i['bank_ids'] == []:
-                    i.pop('bank_ids')
+                    i.pop('bank_ids', False)
 
                 if vendor:
                     i['dia_ref_vendor'] = i.pop('dia_ref')
                     i['supplier'] = True
                     i['property_supplier_payment_term_id'] = i.pop('payment_term_id')
-                    i.pop('bank_ids')
+                    i.pop('bank_ids', False)
 
                     part = get_partner(i['dia_ref_vendor'], i['name'], i['vat'], type='dia_ref_vendor')
 
