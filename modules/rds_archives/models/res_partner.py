@@ -116,7 +116,7 @@ class ResPartner(models.Model):
             return result or fallback
 
         def bank_getormake(abi, cab, name=False):
-            if (not abi) or (not cab):
+            if (not bool(abi.strip())) or (not bool(cab.strip())):
                 return False
 
             bank = self.env['res.bank'].search([('abi', '=', abi), ('cab', '=', cab)], limit=1)
@@ -126,21 +126,20 @@ class ResPartner(models.Model):
             else:
                 bnk = self.env['res.bank'].create({'abi': abi, 'cab': cab, 'name': name or abi+cab})
                 log_stream.append("Creating Bank {} ({})".format(abi, cab))
-                self.env.cr.commit()
                 return bnk
 
         def to_dict(line):
             bank_riba = bank_getormake(line[17], line[18], line[19])
-            
+
             if (line[20] == line[17]) and (line[22] == line[18]):
                 bank_bnf = bank_riba
             else:
                 bank_bnf = bank_getormake(line[20], line[22], line[21])
 
             banks = []
-            if bank_riba:
+            if getattr(bank_riba, 'id', False):
                 banks.append((0, 0, {'bank_id': bank_riba.id, 'acc_number': 'RiBa-' + line[12].strip()}))
-            if bank_bnf:
+            if getattr(bank_riba, 'id', False) and bool(line[24].strip()):
                 banks.append((0, 0, {'bank_id': bank_bnf.id, 'acc_number': line[24]}))
 
             if line[9] == 'I':
@@ -198,6 +197,9 @@ class ResPartner(models.Model):
             
             else:
                 vendor = i['dia_ref'][0] == '2'
+
+                if i['bank_ids'] == []:
+                    i.pop('bank_ids')
 
                 if vendor:
                     i['dia_ref_vendor'] = i.pop('dia_ref')
