@@ -275,3 +275,53 @@ class ResPartner(models.Model):
             file.write("\n".join(log_stream)) 
         with open("/tmp/vatfailed.csv", 'w') as file:
             file.write("\n".join(failed_vats)) 
+
+
+    @api.model
+    def fix_fiscpos(self, mode='dry_run'):
+        PARTNER = self
+
+        log_stream = list()
+
+        def get_partner(ref, name, vat):
+            result = False
+            if ref:
+                result = PARTNER.search(['|', ('dia_ref_vendor', '=', ref), ('dia_ref_customer', '=', ref)], limit=1)
+            if vat and (not result):
+                result = PARTNER.search([('vat', 'like', '%{}%'.format(vat))], limit=1)
+
+            if not result:
+                log_stream.append("Missing partner {} ({})".format(name, vat) + (ref and ", Dia Ref. {}, creating from scratch!".format(ref) or "creating from scratch!"))
+            return result
+
+        with open("/tmp/partners.csv", 'r') as file:
+            raw_data = list(csv.reader(file))[1:]
+        
+        
+        """
+ 'CODICE', 'RAGIONE SOCIALE 1', 'RAGIONE SOCIALE 2', 1 2 3
+ 'INDIRIZZO (VIA)', 'CAP', "LOCALITA'", 'PROV.', 'NAZ.', 4 5 6 7
+ 'pers.Fisica', 'It/Estero', 'CEE', 'CODICE FISCALE', 'PARTITA IVA', 8 9 10 11 12
+ 'ES.IVA', 'TELEFONO', 'PAGAMENTO', 'descr.pagamento', 'BANCA APP.', 'CAB B.APP.', 'AGENZIA BANCA APPOGGIO',
+ 'BANCA BNF.', 'AGENZIA BANCA BONIFICI', 'CAB B.BNF.', 'C/CORRENTE', 'IBAN', 'ANNOTAZIONI (1)', 'ANNOTAZIONI (2)'
+
+ '08002724', '4P SRL', ' ',
+ 'Via Germania, 15', '35127', 'PADOVA', 'PD', ' ', 
+ 'N', 'I', 'N', '02168560288', '02168560288',
+ ' ', '0498069811', 'R6F', 'RIBA 60 GG D.F.F.M.', '06225', '62690', ' ',
+ ' ', ' ', ' ', ' ', ' ', 'SENTIRE GIULIANO x INSOLUTO W1245/11', ' '
+        """
+
+        for i in raw_data:
+            part = get_partner(i[0], i[1], i[12])
+
+            if not part:
+                log_stream.append("[GRAVE] Bad line data for partner. Skipping ({}) {} - {}.".format(i['dia_red'], i['name'], i['vat']))
+                continue
+
+            es = i[13].strip()[:3] == 'N18'
+            
+            if es and part.country_id.code == 'IT':
+                part.write({'property_account_position_id': 5})
+            
+             
