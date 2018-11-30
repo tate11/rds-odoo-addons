@@ -17,11 +17,34 @@ _logger = logging.getLogger('base.product.merge')
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    def _unpack(self):
+#        _template = self.product_tmpl_id.with_context(create_product_product=True)
+#        template = _template.copy()
+
+    def _unpack(self, attribute_id=False):
         for t in self:
-            for v in t.product_variant_ids:
-                v.split()
-            #t.unlink()
+            attr = t.attribute_line_ids.filtered(lambda x: x.attribute_id.id == attribute_id)
+
+            if not attr:
+                for v in t.product_variant_ids:
+                    _template = self.with_context(create_product_product=True)
+                    template = _template.copy()
+                    v.split(template)
+
+            else:
+                for value in attr.value_ids:
+                    _template = self.with_context(create_product_product=True)
+                    template = _template.copy({'name': self.name + "({})".format(value.name)})
+
+                    for att_line in t.attribute_line_ids.filtered(lambda x: x.attribute_id.id != attribute_id):
+                        att_line.copy({'product_tmpl_id': template.id})
+                    for seller_id in t.seller_ids.filtered(lambda x: x.product_id == False):
+                        seller_id.copy({'product_tmpl_id': template.id})
+                    for customers_id in t.customers_ids.filtered(lambda x: x.product_id == False):
+                        customers_id.copy({'product_tmpl_id': template.id})
+
+                    v.split(template, value)
+
+            t.unlink()
 
 class ProductProduct(models.Model):
     _inherit = 'product.product'
@@ -40,23 +63,9 @@ class ProductProduct(models.Model):
             ['product_product', 'id', 'product_tmpl_id']
         ]
 
-    def _clear_tables(self):
-        return [
-            ['product_attribute_value_product_product_rel', 'product_product_id']
-        ]
-
     @api.model
-    def split(self):
-        """ Update all foreign key from the src_partner to dst_partner. All many2one fields will be updated.
-            :param src_partners : merge source res.partner recordset (does not include destination one)
-            :param dst_partner : record of destination res.partner
-        """
-
-        _template = self.product_tmpl_id.with_context(create_product_product=True)
-        template = _template.copy()
-
+    def split(self, template, clear_attribute_value=False):
         relations = self._shared_table()
-        clear_relations = self._clear_tables()
 
         for table, column, column2 in relations:
             query_dic = {
@@ -75,11 +84,6 @@ class ProductProduct(models.Model):
                 query = 'DELETE FROM "%(table)s" WHERE "%(column)s"=%%s' % query_dic
                 self._cr.execute(query, (self.id,))
 
-        for table, column in clear_relations:
-            query_dic = {
-                'table': table,
-                'column': column
-            }
-
-            query = 'DELETE FROM "%(table)s" WHERE "%(column)s"=%%s' % query_dic
-            self._cr.execute(query, (self.id,))
+        if clear_attribute_value:
+            query = 'DELETE FROM product_attribute_value_product_product_rel WHERE product_attribute_value_id=%%S AND product_product_id=%%s'
+            self._cr.execute(query, (clear_attribute_value.id, self.id,))
