@@ -125,6 +125,7 @@ class ResPartner(models.Model):
                 return bank
             else:
                 bnk = self.env['res.bank'].create({'abi': abi, 'cab': cab, 'name': name.strip() if bool(name.strip()) else abi+cab})
+                self.env.cr.commit()
                 log_stream.append("Creating Bank {} ({})".format(abi, cab))
                 return bnk
 
@@ -224,15 +225,17 @@ class ResPartner(models.Model):
                     i.pop('state_id')
                     i.pop('country_id')
                     i.pop('phone')
+                
+                new = False
 
                 try:
                     if part:
                         part.write(i)
                     else:
-                        created_partners |= PARTNER.create(i)
-                    self.env.cr.commit()
+                        new = PARTNER.create(i)
 
                 except ValidationError as e:
+                    self.env.cr.rollback()
                     log_stream.append("ValidationError with partner {}: {}. Popping VAT and Banks, and trying again.".format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), e))
                     name = part and part.name or i.get('name', 'unk')
                     vat = i.pop('vat')
@@ -243,9 +246,7 @@ class ResPartner(models.Model):
                         if part:
                             part.write(i)
                         else:
-                            created_partners |= PARTNER.create(i)
-                        self.env.cr.commit()
-                        continue
+                            new = PARTNER.create(i)
 
                     except Exception as e:
 
@@ -258,6 +259,11 @@ class ResPartner(models.Model):
                     log_stream.append("[ERR] Exception with partner {}: {}.".format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), e))
                     self.env.cr.rollback()
                     continue
+                
+                if new:
+                    created_partners |= new
+                    
+                self.env.cr.commit()
 
         log_stream.append("Created {} partners.".format(len(created_partners)))
 
