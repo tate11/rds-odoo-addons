@@ -233,7 +233,7 @@ class ResPartner(models.Model):
                 if part:
                     part.write(i)
                 else:
-                    new = PARTNER.new(i)
+                    new = PARTNER.create(i)
 
             except ValidationError as e:
                 log_stream.append("ValidationError with partner {}: {}. Popping VAT and Banks, and trying again.".format(ref, e))
@@ -245,7 +245,10 @@ class ResPartner(models.Model):
                     if part:
                         part.write(i)
                     else:
-                        new = PARTNER.new(i)
+                        if new:
+                            new.unlink()
+                            
+                        new = PARTNER.create(i)
 
                 except Exception as e:
                     log_stream.append("[ERR] Exception with partner {}: {}.".format(ref, e))
@@ -260,8 +263,6 @@ class ResPartner(models.Model):
                 continue
             
             if new:
-                del(new)
-                new = PARTNER.create(i)
                 created_partners |= new
 
             self.env.cr.commit()
