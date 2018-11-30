@@ -104,16 +104,16 @@ class ResPartner(models.Model):
         log_stream = list()
         failed_vats = list()
 
-        def get_partner(ref, name, vat, type='dia_ref_customer', fallback=False):
+        def get_partner(ref, name, vat):
             result = False
             if ref:
-                result = PARTNER.search([('dia_ref_customer', '=', ref)], limit=1)
+                result = PARTNER.search(['|', ('dia_ref_vendor', '=', ref), ('dia_ref_customer', '=', ref)], limit=1)
             if vat and (not result):
-                result = PARTNER.search([('vat', 'ilike', '%{}%'.format(vat))], limit=1)
+                result = PARTNER.search([('vat', 'like', '%{}%'.format(vat))], limit=1)
 
             if not result:
                 log_stream.append("Missing partner {} ({})".format(name, vat) + (ref and ", Dia Ref. {}, creating from scratch!".format(ref) or "creating from scratch!"))
-            return result or fallback
+            return result
 
         def bank_getormake(abi, cab, name=False):
             if (not bool(abi.strip())) or (not bool(cab.strip())):
@@ -125,7 +125,6 @@ class ResPartner(models.Model):
                 return bank
             else:
                 bnk = self.env['res.bank'].create({'abi': abi, 'cab': cab, 'name': name.strip() if bool(name.strip()) else abi+cab})
-                self.env.cr.commit()
                 log_stream.append("Creating Bank {} ({})".format(abi, cab))
                 return bnk
 
@@ -193,78 +192,80 @@ class ResPartner(models.Model):
                 log_stream.append("[GRAVE] Bad line data for partner. Skipping ({}) {} - {}.".format(i['dia_red'], i['name'], i['vat']))
                 continue
 
-            if mode == 'dry_run':
-                pass    
-            
+            vendor = i['dia_ref'][0] == '2'
+
+            name = i['name']
+            vat = i['vat']
+            ref = i['dia_ref']
+
+            if i['bank_ids'] == []:
+                i.pop('bank_ids', False)
+
+            if vendor:
+                i['dia_ref_vendor'] = i.pop('dia_ref')
+                i['supplier'] = True
+                i['customer'] = False
+                i['property_supplier_payment_term_id'] = i.pop('payment_term_id')
+                i.pop('bank_ids', False)
+
+                part = get_partner(i['dia_ref_vendor'], i['name'], i['vat'])
+
             else:
-                vendor = i['dia_ref'][0] == '2'
+                i['dia_ref_customer'] = i.pop('dia_ref')
+                i['customer'] = True
+                i['supplier'] = False
+                i['property_payment_term_id'] = i.pop('payment_term_id')
 
-                if i['bank_ids'] == []:
-                    i.pop('bank_ids', False)
+                part = get_partner(i['dia_ref_customer'], i['name'], i['vat'])
 
-                if vendor:
-                    i['dia_ref_vendor'] = i.pop('dia_ref')
-                    i['supplier'] = True
-                    i['property_supplier_payment_term_id'] = i.pop('payment_term_id')
-                    i.pop('bank_ids', False)
+            if part:
+                i.pop('name')
+                i.pop('street')
+                i.pop('zip')
+                i.pop('city')
+                i.pop('state_id')
+                i.pop('country_id')
+                i.pop('phone')
+            
+            new = False
 
-                    part = get_partner(i['dia_ref_vendor'], i['name'], i['vat'], type='dia_ref_vendor')
-
-                else:
-                    i['dia_ref_customer'] = i.pop('dia_ref')
-                    i['customer'] = True
-                    i['property_payment_term_id'] = i.pop('payment_term_id')
-
-                    part = get_partner(i['dia_ref_customer'], i['name'], i['vat'])
-
+            try:
                 if part:
-                    i.pop('name')
-                    i.pop('street')
-                    i.pop('zip')
-                    i.pop('city')
-                    i.pop('state_id')
-                    i.pop('country_id')
-                    i.pop('phone')
-                
-                new = False
+                    part.write(i)
+                else:
+                    new = PARTNER.new(i)
+
+            except ValidationError as e:
+                log_stream.append("ValidationError with partner {}: {}. Popping VAT and Banks, and trying again.".format(ref, e))
+                i.pop('vat')
+                i.pop('bank_ids', False)
 
                 try:
+                    failed_vats.append('"mild","{}","{}","{}","{}"'.format(ref, vat, name, e))
                     if part:
                         part.write(i)
                     else:
-                        new = PARTNER.create(i)
+                        if new:
+                            del(new)
+                        new = PARTNER.new(i)
 
-                except ValidationError as e:
-                    self.env.cr.rollback()
-                    log_stream.append("ValidationError with partner {}: {}. Popping VAT and Banks, and trying again.".format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), e))
-                    name = part and part.name or i.get('name', 'unk')
-                    vat = i.pop('vat')
-                    i.pop('bank_ids', False)
-
-                    try:
-                        failed_vats.append('"mild","{}","{}","{}","{}"'.format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), vat, name, e))
-                        if part:
-                            part.write(i)
-                        else:
-                            new.unlink()
-                            new = PARTNER.create(i)
-
-                    except Exception as e:
-
-                        log_stream.append("[ERR] Exception with partner {}: {}.".format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), e))
-                        failed_vats.append('"grave","{}","{}","{}","{}"'.format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), vat, name, e))
-                        self.env.cr.rollback()
-                        continue
-                        
                 except Exception as e:
-                    log_stream.append("[ERR] Exception with partner {}: {}.".format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), e))
+                    log_stream.append("[ERR] Exception with partner {}: {}.".format(ref, e))
+                    failed_vats.append('"grave","{}","{}","{}","{}"'.format(ref, vat, name, e))
                     self.env.cr.rollback()
                     continue
-                
-                if new:
-                    created_partners |= new
+                    
+            except Exception as e:
+                log_stream.append("[ERR] Exception with partner {}: {}.".format(ref, e))
+                failed_vats.append('"grave","{}","{}","{}","{}"'.format(ref, vat, name, e))
+                self.env.cr.rollback()
+                continue
+            
+            if new:
+                new.save()
+                created_partners |= new
 
-                self.env.cr.commit()
+            self.env.cr.commit()
 
         log_stream.append("Created {} partners.".format(len(created_partners)))
 
