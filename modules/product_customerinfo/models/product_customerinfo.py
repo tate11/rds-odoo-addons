@@ -11,7 +11,7 @@ class ProductCustomerInfo(models.Model):
     product_name = fields.Char("Description", oldname="description")
     product_code = fields.Char("Code", oldname="code")
 
-    product_tmpl_id = fields.Many2one('product.template', "Product", required=True)
+    product_tmpl_id = fields.Many2one('product.template', "Product", required=True, ondelete="cascade")
     product_id = fields.Many2one('product.product', "Product Variant", domain=lambda x: [('product_tmpl_id', '=', x.product_tmpl_id.id)])
 
     notes = fields.Text("Notes")
