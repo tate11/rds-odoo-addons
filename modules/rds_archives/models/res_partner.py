@@ -316,7 +316,7 @@ class ResPartner(models.Model):
             part = get_partner(i[0], i[1], i[12])
 
             if not part:
-                log_stream.append("[GRAVE] Bad line data for partner. Skipping ({}) {} - {}.".format(i['dia_red'], i['name'], i['vat']))
+                log_stream.append("[GRAVE] Bad line data for partner. Skipping ({}) {} - {}.".format(i[0], i[1], i[12]))
                 continue
 
             es = i[13].strip()[:3] == 'N18'
