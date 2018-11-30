@@ -283,6 +283,8 @@ class ResPartner(models.Model):
 
         log_stream = list()
 
+        ESENTE = self.env['account.fiscal.position'].browse(7)
+
         def get_partner(ref, name, vat):
             result = False
             if ref:
@@ -306,8 +308,9 @@ class ResPartner(models.Model):
 
             es = i[13].strip()[:3] == 'N18'
             
+            log_stream.append("Partner: ({}) {} - {}. - ESENTE: ({}), {}".format(i[0], i[1], i[12], i[13], es))
             if es and part.country_id.code == 'IT':
-                part.write({'property_account_position_id': 7})
+                part.property_account_position_id = ESENTE
             
         with open("/tmp/log.log", 'w') as file:
             file.write("\n".join(log_stream)) 
