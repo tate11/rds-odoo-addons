@@ -124,7 +124,7 @@ class ResPartner(models.Model):
             if bank:
                 return bank
             else:
-                bnk = self.env['res.bank'].create({'abi': abi, 'cab': cab, 'name': name or abi+cab})
+                bnk = self.env['res.bank'].create({'abi': abi, 'cab': cab, 'name': name.strip() if bool(name.strip()) else abi+cab})
                 log_stream.append("Creating Bank {} ({})".format(abi, cab))
                 return bnk
 
@@ -205,6 +205,7 @@ class ResPartner(models.Model):
                     i['dia_ref_vendor'] = i.pop('dia_ref')
                     i['supplier'] = True
                     i['property_supplier_payment_term_id'] = i.pop('payment_term_id')
+                    i.pop('bank_ids')
 
                     part = get_partner(i['dia_ref_vendor'], i['name'], i['vat'], type='dia_ref_vendor')
 
@@ -234,7 +235,7 @@ class ResPartner(models.Model):
                 except ValidationError as e:
                     log_stream.append("ValidationError with partner {}: {}. Popping VAT and Banks, and trying again.".format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), e))
                     try:
-                        failed_vats.append('"{}","{}","{}"\n'.format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), i['vat'], i.get('name', part.name)))
+                        failed_vats.append('"mild","{}","{}","{}","{}"'.format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), i['vat'], i.get('name', part.name), e))
                         i.pop('vat')
                         i.pop('bank_ids')
                         if part:
@@ -244,12 +245,13 @@ class ResPartner(models.Model):
                         self.env.cr.commit()
 
                     except Exception as e:
-                        log_stream.append("Exception with partner {}: {}.".format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), e))
+                        log_stream.append("[ERR] Exception with partner {}: {}.".format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), e))
+                        failed_vats.append('"grave","{}","{}","{}","{}"'.format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), i['vat'], i.get('name', part.name), e))
                         self.env.cr.rollback()
                         continue
                         
                 except Exception as e:
-                    log_stream.append("Exception with partner {}: {}.".format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), e))
+                    log_stream.append("[ERR] Exception with partner {}: {}.".format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), e))
                     self.env.cr.rollback()
                     continue
 
