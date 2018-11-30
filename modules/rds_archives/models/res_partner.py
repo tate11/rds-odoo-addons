@@ -204,19 +204,20 @@ class ResPartner(models.Model):
             if vendor:
                 i['dia_ref_vendor'] = i.pop('dia_ref')
                 i['supplier'] = True
-                i['customer'] = False
                 i['property_supplier_payment_term_id'] = i.pop('payment_term_id')
-                i.pop('bank_ids', False)
 
                 part = get_partner(i['dia_ref_vendor'], i['name'], i['vat'])
+                if not part:
+                    i['customer'] = False
 
             else:
                 i['dia_ref_customer'] = i.pop('dia_ref')
                 i['customer'] = True
-                i['supplier'] = False
                 i['property_payment_term_id'] = i.pop('payment_term_id')
 
                 part = get_partner(i['dia_ref_customer'], i['name'], i['vat'])
+                if not part:
+                    i['supplier'] = False
 
             if part:
                 i.pop('name')
@@ -247,7 +248,7 @@ class ResPartner(models.Model):
                     else:
                         if new:
                             new.unlink()
-                            
+
                         new = PARTNER.create(i)
 
                 except Exception as e:
