@@ -32,7 +32,7 @@
                 <xpath expr="//field[@name='reference']" position="attributes">
                     <attribute name="required">1</attribute>
                 </xpath>
-                <xpath expr="//page[@name='other_info']/field[@name='date']" position="attributes">
+                <xpath expr="//field[@name='date']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
                 <xpath expr="//field[@name='date_invoice']" position="before">
