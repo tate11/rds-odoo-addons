@@ -322,6 +322,6 @@ class ResPartner(models.Model):
             es = i[13].strip()[:3] == 'N18'
             
             if es and part.country_id.code == 'IT':
-                part.write({'property_account_position_id': 5})
+                part.write({'property_account_position_id': 7})
             
-             
+            
