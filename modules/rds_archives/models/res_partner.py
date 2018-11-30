@@ -236,7 +236,7 @@ class ResPartner(models.Model):
                     log_stream.append("ValidationError with partner {}: {}. Popping VAT and Banks, and trying again.".format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), e))
                     name = part and part.name or i.get('name', 'unk')
                     vat = i.pop('vat')
-                    i.pop('bank_ids')
+                    i.pop('bank_ids', False)
 
                     try:
                         failed_vats.append('"mild","{}","{}","{}","{}"'.format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), vat, name, e))
@@ -246,7 +246,7 @@ class ResPartner(models.Model):
                             created_partners |= PARTNER.create(i)
                         self.env.cr.commit()
                         continue
-                        
+
                     except Exception as e:
 
                         log_stream.append("[ERR] Exception with partner {}: {}.".format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), e))
