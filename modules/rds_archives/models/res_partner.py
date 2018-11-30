@@ -306,7 +306,7 @@ class ResPartner(models.Model):
                 log_stream.append("[GRAVE] Bad line data for partner. Skipping ({}) {} - {}.".format(i[0], i[1], i[12]))
                 continue
 
-            es = i[13].strip()[:3] == 'N18'
+            es = i[13].strip()[:3] == 'NI8'
             
             log_stream.append("Partner: ({}) {} - {}. - ESENTE: ({}), {}".format(i[0], i[1], i[12], i[13], es))
             if es and part.country_id.code == 'IT':
