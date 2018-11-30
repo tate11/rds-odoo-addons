@@ -29,14 +29,14 @@ class ProductTemplate(models.Model):
 
             if not attr:
                 for v in t.product_variant_ids:
-                    _template = self.with_context(create_product_product=True)
+                    _template = t.with_context(create_product_product=True)
                     template = _template.copy()
                     v.split(template)
 
             else:
                 for value in attr.value_ids:
-                    _template = self.with_context(create_product_product=True)
-                    template = _template.copy({'name': self.name + "{}".format(value.name)})
+                    _template = t.with_context(create_product_product=True)
+                    template = _template.copy({'name': t.name + "{}".format(value.name)})
 
                     for att_line in t.attribute_line_ids.filtered(lambda x: x.attribute_id.id != attribute_id):
                         att_line.copy({'product_tmpl_id': template.id})
