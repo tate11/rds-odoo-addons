@@ -102,6 +102,7 @@ class ResPartner(models.Model):
         PARTNER = self
 
         log_stream = list()
+        failed_vats = list()
 
         def get_partner(ref, name, vat, type='dia_ref_customer', fallback=False):
             result = False
@@ -123,7 +124,10 @@ class ResPartner(models.Model):
             if bank:
                 return bank
             else:
-                return self.env['res.bank'].create({'abi': abi, 'cab': cab, 'name': abi+cab})
+                bnk = self.env['res.bank'].create({'abi': abi, 'cab': cab, 'name': name or abi+cab})
+                log_stream.append("Creating Bank {} ({})".format(abi, cab))
+                self.env.cr.commit()
+                return bnk
 
         def to_dict(line):
             bank_riba = bank_getormake(line[17], line[18], line[19])
@@ -219,15 +223,34 @@ class ResPartner(models.Model):
                         part.write(i)
                     else:
                         created_partners |= PARTNER.create(i)
-                    self.env.cr.savepoint()
+                    self.env.cr.commit()
+
+                except ValidationError as e:
+                    log_stream.append("ValidationError with partner {}: {}. Popping VAT and Banks, and trying again.".format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), e))
+                    try:
+                        failed_vats.append('"{}","{}","{}"\n'.format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), i['vat'], i.get('name', part.name)))
+                        i.pop('vat')
+                        i.pop('bank_ids')
+                        if part:
+                            part.write(i)
+                        else:
+                            created_partners |= PARTNER.create(i)
+                        self.env.cr.commit()
+
+                    except Exception as e:
+                        log_stream.append("Exception with partner {}: {}.".format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), e))
+                        self.env.cr.rollback()
+                        continue
+                        
                 except Exception as e:
                     log_stream.append("Exception with partner {}: {}.".format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), e))
                     self.env.cr.rollback()
                     continue
 
-        self.env.cr.commit()
         log_stream.append("Created {} partners.".format(len(created_partners)))
 
 
         with open("/tmp/log.log", 'w') as file:
             file.write("\n".join(log_stream)) 
+        with open("/tmp/vatfailed.csv", 'w') as file:
+            file.write("\n".join(failed_vats)) 
