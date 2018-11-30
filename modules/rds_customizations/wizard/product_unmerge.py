@@ -21,7 +21,7 @@ class ProductTemplate(models.Model):
         for t in self:
             for v in t.product_variant_ids:
                 v.split()
-            t.unlink()
+            #t.unlink()
 
 class ProductProduct(models.Model):
     _inherit = 'product.product'
