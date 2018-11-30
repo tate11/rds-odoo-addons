@@ -1,1 +1,1 @@
-from . import product_merge
+from . import product_merge, product_unmerge
