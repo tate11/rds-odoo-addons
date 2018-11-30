@@ -14,7 +14,7 @@ from odoo.tools import mute_logger
 
 _logger = logging.getLogger('base.product.merge')
 
-class ProductTemplate(models.TransientModel):
+class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     def _unpack(self):
@@ -23,7 +23,7 @@ class ProductTemplate(models.TransientModel):
                 v.split()
             t.unlink()
 
-class ProductProduct(models.TransientModel):
+class ProductProduct(models.Model):
     _inherit = 'product.product'
 
     def _shared_table(self):
