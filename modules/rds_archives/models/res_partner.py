@@ -139,7 +139,7 @@ class ResPartner(models.Model):
             banks = []
             if getattr(bank_riba, 'id', False):
                 banks.append((0, 0, {'bank_id': bank_riba.id, 'acc_number': 'RiBa-' + line[12].strip()}))
-            if getattr(bank_riba, 'id', False) and bool(line[24].strip()):
+            if getattr(bank_bnf, 'id', False) and bool(line[24].strip()):
                 banks.append((0, 0, {'bank_id': bank_bnf.id, 'acc_number': line[24]}))
 
             if line[9] == 'I':
