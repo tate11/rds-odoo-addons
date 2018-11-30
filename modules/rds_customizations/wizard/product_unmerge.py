@@ -17,11 +17,14 @@ _logger = logging.getLogger('base.product.merge')
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-#        _template = self.product_tmpl_id.with_context(create_product_product=True)
-#        template = _template.copy()
-
     def _unpack(self, attribute_id=False):
         for t in self:
+            if t.product_variant_count <= 1:
+                continue
+
+            if len(t.attribute_line_ids.filtered(lambda x: x.attribute_id.id != attribute_id)) == len(t.attribute_line_ids):
+                continue
+
             attr = t.attribute_line_ids.filtered(lambda x: x.attribute_id.id == attribute_id)
 
             if not attr:
@@ -33,7 +36,7 @@ class ProductTemplate(models.Model):
             else:
                 for value in attr.value_ids:
                     _template = self.with_context(create_product_product=True)
-                    template = _template.copy({'name': self.name + "({})".format(value.name)})
+                    template = _template.copy({'name': self.name + "{}".format(value.name)})
 
                     for att_line in t.attribute_line_ids.filtered(lambda x: x.attribute_id.id != attribute_id):
                         att_line.copy({'product_tmpl_id': template.id})

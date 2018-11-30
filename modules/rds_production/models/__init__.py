@@ -1,1 +1,1 @@
-from . import mrp_workorder, mrp_workcenter, mrp_production, mrp_bom, product_product, maintenance_equipment
+from . import mrp_workorder, mrp_workcenter, mrp_production, mrp_bom, maintenance_equipment
