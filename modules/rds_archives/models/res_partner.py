@@ -131,7 +131,11 @@ class ResPartner(models.Model):
 
         def to_dict(line):
             bank_riba = bank_getormake(line[17], line[18], line[19])
-            bank_bnf = bank_getormake(line[20], line[22], line[21])
+            
+            if (line[20] == line[17]) and (line[22] == line[18]):
+                bank_bnf = bank_riba
+            else:
+                bank_bnf = bank_getormake(line[20], line[22], line[21])
 
             banks = []
             if bank_riba:
