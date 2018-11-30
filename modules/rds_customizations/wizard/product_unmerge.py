@@ -52,7 +52,7 @@ class ProductProduct(models.Model):
             :param dst_partner : record of destination res.partner
         """
 
-        _template = self.self.product_tmpl_id.with_context(create_product_product=True)
+        _template = self.product_tmpl_id.with_context(create_product_product=True)
         template = _template.copy()
 
         relations = self._shared_table()
