@@ -36,7 +36,7 @@ class ProductTemplate(models.Model):
             else:
                 for value in attr.value_ids:
                     _template = t.with_context(create_product_product=True)
-                    template = _template.copy({'name': t.name + "{}".format(value.name)})
+                    template = _template.copy({'name': t.name + " {}".format(value.name)})
 
                     for att_line in t.attribute_line_ids.filtered(lambda x: x.attribute_id.id != attribute_id):
                         att_line.copy({'product_tmpl_id': template.id})
@@ -47,6 +47,9 @@ class ProductTemplate(models.Model):
 
                     for v in t.product_variant_ids.filtered(lambda x: value in x.attribute_value_ids):
                         v.split(template, value)
+                    
+                    if t.product_variant_count <= 1:
+                        t.default_code = v.default_code
 
             t.unlink()
 

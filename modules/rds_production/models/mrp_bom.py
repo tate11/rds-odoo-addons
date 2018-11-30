@@ -15,15 +15,6 @@ class MrpBom(models.Model):
     _inherit = 'mrp.bom'
     alternative_routings = fields.Many2many('mrp.routing', string="Alternative Routings", help="Alternative routings to be chosen from in manual workorder creation.")
 
-    @api.constrains('product_id', 'product_tmpl_id', 'bom_line_ids')
-    def _check_product_recursion(self):
-        for bom in self:
-            if not (bom.product_id) and bom.bom_line_ids.filtered(lambda x: x.product_id.product_tmpl_id == bom.product_tmpl_id):
-                raise ValidationError(_('BoM line product %s should not be same as BoM product.') % bom.display_name)
-            elif bom.product_id and bom.bom_line_ids.filtered(lambda x: x.product_id == bom.product_id):
-                raise ValidationError(_('BoM line product %s should not be same as BoM product.') % bom.display_name)
-
-
 class ReportBomStructure(models.AbstractModel):
     _inherit = 'report.mrp.report_bom_structure'
 
