@@ -119,7 +119,7 @@ class ResPartner(models.Model):
             if (not abi) or (not cab):
                 return False
 
-            bank = self.env['res.bank'].search([('abi', '=', abi), ('cab', '=', cab)])
+            bank = self.env['res.bank'].search([('abi', '=', abi), ('cab', '=', cab)], limit=1)
             
             if bank:
                 return bank
