@@ -42,7 +42,8 @@ class ProductTemplate(models.Model):
                     for customers_id in t.customers_ids.filtered(lambda x: x.product_id == False):
                         customers_id.copy({'product_tmpl_id': template.id})
 
-                    v.split(template, value)
+                    for v in t.product_variant_ids.filtered(lambda x: value in x.attribute_value_ids):
+                        v.split(template, value)
 
             t.unlink()
 
