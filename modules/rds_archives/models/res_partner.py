@@ -246,6 +246,7 @@ class ResPartner(models.Model):
                         if part:
                             part.write(i)
                         else:
+                            new.unlink()
                             new = PARTNER.create(i)
 
                     except Exception as e:
@@ -262,7 +263,7 @@ class ResPartner(models.Model):
                 
                 if new:
                     created_partners |= new
-                    
+
                 self.env.cr.commit()
 
         log_stream.append("Created {} partners.".format(len(created_partners)))
