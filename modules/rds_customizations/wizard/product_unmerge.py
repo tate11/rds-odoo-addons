@@ -86,5 +86,5 @@ class ProductProduct(models.Model):
                 self._cr.execute(query, (self.id,))
 
         if clear_attribute_value:
-            query = 'DELETE FROM product_attribute_value_product_product_rel WHERE product_attribute_value_id=%%S AND product_product_id=%%s'
+            query = 'DELETE FROM product_attribute_value_product_product_rel WHERE product_attribute_value_id=%%s AND product_product_id=%%s'
             self._cr.execute(query, (clear_attribute_value.id, self.id,))
