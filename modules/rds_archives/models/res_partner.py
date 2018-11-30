@@ -190,46 +190,44 @@ class ResPartner(models.Model):
             if mode == 'dry_run':
                 pass    
             
+        else:
+            vendor = i['dia_ref'][0] == '2'
+
+            if vendor:
+                i['dia_ref_vendor'] = i.pop('dia_ref')
+                i['supplier'] = True
+                i['property_supplier_payment_term_id'] = i.pop('payment_term_id')
+
+                part = get_partner(i['dia_ref_vendor'], i['name'], i['vat'], type='dia_ref_vendor')
+
             else:
-                try:
-                    vendor = i['dia_ref'][0] == '2'
+                i['dia_ref_customer'] = i.pop('dia_ref')
+                i['customer'] = True
+                i['property_payment_term_id'] = i.pop('payment_term_id')
 
-                    if vendor:
-                        i['dia_ref_vendor'] = i.pop('dia_ref')
-                        i['supplier'] = True
-                        i['property_supplier_payment_term_id'] = i.pop('payment_term_id')
+                part = get_partner(i['dia_ref_customer'], i['name'], i['vat'])
 
-                        part = get_partner(i['dia_ref_vendor'], i['name'], i['vat'], type='dia_ref_vendor')
+            if part:
+                i.pop('name')
+                i.pop('street')
+                i.pop('zip')
+                i.pop('city')
+                i.pop('state_id')
+                i.pop('country_id')
+                i.pop('phone')
 
-                    else:
-                        i['dia_ref_customer'] = i.pop('dia_ref')
-                        i['customer'] = True
-                        i['property_payment_term_id'] = i.pop('payment_term_id')
+            try:
+                if part:
+                    part.write(i)
+                else:
+                    created_partners |= PARTNER.create(i)
+                self.env.cr.savepoint()
+            except Exception as e:
+                log_stream.append("Exception with partner {}: {}.".format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), e))
+                self.env.cr.rollback()
+                continue
 
-                        part = get_partner(i['dia_ref_customer'], i['name'], i['vat'])
-
-                    if part:
-                        i.pop('name')
-                        i.pop('street')
-                        i.pop('zip')
-                        i.pop('city')
-                        i.pop('state_id')
-                        i.pop('country_id')
-                        i.pop('phone')
-
-                        part.write(i)
-                    
-                    else:
-                        created_partners |= PARTNER.create(i)
-                    
-                    self.env.cr.savepoint()
-
-                except Exception as e:
-                    log_stream.append("Exception with partner {}: {}.".format(i.get('dia_ref_customer', i.get('dia_ref_vendor')), e))
-                    self.env.cr.rollback()
-
-                    continue
-
+        self.env.cr.commit()
         log_stream.append("Created {} partners.".format(len(created_partners)))
 
 
