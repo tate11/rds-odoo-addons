@@ -1,17 +1,20 @@
-# Intended for sole use by RDS Moulding Technology SpA. See README file.
+# Part of <Odoo Addons for RDS Moulding Technology S.p.A.>. See Attached README.md file.
+# Copyright 2018 RDS Moulding Technology S.p.A.
 
 { 
-    'name': "HR Lul", 
-    'summary': "Adds small quality-of-life improvements to HR management.", 
-    'description': """This module adds menuitems and base utilities for other modules, centered on HR reporting.
-                   """, 
+    'name': 'Hr Attendance Book',
+    'category': 'Human Resources',
+    'description': """
+Extends attendance with monthly workbooks similar to traditional italian software such as
+Zucchetti. Adds dedicated reports and compatibily with GIS system.
+--------------------------------------------------------------
+""",
     'author': "RDS Moulding Technology SpA", 
-    'license': "AGPL-3", 
+    'license': "LGPL-3", 
     'website': "http://rdsmoulding.com", 
-    'category': 'hr', 
-    'version': '12.0', 
+    'version': '12.0',
     'depends': [
-                'hr', 'hr_attendance'
+                'hr', 'hr_attendance', 'hr_holidays'
                ], 
     'data': [
         'security/ir.model.access.csv',

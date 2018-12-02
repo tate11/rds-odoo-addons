@@ -62,7 +62,7 @@
                                 <field name="dia_transfer_notes" readonly="1"/>
                             </tree>
                         </field>
-                    </page>
+                    </page><!--
                     <page string="Prodotti">
                         <field name="products_ids" readonly="1">
                             <tree decoration-success="dia_transfer_status == 'success'" decoration-danger="dia_transfer_status == 'failed'" decoration-muted="dia_transfer_status == 'none'">
@@ -86,7 +86,7 @@
                                 <field name="dia_transfer_notes" readonly="1"/>
                             </tree>
                         </field>
-                    </page>
+                    </page>-->
                 </notebook>
         </sheet>
         </form> 

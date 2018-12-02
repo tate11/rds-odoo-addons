@@ -1,1 +1,1 @@
-from . import hr_attendance_book
+from . import hr_attendance_book, hr_employee

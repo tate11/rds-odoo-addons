@@ -1,17 +1,18 @@
-# Intended for sole use by RDS Moulding Technology SpA. See README file.
+# Part of <Odoo Addons for RDS Moulding Technology S.p.A.>. See Attached README.md file.
+# Copyright 2018 RDS Moulding Technology S.p.A.
 
 { 
-    'name': "RDS Archives", 
+    'name': "RDS Archives",
+    'category': 'Integrations',
     'summary': "Legacy data connector for RDS Moulding Technology S.p.A.",
     'description': """
                       This module is intended for sole use by RDS Moulding Technology S.p.A.
                       Its purpuse is to allow downloading data on-demand from its legacy archives to Odoo.
                     """,
     'author': "RDS Moulding Technology SpA", 
-    'license': "AGPL-3", 
+    'license': "LGPL-3", 
     'website': "http://rdsmoulding.com", 
-    'category': 'hr', 
-    'version': '12.0', 
+    'version': '12.0',
     'depends': [
                 'product', 'sale'
                ], 
@@ -19,4 +20,4 @@
     ],
     'application': False,
     'installable': True,
-} 
+}

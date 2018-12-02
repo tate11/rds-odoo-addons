@@ -1,4 +1,5 @@
-# -*- encoding: utf-8 -*-
+# Part of <Odoo Addons for RDS Moulding Technology S.p.A.>. See Attached README.md file.
+# Copyright 2018 RDS Moulding Technology S.p.A.
 
 import os
 import logging
@@ -80,8 +81,8 @@ class DiaTransfer(models.Model):
     ###### IMPLEMENTARE IN SEGUITO I MODELLI DA TRASFERIRE
 
     ddt_ids = fields.One2many('stock.ddt', 'dia_transfer_id', string="Documenti di Trasporto", readonly=True)
-    products_ids = fields.One2many('product.template', 'dia_transfer_id', string="Prodotti", readonly=True)
-    partners_ids = fields.One2many('res.partner', 'dia_transfer_id', string="Clienti & Fornitori", readonly=True)
+    #products_ids = fields.One2many('product.template', 'dia_transfer_id', string="Prodotti", readonly=True)
+    #partners_ids = fields.One2many('res.partner', 'dia_transfer_id', string="Clienti & Fornitori", readonly=True)
 
     def button_run(self):
         self._action_run()
@@ -98,8 +99,8 @@ class DiaTransfer(models.Model):
         totransfer = ((force and ['draft', 'failed', 'success']) or (retry and ['draft', 'failed']) or ['draft'])
         
         result += self.ddt_ids.filtered(lambda x: x.dia_transfer_status in totransfer).transfer_to_dia()
-        result += self.partners_ids.filtered(lambda x: x.dia_transfer_status in totransfer).transfer_to_dia()
-        result += self.products_ids.filtered(lambda x: x.dia_transfer_status in totransfer).transfer_to_dia()
+        #result += self.partners_ids.filtered(lambda x: x.dia_transfer_status in totransfer).transfer_to_dia()
+        #result += self.products_ids.filtered(lambda x: x.dia_transfer_status in totransfer).transfer_to_dia()
 
         if ('failed' in result) and ('success' in result):
             self.state = 'partial'

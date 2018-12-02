@@ -3,19 +3,20 @@
 # See LICENSE.md file in the parent folder for full copyright and licensing details.
 
 
-{
-    'name': 'Italian Localized Pickings',
-    'version': '11.0',
-    'author': 'RDS Moulding Technology S.p.A.',
-    'maintainer': 'RDS Moulding Technology S.p.A.',
-    'summary': 'Localizes pickings so as to conform to italian "DDT" standards.',
-    'website': 'http://rdsmoulding.com',
-    'category': 'Sale',
-    'description':
-                """
-                    Stock Picking integrations to make odoo pickings conform to italian normative for transfer documents.
-                """,
+# Part of <Odoo Addons for RDS Moulding Technology S.p.A.>. See Attached README.md file.
+# Copyright 2018 RDS Moulding Technology S.p.A.
 
+{ 
+    'name': 'Pickings to DDTs',
+    'category': 'Localization/Italy',
+    'description': """
+Adds a number of functions and tables to manage italian-normative compliant DDTs.
+--------------------------------------------------------------
+""",
+    'author': "RDS Moulding Technology SpA", 
+    'license': "LGPL-3", 
+    'website': "http://rdsmoulding.com", 
+    'version': '12.0',
     'depends': ['stock', 'delivery'],
     'data': [
             'security/ir.model.access.csv',

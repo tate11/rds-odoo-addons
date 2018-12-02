@@ -1,5 +1,6 @@
-# -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of <Odoo Addons for RDS Moulding Technology S.p.A.>. See Attached README.md file.
+# Copyright 2018 RDS Moulding Technology S.p.A.
+
 import os
 import logging
 from odoo import api

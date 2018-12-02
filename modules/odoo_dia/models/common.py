@@ -1,8 +1,6 @@
-'''
-Created on 2 Aug 2018
+# Part of <Odoo Addons for RDS Moulding Technology S.p.A.>. See Attached README.md file.
+# Copyright 2018 RDS Moulding Technology S.p.A.
 
-@author: mboscolo
-'''
 import logging, os
 
 UOM_MATCH = {1: 'PZ',

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <template id="report_assets_common" name="hr_adv_working_hours assets" inherit_id="web.report_assets_common">
-        <xpath expr="." position="inside">
-            <link href="/hr_adv_working_hours/static/report/css/print_turns.css" rel="stylesheet"/>
-        </xpath>
-    </template>
-</odoo>

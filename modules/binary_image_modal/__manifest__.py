@@ -1,17 +1,18 @@
-# Intended for sole use by RDS Moulding Technology SpA. See README file.
+# Part of <Odoo Addons for RDS Moulding Technology S.p.A.>. See Attached README.md file.
+# Copyright 2018 RDS Moulding Technology S.p.A.
 
 { 
-    'name': "Binary Image Field Modal on Click", 
-    'summary': "",
+    'name': 'Binary Image Widget - Onclick Modal',
+    'category': 'Backend',
     'description': """
-                    """,
+Extends budgets to allow partner-based filtering.
+--------------------------------------------------------------
+""",
     'author': "RDS Moulding Technology SpA", 
     'license': "AGPL-3", 
     'website': "http://rdsmoulding.com", 
-    'category': 'hr', 
     'version': '12.0', 
-    'depends': [
-               ], 
+    'depends': [], 
     'data': [
         'views/template.xml'
     ],

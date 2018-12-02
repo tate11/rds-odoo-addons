@@ -1,15 +1,19 @@
-# Intended for sole use by RDS Moulding Technology SpA. See README file.
+# Part of <Odoo Addons for RDS Moulding Technology S.p.A.>. See Attached README.md file.
+# Copyright 2018 RDS Moulding Technology S.p.A.
 
 { 
-    'name': "Customer-specific Product Info", 
-    'summary': "Adds customer specific product info.",
+    'name': 'Customer-specific product info.',
+    'category': 'Sale',
+    'description': """
+Extends product with additional tables for managing customer-specific product code, description and notes.
+--------------------------------------------------------------
+""",
     'author': "RDS Moulding Technology SpA", 
-    'license': "AGPL-3", 
+    'license': "LGPL-3", 
     'website': "http://rdsmoulding.com", 
-    'category': 'hr', 
-    'version': '12.0', 
+    'version': '12.0',
     'depends': [
-                'product'
+                'product', 'sale'
                ], 
     'data': [
             'security/ir.model.access.csv',
