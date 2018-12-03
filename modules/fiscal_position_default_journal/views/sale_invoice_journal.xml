@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+    
+        <record id="view_account_position_form_journals" model="ir.ui.view">
+            <field name="name">account.position.form.journals</field>
+            <field name="model">account.fiscal.position</field>
+            <field name="inherit_id" ref="account.view_account_position_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="sale_journal_id"/>
+                    <field name="purchase_journal_id"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
