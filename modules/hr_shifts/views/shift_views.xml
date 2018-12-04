@@ -91,11 +91,14 @@
         <field name="inherit_id" ref="hr.view_employee_filter"/>
         <field name="priority" eval="2000"/>
         <field name="arch" type="xml">
+            <xpath expr="//field[@name='job_id']" position="after">
+                <filter name="does_shift" string="Shift Worker" domain="[('shift_id','!=',False)]"/>
+                <separator/>
+            </xpath>
             <xpath expr="//filter[@name='group_job']" position="after">
                 <filter name="group_schedule" string="Schedule" domain="[]" context="{'group_by':'resource_calendar_id'}"/>
                 <filter name="group_shift" string="Shift" domain="[]" context="{'group_by':'shift_id'}"/>
             </xpath>
         </field>
     </record>
-
 </odoo>
