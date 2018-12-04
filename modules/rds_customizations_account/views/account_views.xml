@@ -38,10 +38,11 @@
                 <xpath expr="//field[@name='journal_id']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
-                <xpath expr="//field[@name='type']" position="before">
-                    <div class="o_row">
-                        <field name="journal_id" groups="account.group_account_user" options="{'no_create': True}" attrs="{'readonly':[('move_name','!=',False)]}"/>
-                    </div>
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="journal_id" groups="account.group_account_user" options="{'no_create': True}" attrs="{'readonly':[('move_name','!=',False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/tree" position="attributes">
+                    <attribute name="editable">0</attribute>
                 </xpath>
             </field>
         </record>
@@ -54,10 +55,11 @@
                 <xpath expr="//field[@name='journal_id']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
-                <xpath expr="//field[@name='type']" position="before">
-                    <div class="o_row">
-                        <field name="journal_id" groups="account.group_account_user" options="{'no_create': True}" attrs="{'readonly':[('move_name','!=',False)]}"/>
-                    </div>
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="journal_id" groups="account.group_account_user" options="{'no_create': True}" attrs="{'readonly':[('move_name','!=',False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/tree" position="attributes">
+                    <attribute name="editable">0</attribute>
                 </xpath>
             </field>
         </record>         

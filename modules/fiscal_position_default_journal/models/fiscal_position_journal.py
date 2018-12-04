@@ -17,8 +17,8 @@ class AccountInvoice(models.Model):
 
         if self.type in ['out_invoice', 'out_refund']:
             if self.fiscal_position_id and self.fiscal_position_id.sale_journal_id:
-                self.journal_id = self.fiscal_position_id.sale_journal_id
+                self.update({'journal_id': self.fiscal_position_id.sale_journal_id.id})
         elif self.fiscal_position_id and self.fiscal_position_id.purchase_journal_id:
-            self.journal_id = self.fiscal_position_id.purchase_journal_id
+            self.update({'journal_id': self.fiscal_position_id.purchase_journal_id.id})
 
         return res
