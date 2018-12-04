@@ -33,11 +33,6 @@
             <form string="Shift">
                 <header>
                     <button name="action_shift" type="object" string="Shift Now"/>
-                    <!--
-                    <button name="button_retry" states="partial,failed" class="btn-primary" type="object" string="Riprova"/>
-                    <button name="button_force" type="object" string="Forza Riinvio"/>
-                    <field name="state" statusbar_visible="draft" widget="statusbar"/>
-                    -->
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">

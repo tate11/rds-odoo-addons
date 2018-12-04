@@ -9,7 +9,7 @@ Extends budgets to allow partner-based filtering.
 --------------------------------------------------------------
 """,
     'author': "RDS Moulding Technology SpA", 
-    'license': "AGPL-3", 
+    'license': "LGPL-3", 
     'website': "http://rdsmoulding.com", 
     'version': '12.0', 
     'depends': [], 

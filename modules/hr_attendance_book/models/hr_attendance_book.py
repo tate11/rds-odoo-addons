@@ -12,6 +12,42 @@ from math import sqrt
 _logger = logging.getLogger()
 
 
+### Queries
+
+
+
+reason_view = """
+
+-- View Definition:
+
+SELECT ROW_NUMBER() OVER (ORDER BY day_id) AS id, * FROM (
+
+        SELECT one.id AS day_id, one.workbook_id, one.date, tp.att_type, one.reason_1 AS reason_id, qty_1 AS qty
+            FROM hr_attendance_day one 
+            LEFT JOIN hr_attendance_type tp ON tp.id = one.reason_1
+            WHERE one.reason_1 IS NOT NULL
+        UNION ALL
+
+        SELECT two.id AS day_id, two.workbook_id, two.date, tp.att_type, two.reason_2 AS reason_id, two.qty_2 AS qty
+            FROM hr_attendance_day two
+            LEFT JOIN hr_attendance_type tp ON tp.id = two.reason_2
+            WHERE two.reason_2 IS NOT NULL
+        UNION ALL
+        
+        SELECT three.id AS day_id, three.workbook_id, three.date, tp.att_type, three.reason_3 AS reason_id, three.qty_3 AS qty
+            FROM hr_attendance_day three 
+            LEFT JOIN hr_attendance_type tp ON tp.id = three.reason_3
+            WHERE three.reason_3 IS NOT NULL
+        UNION ALL
+
+        SELECT four.id AS day_id, four.workbook_id, four.date, tp.att_type, four.reason_4 AS reason_id, four.qty_4 AS qty
+        FROM hr_attendance_day four 
+        LEFT JOIN hr_attendance_type tp ON tp.id = four.reason_4
+        WHERE four.reason_4 IS NOT NULL
+        
+    ) x
+"""
+
 def normalize(dtime, mode="UP"):
     if mode=="UP":
         if dtime.minute >= 30:
@@ -47,10 +83,45 @@ class HrAttendanceBook(models.Model):
     _name = 'hr.attendance.book'
     _description = "Attendance Book"
 
+    def _compute_totals(self):
+        for book in self:
+            query = "SELECT att_type, sum(qty) FROM (%s) t GROUP BY att_type;" % (reason_view + " WHERE workbook_id=%s" % book.id)
+            self._cr.execute(query)
+            result = self._cr.fetchall()
+
+            for i in result:
+                if i[0] == 'work':
+                    book.total_worked = i[1]
+                if i[0] == 'extra':
+                    book.total_extra = i[1]
+                if i[0] == 'hol':
+                    book.total_holiday = i[1]
+                if i[0] == 'absn':
+                    book.total_absence = i[1]
+
+            book.grand_total_e = sum(book.day_ids.mapped(lambda x: x.total_e))
+            book.grand_total = sum(map(lambda x: x[1], result))                
+
+    def _get_days(self):
+        for book in self:
+            book.date_start = dt.date(year=int(book.year), month=book.month, day=1)
+            book.date_end = (dt.date(year=int(book.year), month=book.month, day=1) + dt.timedelta(32)).replace(day=1) - dt.timedelta(1)
+
     name = fields.Char('Name')
     employee_id = fields.Many2one('hr.employee', 'Dipendente')
 
-    year = fields.Integer("Year", readonly=True)
+    date_start = fields.Date("First of Month", compute=_get_days)
+    date_end = fields.Date("Last of Month", compute=_get_days)
+
+    grand_total = fields.Float("Grand Total", compute=_compute_totals)
+    grand_total_e = fields.Float("Grand Total Excepted", compute=_compute_totals)
+
+    total_worked = fields.Float("Total Worked", compute=_compute_totals)
+    total_extra = fields.Float("Total Extra", compute=_compute_totals)
+    total_holiday = fields.Float("Total Holiday", compute=_compute_totals)
+    total_absence = fields.Float("Total Absence", compute=_compute_totals)
+
+    year = fields.Char("Year", readonly=True)
     month = fields.Selection([
         (1, 'January'),
         (2, 'February'),
@@ -68,8 +139,9 @@ class HrAttendanceBook(models.Model):
 
     day_ids = fields.One2many('hr.attendance.day', 'workbook_id', string="Days")
 
+    @api.model
     def generate_books(self, frm=dt.date.today().replace(day=1)):
-        year, month = frm.year, frm.month
+        year, month = str(frm.year), frm.month
 
         _to = frm + dt.timedelta(32)
         to = _to - dt.timedelta(days=_to.day)
@@ -83,7 +155,7 @@ class HrAttendanceBook(models.Model):
                 'year': year,
                 'month': month,
                 'name': _("Attendance Book {}/{} for {}").format(year, month, emp.name),
-                'day_ids': [(0, 0, {'date': dt.date(year=year, month=month, day=day), 'resource_calendar_id': emp.resource_calendar_id.id, 'advantage_id': emp.advantage_id.id}) for day in range(frm.day, to.day+1)]
+                'day_ids': [(0, 0, {'date': dt.date(year=int(year), month=month, day=day), 'resource_calendar_id': emp.resource_calendar_id.id, 'structure_id': emp.structure_id.id}) for day in range(frm.day, to.day+1)]
             })
 
     @api.multi
@@ -101,6 +173,20 @@ class HrAttendanceBook(models.Model):
             'target': 'current',
             'domain': [('workbook_id', '=', self.id)],
         }
+
+
+    @api.multi
+    def _get_attendances(self):
+        for i in self:
+            i.attendance_ids = i.day_ids.mapped(lambda x: x.attendance_ids)
+
+    @api.multi
+    def _get_leaves(self):
+        for i in self:
+            i.leave_ids = i.day_ids.mapped(lambda x: x.leave_ids)
+
+    attendance_ids = fields.Many2many('hr.attendance', compute=_get_attendances)
+    leave_ids = fields.Many2many('hr.leave', compute=_get_leaves)
 
     '''
     @api.multi
@@ -134,6 +220,10 @@ class HrAttendanceDay(models.Model):
     _name = 'hr.attendance.day'
     _description = "Attendance Day"
 
+    def cron_load(self):
+        to_load = self.search([('date', '<', fields.Date.to_string(fields.Date.today())), ('cron_loaded', '=', False)])
+        to_load.load()
+
     def _get_day_info(self):
         for i in self:
             i.day = i.date.day
@@ -147,6 +237,7 @@ class HrAttendanceDay(models.Model):
             self.resource_calendar_id = self.workbook_id.employee_id.resource_calendar_id or self.env['res.company']._company_default_get().resource_calendar_id
             start_dt, end_dt = self._get_ranges()
             self.total_e = self.resource_calendar_id.get_work_hours_count(start_dt, end_dt, False)
+            self.structure_id = self.employee_id.structure_id
             return start_dt, end_dt
 
     @api.multi
@@ -233,17 +324,35 @@ class HrAttendanceDay(models.Model):
 
             reasons = dict()
 
-            if i.advantage_id:
-                advantages = dict()
+            allocated = 0
+
+            if i.leave_ids.filtered(lambda x: bool(x.holiday_status_id.attendance_type)):
                 lines = [
-                         (  
+                    (
+                        l.holiday_status_id.attendance_type,
+                        Range(l.date_start, l.date_end)
+                    )
+                for l in i.leave_ids]
+
+                for line in lines:
+                    to_alloc = total_overlaps([line[1]], _att, dt.timedelta(0)).total_seconds() / 3600
+
+                    if to_alloc + allocated > total_e:
+                        reasons[line[0]] = reasons.get(line[0], 0) + total_e - allocated
+                        break
+                    else:
+                        reasons[line[0]] = reasons.get(line[0], 0) + to_alloc
+                        allocated = to_alloc + allocated
+
+
+            if i.structure_id:
+                lines = [
+                         (
                           k.reason_id.id,
                           k.reason_extra_id.id,
                           Range(start_dt + dt.timedelta(k.time_start/24), start_dt + dt.timedelta(k.time_end/24))
                          ) 
-                        for k in i.advantage_id.lines]
-                
-                allocated = 0
+                        for k in i.structure_id.lines]
 
                 for line in lines:
                     to_alloc = total_overlaps([line[2]], att, dt.timedelta(0)).total_seconds() / 3600
@@ -255,6 +364,8 @@ class HrAttendanceDay(models.Model):
                     else:
                         reasons[line[0]] = reasons.get(line[0], 0) + to_alloc
                         allocated = to_alloc + allocated
+
+
 
 
             #This cleans the day and reloads
@@ -277,7 +388,7 @@ class HrAttendanceDay(models.Model):
                 vals['qty_{}'.format(z)] = reasons[key]
             
             if vals:
-                i.write({'absence_index': absence_index, 'unadherence_index': unadherence_index, 'bad_markings': bad_markings, **vals})
+                i.write({'cron_loaded': True, 'absence_index': absence_index, 'unadherence_index': unadherence_index, 'bad_markings': bad_markings, **vals})
                 
     def _get_ranges(self, unaware=False):
         self.ensure_one()
@@ -294,7 +405,7 @@ class HrAttendanceDay(models.Model):
 
     workbook_id = fields.Many2one('hr.attendance.book', 'Book')
     employee_id = fields.Many2one('hr.employee', 'Employee', related="workbook_id.employee_id")
-    advantage_id = fields.Many2one('hr.attendance.advantage')
+    structure_id = fields.Many2one('hr.attendance.structure')
     
     date = fields.Date("Date", readonly=True)
 
@@ -309,7 +420,14 @@ class HrAttendanceDay(models.Model):
         (6, 'Sunday')
         ], 'Day of Week', compute=_get_day_info)
 
+    def _dow_char(self):
+        for i in self:
+            i._dayofweek_letter = _('MTWTFSS -- First six characters should be localized initals of weekdays.')[i.dayofweek]
+            
+    _dayofweek_letter = fields.Char(compute=_dow_char)
+
     passed = fields.Boolean("Passed", compute=_get_day_info)
+    cron_loaded = fields.Boolean("Loaded by Cron")
 
     reason_1 = fields.Many2one('hr.attendance.type', "Reason 1")
     reason_2 = fields.Many2one('hr.attendance.type', "Reason 2")
@@ -365,24 +483,30 @@ class HrAttendanceType(models.Model):
         ], 'Attendance Type', required=True, index=True, default='absn')
 
 
-class HrAttendanceAdvantage(models.Model):
-    _name = 'hr.attendance.advantage'
-    _description = "Attendance Advantages"
+class HrAttendanceStructure(models.Model):
+    _name = 'hr.attendance.structure'
+    _description = "Attendance Structures"
 
     name = fields.Char("Description", required=True)
     code = fields.Char("Code", required=True, limit=8)
 
-    lines = fields.One2many('hr.attendance.advantage.line', 'advantage_id', "Advantage Lines")
+    lines = fields.One2many('hr.attendance.structure.line', 'structure_id', "Structure Lines")
 
 
-class HrAttendanceAdvantageLine(models.Model):
-    _name = 'hr.attendance.advantage.line'
-    _description = "Attendance Advantage Lines"
+class HrAttendanceStructureLine(models.Model):
+    _name = 'hr.attendance.structure.line'
+    _description = "Attendance Structure Lines"
 
-    advantage_id = fields.Many2one('hr.attendance.advantage', 'Advantage', required=True, ondelete='cascade')
+    structure_id = fields.Many2one('hr.attendance.structure', 'Structure', required=True, ondelete='cascade')
 
     time_start = fields.Float("Start", required=True)
     time_end = fields.Float("End", required=True)
 
     reason_id = fields.Many2one('hr.attendance.type', "Applied Reason", required=True, domain=[('att_type', '=', 'work')])
     reason_extra_id = fields.Many2one('hr.attendance.type', "Applied Reason for Extras", domain=[('att_type', '=', 'extra')], required=True)
+
+
+class HrLeaveType(models.Model):
+    _inherit = 'hr.leave.type'
+
+    attendance_type = fields.Many2one('hr.attendance.type', "Applied Reason", domain=[('att_type', '=', ['absn', 'hol'])])

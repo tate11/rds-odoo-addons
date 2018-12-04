@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<odoo>
+
+    <record id="view_employee_form_shifts" model="ir.ui.view">
+        <field name="name">employee.form.shifts</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="priority" eval="0"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='toggle_active']" position="before">
+                <button class="oe_stat_button" name="action_see_books" type="object" icon="fa-book" string="Attendance Books"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_employee_form_payroll_code" model="ir.ui.view">
+        <field name="name">employee.form.payroll.code</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_attendance.view_employee_form_inherit_hr_attendance"/>
+        <field name="priority" eval="0"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='barcode']" position="after">
+                <field name="payroll_code"/>
+                <br/>
+                <field name="structure_id"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

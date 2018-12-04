@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<report 
+    id="action_report_attendancebook"
+    string="Attendance Book"
+    model="hr.attendance.book" 
+    report_type="qweb-pdf"
+    file="hr_attendance_book.report_attendancebook" 
+    name="hr_attendance_book.report_attendancebook"
+    print_report_name="('%s %s %s - Attendance Book' % (object.year, object.month, object.employee_id.name))"
+/>
+
+<template id="report_attendancebook_document">   
+    <t t-call="web.external_layout">
+        <div class="page">
+            <div class="oe_structure"/>
+
+            <h2>
+                <span>Attendance Book</span>
+            </h2>
+
+            <div class="row col mt32 mb32" id="informations">
+                <div name="employee" class="mr32">
+                    <strong>Employee:</strong>
+                    <p><t t-esc="'[%s] - %s' % (doc.employee_id.payroll_code, doc.employee_id.name)"/></p>
+                </div>
+                <div name="from" class="mr32">
+                    <strong>From:</strong>
+                    <p t-esc="doc.date_start"/>
+                </div>
+                <div name="to" class="mr32">
+                    <strong>To:</strong>
+                    <p t-esc="doc.date_end"/>
+                </div>
+            </div>
+
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Reason 1</th>
+                        <th>Qty 1</th>
+                        <th>Reason 2</th>
+                        <th>Qty 2</th>
+                        <th>Reason 3</th>
+                        <th>Qty 3</th>
+                        <th>Reason 4</th>
+                        <th>Qty 4</th>
+                        <th >Total (h)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="doc.day_ids" t-as="day">
+                        <tr>
+                            <td>
+                                <strong t-field="day._dayofweek_letter"/><strong t-field="day.day"/>
+                            </td>
+                            <td><span t-if="day.reason_1" t-field="day.reason_1"/></td>
+                            <td><span t-if="day.reason_1" t-field="day.qty_1"/></td>
+                            <td><span t-if="day.reason_2" t-field="day.reason_2"/></td>
+                            <td><span t-if="day.reason_2" t-field="day.qty_2"/></td>     
+                            <td><span t-if="day.reason_3" t-field="day.reason_3"/></td>
+                            <td><span t-if="day.reason_3" t-field="day.qty_3"/></td>     
+                            <td><span t-if="day.reason_4" t-field="day.reason_4"/></td>
+                            <td><span t-if="day.reason_4" t-field="day.qty_4"/></td>   
+                            <td><span t-if="day.reason_4" t-field="day.total"/></td>  
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+
+            <div class="row col mt32 mb32" id="summary">
+                <div name="worked" class="mr32">
+                    <strong>Total Worked Hours:</strong>
+                    <p><t t-esc="doc.total_extra + doc.total_worked" t-option="{'widget': 'float_time'}"/></p>
+                </div>
+                <div name="extra" class="mr32">
+                    <strong>Of Which Extra:</strong>
+                    <p t-field="doc.total_extra" t-option="{'widget': 'float_time'}"/>
+                </div>
+                <div name="hol" class="mr32">
+                    <strong>Hours of Justified Absence:</strong>
+                    <p t-field="doc.total_absence" t-option="{'widget': 'float_time'}"/>
+                </div>
+                <div name="absn" class="mr32">
+                    <strong>Festivities:</strong>
+                    <p t-field="doc.total_holiday" t-option="{'widget': 'float_time'}"/>
+                </div>
+            </div>
+
+            <!--
+            <table class="payroll_totals">
+                <thead>
+                    <tr>
+                        <th>Causale</th>
+                        <th>Totale Ore</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="payroll[2][0]" t-as="kl">
+                        <tr>
+                            <td>
+                                <span t-esc="kl[0]" class="totintv cumul-1"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-attf-class="totnum"><t t-esc="kl[1]"/>h</span>
+                            </td>
+                        </tr>
+                    </t>
+                    <t t-foreach="payroll[2][1]" t-as="kj">
+                        <tr>
+                            <td>
+                                <span t-if="kj[0]" t-esc="kj[0].name" class="totintv"/><span style="color: rgb(125, 0, 0);font-weight:900" t-else="">N.G.</span>
+                            </td>
+                            <td class="text-right">
+                                <span t-attf-class="totnum"><t t-esc="kj[1]"/>h</span>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+
+            <div class="payroll_footnotes">
+                <h3>Resoconto Sessioni Lavorative del Dipendente</h3>
+                <p>Questi dati, considerati sensibili, sono di propietà di RDS Moulding Technology SpA (da qui "azienda"). Sono condivisi per gestione ai soli incaricati dall'azienda.</p>
+                <p>Chiunque entri in possesso di questi dati attraverso canali non leciti, intenzionalmente o meno, è tenuto a distruggerli ed informare dell'accaduto l'ufficio R.U. dell'azienda.</p>
+            </div><div class="payroll_footnotes">    
+                <h3>Note</h3>
+                <p>Le timbrature rilevate dallo strumento marcapresenze possono differire dagli intervalli di lavoro effettivamente validati dall'ufficio R.U.</p>
+                <p>Tale circostanza si verifica qualora il dipendente utilizzi lo strumento in maniera scorretta o quando non è autorizzato ad essere presente in azienda.</p>
+                <p>La azienda comunque non manomette nessuna registrazione dello strumento marcatempo, considerata documento ufficiale.</p>
+            </div>
+            -->
+
+            <div class="oe_structure"/>
+        </div>
+    </t>
+</template>
+
+
+
+<template id="report_attendancebook">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="hr_attendance_book.report_attendancebook_document"/>
+        </t>
+    </t>
+</template>
+
+<!--
+<template id="report_assets_common" name="rds_attendances assets" inherit_id="web.report_assets_common">
+    <xpath expr="." position="inside">
+        <link rel='stylesheet' href="/rds_hr_attendance/static/report/css/payroll.css"/>
+    </xpath>
+</template>
+-->
+</odoo>
