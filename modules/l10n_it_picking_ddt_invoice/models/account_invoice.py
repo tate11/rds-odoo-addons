@@ -14,4 +14,4 @@ class AccountInvoiceLine(models.Model):
                 .mapped(lambda x: x.ddt_ids)\
                 .filtered(lambda x: x.state == 'done')
 
-    ddt_ids = fields.Many2many("DDTs", compute=_compute_ddt_ids)
+    ddt_ids = fields.Many2many('stock.ddt', string="DDTs", compute=_compute_ddt_ids)
