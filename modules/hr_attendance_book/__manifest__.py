@@ -20,7 +20,9 @@ Zucchetti. Adds dedicated reports and compatibily with GIS system.
         'security/ir.model.access.csv',
         'views/attendance_book_views.xml',
         'views/employee_views.xml',
-        'report/attendance_book_report.xml'
+        'views/attendance_report.xml',
+        'report/attendance_book_report.xml',
+        'cron/cron_load_days.xml'
     ],
     'application': False,
     'installable': True,

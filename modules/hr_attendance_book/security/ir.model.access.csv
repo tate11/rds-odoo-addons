@@ -7,3 +7,4 @@ user_attadvline,rule.usr.attadvline,hr_attendance_book.model_hr_attendance_struc
 mgr_atttype,rule.mgr.atttype,hr_attendance_book.model_hr_attendance_type,hr.group_hr_manager,1,1,1,1
 mgr_attadv,rule.mgr.attadv,hr_attendance_book.model_hr_attendance_structure,hr.group_hr_manager,1,1,1,1
 mgr_attadvline,rule.mgr.attadvline,hr_attendance_book.model_hr_attendance_structure_line,hr.group_hr_manager,1,1,1,1
+usr_attreport,rule.usr.attreport,hr_attendance_book.model_hr_attendance_report,hr.group_hr_user,1,0,0,0

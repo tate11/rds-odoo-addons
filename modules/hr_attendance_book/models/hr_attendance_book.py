@@ -82,6 +82,7 @@ def total_overlaps(a, b, init=0):
 class HrAttendanceBook(models.Model):
     _name = 'hr.attendance.book'
     _description = "Attendance Book"
+    _order = "year, month, issues, employee_id"
 
     def _compute_totals(self):
         for book in self:
@@ -138,6 +139,14 @@ class HrAttendanceBook(models.Model):
         ], required=True, readonly=True)
 
     day_ids = fields.One2many('hr.attendance.day', 'workbook_id', string="Days")
+
+    @api.depends('day_ids.issues')
+    def _issues(self):
+        for i in self:
+            if any(i.day_ids.mapped(lambda x: x.issues)):
+                i.issues = True
+
+    issues = fields.Boolean('Issues', compute=_issues, store=True)
 
     @api.model
     def generate_books(self, frm=dt.date.today().replace(day=1)):
@@ -229,7 +238,6 @@ class HrAttendanceDay(models.Model):
             i.day = i.date.day
             i.dayofweek = i.date.weekday()
             i.passed = i.date < dt.date.today()
-            i.total = i.qty_1 + i.qty_2 + i.qty_3 + i.qty_4
 
     def _refresh_day(self, mode='hard'):
         self.ensure_one()
@@ -326,25 +334,6 @@ class HrAttendanceDay(models.Model):
 
             allocated = 0
 
-            if i.leave_ids.filtered(lambda x: bool(x.holiday_status_id.attendance_type)):
-                lines = [
-                    (
-                        l.holiday_status_id.attendance_type,
-                        Range(l.date_start, l.date_end)
-                    )
-                for l in i.leave_ids]
-
-                for line in lines:
-                    to_alloc = total_overlaps([line[1]], _att, dt.timedelta(0)).total_seconds() / 3600
-
-                    if to_alloc + allocated > total_e:
-                        reasons[line[0]] = reasons.get(line[0], 0) + total_e - allocated
-                        break
-                    else:
-                        reasons[line[0]] = reasons.get(line[0], 0) + to_alloc
-                        allocated = to_alloc + allocated
-
-
             if i.structure_id:
                 lines = [
                          (
@@ -365,7 +354,23 @@ class HrAttendanceDay(models.Model):
                         reasons[line[0]] = reasons.get(line[0], 0) + to_alloc
                         allocated = to_alloc + allocated
 
+            if i.leave_ids.filtered(lambda x: bool(x.holiday_status_id.attendance_type)):
+                lines = [
+                    (
+                        l.holiday_status_id.attendance_type,
+                        Range(l.date_start, l.date_end)
+                    )
+                for l in i.leave_ids]
 
+                for line in lines:
+                    to_alloc = total_overlaps([line[1]], _att, dt.timedelta(0)).total_seconds() / 3600
+
+                    if to_alloc + allocated > total_e:
+                        reasons[line[0]] = reasons.get(line[0], 0) + total_e - allocated
+                        break
+                    else:
+                        reasons[line[0]] = reasons.get(line[0], 0) + to_alloc
+                        allocated = to_alloc + allocated
 
 
             #This cleans the day and reloads
@@ -447,7 +452,6 @@ class HrAttendanceDay(models.Model):
     qty_3 = fields.Float("Qty 3")
     qty_4 = fields.Float("Qty 4")
 
-    total = fields.Float("Total", compute=_get_day_info, readonly=True)
     total_e = fields.Float("Total Excepted", readonly=True)
 
     bad_markings = fields.Boolean("Bad Markings", readonly=True)
@@ -460,7 +464,46 @@ class HrAttendanceDay(models.Model):
     attendance_ids = fields.Many2many('hr.attendance', compute=_get_attendances)
     leave_ids = fields.Many2many('hr.leave', compute=_get_leaves)
 
-    pay_extra = fields.Boolean("Pay Extras")
+    @api.depends('reason_1', 'qty_1',
+                 'reason_2', 'qty_2',
+                 'reason_3', 'qty_3',
+                 'reason_4', 'qty_4',)
+    def _check_reasons_qty(self):
+        def getrow(att, _in=[]):
+            for k in range(1,5):
+                if getattr(att, 'qty_{}'.format(k), 0) == 0:
+                    continue
+
+                if getattr(
+                        getattr(att, 'reason_{}'.format(k), False),
+                        'att_type',
+                        False) in _in:
+                        import logging
+                        logging.warning(getattr(
+                        getattr(att, 'reason_{}'.format(k), False),
+                        'att_type',
+                        False))
+                        return True
+            return False
+
+        for i in self:
+            issues = False
+            total = i.qty_1 + i.qty_2 + i.qty_3 + i.qty_4
+            has_extra = False
+
+            if i.passed:
+                has_extra = getrow(i, ['extra'])
+                if (total < i.total_e) or (has_extra and getrow(i, ['absn', 'hol'])):
+                    issues = True
+
+            i.issues = issues
+            i.has_extra = has_extra
+            i.total = total
+
+    total = fields.Float("Total", compute=_check_reasons_qty, store=True)
+    issues = fields.Boolean('Issues', compute=_check_reasons_qty, store=True)
+    has_extra = fields.Boolean('Has Extra', compute=_check_reasons_qty, store=True)
+    pay_extra = fields.Boolean('Pay Extras')
     
     resource_calendar_id = fields.Many2one('resource.calendar', "Working Schedule", oldname="schedule")
 
