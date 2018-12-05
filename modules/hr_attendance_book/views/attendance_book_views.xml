@@ -153,6 +153,7 @@
             <tree create="false" editable="bottom">
                 <field name="workbook_id" invisible="1" />
                 <field name="passed" invisible="1" />
+                <field name="issues" invisible="1" />
                 <field name="day" />
                 <field name="dayofweek" />
                 <field name="reason_1" />
@@ -181,6 +182,7 @@
             >
                 <field name="workbook_id" invisible="1" />
                 <field name="passed" invisible="1" />
+                <field name="issues" invisible="1" />
                 <field name="date" />
                 <field name="employee_id" />
                 <field name="reason_1" />
@@ -209,6 +211,7 @@
             >
                 <field name="workbook_id" invisible="1" />
                 <field name="passed" invisible="1" />
+                <field name="issues" invisible="1" />
                 <field name="date" />
                 <field name="employee_id" />
                 <field name="reason_1" />
