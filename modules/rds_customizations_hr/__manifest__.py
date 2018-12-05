@@ -20,6 +20,7 @@
             'report/employee_badge.xml', 
             'views/hr_views.xml',
             'views/report_templates.xml',
+            'views/web_asset_backend_template.xml'
     ],
     'application': False,
     'installable': True,
