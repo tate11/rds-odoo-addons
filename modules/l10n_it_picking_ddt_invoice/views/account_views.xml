@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="invoice_form_ddts" model="ir.ui.view">
+            <field name="name">invoice.form.ddts</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='account_id']" position="after">
+                    <field name="ddt_ids" widget="many2many_tags" />
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
