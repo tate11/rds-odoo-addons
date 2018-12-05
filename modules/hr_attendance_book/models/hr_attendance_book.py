@@ -82,7 +82,7 @@ def total_overlaps(a, b, init=0):
 class HrAttendanceBook(models.Model):
     _name = 'hr.attendance.book'
     _description = "Attendance Book"
-    _order = "year, month, issues, employee_id"
+    _order = "year, month, issues DESC, employee_id"
 
     def _compute_totals(self):
         for book in self:
@@ -229,8 +229,8 @@ class HrAttendanceDay(models.Model):
     _name = 'hr.attendance.day'
     _description = "Attendance Day"
 
-    def cron_load(self):
-        to_load = self.search([('date', '<', fields.Date.to_string(fields.Date.today())), ('cron_loaded', '=', False)])
+    def cron_load(self, force=False):
+        to_load = self.search([('date', '<', fields.Date.to_string(fields.Date.today()))] + ([('cron_loaded', '=', False)] if force else []))
         to_load.load()
 
     def _get_day_info(self):
@@ -467,7 +467,8 @@ class HrAttendanceDay(models.Model):
     @api.depends('reason_1', 'qty_1',
                  'reason_2', 'qty_2',
                  'reason_3', 'qty_3',
-                 'reason_4', 'qty_4',)
+                 'reason_4', 'qty_4',
+                 'total_e')
     def _check_reasons_qty(self):
         def getrow(att, _in=[]):
             for k in range(1,5):

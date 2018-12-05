@@ -138,17 +138,19 @@
             <search>
                 <field name="day"/>
                 <field name="dayofweek"/>
+                <filter name="issues", string="Has Issues" main="[('issues', '=', True)]" />
                 <filter name="extras_to_review" string="Extras to Review" domain="[('has_extra', '=', True)]" context="{'group_by': 'pay_extra'}"/>
                 <filter name="group_by_workbook" string="By Workbook" context="{'group_by': 'workbook_id'}"/>
             </search>
         </field>
     </record>
-
+    
     <record id="attendance_day_view_tree" model="ir.ui.view"> 
         <field name="name">attendance.day.list</field> 
-        <field name="model">hr.attendance.day</field> 
+        <field name="model">hr.attendance.day</field>
+        <field name="sequence">0</sequence>
         <field name="arch" type="xml"> 
-            <tree create="false">
+            <tree create="false" editable="bottom">
                 <field name="workbook_id" invisible="1" />
                 <field name="passed" invisible="1" />
                 <field name="day" />
@@ -168,11 +170,43 @@
         </field> 
     </record>
 
+    <record id="attendance_day_view_tree_check" model="ir.ui.view"> 
+        <field name="name">attendance.day.list</field> 
+        <field name="model">hr.attendance.day</field> 
+        <field name="sequence">20</sequence>
+        <field name="arch" type="xml"> 
+            <tree create="false" editable="bottom"
+                decoration-success="not issues"
+                decoration-danger="issues"
+            >
+                <field name="workbook_id" invisible="1" />
+                <field name="passed" invisible="1" />
+                <field name="date" />
+                <field name="employee_id" />
+                <field name="reason_1" />
+                <field name="qty_1" widget="float_time"/>
+                <field name="reason_2" />
+                <field name="qty_2" widget="float_time"/>
+                <field name="reason_3" />
+                <field name="qty_3" widget="float_time"/>
+                <field name="reason_4" />
+                <field name="qty_4" widget="float_time"/>
+                <field name="total" widget="float_time"/>
+                <field name="total_e" widget="float_time"/>
+                <field name="pay_extra" widget="boolean_toggle" />
+            </tree> 
+        </field> 
+    </record>
+
     <record id="attendance_day_view_tree_verification" model="ir.ui.view"> 
         <field name="name">attendance.day.list.verif</field> 
-        <field name="model">hr.attendance.day</field> 
+        <field name="model">hr.attendance.day</field>
+        <field name="sequence">30</sequence>
         <field name="arch" type="xml"> 
-            <tree create="false">
+            <tree create="false" editable="bottom"
+                decoration-warning="has_extra"
+                decoration-info="has_extra and pay_extra"
+            >
                 <field name="workbook_id" invisible="1" />
                 <field name="passed" invisible="1" />
                 <field name="date" />
@@ -251,7 +285,8 @@
     id="action_view_attendance_day" 
     name="Attendance Days" 
     res_model="hr.attendance.day"
-    context="{'search_default_group_by_workbook' : True}"
+    view_id="attendance_day_view_tree_check"
+    context="{'search_default_issues' : True}"
     />
 
     <menuitem
