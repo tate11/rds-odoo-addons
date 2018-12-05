@@ -138,13 +138,13 @@
             <search>
                 <field name="day"/>
                 <field name="dayofweek"/>
-                <filter name="issues", string="Has Issues" main="[('issues', '=', True)]" />
+                <filter name="issues" string="Has Issues" main="[('issues', '=', True)]" />
                 <filter name="extras_to_review" string="Extras to Review" domain="[('has_extra', '=', True)]" context="{'group_by': 'pay_extra'}"/>
                 <filter name="group_by_workbook" string="By Workbook" context="{'group_by': 'workbook_id'}"/>
             </search>
         </field>
     </record>
-    
+
     <record id="attendance_day_view_tree" model="ir.ui.view"> 
         <field name="name">attendance.day.list</field> 
         <field name="model">hr.attendance.day</field>
