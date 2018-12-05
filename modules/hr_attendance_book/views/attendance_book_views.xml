@@ -212,6 +212,7 @@
                 <field name="workbook_id" invisible="1" />
                 <field name="passed" invisible="1" />
                 <field name="issues" invisible="1" />
+                <field name="has_extra" invisible="1" />
                 <field name="date" />
                 <field name="employee_id" />
                 <field name="reason_1" />
