@@ -148,7 +148,7 @@
     <record id="attendance_day_view_tree" model="ir.ui.view"> 
         <field name="name">attendance.day.list</field> 
         <field name="model">hr.attendance.day</field>
-        <field name="sequence">0</sequence>
+        <field name="sequence">0</field>
         <field name="arch" type="xml"> 
             <tree create="false" editable="bottom">
                 <field name="workbook_id" invisible="1" />
@@ -173,7 +173,7 @@
     <record id="attendance_day_view_tree_check" model="ir.ui.view"> 
         <field name="name">attendance.day.list</field> 
         <field name="model">hr.attendance.day</field> 
-        <field name="sequence">20</sequence>
+        <field name="sequence">20</field>
         <field name="arch" type="xml"> 
             <tree create="false" editable="bottom"
                 decoration-success="not issues"
@@ -201,7 +201,7 @@
     <record id="attendance_day_view_tree_verification" model="ir.ui.view"> 
         <field name="name">attendance.day.list.verif</field> 
         <field name="model">hr.attendance.day</field>
-        <field name="sequence">30</sequence>
+        <field name="sequence">30</field>
         <field name="arch" type="xml"> 
             <tree create="false" editable="bottom"
                 decoration-warning="has_extra"
