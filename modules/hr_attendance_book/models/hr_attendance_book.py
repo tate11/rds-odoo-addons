@@ -288,6 +288,7 @@ class HrAttendanceDay(models.Model):
 
             _intervals = i.resource_calendar_id._attendance_intervals(start_dt, end_dt)
 
+            
             # Range Computation
 
             Range = namedtuple('Range', ['start', 'end'])
@@ -297,57 +298,57 @@ class HrAttendanceDay(models.Model):
             for a in _intervals:
                 _att.append(Range(a[0], a[1]))
 
-            for a in i.attendance_ids:
-                if not a.check_out:
-                    continue
-
-                att.append(Range(max(utc.localize(a.check_in).astimezone(tz), start_dt), min(utc.localize(a.check_out).astimezone(tz), end_dt)))
-
-            overlap = total_overlaps(_att, att, dt.timedelta(0)).total_seconds()/3600
-
-            unadherence_index = 0 if total_e == 0 else sqrt(
-                (1 - (overlap/total_e))**2 + ((total_attended - overlap)/total_attended)**2
-            )/2
-
-            if att and _att:
-                delta = (att[0].start - _att[0].start).total_seconds()
-                if delta > 0:
-                    if delta <= 900:
-                        i.short_lateness = True
-                    elif delta <= 1800:
-                        i.long_lateness = True
-                
-                if i.short_lateness and (total_attended >= total_e):  # We grace short lateness, but we keep track of it.
-                    delta = (att[-1].end - _att[-1].end).total_seconds() 
-                    if delta >= 900:
-                        att[0].start = att[0]._replace(start=att[0].start + dt.timedelta(0, 900))
-                        att[-1].start = att[-1]._replace(start=att[-1].end - dt.timedelta(0, 900))
-
-            att = normalize_ranges(att)
-
             reasons = dict()
-
             allocated = 0
 
-            if i.structure_id:
-                lines = [
-                         (
-                          k.reason_id.id,
-                          k.reason_extra_id.id,
-                          Range(start_dt + dt.timedelta(k.time_start/24), start_dt + dt.timedelta(k.time_end/24))
-                         ) 
-                        for k in i.structure_id.lines]
+            if i.attendances_ids:
+                for a in i.attendance_ids:
+                    if not a.check_out:
+                        continue
 
-                for line in lines:
-                    to_alloc = total_overlaps([line[2]], att, dt.timedelta(0)).total_seconds() / 3600
+                    att.append(Range(max(utc.localize(a.check_in).astimezone(tz), start_dt), min(utc.localize(a.check_out).astimezone(tz), end_dt)))
 
-                    if to_alloc + allocated > total_e:
-                        reasons[line[0]] = reasons.get(line[0], 0) + total_e - allocated
-                        reasons[line[1]] = reasons.get(line[1], 0) + to_alloc - total_e + allocated
-                        allocated = total_e
-                    else:
-                        reasons[line[0]] = reasons.get(line[0], 0) + to_alloc
-                        allocated = to_alloc + allocated
+                overlap = total_overlaps(_att, att, dt.timedelta(0)).total_seconds()/3600
+
+                unadherence_index = 0 if total_e == 0 else sqrt(
+                    (1 - (overlap/total_e))**2 + ((total_attended - overlap)/total_attended)**2
+                )/2
+
+                if att and _att:
+                    delta = (att[0].start - _att[0].start).total_seconds()
+                    if delta > 0:
+                        if delta <= 900:
+                            i.short_lateness = True
+                        elif delta <= 1800:
+                            i.long_lateness = True
+                    
+                    if i.short_lateness and (total_attended >= total_e):  # We grace short lateness, but we keep track of it.
+                        delta = (att[-1].end - _att[-1].end).total_seconds() 
+                        if delta >= 900:
+                            att[0].start = att[0]._replace(start=att[0].start + dt.timedelta(0, 900))
+                            att[-1].start = att[-1]._replace(start=att[-1].end - dt.timedelta(0, 900))
+
+                att = normalize_ranges(att)
+
+                if i.structure_id:
+                    lines = [
+                            (
+                            k.reason_id.id,
+                            k.reason_extra_id.id,
+                            Range(start_dt + dt.timedelta(k.time_start/24), start_dt + dt.timedelta(k.time_end/24))
+                            ) 
+                            for k in i.structure_id.lines]
+
+                    for line in lines:
+                        to_alloc = total_overlaps([line[2]], att, dt.timedelta(0)).total_seconds() / 3600
+
+                        if to_alloc + allocated > total_e:
+                            reasons[line[0]] = reasons.get(line[0], 0) + total_e - allocated
+                            reasons[line[1]] = reasons.get(line[1], 0) + to_alloc - total_e + allocated
+                            allocated = total_e
+                        else:
+                            reasons[line[0]] = reasons.get(line[0], 0) + to_alloc
+                            allocated = to_alloc + allocated
 
             if i.leave_ids.filtered(lambda x: bool(x.holiday_status_id.attendance_type)):
                 lines = [
