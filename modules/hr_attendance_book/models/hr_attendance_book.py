@@ -224,6 +224,9 @@ class HrAttendanceDay(models.Model):
     @api.multi
     def _get_attendances(self):
         for i in self:
+            if not i.date:
+                return False
+
             start_dt, end_dt = i._get_ranges(True)
             ts = fields.Datetime.to_string
             i.attendance_ids = self.sudo().env['hr.attendance'].search([
@@ -237,6 +240,9 @@ class HrAttendanceDay(models.Model):
     @api.multi
     def _get_leaves(self):
         for i in self:
+            if not i.date:
+                return False
+                
             start_dt, end_dt = i._get_ranges(True)
             ts = fields.Datetime.to_string
             i.leave_ids = self.sudo().env['hr.leave'].search([
