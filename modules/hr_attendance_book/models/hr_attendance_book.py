@@ -306,6 +306,9 @@ class HrAttendanceDay(models.Model):
                 _att.append(Range(a[0], a[1]))
 
             for a in i.attendance_ids:
+                if not a.check_out:
+                    continue
+                    
                 att.append(Range(max(utc.localize(a.check_in).astimezone(tz), start_dt), min(utc.localize(a.check_out).astimezone(tz), end_dt)))
 
             overlap = total_overlaps(_att, att, dt.timedelta(0)).total_seconds()/3600
