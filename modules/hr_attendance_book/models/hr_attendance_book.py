@@ -197,33 +197,6 @@ class HrAttendanceBook(models.Model):
     attendance_ids = fields.Many2many('hr.attendance', compute=_get_attendances)
     leave_ids = fields.Many2many('hr.leave', compute=_get_leaves)
 
-    '''
-    @api.multi
-    @api.depends('day_ids', 
-                 'day_ids.bad_markings',
-                 'day_ids.short_lateness',
-                 'day_ids.long_lateness',
-                 'day_ids.unadherence_index',
-                 'day_ids.absence_index'
-                 )
-    def _compute_indexes(self):
-        for i in self:
-            if not i.day_ids:
-                continue
-            i.bad_markings = len(i.day_ids.filtered(lambda x: x.bad_markings))
-            i.short_lateness = len(i.day_ids.filtered(lambda x: x.short_lateness))
-            i.long_lateness = len(i.day_ids.filtered(lambda x: x.long_lateness))
-
-            i.unadherence_index = sum(i.day_ids.mapped(lambda x: x.unadherence_index))/len(i.day_ids)
-            i.absence_index = sum(i.day_ids.mapped(lambda x: x.absence_index))/len(i.day_ids)
-            
-    bad_markings = fields.Integer("Bad Markings", store=True, compute=_compute_indexes)
-    short_lateness = fields.Integer("Short Lateness", store=True, compute=_compute_indexes)
-    long_lateness = fields.Integer("Long Lateness", store=True, compute=_compute_indexes)
-
-    unadherence_index = fields.Float("Unadherence Index", store=True, compute=_compute_indexes)
-    absence_index = fields.Float("Absence Index", store=True, compute=_compute_indexes)
-    '''
 
 class HrAttendanceDay(models.Model):
     _name = 'hr.attendance.day'
@@ -438,10 +411,11 @@ class HrAttendanceDay(models.Model):
     @api.onchange('reason_1', 'reason_2', 'reason_3', 'reason_4')
     def upd_qty(self):
         for i in self:
-            i.qty_1 = i.qty_1*int(bool(i.reason_1))
-            i.qty_2 = i.qty_2*int(bool(i.reason_2))
-            i.qty_3 = i.qty_3*int(bool(i.reason_3))
-            i.qty_4 = i.qty_4*int(bool(i.reason_4))
+            i.update({'qty_1': i.qty_1*int(bool(i.reason_1)),
+                      'qty_2': i.qty_2*int(bool(i.reason_2)),
+                      'qty_3': i.qty_3*int(bool(i.reason_3)),
+                      'qty_4': i.qty_4*int(bool(i.reason_4))
+            })
 
     qty_1 = fields.Float("Qty 1")
     qty_2 = fields.Float("Qty 2")
