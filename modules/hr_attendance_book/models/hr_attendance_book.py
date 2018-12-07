@@ -501,7 +501,7 @@ class HrAttendanceDay(models.Model):
         reasons = list(reasons.items())
 
         for i in range(1,5):
-            if reason:
+            if reasons:
                 reason = reasons.pop()
                 vals['reason_{}'.format(i)] = reason[0]
                 vals['qty_{}'.format(i)] = reason[1]
