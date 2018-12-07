@@ -437,6 +437,7 @@ class HrAttendanceDay(models.Model):
                  'total_e')
     def _check_reasons_qty(self):
         def getrow(att, _in=[]):
+            tot = 0
             for k in range(1,5):
                 if getattr(att, 'qty_{}'.format(k), 0) == 0:
                     continue
@@ -445,8 +446,8 @@ class HrAttendanceDay(models.Model):
                         getattr(att, 'reason_{}'.format(k), False),
                         'att_type',
                         False) in _in:
-                        return True
-            return False
+                        tot += getattr(att, 'qty_{}'.format(k), 0)
+            return tot
 
         for i in self:
             issues = False
@@ -457,14 +458,14 @@ class HrAttendanceDay(models.Model):
             if i.passed:
                 work = getrow(i, ['work'])
                 has_extra = getrow(i, ['extra'])
-                if (total < i.total_e) or (has_extra and getrow(i, ['absn', 'hol'])):
+                if (total < i.total_e) or (bool(has_extra) and bool(getrow(i, ['absn', 'hol']))) or (work > i.total_e):
                     issues = True
 
             if work and not i.attendance_ids:
                 i.bad_markings = True
 
             i.issues = issues
-            i.has_extra = has_extra
+            i.has_extra = bool(has_extra)
             i.total = total
 
     bad_markings = fields.Boolean("Bad Markings", compute=_check_reasons_qty, store=True, readonly=True)
