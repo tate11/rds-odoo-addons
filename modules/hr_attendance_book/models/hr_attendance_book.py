@@ -489,6 +489,8 @@ class HrAttendanceDay(models.Model):
                 vals['reason_{}'.format(idx)] = vals.get('reason_{}'.format(cur), getattr(self, 'reason_{}'.format(cur), False))
                 vals['qty_{}'.format(idx)] = vals.get('qty_{}'.format(cur), getattr(self, 'qty_{}'.format(cur), 0))
                 cur += 1
+                vals['reason_{}'.format(cur)] = False
+                vals['qty_{}'.format(cur)] = False
             else:
                 idx += 1
 
