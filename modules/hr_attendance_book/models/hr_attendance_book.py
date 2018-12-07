@@ -285,14 +285,6 @@ class HrAttendanceDay(models.Model):
 
             absence_index = 0 if total_e == 0 else max((total_e - total_attended) / total_e, 0)
             unadherence_index = 0
-            # Inizio Computazione
-
-            if total_attended <= 0.5:
-                bad_markings = True
-                i.write({'absence_index': absence_index, 'unadherence_index': unadherence_index, 'bad_markings': bad_markings})
-                continue
-            elif i.attendance_ids.filtered(lambda x: x.worked_hours < 0.5):
-                bad_markings = True
 
             _intervals = i.resource_calendar_id._attendance_intervals(start_dt, end_dt)
 
@@ -308,7 +300,7 @@ class HrAttendanceDay(models.Model):
             for a in i.attendance_ids:
                 if not a.check_out:
                     continue
-                    
+
                 att.append(Range(max(utc.localize(a.check_in).astimezone(tz), start_dt), min(utc.localize(a.check_out).astimezone(tz), end_dt)))
 
             overlap = total_overlaps(_att, att, dt.timedelta(0)).total_seconds()/3600
@@ -396,7 +388,7 @@ class HrAttendanceDay(models.Model):
                 vals['qty_{}'.format(z)] = reasons[key]
             
             if vals:
-                i.write({'cron_loaded': True, 'absence_index': absence_index, 'unadherence_index': unadherence_index, 'bad_markings': bad_markings, **vals})
+                i.write({'cron_loaded': True, 'absence_index': absence_index, 'unadherence_index': unadherence_index, **vals})
                 
     def _get_ranges(self, unaware=False):
         self.ensure_one()
@@ -457,7 +449,7 @@ class HrAttendanceDay(models.Model):
 
     total_e = fields.Float("Total Excepted", readonly=True)
 
-    bad_markings = fields.Boolean("Bad Markings", readonly=True)
+    bad_markings = fields.Boolean("Bad Markings", compute=_check_reasons_qty, store=True, readonly=True)
     short_lateness = fields.Boolean("Short Lateness", readonly=True)
     long_lateness = fields.Boolean("Long Lateness", readonly=True)
 
@@ -495,7 +487,9 @@ class HrAttendanceDay(models.Model):
             total = i.qty_1 + i.qty_2 + i.qty_3 + i.qty_4
             has_extra = False
 
+
             if i.passed:
+                work = getrow(i, ['work'])
                 has_extra = getrow(i, ['extra'])
                 if (total < i.total_e) or (has_extra and getrow(i, ['absn', 'hol'])):
                     issues = True
