@@ -481,18 +481,29 @@ class HrAttendanceDay(models.Model):
 
     @api.multi
     def write(self, vals):
-        idx = 1
-        cur = 1
+        reasons = {}
+        for i in range(1,5):
+            reason = vals.get(
+                            'reason_{}'.format(i), 
+                            getattr(
+                                getattr(self, 'reason_{}'.format(i), False), 
+                                'id', 
+                                False)
+                                )
+            qty = vals.get(
+                            'qty_{}'.format(i), 
+                            getattr(self, 'reason_{}'.format(i), False), 
+                                )
 
-        while (cur <= 4) and (idx <= 4):
-            if not vals.get('reason_{}'.format(idx), getattr(self, 'reason_{}'.format(idx), False)):
-                vals['reason_{}'.format(idx)] = vals.get('reason_{}'.format(cur), getattr(self, 'reason_{}'.format(cur), False))
-                vals['qty_{}'.format(idx)] = vals.get('qty_{}'.format(cur), getattr(self, 'qty_{}'.format(cur), 0))
-                cur += 1
-                vals['reason_{}'.format(cur)] = False
-                vals['qty_{}'.format(cur)] = False
-            else:
-                idx += 1
+            if bool(reason) and (qty >= 0):
+                reasons[reason] = reasons.get(reason, 0) + qty
+        
+        reasons = reasons.items()
+
+        for i in range(1,5):
+            reason = reasons.pop()
+            vals['reason_{}'.format(i)] = reason[0]
+            vals['qty_{}'.format(i)] = qty[1]
 
         super(HrAttendanceDay, self).write(vals)
 
