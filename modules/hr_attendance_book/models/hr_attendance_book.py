@@ -485,9 +485,9 @@ class HrAttendanceDay(models.Model):
         cur = 1
 
         while (cur <= 4) and (idx <= 4):
-            if not vals.get('reason_{}'.format(idx), False):
-                vals['reason_{}'.format(idx)] = vals.get('reason_{}'.format(cur), False)
-                vals['qty_{}'.format(idx)] = vals.get('qty_{}'.format(cur), 0)
+            if not vals.get('reason_{}'.format(idx), getattr(self, 'reason_{}'.format(idx), False)):
+                vals['reason_{}'.format(idx)] = vals.get('reason_{}'.format(cur), getattr(self, 'reason_{}'.format(cur), False))
+                vals['qty_{}'.format(idx)] = vals.get('qty_{}'.format(cur), getattr(self, 'qty_{}'.format(cur), 0))
                 cur += 1
             else:
                 idx += 1
