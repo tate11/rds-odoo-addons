@@ -503,7 +503,7 @@ class HrAttendanceDay(models.Model):
         for i in range(1,5):
             reason = reasons.pop()
             vals['reason_{}'.format(i)] = reason[0]
-            vals['qty_{}'.format(i)] = qty[1]
+            vals['qty_{}'.format(i)] = reason[1]
 
         super(HrAttendanceDay, self).write(vals)
 
