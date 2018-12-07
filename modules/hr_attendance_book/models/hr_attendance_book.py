@@ -496,7 +496,7 @@ class HrAttendanceDay(models.Model):
                             getattr(self, 'qty_{}'.format(i), False), 
                                 )
 
-            if bool(reason) and (qty >= 0):
+            if bool(reason) and (qty > 0):
                 reasons[reason] = reasons.get(reason, 0) + qty
         
         reasons = list(reasons.items())
