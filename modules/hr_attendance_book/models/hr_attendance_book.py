@@ -501,12 +501,13 @@ class HrAttendanceDay(models.Model):
         reasons = list(reasons.items())
 
         for i in range(1,5):
-            try:
+            if reason:
                 reason = reasons.pop()
-            except IndexError:
-                break
-            vals['reason_{}'.format(i)] = reason[0]
-            vals['qty_{}'.format(i)] = reason[1]
+                vals['reason_{}'.format(i)] = reason[0]
+                vals['qty_{}'.format(i)] = reason[1]
+            else:
+                vals['reason_{}'.format(i)] = False
+                vals['qty_{}'.format(i)] = 0
 
         super(HrAttendanceDay, self).write(vals)
 
