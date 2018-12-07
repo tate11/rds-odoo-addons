@@ -449,7 +449,6 @@ class HrAttendanceDay(models.Model):
 
     total_e = fields.Float("Total Excepted", readonly=True)
 
-    bad_markings = fields.Boolean("Bad Markings", compute=_check_reasons_qty, store=True, readonly=True)
     short_lateness = fields.Boolean("Short Lateness", readonly=True)
     long_lateness = fields.Boolean("Long Lateness", readonly=True)
 
@@ -487,17 +486,20 @@ class HrAttendanceDay(models.Model):
             total = i.qty_1 + i.qty_2 + i.qty_3 + i.qty_4
             has_extra = False
 
-
             if i.passed:
                 work = getrow(i, ['work'])
                 has_extra = getrow(i, ['extra'])
                 if (total < i.total_e) or (has_extra and getrow(i, ['absn', 'hol'])):
                     issues = True
 
+            if i.work and not i.attendances_ids:
+                i.bad_markings = True
+                
             i.issues = issues
             i.has_extra = has_extra
             i.total = total
 
+    bad_markings = fields.Boolean("Bad Markings", compute=_check_reasons_qty, store=True, readonly=True)
     total = fields.Float("Total", compute=_check_reasons_qty, store=True)
     issues = fields.Boolean('Issues', compute=_check_reasons_qty, store=True)
     has_extra = fields.Boolean('Has Extra', compute=_check_reasons_qty, store=True)
