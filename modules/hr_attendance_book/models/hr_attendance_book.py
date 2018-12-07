@@ -482,6 +482,10 @@ class HrAttendanceDay(models.Model):
 
     @api.multi
     def write(self, vals):
+        keys = "".join(vals.keys())
+        if ("qty" not in keys) and ("reason" not in keys):
+            return super(HrAttendanceDay, self).write(vals) #no need to compute all the write calls..
+
         reasons = {}
         for i in range(1,5):
             reason = vals.get(
@@ -510,7 +514,7 @@ class HrAttendanceDay(models.Model):
                 vals['reason_{}'.format(i)] = False
                 vals['qty_{}'.format(i)] = 0
 
-        super(HrAttendanceDay, self).write(vals)
+        return super(HrAttendanceDay, self).write(vals)
 
 
 class HrAttendanceType(models.Model):
