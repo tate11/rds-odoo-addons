@@ -498,7 +498,7 @@ class HrAttendanceDay(models.Model):
             if bool(reason) and (qty >= 0):
                 reasons[reason] = reasons.get(reason, 0) + qty
         
-        reasons = reasons.items()
+        reasons = list(reasons.items())
 
         for i in range(1,5):
             reason = reasons.pop()
