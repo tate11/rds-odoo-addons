@@ -492,7 +492,7 @@ class HrAttendanceDay(models.Model):
                                 )
             qty = vals.get(
                             'qty_{}'.format(i), 
-                            getattr(self, 'reason_{}'.format(i), False), 
+                            getattr(self, 'qty_{}'.format(i), False), 
                                 )
 
             if bool(reason) and (qty >= 0):
