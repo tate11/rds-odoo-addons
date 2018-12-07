@@ -474,11 +474,6 @@ class HrAttendanceDay(models.Model):
                         getattr(att, 'reason_{}'.format(k), False),
                         'att_type',
                         False) in _in:
-                        import logging
-                        logging.warning(getattr(
-                        getattr(att, 'reason_{}'.format(k), False),
-                        'att_type',
-                        False))
                         return True
             return False
 
@@ -493,7 +488,7 @@ class HrAttendanceDay(models.Model):
                 if (total < i.total_e) or (has_extra and getrow(i, ['absn', 'hol'])):
                     issues = True
 
-            if work and not i.attendances_ids:
+            if work and not i.attendance_ids:
                 i.bad_markings = True
 
             i.issues = issues
