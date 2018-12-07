@@ -481,6 +481,7 @@ class HrAttendanceDay(models.Model):
             issues = False
             total = i.qty_1 + i.qty_2 + i.qty_3 + i.qty_4
             has_extra = False
+            work = False
 
             if i.passed:
                 work = getrow(i, ['work'])
