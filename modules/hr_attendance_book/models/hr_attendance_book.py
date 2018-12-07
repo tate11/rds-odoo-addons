@@ -301,7 +301,7 @@ class HrAttendanceDay(models.Model):
             reasons = dict()
             allocated = 0
 
-            if i.attendance_ids:
+            if bool(i.attendance_ids) and (sum(i.attendance_ids.mapped(lambda x: x.worked_hours)) >= 0.25):
                 for a in i.attendance_ids:
                     if not a.check_out:
                         continue
