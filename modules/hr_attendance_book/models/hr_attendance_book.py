@@ -414,15 +414,6 @@ class HrAttendanceDay(models.Model):
     reason_3 = fields.Many2one('hr.attendance.type', "Reason 3")
     reason_4 = fields.Many2one('hr.attendance.type', "Reason 4")
 
-    @api.onchange('reason_1', 'reason_2', 'reason_3', 'reason_4')
-    def upd_qty(self):
-        for i in self:
-            i.update({'qty_1': i.qty_1*int(bool(i.reason_1)),
-                      'qty_2': i.qty_2*int(bool(i.reason_2)),
-                      'qty_3': i.qty_3*int(bool(i.reason_3)),
-                      'qty_4': i.qty_4*int(bool(i.reason_4))
-            })
-
     qty_1 = fields.Float("Qty 1")
     qty_2 = fields.Float("Qty 2")
     qty_3 = fields.Float("Qty 3")
@@ -487,6 +478,22 @@ class HrAttendanceDay(models.Model):
     @api.multi
     def name_get(self):
         return [(record.id, "{}'s attendance on {}".format(record.employee_id.name, record.date)) for record in self]
+
+    @api.multi
+    def write(self, vals):
+        idx = 1
+        cur = 1
+
+        while (cur <= 4) and (idx <= 4):
+            if not vals.get('reason_{}'.format(idx), False):
+                vals['reason_{}'.format(idx)] = vals.get('reason_{}'.format(cur), False)
+                vals['qty_{}'.format(idx)] = vals.get('qty_{}'.format(cur), 0)
+                cur += 1
+            else:
+                idx += 1
+
+        super(HrAttendanceDay, self).write(vals)
+
 
 class HrAttendanceType(models.Model):
     _name = 'hr.attendance.type'
