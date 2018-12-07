@@ -501,7 +501,10 @@ class HrAttendanceDay(models.Model):
         reasons = list(reasons.items())
 
         for i in range(1,5):
-            reason = reasons.pop()
+            try:
+                reason = reasons.pop()
+            except IndexError:
+                break
             vals['reason_{}'.format(i)] = reason[0]
             vals['qty_{}'.format(i)] = reason[1]
 
