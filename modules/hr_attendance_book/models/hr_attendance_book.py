@@ -492,9 +492,9 @@ class HrAttendanceDay(models.Model):
                 if (total < i.total_e) or (has_extra and getrow(i, ['absn', 'hol'])):
                     issues = True
 
-            if i.work and not i.attendances_ids:
+            if work and not i.attendances_ids:
                 i.bad_markings = True
-                
+
             i.issues = issues
             i.has_extra = has_extra
             i.total = total
