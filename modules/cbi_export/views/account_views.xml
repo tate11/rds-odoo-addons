@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record id="invoice_supplier_tree_regdate" model="ir.ui.view">
+            <field name="name">invoice.supplier.tree.regdate</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_invoice']" position="after">
+                    <field name="date"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_payment_term_form_method" model="ir.ui.view">
+            <field name="name">account.payment.term.form</field>
+            <field name="model">account.payment.term</field>
+            <field name="inherit_id" ref="account.view_payment_term_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']/.." position="after">
+                    <group>
+                        <field name="method"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_partner_property_form" model="ir.ui.view">
+            <field name="name">res.partner.property.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="priority">2</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="groups_id" eval="[(5,)]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='bank_ids']/.." position="after">
+                    <group string="RiBa Banks" name="riba_banks">
+                        <field name="riba_bank_ids" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="name"/>
+                                <field name="abi"/>
+                                <field name="cab"/>
+                            </tree>
+                        </field>
+                    </group>      
+                </xpath>
+             </field>
+        </record>    
+
+        <record id="view_company_form" model="ir.ui.view">
+            <field name="name">res.company.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <field name="company_registry" position="after">
+                    <field name="sia">
+                </field>
+            </field>
+        </record>           
+
+    </data>
+</odoo>

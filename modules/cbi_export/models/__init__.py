@@ -1,0 +1,1 @@
+from . import account_payment_term, account_invoice, res_partner

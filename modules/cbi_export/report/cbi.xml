@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+<template id="cdi_bank_riba_document">
+<t t-set="index" t-value="0"/>
+<t t-translation="off">
+ IB<t t-esc="docs.cbi_IB()"/>
+<t t-foreach="docs" t-as="doc">
+<t t-set="index" t-value="index + 1"/>
+<t t-if="doc.payment_term_id">
+<t t-foreach="doc.payment_term_id.compute(doc.amount_total_company_signed, doc.date_invoice)" t-as="line">
+ 14<t t-esc="str(index).rjust(7, '0')"><t t-esc="doc.cbi_14(line)"/>
+ 20<t t-esc="str(index).rjust(7, '0')"><t t-esc="doc.cbi_20()"/>
+ 30<t t-esc="str(index).rjust(7, '0')"><t t-esc="doc.cbi_30()"/>
+ 40<t t-esc="str(index).rjust(7, '0')"><t t-esc="doc.cbi_40()"/>
+ 50<t t-esc="str(index).rjust(7, '0')"><t t-esc="doc.cbi_50()"/>
+ 51<t t-esc="str(index).rjust(7, '0')"><t t-esc="doc.cbi_51()"/>
+ 70<t t-esc="str(index).rjust(7, '0')"><t t-esc="doc.cbi_70()"/>
+</t></t><t t-else="">
+ 14<t t-esc="str(index).rjust(7, '0')"><t t-esc="doc.cbi_14()"/>
+ 20<t t-esc="str(index).rjust(7, '0')"><t t-esc="doc.cbi_20()"/>
+ 30<t t-esc="str(index).rjust(7, '0')"><t t-esc="doc.cbi_30()"/>
+ 40<t t-esc="str(index).rjust(7, '0')"><t t-esc="doc.cbi_40()"/>
+ 50<t t-esc="str(index).rjust(7, '0')"><t t-esc="doc.cbi_50()"/>
+ 51<t t-esc="str(index).rjust(7, '0')"><t t-esc="doc.cbi_51()"/>
+ 70<t t-esc="str(index).rjust(7, '0')"><t t-esc="doc.cbi_70()"/>
+</t></t>
+ EF<t t-esc="docs.cbi_EF()"/>
+</t>
+</template>
+
+        <report id="cdi_bank_riba"
+            model="account.invoice"
+            string="Distinta CBI"
+            name="rds_customizations_account.cdi_bank_riba_document"
+            file="rds_customizations_account.cdi_bank_riba_document"
+            report_type="qweb-text"
+        />
+    </data>
+</odoo>
+
+

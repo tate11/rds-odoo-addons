@@ -62,7 +62,24 @@
                     <attribute name="editable">0</attribute>
                 </xpath>
             </field>
-        </record>         
+        </record>
+
+        <record id="view_payment_term_line_form" model="ir.ui.view">
+            <field name="name">account.payment.term.line.form</field>
+            <field name="model">account.payment.term.line</field>
+            <field name="inherit_id" ref="account.view_payment_term_line_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@for='days'][1]" position="attributes">
+                    <attribute name="attrs">{'invisible': [('option','not in',('day_after_invoice_date','after_invoice_month', 'end_of_month_after_end_of_month'))]}</attribute>
+                </xpath>
+                <xpath expr="//label[@for='days'][2]" position="attributes">
+                    <attribute name="attrs">{'invisible': [('option','in',('day_after_invoice_date','after_invoice_month', 'end_of_month_after_end_of_month'))]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='day_of_the_month']/.." position="attributes">
+                    <attribute name="attrs">{'invisible': [('option','not in', ['day_after_invoice_date', 'end_of_month_after_end_of_month'])]}</attribute>
+                </xpath>
+            </field>
+        </record>
 
     </data>
 </odoo>
