@@ -10,6 +10,13 @@ def rj(st, lenght, fill='0'):
     st = st and str(st) or ""
     return st.rjust(lenght, fill)[-lenght:].upper()
 
+def vat_sanitize(vat):
+    vat = vat or ""
+    if vat[:2].upper() == "IT":
+        vat = vat[2:]
+    return vat.strip()
+        
+
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
@@ -47,7 +54,7 @@ class AccountInvoice(models.Model):
             rj(int(line and line[1]*100 or self.amount_total*100), 13),
             rj(self.partner_bank_id.bank_abi, 5),
             rj(self.partner_bank_id.bank_cab, 5),
-            lj(self.partner_bank_id.acc_number and self.partner_bank_id.acc_number.replace(' ', '')[-12], 12),
+            lj(self.partner_bank_id.acc_number and self.partner_bank_id.acc_number.replace(' ', '')[-12:], 12),
             rj(self.riba_bank_id.abi, 5),
             rj(self.riba_bank_id.cab, 5),
             rj(self.company_id.sia, 5),
@@ -65,7 +72,7 @@ class AccountInvoice(models.Model):
     def cbi_30(self):
         return "{}{}                                  ".format(
             lj(self.partner_id.name, 60, ' '),
-            lj(self.partner_id.vat, 16, ' ')
+            lj(vat_sanitize(self.partner_id.vat), 16, ' ')
         )
 
     def cbi_40(self):
@@ -78,13 +85,13 @@ class AccountInvoice(models.Model):
 
     def cbi_50(self):
         return "{}          {}    ".format(
-                lj(self.name, 80, ' '),
-                lj(self.company_id.vat, 16, ' ')
+                lj("fat. {} del {}".format(self.name, self.date_invoice), 80, ' '),
+                lj(vat_sanitize(self.company_id.vat), 16, ' ')
             )
 
     def cbi_51(self):
         return "{}{}{}".format(
-                rj('1800009999', 10),
+                rj(self.name, 10),
                 lj(self.company_id.name, 20, ' '),
                 " " * 80
             )
