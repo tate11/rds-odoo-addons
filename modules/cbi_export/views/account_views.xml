@@ -9,7 +9,8 @@
             <field name="inherit_id" ref="account.invoice_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='payment_term_id']" position="after">
-                    <field name="riba_bank_id" attrs="{'invisible': [('payment_term_id.method', '!=', 'riba')]}"/>
+                    <field name="payment_term_method" invisible="1"/>
+                    <field name="riba_bank_id" attrs="{'invisible': [('payment_term_method', '!=', 'riba')]}"/>
                 </xpath>
             </field>
         </record>

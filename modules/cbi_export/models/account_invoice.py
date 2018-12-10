@@ -14,7 +14,8 @@ class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     riba_bank_id = fields.Many2one('res.bank', 'RiBa Bank')
-    
+    method = fields.Selection([('bank_transfer', 'Bank Transfer'), ('riba', 'RiBa'), ('other', 'Other')], string="Payment Method", readonly=True, related="payment_term_id.method"
+
     @api.onchange('partner_id', 'company_id')
     def _onchange_partner_id(self):
         res = super(AccountInvoice, self)._onchange_partner_id()
