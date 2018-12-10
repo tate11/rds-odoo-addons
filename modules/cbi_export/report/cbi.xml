@@ -2,8 +2,8 @@
 <odoo>
     <data>
 
-<template id="cdi_bank_riba_document"><t t-set="index" t-value="0"/><t t-translation="off">
- IB<t t-esc="docs.cbi_IB()"/><t t-foreach="docs" t-as="doc"><t t-if="doc.payment_term_id"><t t-foreach="doc.payment_term_id.compute(doc.amount_total_company_signed, doc.date_invoice)[0]" t-as="line"><t t-set="index" t-value="index + 1"/>
+
+<template id="cdi_bank_riba_document"><t t-set="index" t-value="0"/><t t-translation="off"> IB<t t-esc="docs.cbi_IB()"/><t t-foreach="docs" t-as="doc"><t t-if="doc.payment_term_id"><t t-foreach="doc.payment_term_id.compute(doc.amount_total_company_signed, doc.date_invoice)[0]" t-as="line"><t t-set="index" t-value="index + 1"/>
  14<t t-esc="str(index).rjust(7, '0')"/><t t-esc="doc.cbi_14(line)"/>
  20<t t-esc="str(index).rjust(7, '0')"/><t t-esc="doc.cbi_20()"/>
  30<t t-esc="str(index).rjust(7, '0')"/><t t-esc="doc.cbi_30()"/>

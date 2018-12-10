@@ -10,7 +10,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='payment_term_id']" position="after">
                     <field name="payment_term_method" invisible="1"/>
-                    <field name="riba_bank_id" attrs="{'invisible': [('payment_term_method', '!=', 'riba')]}"/>
+                    <field name="riba_bank_id" attrs="{'invisible': [('payment_term_method', '!=', 'riba')]}" domain="[('id', 'in', partner_id.riba_bank_ids)]"/>
                 </xpath>
             </field>
         </record>
