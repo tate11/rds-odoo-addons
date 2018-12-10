@@ -98,7 +98,7 @@ class AccountInvoice(models.Model):
         n_ribas = 0
         for i in self:
             if i.payment_term_id:
-                n_ribas += len(i.payment_term_id.compute(1, i.invoice_date))
+                n_ribas += len(i.payment_term_id.compute(1, i.date_invoice))
             else:
                 n_ribas += 1
 
