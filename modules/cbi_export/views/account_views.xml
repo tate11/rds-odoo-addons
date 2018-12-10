@@ -2,16 +2,18 @@
 <odoo>
     <data>
     
-        <record id="invoice_supplier_tree_regdate" model="ir.ui.view">
-            <field name="name">invoice.supplier.tree.regdate</field>
+
+        <record id="invoice_form_riba" model="ir.ui.view">
+            <field name="name">invoice.form.riba</field>
             <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="account.invoice_supplier_tree"/>
+            <field name="inherit_id" ref="account.invoice_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='date_invoice']" position="after">
-                    <field name="date"/>
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="riba_bank_id" attrs="{'invisible': [('payment_term_id.method', '!=', 'riba')]}">
                 </xpath>
             </field>
         </record>
+
 
         <record id="view_payment_term_form_method" model="ir.ui.view">
             <field name="name">account.payment.term.form</field>
