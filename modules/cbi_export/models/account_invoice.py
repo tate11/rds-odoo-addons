@@ -4,13 +4,11 @@ import datetime as dt
 
 def lj(st, lenght, fill='0'):
     st = st and str(st) or ""
-    st.upper()
-    return st.ljust(lenght, fill)[:lenght]
+    return st.ljust(lenght, fill)[:lenght].upper()
 
 def rj(st, lenght, fill='0'):
     st = st and str(st) or ""
-    st.upper()
-    return st.rjust(lenght, fill)[-lenght:]
+    return st.rjust(lenght, fill)[-lenght:].upper()
 
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
