@@ -9,4 +9,4 @@ class ResPartner(models.Model):
 class ResCompany(models.Model):
     _inherit = "res.company"
 
-    sia = fields.Char("sia")
+    sia = fields.Char("SIA Code")
