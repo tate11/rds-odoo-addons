@@ -1,0 +1,58 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* rds_customizations_account
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e-20181119\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-12-10 15:41+0000\n"
+"PO-Revision-Date: 2018-12-10 16:42+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: it\n"
+"X-Generator: Poedit 2.2\n"
+
+#. module: rds_customizations_account
+#: model:ir.model.fields,field_description:rds_customizations_account.field_account_payment_term_line__option
+msgid "Options"
+msgstr "Opzioni"
+
+#. module: rds_customizations_account
+#: model:ir.model,name:rds_customizations_account.model_account_payment_term
+msgid "Payment Terms"
+msgstr "Termini di pagamento"
+
+#. module: rds_customizations_account
+#: model:ir.model,name:rds_customizations_account.model_account_payment_term_line
+msgid "Payment Terms Line"
+msgstr "Righe Termini di Pagamento"
+
+#. module: rds_customizations_account
+#: selection:account.payment.term.line,option:0
+msgid "day(s) after the end of the invoice month"
+msgstr "giorno/i dopo la fine del mese di fatturazione"
+
+#. module: rds_customizations_account
+#: selection:account.payment.term.line,option:0
+msgid "day(s) after the end of the invoice month w/ italian computation"
+msgstr "giorno/i dopo la fine del mese di fatturazione (Computaz. all'Italiana)"
+
+#. module: rds_customizations_account
+#: selection:account.payment.term.line,option:0
+msgid "day(s) after the invoice date"
+msgstr "giorno/i dopo la data di fatturazione"
+
+#. module: rds_customizations_account
+#: selection:account.payment.term.line,option:0
+msgid "of the current month"
+msgstr "del mese in corso"
+
+#. module: rds_customizations_account
+#: selection:account.payment.term.line,option:0
+msgid "of the following month"
+msgstr "del mese prossimo"

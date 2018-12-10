@@ -1,0 +1,86 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* cbi_export
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e-20181119\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-12-10 15:39+0000\n"
+"PO-Revision-Date: 2018-12-10 16:41+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: it\n"
+"X-Generator: Poedit 2.2\n"
+
+#. module: cbi_export
+#: selection:account.payment.term,method:0
+msgid "Bank Transfer"
+msgstr "Bonifico Bancario"
+
+#. module: cbi_export
+#: model:ir.model,name:cbi_export.model_res_company
+msgid "Companies"
+msgstr "Aziende"
+
+#. module: cbi_export
+#: model:ir.model,name:cbi_export.model_res_partner
+msgid "Contact"
+msgstr "Contatto"
+
+#. module: cbi_export
+#: model:ir.actions.report,name:cbi_export.cdi_bank_riba
+msgid "Distinta CBI"
+msgstr "Distinta CBI"
+
+#. module: cbi_export
+#: model:ir.model,name:cbi_export.model_account_invoice
+msgid "Invoice"
+msgstr "Fattura"
+
+#. module: cbi_export
+#: selection:account.payment.term,method:0
+msgid "Other"
+msgstr "Altro"
+
+#. module: cbi_export
+#: model:ir.model.fields,field_description:cbi_export.field_account_invoice__payment_term_method
+#: model:ir.model.fields,field_description:cbi_export.field_account_payment_term__method
+msgid "Payment Method"
+msgstr "Metodo di pagamento"
+
+#. module: cbi_export
+#: model:ir.model,name:cbi_export.model_account_payment_term
+msgid "Payment Terms"
+msgstr "Termini di pagamento"
+
+#. module: cbi_export
+#: selection:account.payment.term,method:0
+msgid "RiBa"
+msgstr ""
+
+#. module: cbi_export
+#: model:ir.model.fields,field_description:cbi_export.field_account_invoice__riba_bank_id
+msgid "RiBa Bank"
+msgstr "Banca di Appoggio RiBa"
+
+#. module: cbi_export
+#: model:ir.model.fields,field_description:cbi_export.field_res_partner__riba_bank_ids
+#: model_terms:ir.ui.view,arch_db:cbi_export.view_partner_property_form
+msgid "RiBa Banks"
+msgstr "Banche di Appoggio RiBa"
+
+#. module: cbi_export
+#: model:ir.model.fields,field_description:cbi_export.field_res_company__sia
+msgid "SIA Code"
+msgstr "Codice SIA"
+
+#. module: cbi_export
+#: code:addons/cbi_export/models/account_invoice.py:34
+#, python-format
+msgid "You must pick invoices with the same company, bank, and currencies!"
+msgstr "Puoi raggruppare solo fatture della stessa compagnia, banca e valuta!"
