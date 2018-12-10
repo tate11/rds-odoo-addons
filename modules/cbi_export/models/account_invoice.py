@@ -43,7 +43,7 @@ class AccountInvoice(models.Model):
 
     def cbi_14(self, line=False):
         return """            {}30000{}-{}{}{}{}{}            {}4{}      {}""".format(
-            line and line[0].strftime("%d%m%y") or self.date_due.strftime("%d%m%y"),
+            line and fields.Date.from_string(line[0]).strftime("%d%m%y") or self.date_due.strftime("%d%m%y"),
             rj(int(line and line[1]*100 or self.amount_total*100), 13),
             rj(self.partner_bank_id.bank_abi, 5),
             rj(self.partner_bank_id.bank_cab, 5),
