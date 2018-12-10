@@ -108,7 +108,7 @@ class AccountInvoice(models.Model):
                 dt.date.today().strftime("%d%m%y"),
                 lj(inv.partner_bank_id.bank_id.name, 20, ' '),
                 rj(n_ribas, 7),
-                rj(sum(self.mapped(lambda x: int(x.total*100))), 15),
+                rj(sum(self.mapped(lambda x: int(x.amount_total_company_signed*100))), 15),
                 lj(n_ribas*7 + 2, 7),
                 inv.currency_id.name[0:1]
         )
