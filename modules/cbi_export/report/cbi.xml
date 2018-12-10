@@ -36,8 +36,8 @@
         <report id="cdi_bank_riba"
             model="account.invoice"
             string="Distinta CBI"
-            name="rds_customizations_account.cdi_bank_riba_document"
-            file="rds_customizations_account.cdi_bank_riba_document"
+            name="cbi_export.cdi_bank_riba_document"
+            file="cbi_export.cdi_bank_riba_document"
             report_type="qweb-text"
         />
     </data>
