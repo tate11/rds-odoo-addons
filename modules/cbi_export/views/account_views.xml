@@ -53,7 +53,7 @@
             <field name="inherit_id" ref="base.view_company_form"/>
             <field name="arch" type="xml">
                 <field name="company_registry" position="after">
-                    <field name="sia">
+                    <field name="sia"/>
                 </field>
             </field>
         </record>           
