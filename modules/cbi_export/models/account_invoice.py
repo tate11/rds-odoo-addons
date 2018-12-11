@@ -21,7 +21,30 @@ class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     riba_bank_id = fields.Many2one('res.bank', 'RiBa Bank')
+    riba_bank_ids = fields.Many2many('res.bank', related="partner_id.riba_bank_ids", string="RiBa Banks")
+
     payment_term_method = fields.Selection([('bank_transfer', 'Bank Transfer'), ('riba', 'RiBa'), ('other', 'Other')], string="Payment Method", readonly=True, related="payment_term_id.method")
+
+    @api.multi
+    def action_invoice_open(self):
+        res = super(AccountInvoice, self).action_invoice_open()
+        for i in self:
+            if i.payment_term_method == "riba":
+                i.riba_state = "todo"
+        return res
+
+
+    @api.multi
+    def action_invoice_cancel(self):
+        res = super(AccountInvoice, self).action_invoice_cancel()
+        for i in self:
+            if i.riba_state == "todo":
+                i.riba_state = "no"
+        return res
+
+
+    riba_state = fields.Selection([('no', 'Not to emit'), ('todo', 'To Emit'), ('done', 'Emitted')], default='no', copy=False, string="RiBa Status", readonly=True)
+
 
     @api.onchange('partner_id', 'company_id')
     def _onchange_partner_id(self):
@@ -91,7 +114,7 @@ class AccountInvoice(models.Model):
 
     def cbi_51(self):
         return "{}{}{}".format(
-                rj(self.name, 10),
+                rj(self.reference and self.reference.replace("/", ""), 10),
                 lj(self.company_id.name, 20, ' '),
                 " " * 80
             )

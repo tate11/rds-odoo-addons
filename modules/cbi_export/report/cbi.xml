@@ -26,6 +26,7 @@
             name="cbi_export.cdi_bank_riba_document"
             file="cbi_export.cdi_bank_riba_document"
             report_type="qweb-text"
+            menu="False"
         />
     </data>
 </odoo>

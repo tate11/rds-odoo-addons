@@ -16,6 +16,7 @@
                ], 
     'data': [
         'views/account_views.xml',
+        'wizard/riba_emit.xml',
         'report/cbi.xml'
     ],
     'application': False,

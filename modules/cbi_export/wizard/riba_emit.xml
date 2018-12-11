@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_riba_emission_wizard" model="ir.ui.view">
+            <field name="name">Emit RiBas</field>
+            <field name="model">account.riba.emit</field>
+            <field name="arch" type="xml">
+                <form string="Emit RiBas">
+                    <field name="state" invisible="1"/>
+                    <div class="alert alert-success" attrs="{'invisible': [('state', '!=', 'done')]}" role="status">
+                        <group>
+                            <h3>
+                                Congratulations!
+                                You emitted <field name="count"/> invoices as RiBas for a total of <field name="total"/> €.
+                            </h3>
+                        </group>
+                        <group>
+                            <field name="invoices_to_emit" colspan="4" nolabel="1">
+                                <tree>
+                                    <field name="state" invisible="1"/>
+                                    <field name="partner_id" string="Customer"/>
+                                    <field name="type"/>
+                                    <field name="date_invoice"/>
+                                    <field name="number"/>
+                                    <field name="date_due"/>
+                                    <field name="amount_total_signed"/>
+                                    <field name="riba_state"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </div>
+                    <group class="alert alert-info" role="status" attrs="{'invisible': ['|', ('state', '=', 'done'), ('invoices_to_emit', '!=', [])]}">
+                        <h3 colspan="4">
+                            It seems there are no invoices among your selection that can be emitted as RiBas.
+                        </h3><p colspan="4">
+                            Try flagging Force Reemission to re-emit already emitted ribas. Alternatively, you can close this wizard and try a different selection.
+                            Remember you can only emit customer invoices or supplier credit notes as ribas.
+                        </p>
+                        <field name="force_reemit" string="Force Reemission" />
+                    </group>
+
+                    <p attrs="{'invisible': ['|', ('state', '=', 'done'), ('invoices_to_emit', '=', [])]}" class="oe_grey">
+                        This wizard will emit ribas for the picked invoices.
+                    </p>
+                    <group attrs="{'invisible': ['|', ('state', '=', 'done'), ('invoices_to_emit', '=', [])]}">
+                        <field name="company_id" invisible="1" />
+                        <field name="partner_bank_id" domain="[('partner_id.ref_company_ids', 'in', [company_id])]" />
+                        <field name="force_reemit" />
+                    </group>
+                    <group attrs="{'invisible': ['|', ('state', '=', 'done'), ('invoices_to_emit', '=', [])]}">
+                        <field name="invoices_to_emit" colspan="4" nolabel="1">
+                            <tree>
+                                <field name="state" invisible="1"/>
+                                <field name="partner_id" string="Customer"/>
+                                <field name="type"/>
+                                <field name="date_invoice"/>
+                                <field name="number"/>
+                                <field name="date_due"/>
+                                <field name="amount_total_signed"/>
+                                <field name="riba_state"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button attrs="{'invisible': ['|', ('state', '=', 'done'), ('invoices_to_emit', '=', [])]}" name="emit" string="Emit RiBas" type="object" class="btn-primary"/>
+                        <button string="Cancel" attrs="{'invisible': [('state', '=', 'done')]}" class="btn-secondary" special="cancel"/>
+                        <button string="Close" attrs="{'invisible': [('state', '!=', 'done')]}" class="btn-primary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_riba_emission_wizard" model="ir.actions.act_window">
+            <field name="name">Emit RiBas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.riba.emit</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="account.model_account_invoice" />
+        </record>
+
+</odoo>

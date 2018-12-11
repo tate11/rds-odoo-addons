@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* hr_qol
+# 	* rds_customizations_hr
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0+e-20181004\n"
+"Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-08 21:02+0000\n"
-"PO-Revision-Date: 2018-10-08 23:07+0200\n"
+"POT-Creation-Date: 2018-12-11 10:43+0000\n"
+"PO-Revision-Date: 2018-12-11 12:08+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,106 +15,164 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: it\n"
-"X-Generator: Poedit 2.0.4\n"
+"X-Generator: Poedit 2.2\n"
 
-#. module: hr_qol
-#: model_terms:ir.ui.view,arch_db:hr_qol.hr_qol_extended_employee_form
+#. module: rds_customizations_hr
+#. openerp-web
+#: code:addons/rds_customizations_hr/static/src/js/greeting_message.js:21
+#, python-format
+msgid "<b>Warning! Last check in was over 12 hours ago.</b><br/>If this isn't right, please contact Human Resource staff"
+msgstr "<b>Attenzione! L'ultimo check-in risale a oltre 12 ore fa.</b><br/>Se è un errore, contatta l'ufficio Risorse Umane"
+
+#. module: rds_customizations_hr
+#: model_terms:ir.ui.view,arch_db:rds_customizations_hr.view_employee_form_contractinfo
 msgid "<strong>It's too bad.</strong><br/>There are no contracts for this worker. Add some to show contract information!"
-msgstr "<strong>Peccato.</strong><br/>Non ci sono contratti registrati per questo dipendente. Aggiungine per mostrare delle informazioni contrattuali!"
+msgstr "<strong>Peccato.</strong><br/>Non ci sono contratti registrati per questo dipendente. Aggiungila per mostrare le informazioni contrattuali!"
 
-#. module: hr_qol
-#: model_terms:ir.ui.view,arch_db:hr_qol.hr_qol_extended_employee_form
+#. module: rds_customizations_hr
+#. openerp-web
+#: code:addons/rds_customizations_hr/static/src/js/greeting_message.js:36
+#, python-format
+msgid "An apple a day keeps the doctor away"
+msgstr "Una mela al giorno toglie il medico di torno"
+
+#. module: rds_customizations_hr
+#. openerp-web
+#: code:addons/rds_customizations_hr/static/src/js/greeting_message.js:25
+#, python-format
+msgid "Another good day's work! See you soon!"
+msgstr "Un'altra buona giornata di lavoro! A presto!"
+
+#. module: rds_customizations_hr
+#: model_terms:ir.ui.view,arch_db:rds_customizations_hr.view_employee_form_contractinfo
 msgid "Contract Information"
 msgstr "Informazioni Contrattuali"
 
-#. module: hr_qol
-#: model:ir.model.fields,field_description:hr_qol.field_hr_employee__current_contract_end
+#. module: rds_customizations_hr
+#: model:ir.model.fields,field_description:rds_customizations_hr.field_hr_employee__current_contract_end
 msgid "Current Contract End"
-msgstr "Termine Contratto Vigente"
+msgstr "Fine del Contratto Corrente"
 
-#. module: hr_qol
-#: model:ir.model.fields,field_description:hr_qol.field_hr_employee__current_contract_start
+#. module: rds_customizations_hr
+#: model:ir.model.fields,field_description:rds_customizations_hr.field_hr_employee__current_contract_start
 msgid "Current Contract Start"
-msgstr "Inizio Contratto Vigente"
+msgstr "Inizio del Contratto Corrente"
 
-#. module: hr_qol
-#: model:ir.model,name:hr_qol.model_hr_employee
+#. module: rds_customizations_hr
+#. openerp-web
+#: code:addons/rds_customizations_hr/static/src/js/greeting_message.js:42
+#, python-format
+msgid "Early to bed and early to rise, makes a man healthy, wealthy and wise"
+msgstr "Chi ben comincia è già a metà dell'opera"
+
+#. module: rds_customizations_hr
+#. openerp-web
+#: code:addons/rds_customizations_hr/static/src/js/greeting_message.js:34
+#, python-format
+msgid "Eat breakfast as a king, lunch as a merchant and supper as a beggar"
+msgstr "Chi ben comincia è già a metà dell'opera"
+
+#. module: rds_customizations_hr
+#: model:ir.model,name:rds_customizations_hr.model_hr_employee
 msgid "Employee"
 msgstr "Dipendente"
 
-#. module: hr_qol
-#: model:ir.model,name:hr_qol.model_hr_employee_category
+#. module: rds_customizations_hr
+#: model:ir.model,name:rds_customizations_hr.model_hr_employee_category
 msgid "Employee Category"
-msgstr "Categoria di Dipendente"
+msgstr "Categoria Dipendente"
 
-#. module: hr_qol
-#: model_terms:ir.ui.view,arch_db:hr_qol.print_employee_badge
+#. module: rds_customizations_hr
+#: model_terms:ir.ui.view,arch_db:rds_customizations_hr.print_employee_badge
 msgid "Employee Skill"
-msgstr "Abilità\tDipendente"
+msgstr "Abilità Dipendente"
 
-#. module: hr_qol
-#: model_terms:ir.ui.view,arch_db:hr_qol.print_employee_badge
+#. module: rds_customizations_hr
+#: model_terms:ir.ui.view,arch_db:rds_customizations_hr.print_employee_badge
 msgid "Enterprise Image"
 msgstr "Immagine Azienda"
 
-#. module: hr_qol
-#: model:ir.model.fields,field_description:hr_qol.field_hr_employee__first_employed
+#. module: rds_customizations_hr
+#: model:ir.model.fields,field_description:rds_customizations_hr.field_hr_employee__first_employed
 msgid "First Assumption"
 msgstr "Prima Assunzione"
 
-#. module: hr_qol
-#: model:ir.model.fields,field_description:hr_qol.field_hr_employee__fixed_term
+#. module: rds_customizations_hr
+#: model:ir.model.fields,field_description:rds_customizations_hr.field_hr_employee__fixed_term
 msgid "Fixed-Term"
 msgstr "Tempo Determinato"
 
-#. module: hr_qol
-#: model_terms:ir.ui.view,arch_db:hr_qol.hr_qol_extended_employee_filter
+#. module: rds_customizations_hr
+#: model_terms:ir.ui.view,arch_db:rds_customizations_hr.view_employee_filter_contractinfo
 msgid "Fixed-Term Workers"
-msgstr "Lavoratori a Tmp. Determinato"
+msgstr "Dipendenti a Tempo Determinato"
 
-#. module: hr_qol
-#: model:ir.model,name:hr_qol.model_hr_department
-msgid "HR Department"
-msgstr "Reparto HR"
+#. module: rds_customizations_hr
+#. openerp-web
+#: code:addons/rds_customizations_hr/static/src/js/greeting_message.js:39
+#, python-format
+msgid "Have a good afternoon"
+msgstr "Buon pomeriggio"
 
-#. module: hr_qol
-#: model:ir.actions.act_window,name:hr_qol.hr_qol_jobs
-#: model:ir.ui.menu,name:hr_qol.menu_hr_qol_jobs_main
+#. module: rds_customizations_hr
+#. openerp-web
+#: code:addons/rds_customizations_hr/static/src/js/greeting_message.js:30
+#, python-format
+msgid "Have a good day!"
+msgstr "Buona Giornata!"
+
+#. module: rds_customizations_hr
+#. openerp-web
+#: code:addons/rds_customizations_hr/static/src/js/greeting_message.js:44
+#, python-format
+msgid "Have a good evening"
+msgstr "Buona serata"
+
+#. module: rds_customizations_hr
+#. openerp-web
+#: code:addons/rds_customizations_hr/static/src/js/greeting_message.js:32
+#, python-format
+msgid "Have a nice lunch!"
+msgstr "Buon pranzo!"
+
+#. module: rds_customizations_hr
+#: model:ir.actions.act_window,name:rds_customizations_hr.open_aux_jobs_config
+#: model:ir.ui.menu,name:rds_customizations_hr.menu_aux_jobs_config
 msgid "Jobs Positions"
 msgstr "Posizioni Lavorative"
 
-#. module: hr_qol
-#: model:ir.model.fields,field_description:hr_qol.field_hr_employee__last_employed
+#. module: rds_customizations_hr
+#: model:ir.model.fields,field_description:rds_customizations_hr.field_hr_employee__last_employed
 msgid "Left Since"
-msgstr "Inattivo Da"
+msgstr "Uscito da"
 
-#. module: hr_qol
-#: model_terms:ir.ui.view,arch_db:hr_qol.hr_qol_extended_employee_filter
+#. module: rds_customizations_hr
+#: model_terms:ir.ui.view,arch_db:rds_customizations_hr.view_employee_filter_contractinfo
 msgid "Non-fixed Term Workers"
-msgstr "Lavoratori a Tmp. Indeterminato"
+msgstr "Dipendenti a Tempo Indeterminato"
 
-#. module: hr_qol
-#: model:ir.actions.act_window,name:hr_qol.hr_qol_open_wh_config
-#: model:ir.ui.menu,name:hr_qol.hr_qol_menu_wh_configuration
-msgid "Orari Lavorativi"
-msgstr "Orari Lavorativi"
-
-#. module: hr_qol
-#: model:ir.model.fields,field_description:hr_qol.field_hr_employee_category__icon
+#. module: rds_customizations_hr
+#: model:ir.model.fields,field_description:rds_customizations_hr.field_hr_employee_category__icon
 msgid "Photo"
 msgstr "Foto"
 
-#. module: hr_qol
-#: model:ir.model.fields,field_description:hr_qol.field_hr_employee__is_subworker
+#. module: rds_customizations_hr
+#: model:ir.model.fields,field_description:rds_customizations_hr.field_hr_employee__is_subworker
 msgid "Subcontracted Worker"
-msgstr "Dipendente interinale"
+msgstr "Lavoratore Interinale"
 
-#. module: hr_qol
-#: model_terms:ir.ui.view,arch_db:hr_qol.hr_qol_extended_employee_filter
+#. module: rds_customizations_hr
+#: model_terms:ir.ui.view,arch_db:rds_customizations_hr.view_employee_filter_contractinfo
 msgid "Subcontracted Workers"
-msgstr "Dipendenti Interinali"
+msgstr "Lavoratori Interinali"
 
-#. module: hr_qol
-#: model:ir.model.fields,help:hr_qol.field_hr_employee_category__icon
-msgid "This field holds the image used as photo for the employee, limited to 1024x1024px."
-msgstr ""
+#. module: rds_customizations_hr
+#: model:ir.model.fields,help:rds_customizations_hr.field_hr_employee_category__icon
+msgid "This field holds an icon to be used as a badge on various reports."
+msgstr "Questo campo serve a mostrare una icone nei badge o altri report."
+
+#. module: rds_customizations_hr
+#: model:ir.actions.act_window,name:rds_customizations_hr.open_ws_config
+#: model:ir.ui.menu,name:rds_customizations_hr.menu_ws_config
+msgid "Working Schedules"
+msgstr "Orari di lavoro"

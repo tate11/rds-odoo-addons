@@ -1,0 +1,276 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* cbi_export
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-12-11 10:44+0000\n"
+"PO-Revision-Date: 2018-12-11 11:49+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: it\n"
+"X-Generator: Poedit 2.2\n"
+
+#. module: cbi_export
+#: model:ir.model.fields,field_description:cbi_export.field_account_riba_emit__partner_bank_id
+msgid "Bank Account"
+msgstr "Conto Bancario"
+
+#. module: cbi_export
+#: model:ir.model.fields,help:cbi_export.field_account_riba_emit__partner_bank_id
+msgid "Bank Account Number to which the invoices will be paid."
+msgstr "Conto bancario in cui far pagare le fatture."
+
+#. module: cbi_export
+#: selection:account.payment.term,method:0
+msgid "Bank Transfer"
+msgstr "Bonifico Bancario"
+
+#. module: cbi_export
+#: model_terms:ir.ui.view,arch_db:cbi_export.view_riba_emission_wizard
+msgid "Cancel"
+msgstr "Annulla"
+
+#. module: cbi_export
+#: model_terms:ir.ui.view,arch_db:cbi_export.view_riba_emission_wizard
+msgid "Close"
+msgstr "Chiudi"
+
+#. module: cbi_export
+#: model:ir.model,name:cbi_export.model_res_company
+msgid "Companies"
+msgstr "Aziende"
+
+#. module: cbi_export
+#: model:ir.model.fields,field_description:cbi_export.field_account_riba_emit__company_id
+msgid "Company"
+msgstr "Azienda"
+
+#. module: cbi_export
+#: model_terms:ir.ui.view,arch_db:cbi_export.view_riba_emission_wizard
+msgid ""
+"Congratulations!\n"
+"                                You emitted"
+msgstr ""
+"Congratulazioni\n"
+"\t\t\t        Hai emesso"
+
+#. module: cbi_export
+#: model:ir.model,name:cbi_export.model_res_partner
+msgid "Contact"
+msgstr "Contatto"
+
+#. module: cbi_export
+#: model:ir.model.fields,field_description:cbi_export.field_account_riba_emit__create_uid
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: cbi_export
+#: model:ir.model.fields,field_description:cbi_export.field_account_riba_emit__create_date
+msgid "Created on"
+msgstr "Creato il"
+
+#. module: cbi_export
+#: model_terms:ir.ui.view,arch_db:cbi_export.view_riba_emission_wizard
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: cbi_export
+#: model:ir.model.fields,field_description:cbi_export.field_account_riba_emit__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: cbi_export
+#: model:ir.actions.report,name:cbi_export.cdi_bank_riba
+msgid "Distinta CBI"
+msgstr "Distinta CBI"
+
+#. module: cbi_export
+#: selection:account.riba.emit,state:0
+msgid "Done"
+msgstr "Fatto"
+
+#. module: cbi_export
+#: model:ir.model.fields,field_description:cbi_export.field_account_riba_emit__count
+msgid "Done Ribas"
+msgstr "Riba Completate"
+
+#. module: cbi_export
+#: model:ir.actions.act_window,name:cbi_export.action_view_riba_emission_wizard
+#: model_terms:ir.ui.view,arch_db:cbi_export.view_riba_emission_wizard
+msgid "Emit RiBas"
+msgstr "Emetti Riba"
+
+#. module: cbi_export
+#: selection:account.invoice,riba_state:0
+msgid "Emitted"
+msgstr "Emesse"
+
+#. module: cbi_export
+#: model:ir.model.fields,field_description:cbi_export.field_account_riba_emit__invoices_to_emit
+msgid "Emitted Invoice Account"
+msgstr "Conto Emesso della Fattura"
+
+#. module: cbi_export
+#: model:ir.model.fields,help:cbi_export.field_account_riba_emit__force_reemit
+msgid "Flag this field to re-emit already emitted invoices."
+msgstr "Segna questo campo per riemettere anche le riba già emesse."
+
+#. module: cbi_export
+#: model:ir.model.fields,field_description:cbi_export.field_account_riba_emit__force_reemit
+msgid "Force Re-emission"
+msgstr "Forza riemissione"
+
+#. module: cbi_export
+#: model_terms:ir.ui.view,arch_db:cbi_export.view_riba_emission_wizard
+msgid "Force Reemission"
+msgstr "Forza Riemissione"
+
+#. module: cbi_export
+#: model:ir.model.fields,field_description:cbi_export.field_account_riba_emit__id
+msgid "ID"
+msgstr "ID"
+
+#. module: cbi_export
+#: model:ir.model,name:cbi_export.model_account_invoice
+msgid "Invoice"
+msgstr "Fattura"
+
+#. module: cbi_export
+#: model_terms:ir.ui.view,arch_db:cbi_export.view_riba_emission_wizard
+msgid "It seems there are no invoices among your selection that can be emitted as RiBas."
+msgstr "Sembra che non ci siano fatture fra quelle selezionate che possono essere emesse come RiBa."
+
+#. module: cbi_export
+#: model:ir.model.fields,field_description:cbi_export.field_account_riba_emit____last_update
+msgid "Last Modified on"
+msgstr "Data di ultima modifica"
+
+#. module: cbi_export
+#: model:ir.model.fields,field_description:cbi_export.field_account_riba_emit__write_uid
+msgid "Last Updated by"
+msgstr "Ultima modifica di"
+
+#. module: cbi_export
+#: model:ir.model.fields,field_description:cbi_export.field_account_riba_emit__write_date
+msgid "Last Updated on"
+msgstr "Ultima modifica il"
+
+#. module: cbi_export
+#: selection:account.invoice,riba_state:0
+msgid "Not to emit"
+msgstr "Non da emettere"
+
+#. module: cbi_export
+#: selection:account.payment.term,method:0
+msgid "Other"
+msgstr "Altro"
+
+#. module: cbi_export
+#: model:ir.model.fields,field_description:cbi_export.field_account_invoice__payment_term_method
+#: model:ir.model.fields,field_description:cbi_export.field_account_payment_term__method
+msgid "Payment Method"
+msgstr "Metodo di Pagamento"
+
+#. module: cbi_export
+#: model:ir.model,name:cbi_export.model_account_payment_term
+msgid "Payment Terms"
+msgstr "Termini di Pagamento"
+
+#. module: cbi_export
+#: selection:account.riba.emit,state:0
+msgid "Preparing"
+msgstr "Preparazione"
+
+#. module: cbi_export
+#: selection:account.payment.term,method:0
+msgid "RiBa"
+msgstr "RiBa"
+
+#. module: cbi_export
+#: model:ir.model.fields,field_description:cbi_export.field_account_invoice__riba_bank_id
+msgid "RiBa Bank"
+msgstr "Banca di Appoggio RiBa"
+
+#. module: cbi_export
+#: model:ir.model.fields,field_description:cbi_export.field_account_invoice__riba_bank_ids
+#: model:ir.model.fields,field_description:cbi_export.field_res_partner__riba_bank_ids
+#: model_terms:ir.ui.view,arch_db:cbi_export.view_partner_property_form
+msgid "RiBa Banks"
+msgstr "Banche di Appoggio RiBa"
+
+#. module: cbi_export
+#: model:ir.model,name:cbi_export.model_account_riba_emit
+msgid "RiBa Emission Wizard"
+msgstr "Wizard di Emissione Riba"
+
+#. module: cbi_export
+#: model:ir.model.fields,field_description:cbi_export.field_account_invoice__riba_state
+msgid "RiBa Status"
+msgstr "Stato RiBa"
+
+#. module: cbi_export
+#: model_terms:ir.ui.view,arch_db:cbi_export.invoice_tree_riba
+msgid "RiBa emitted"
+msgstr "Riba Emessa"
+
+#. module: cbi_export
+#: model_terms:ir.ui.view,arch_db:cbi_export.invoice_tree_riba
+msgid "RiBa to Emit"
+msgstr "Riba da Emettere"
+
+#. module: cbi_export
+#: model_terms:ir.ui.view,arch_db:cbi_export.invoice_tree_riba
+msgid "RiBa to emit"
+msgstr "Riba da Emettere"
+
+#. module: cbi_export
+#: model:ir.model.fields,field_description:cbi_export.field_res_company__sia
+msgid "SIA Code"
+msgstr "Codice SIA"
+
+#. module: cbi_export
+#: model:ir.model.fields,field_description:cbi_export.field_account_riba_emit__state
+msgid "State"
+msgstr "Stato"
+
+#. module: cbi_export
+#: model_terms:ir.ui.view,arch_db:cbi_export.view_riba_emission_wizard
+msgid "This wizard will emit ribas for the picked invoices."
+msgstr "Questo wizard emetterà le riba per le fatture indicate."
+
+#. module: cbi_export
+#: selection:account.invoice,riba_state:0
+msgid "To Emit"
+msgstr "Da emettere"
+
+#. module: cbi_export
+#: model:ir.model.fields,field_description:cbi_export.field_account_riba_emit__total
+msgid "Total Invoiced"
+msgstr "Totale Fatturato"
+
+#. module: cbi_export
+#: model_terms:ir.ui.view,arch_db:cbi_export.view_riba_emission_wizard
+msgid ""
+"Try flagging Force Reemission to re-emit already emitted ribas. Alternatively, you can close this wizard and try a different selection.\n"
+"                            Remember you can only emit customer invoices or supplier credit notes as ribas."
+msgstr ""
+"Prova a segnare \"Forza Riemissione\" per riemettere anche le riba già emesse. Alternativamente, puoi chiudere questo wizard e provare una selezione diversa.\n"
+"\t\t\t    Ricorda che puoi emettere come riba solo fatture a clienti o note di credito a fornitori."
+
+#. module: cbi_export
+#: code:addons/cbi_export/models/account_invoice.py:64
+#, python-format
+msgid "You must pick invoices with the same company, bank, and currencies!"
+msgstr "Puoi raggruppare solo fatture della stessa compagnia, banca e valuta!"
+
+#. module: cbi_export
+#: model_terms:ir.ui.view,arch_db:cbi_export.view_riba_emission_wizard
+msgid "invoices as RiBas for a total of"
+msgstr "fatture come Riba per un totale di"

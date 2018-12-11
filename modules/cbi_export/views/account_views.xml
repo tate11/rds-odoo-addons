@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-    
+
+       <record id="invoice_tree_riba" model="ir.ui.view">
+            <field name="name">invoice.tree.riba</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="after">
+                    <field name="riba_state" invisible="1"/>
+                    <button class="text-info" attrs="{'invisible': [('riba_state', '!=', 'todo')]}" icon="fa-money" aria-label="RiBa to emit" title="RiBa to Emit"/>
+                    <button class="text-info" attrs="{'invisible': [('riba_state', '!=', 'done')]}" icon="fa-check" aria-label="RiBa emitted" title="RiBa emitted"/>
+                </xpath>
+            </field>
+        </record>
 
         <record id="invoice_form_riba" model="ir.ui.view">
             <field name="name">invoice.form.riba</field>
@@ -10,7 +22,9 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='payment_term_id']" position="after">
                     <field name="payment_term_method" invisible="1"/>
-                    <field name="riba_bank_id" attrs="{'invisible': [('payment_term_method', '!=', 'riba')]}" domain="[('id', 'in', partner_id.riba_bank_ids)]"/>
+                    <field name="riba_bank_ids" invisible="1"/>
+                    <field name="riba_bank_id" attrs="{'invisible': [('payment_term_method', '!=', 'riba')]}" domain="[('id', 'in', riba_bank_ids)]"/>
+                    <field name="riba_state" attrs="{'invisible': ['|', ('payment_term_method', '!=', 'riba'), ('riba_state', '=', 'no')]}"/>
                 </xpath>
             </field>
         </record>
