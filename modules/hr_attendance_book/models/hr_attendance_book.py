@@ -216,10 +216,11 @@ class HrAttendanceDay(models.Model):
         self.ensure_one()
         if mode == 'hard':
             self.resource_calendar_id = self.workbook_id.employee_id.resource_calendar_id or self.env['res.company']._company_default_get().resource_calendar_id
-            start_dt, end_dt = self._get_ranges()
-            self.total_e = self.resource_calendar_id.get_work_hours_count(start_dt, end_dt, False)
             self.structure_id = self.employee_id.structure_id
-            return start_dt, end_dt
+
+        start_dt, end_dt = self._get_ranges()
+        self.total_e = self.resource_calendar_id.get_work_hours_count(start_dt, end_dt, False)
+        return start_dt, end_dt
 
     @api.multi
     def _get_attendances(self):
@@ -255,12 +256,16 @@ class HrAttendanceDay(models.Model):
 
     @api.multi
     def load_wnominal(self):
-        self.load(True)
+        self.load(tonominal=True, refresh="soft")
 
     @api.multi
-    def load(self, tonominal=False):
+    def refresh_soft(self):
+        self.load(refresh="soft")
+
+    @api.multi
+    def load(self, tonominal=False, refresh="hard"):
         for i in self:
-            start_dt, end_dt = i._refresh_day()
+            start_dt, end_dt = i._refresh_day(refresh)
 
             tz = pytz.timezone(i.resource_calendar_id.tz)
             total_e = i.total_e
