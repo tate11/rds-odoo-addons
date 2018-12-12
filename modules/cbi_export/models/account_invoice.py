@@ -108,7 +108,7 @@ class AccountInvoice(models.Model):
 
     def cbi_50(self):
         return "{}          {}    ".format(
-                lj("fat. {} del {}".format(self.name, self.date_invoice), 80, ' '),
+                lj("fat. {} del {}".format(self.number, self.date_invoice), 80, ' '),
                 lj(vat_sanitize(self.company_id.vat), 16, ' ')
             )
 
