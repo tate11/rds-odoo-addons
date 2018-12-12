@@ -44,7 +44,7 @@
         <record id="view_picking_tree_ddt" model="ir.ui.view">
             <field name="name">view.picking.ddttree</field>
             <field name="model">stock.picking</field>
-            <field name="inherit_id" ref="stock.vpicktree">
+            <field name="inherit_id" ref="stock.vpicktree"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='name']" position="before">
                     <field name="ddt_number"/>
