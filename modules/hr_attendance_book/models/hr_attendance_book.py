@@ -293,7 +293,7 @@ class HrAttendanceDay(models.Model):
 
                 overlap = total_overlaps(_att, att, dt.timedelta(0)).total_seconds()/3600
 
-                unadherence_index = 0 if total_e == 0 else sqrt(
+                unadherence_index = 0 if ((total_e == 0) or (total_attended == 0)) else sqrt(
                     (1 - (overlap/total_e))**2 + ((total_attended - overlap)/total_attended)**2
                 )/2
 
