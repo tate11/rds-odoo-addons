@@ -16,6 +16,7 @@ class Delivery(models.Model):
 
     transport_partner_id =  fields.Many2one('res.partner', "Partner")
 
+
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
@@ -33,35 +34,8 @@ class StockPicking(models.Model):
         for picking in self:
             picking.count_ddt = len(picking.ddt_ids) if picking.ddt_ids else 0
 
-    @api.one
-    @api.depends('ddt_ids', 'ddt_ids.state', 'picking_type_code', 'state', 'force_nobill')
-    def _compute_billing_status(self):
-        if (self.state != 'done') or (self.picking_type_code not in ['outgoing', 'incoming']) or self.force_nobill:
-            self.billing_status = 'none'
-        elif self.ddt_ids.filtered(lambda x: x.state in ['draft', 'waiting']):
-            self.billing_status = 'waiting'
-        elif self.ddt_ids.filtered(lambda x: x.state == "done"):
-            self.billing_status = 'done'
-        else:
-            self.billing_status = 'todo'
-
-
-    billing_status = fields.Selection([('none', 'Nothing to Bill'), ('todo', 'To Bill'), ('waiting', 'Waiting'), ('done', 'Billed')], 
-                                      "Billing Status", readonly=True, required=True, compute='_compute_billing_status', default="none", store=True)
-    force_nobill = fields.Boolean("No Billing")
-
-    def _set_shipping_weight(self):
-        self.shipping_weight_free = self.shipping_weight
-
-    @api.one
-    @api.depends('package_ids', 'weight_bulk')
-    def _compute_shipping_weight(self):
-        if self.shipping_weight_free != 0:
-            self.shipping_weight = self.shipping_weight_free
-        else:
-            self.shipping_weight = self.weight_bulk + sum([pack.shipping_weight for pack in self.package_ids])
-        
-    shipping_weight_free = fields.Float("Weight in Kilograms")
+    billing_status = fields.Selection([('none', 'Nothing to Bill'), ('waiting', 'Waiting'), ('done', 'Billed')], 
+                                      "Billing Status", readonly=True, default="none")
 
     @api.multi
     def action_view_ddt(self):
@@ -78,22 +52,17 @@ class StockPicking(models.Model):
         return action
 
     @api.multi
-    def action_done(self):
-        result = super(StockPicking, self).action_done()
-    
-        if not result or self.picking_type_code == 'internal':
-            return result
-        
-        if (self.picking_type_code == 'incoming') and (not self.ddt_number):
-            return result
-
+    def action_bill(self):
         dom = [('partner_id', '=', self.partner_id.id), ('picking_type_id', '=', self.picking_type_id.id), ('state', 'in', ['draft','waiting'])]
         ddt = self.env['stock.ddt'].search(dom + ([('name', '=', self.ddt_number)] if self.picking_type_code == 'incoming' else []), limit=1)
         ddt = ddt and ddt[0]
 
         if (not ddt):
             if (self.picking_type_code != 'incoming') and (not self.picking_type_id.sequence_ddt_id):
-                raise ValidationError(_("Auto-creation of DDTs requires a DDT numerator to be properly setup in the corresponding operation. Please ask your system admin correct the setup."))
+                raise ValidationError(_("A DDT numerator must be properly setup in the corresponding operation. Please ask your system admin correct the setup."))
+            elif (self.picking_type_code == 'incoming') and (not self.ddt_number):
+                raise ValidationError(_("To bill incoming pickings you need to specify a DDT number!"))
+
             vals =  {
                     'name': self.ddt_number if self.picking_type_code == 'incoming' else self.picking_type_id.sequence_ddt_id.next_by_id(),
                     'picking_type_id': self.picking_type_id.id,
@@ -111,22 +80,8 @@ class StockPicking(models.Model):
         else:
             ddt.write({'picking_ids': [(4, self.id)]})
 
-        if self.auto_confirm:
-            ddt.action_done()
-
-        return result
-
-    def action_nothingtobill(self):
-        for pick in self:
-            pick.force_nobill = True
-    
-    def action_dobill(self):
-        for pick in self:
-            pick.force_nobill = False
-
-    #Quick DDT
-    auto_confirm = fields.Boolean("Auto Confirm")
-    
+        self.billing_status = 'waiting'
+  
     ddt_number = fields.Char(string="DDT No.", copy=False, states={'done': [('readonly', True)], 'cancelled': [('readonly', True)]})
     goods_description_id = fields.Many2one('stock.picking.goods_description', 'Description of goods', states={'done': [('readonly', True)], 'cancelled': [('readonly', True)]})
 
@@ -146,3 +101,18 @@ class StockPicking(models.Model):
     incoterm = fields.Many2one(
         'account.incoterms', 'Incoterms',
         help="International Commercial Terms are a series of predefined commercial terms used in international transactions.", states={'done': [('readonly', True)], 'cancelled': [('readonly', True)]})
+
+    def _set_shipping_weight(self):
+        self.shipping_weight_free = self.shipping_weight
+
+    @api.one
+    @api.depends('package_ids', 'weight_bulk')
+    def _compute_shipping_weight(self):
+        if self.shipping_weight_free != 0:
+            self.shipping_weight = self.shipping_weight_free
+        else:
+            self.shipping_weight = self.weight_bulk + sum([pack.shipping_weight for pack in self.package_ids])
+
+    shipping_weight = fields.Float(inverse=_set_shipping_weight)
+
+    shipping_weight_free = fields.Float("Weight in Kilograms")

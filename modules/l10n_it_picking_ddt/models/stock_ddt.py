@@ -95,7 +95,11 @@ class TransportDocument(models.Model):
     @api.model
     def create(self, vals):
         if not vals.get('name', False):
-            vals['name'] = self.env['stock.picking.type'].browse(vals.get('picking_type_id')).sequence_ddt_id.next_by_id()
+            seq = self.env['stock.picking.type'].browse(vals.get('picking_type_id')).sequence_ddt_id
+            if not seq:
+                raise ValidationError(_("A DDT numerator must be properly setup in the corresponding operation. Please ask your system admin correct the setup."))
+            else:
+                vals['name'] = seq.next_by_id()
         
         return super(TransportDocument, self).create(vals)
 
@@ -128,7 +132,7 @@ class TransportDocument(models.Model):
                 if pick.state != 'done':
                     raise ValidationError(_("All pickings must be validated!"))
 
-                pick.write({'is_locked': True})
+                pick.write({'is_locked': True, 'billing_status': 'done', 'ddt_number': doc.name})
 
             doc.write({'state': 'done'})
 

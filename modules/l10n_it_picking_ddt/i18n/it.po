@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 15:10+0000\n"
-"PO-Revision-Date: 2018-11-15 16:11+0100\n"
+"POT-Creation-Date: 2018-12-12 09:56+0000\n"
+"PO-Revision-Date: 2018-12-12 10:57+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -102,11 +102,6 @@ msgid "<span attrs=\"{'invisible': ['|', ('name', '!=', False), ('picking_type_c
 msgstr "<span attrs=\"{'invisible': ['|', ('name', '!=', False), ('picking_type_code', '=', 'incoming')]}\">Nuovo</span>"
 
 #. module: l10n_it_picking_ddt
-#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.view_picking_withcarrier_out_form_quickddt
-msgid "<span>, autoconfirm: </span>"
-msgstr "<span>, conferma: </span>"
-
-#. module: l10n_it_picking_ddt
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.report_ddt_document
 msgid "<span>Transfer Document # </span>"
 msgstr "<span>Documento di Trasferimento # </span>"
@@ -172,6 +167,13 @@ msgid "<strong>Your ref:  </strong>"
 msgstr "<strong> Vs. Rif: </strong>"
 
 #. module: l10n_it_picking_ddt
+#: code:addons/l10n_it_picking_ddt/models/stock_ddt.py:100
+#: code:addons/l10n_it_picking_ddt/models/stock_picking.py:62
+#, python-format
+msgid "A DDT numerator must be properly setup in the corresponding operation. Please ask your system admin correct the setup."
+msgstr "Un numeratore DDT deve essere correttamente configurato. Chiedi al tuo amministratore di correggere il setup."
+
+#. module: l10n_it_picking_ddt
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__message_needaction
 msgid "Action Needed"
 msgstr "Azione Necessaria"
@@ -182,7 +184,7 @@ msgid "Add an internal note..."
 msgstr "Aggiungi una nota interna…"
 
 #. module: l10n_it_picking_ddt
-#: code:addons/l10n_it_picking_ddt/models/stock_ddt.py:126
+#: code:addons/l10n_it_picking_ddt/models/stock_ddt.py:133
 #, python-format
 msgid "All pickings must be validated!"
 msgstr "Tutti i picking devono essere validati!"
@@ -198,15 +200,9 @@ msgid "Auto Bill"
 msgstr "Bolletta Automatico"
 
 #. module: l10n_it_picking_ddt
-#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking__auto_confirm
-msgid "Auto Confirm"
-msgstr "Conferma Automatica"
-
-#. module: l10n_it_picking_ddt
-#: code:addons/l10n_it_picking_ddt/models/stock_picking.py:93
-#, python-format
-msgid "Auto-creation of DDTs requires a DDT numerator to be properly setup in the corresponding operation. Please ask your system admin correct the setup."
-msgstr "Creare i DDT automaticamente richiede che il numeratore sia correttamente configurato. Chiedi al tuo systemadmin di correggere la configurazione.."
+#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.view_picking_form_ddt
+msgid "Bill"
+msgstr ""
 
 #. module: l10n_it_picking_ddt
 #: selection:stock.picking,billing_status:0
@@ -280,17 +276,12 @@ msgstr "Creato il"
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking__ddt_ids
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.view_picking_form_ddt
 msgid "DDT"
-msgstr "DDT"
+msgstr ""
 
 #. module: l10n_it_picking_ddt
 #: model:ir.actions.report,name:l10n_it_picking_ddt.action_report_ddt
 msgid "DDT / Transfer Document"
 msgstr "DDT / Documento di Trasferimento"
-
-#. module: l10n_it_picking_ddt
-#: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.view_picking_withcarrier_out_form_quickddt
-msgid "DDT Auto-register"
-msgstr "Auto registrazione del DDT"
 
 #. module: l10n_it_picking_ddt
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__name
@@ -514,7 +505,6 @@ msgid "Move Ids Without Package"
 msgstr "Linee (Senza Pacchi)"
 
 #. module: l10n_it_picking_ddt
-#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking__force_nobill
 #: model_terms:ir.ui.view,arch_db:l10n_it_picking_ddt.picking_view_list_tobill
 msgid "No Billing"
 msgstr "Nessuna Bollettazione"
@@ -674,9 +664,10 @@ msgid "Stock Moves"
 msgstr "Movimenti di Magazzino"
 
 #. module: l10n_it_picking_ddt
-#: selection:stock.picking,billing_status:0
-msgid "To Bill"
-msgstr "Da Bollettare"
+#: code:addons/l10n_it_picking_ddt/models/stock_picking.py:64
+#, python-format
+msgid "To bill incoming pickings you need to specify a DDT number!"
+msgstr "Devi specificare un numero DDT fornitore per bollettare le prese in entrata!"
 
 #. module: l10n_it_picking_ddt
 #: model:ir.model,name:l10n_it_picking_ddt.model_stock_picking
@@ -751,13 +742,18 @@ msgid "Website communication history"
 msgstr "Storico comunicazione sito"
 
 #. module: l10n_it_picking_ddt
+#: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking__shipping_weight
+msgid "Weight for Shipping"
+msgstr "Peso per Spedizione"
+
+#. module: l10n_it_picking_ddt
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_ddt__shipping_weight_free
 #: model:ir.model.fields,field_description:l10n_it_picking_ddt.field_stock_picking__shipping_weight_free
 msgid "Weight in Kilograms"
 msgstr "Peso in Kg"
 
 #. module: l10n_it_picking_ddt
-#: code:addons/l10n_it_picking_ddt/models/stock_ddt.py:103
+#: code:addons/l10n_it_picking_ddt/models/stock_ddt.py:110
 #, python-format
 msgid "You cannot delete a confirmed DDT."
 msgstr "Non puoi cancellare un DDT confermato."

@@ -40,7 +40,17 @@
         <menuitem id="menu_logistics_config" name="Logistics Management" parent="stock.menu_stock_config_settings" groups="stock.group_stock_manager" sequence="1"/>
 
         <menuitem id="menu_goods_description" name="Goods Description" action="action_stock_picking_goods_description" parent="menu_logistics_config" sequence="1"/>
-        
+
+        <record id="view_picking_tree_ddt" model="ir.ui.view">
+            <field name="name">view.picking.ddttree</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree">
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="ddt_number"/>
+                </xpath>
+            </field>
+        </record>
 
         <record id="view_picking_form_locations" model="ir.ui.view">
             <field name="name">view.picking.locations</field>
@@ -63,19 +73,6 @@
             <field name="inherit_id" ref="delivery.view_picking_withcarrier_out_form"/>
             <field name="priority">4</field>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='carrier_id']" position="before">
-                    <field name="picking_type_code" invisible="1"/>
-
-                    <label for="create_uid" string="DDT Auto-register" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>
-                    <div name="ddt_incoming" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}">
-                        <field name="ddt_number" class="oe_inline"/>
-                        <span attrs="{'invisible': ['|', ('state', 'in', ['done', 'cancelled']), ('ddt_number', '=', False)]}">, autoconfirm: </span>
-                        <field name="auto_confirm" class="oe_inline" attrs="{'invisible': ['|', ('state', 'in', ['done', 'cancelled']), ('ddt_number', '=', False)]}"/>
-                    </div>
-                    <field name="auto_confirm" attrs="{'invisible': [('picking_type_code', '!=', 'outgoing')]}"/>
-                    <br/>
-                    <field name="incoterm" attrs="{'invisible': [('picking_type_code', '!=', 'outgoing')]}"/>
-                </xpath>
                 <xpath expr="//field[@name='carrier_id']" position="after">
                     <field name="transport_partner_id"/>
                 </xpath>
@@ -107,8 +104,12 @@
             <field name="model">stock.picking</field>
             <field name="inherit_id" ref="stock.view_picking_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='state']" position="after">
-                    <field name="billing_status" widget="statusbar" statusbar_visible="todo,waiting,done" attrs="{'invisible': [('billing_status','=','none')]}"/>
+                <xpath expr="//field[@name='show_lots_text']" position="after">
+                    <button name="action_bill" attrs="{'invisible': ['|', ('billing_status', 'in', ['waiting', 'done']), ('state', '!=', 'done')]}" string="Bill" type="object" groups="base.group_user"/>
+                </xpath>
+                <xpath expr="//field[@name='origin']" position="after">
+                    <field name="billing_status" invisible="1"/>
+                    <field name="ddt_number" attrs="{'invisible': ['&amp;', ('picking_type_code', '=', 'outgoing'), ('ddt_number','=',False)]}"/>
                 </xpath>
                 <xpath expr="//button[@name='action_see_move_scrap']" position="after">
                     <button name="action_view_ddt"
