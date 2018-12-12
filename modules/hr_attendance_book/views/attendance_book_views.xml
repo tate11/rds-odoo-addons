@@ -92,8 +92,9 @@
                                 <field name="passed" invisible="1" />
                                 <field name="issues" invisible="1" />
                                 <field name="has_extra" invisible="1" />
-                                <field name="day" />
-                                <field name="dayofweek" />
+                                <field name="day" string="N"/>
+                                <field name="dayofweek" string="G"/>
+                                <field name="resource_calendar_id" />
                                 <field name="reason_1" />
                                 <field name="qty_1" attrs="{'readonly': [('reason_1', '=', False)]}" widget="float_time"/>
                                 <field name="reason_2" />
@@ -104,8 +105,9 @@
                                 <field name="qty_4" attrs="{'readonly': [('reason_4', '=', False)]}" widget="float_time"/>
                                 <field name="total" widget="float_time"/>
                                 <field name="total_e" widget="float_time"/>
-                                <field name="pay_extra" widget="boolean_toggle"/>
-                                <button name="load" type="object" icon="fa-refresh" aria-label="Reload Day" title="Reload Day"/>
+                                <field name="pay_extra" string="Ext." widget="boolean_toggle"/>
+                                <button name="load" type="object" icon="fa-check" aria-label="To Nominals" title="To Nominals"/>
+                                <button name="load_wnominal" type="object" icon="fa-refresh" aria-label="Reload Day" title="Reload Day"/>
                             </tree>
                         </field>
                     </page>

@@ -254,7 +254,11 @@ class HrAttendanceDay(models.Model):
             ]) or False
 
     @api.multi
-    def load(self):
+    def load_wnominal(self):
+        self.load(True)
+
+    @api.multi
+    def load(self, tonominal=False):
         for i in self:
             start_dt, end_dt = i._refresh_day()
 
@@ -280,7 +284,7 @@ class HrAttendanceDay(models.Model):
             reasons = dict()
             allocated = 0
 
-            if bool(i.attendance_ids) and (sum(i.attendance_ids.mapped(lambda x: x.worked_hours)) >= 0.25):
+            if (sum(i.attendance_ids.mapped(lambda x: x.worked_hours)) >= 0.25) or tonominal:
                 for a in i.attendance_ids:
                     if not a.check_out:
                         continue
@@ -307,7 +311,7 @@ class HrAttendanceDay(models.Model):
                             att[0].start = att[0]._replace(start=att[0].start + dt.timedelta(0, 900))
                             att[-1].start = att[-1]._replace(start=att[-1].end - dt.timedelta(0, 900))
 
-                att = normalize_ranges(att)
+                att = _att if tonominal else normalize_ranges(att)
 
                 if i.structure_id:
                     lines = [
