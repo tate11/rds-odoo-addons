@@ -21,7 +21,8 @@
         'report/mrp_production_label.xml',
         'views/mrp_bom_views.xml',
         'views/mrp_production_views.xml',
-        'views/maintenance_views.xml'
+        'views/maintenance_views.xml',
+        'views/stock_rds_report.xml'
     ],
     'application': False,
     'installable': True,

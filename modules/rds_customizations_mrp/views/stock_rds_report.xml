@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<odoo> 
+
+    <record id="view_rds_stock_report_search" model="ir.ui.view">
+        <field name="name">stock.rds.report.search</field>
+        <field name="model">stock.rds.report</field>
+        <field name="arch" type="xml">
+            <search string="Attendance Analisys">
+                <field name="date"/>
+                <filter string="Data" name="year" invisible="1" date="date_excepted" default_period="this_year"/>
+                <filter name="negative" string="Sottoscorta" domain="[('qty','<',0)]"/>
+                <separator/>
+                <field name="product_id"/>
+                <field name="location_id"/>
+                <field name="product_tmpl_id"/>
+                <group expand="1" string="Group By">
+                    <filter string="Modello prodotto" name="prodt" context="{'group_by':'product_tmpl_id'}"/>
+                    <filter string="Prodotto" name="product" context="{'group_by':'product_id'}"/>
+                    <filter string="Location" name="loc" context="{'group_by':'location_id'}"/>
+                    <separator/>
+                    <filter string="Date" name="date_month" context="{'group_by':'date_excepted:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="rds_stock_report_view_graph" model="ir.ui.view">
+            <field name="name">stock.rds.report.pivot</field>
+            <field name="model">stock.rds.report</field>
+            <field name="arch" type="xml">
+                <graph string="Attendance Analisys" type="line">
+                    <field name="location_id" interval="day" type="row"/>
+                    <field name="product_id" type="row"/>
+                    <field name="qty" type="measure"/>
+                </graph>
+            </field>
+    </record>
+
+    <record id="rds_stock_report_view_pivot" model="ir.ui.view">
+            <field name="name">stock.rds.report.pivot</field>
+            <field name="model">stock.rds.report</field>
+            <field name="arch" type="xml">
+                <pivot string="Stock Analisys" disable_linking="True" display_quantity="true">
+                    <field name="location_id" type="row"/>
+                    <field name="qty" type="measure"/>
+                </pivot>
+            </field>
+    </record>
+
+    <record id="rds_stock_report_action" model="ir.actions.act_window">
+        <field name="name">Attendance Analysis</field>
+        <field name="res_model">stock.rds.report</field>
+        <field name="view_mode">pivot,graph</field>
+        <field name="search_view_id" ref="view_rds_stock_report_search"/>
+        <field name="context" eval="{'time_ranges': {'field':'date', 'range':'last_month'}}"/>
+    </record>
+
+    <menuitem id="menu_rds_stock_report" 
+              name="Raw Attendances" 
+              parent="stock.menu_warehouse_report"
+              sequence="20" 
+              action="rds_stock_report_action"/>
+
+</odoo> 

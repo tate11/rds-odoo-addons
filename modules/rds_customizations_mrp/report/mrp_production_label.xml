@@ -29,7 +29,7 @@
         <report 
             id="action_report_picking_move_label"
             string="Etichetta Movimentazione"
-            model="stock.move.line" 
+            model="stock.picking" 
             report_type="qweb-pdf"
             file="rds_customizations_mrp.rds_move_labels_pickings" 
             name="rds_customizations_mrp.rds_move_labels_pickings"
