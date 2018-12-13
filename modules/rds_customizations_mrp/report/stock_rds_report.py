@@ -76,7 +76,7 @@ class StockAdvReport(models.Model):
                         loc.usage as usage,
                         -(move.product_uom_qty / u.factor * u2.factor) as qty
                     FROM stock_location loc
-                    LEFT JOIN stock_move move ON move.location_dest_id = loc.id
+                    LEFT JOIN stock_move move ON move.location_id = loc.id
                     LEFT JOIN product_product prod ON prod.id = move.product_id
                     LEFT JOIN product_template prodt ON prodt.id = prod.product_tmpl_id
                     LEFT JOIN uom_uom u ON (u.id=move.product_uom)
