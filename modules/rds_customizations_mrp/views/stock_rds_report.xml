@@ -8,7 +8,7 @@
             <search string="Attendance Analisys">
                 <field name="date"/>
                 <filter string="Data" name="year" invisible="1" date="date_excepted" default_period="this_year"/>
-                <filter name="negative" string="Sottoscorta" domain="[('qty','<',0)]"/>
+                <filter name="negative" string="Sottoscorta" domain="[('qty','&lt;',0)]"/>
                 <separator/>
                 <field name="product_id"/>
                 <field name="location_id"/>
