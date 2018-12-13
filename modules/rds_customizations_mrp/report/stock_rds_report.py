@@ -93,6 +93,7 @@ class StockAdvReport(models.Model):
                         loc.usage as usage,
                         quant.quantity as qty
                     FROM stock_quant quant
+                    LEFT JOIN stock_location loc ON loc.id = quant.location_id
                     LEFT JOIN product_product prod ON prod.id = quant.product_id
                     LEFT JOIN product_template prodt ON prodt.id = prod.product_tmpl_id
                 ) x
