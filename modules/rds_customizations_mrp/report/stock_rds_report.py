@@ -16,6 +16,15 @@ class StockAdvReport(models.Model):
     product_tmpl_id = fields.Many2one('product.template', "Modello Prodotto")
     product_id = fields.Many2one('product.product', "Prodotto")
     date_excepted = fields.Datetime('Data')
+    usage = fields.Selection([
+        ('supplier', 'Vendor Location'),
+        ('view', 'View'),
+        ('internal', 'Internal Location'),
+        ('customer', 'Customer Location'),
+        ('inventory', 'Inventory Loss'),
+        ('procurement', 'Procurement'),
+        ('production', 'Production'),
+        ('transit', 'Transit Location')], string='Tipo Locazione')
     state = fields.Selection([
         ('remaining', 'Giacenza'),
         ('waiting', 'In Attesa altro mov.'),
@@ -35,6 +44,7 @@ class StockAdvReport(models.Model):
             x.product_id as product_id,
             x.date_excepted as date_excepted,
             x.state as state,
+            x.usage as usage,
             sum(x.qty) as qty
         """
 
@@ -46,6 +56,7 @@ class StockAdvReport(models.Model):
                         prodt.id as product_tmpl_id,
                         move.date_excepted as date_excepted,
                         move.state state,
+                        loc.usage as usage,
                         (move.product_uom_qty / u.factor * u2.factor) as qty
                     FROM stock_location loc 
                     LEFT JOIN stock_move move ON move.location_dest_id = loc.id
@@ -62,6 +73,7 @@ class StockAdvReport(models.Model):
                         prodt.id as product_tmpl_id,
                         move.date_excepted as date_excepted,
                         move.state state,
+                        loc.usage as usage,
                         -(move.product_uom_qty / u.factor * u2.factor) as qty
                     FROM stock_location loc
                     LEFT JOIN stock_move move ON move.location_dest_id = loc.id
@@ -78,6 +90,7 @@ class StockAdvReport(models.Model):
                         prodt.id as product_tmpl_id,
                         NOW() as date_excepted,
                         'remaining' as state,
+                        loc.usage as usage,
                         quant.quantity as qty
                     FROM stock_quant quant
                     LEFT JOIN product_product prod ON prod.id = quant.product_id
@@ -90,6 +103,7 @@ class StockAdvReport(models.Model):
             x.product_tmpl_id,
             x.product_id,
             x.date_excepted,
+            x.usage,
             x.state
         """
 
