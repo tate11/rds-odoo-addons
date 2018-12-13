@@ -6,7 +6,7 @@
         <field name="model">stock.rds.report</field>
         <field name="arch" type="xml">
             <search string="Attendance Analisys">
-                <field name="date"/>
+                <field name="date_excepted"/>
                 <filter string="Data" name="year" invisible="1" date="date_excepted" default_period="this_year"/>
                 <filter name="negative" string="Sottoscorta" domain="[('qty','&lt;',0)]"/>
                 <separator/>
