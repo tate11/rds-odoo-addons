@@ -33,7 +33,7 @@ class StockAdvReport(models.Model):
             x.location_id as location_id,
             x.product_tmpl_id as product_tmpl_id,
             x.product_id as product_id,
-            x.date_excepted ad date_excepted,
+            x.date_excepted as date_excepted,
             x.state as state,
             sum(x.qty) as qty
         """
