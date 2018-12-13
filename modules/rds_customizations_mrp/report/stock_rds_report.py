@@ -9,13 +9,13 @@ class StockAdvReport(models.Model):
     _name = "stock.rds.report"
     _description = "Stock Report"
     _auto = False
-    _rec_name = 'date_excepted'
-    _order = 'date_excepted desc'
+    _rec_name = 'date_expected'
+    _order = 'date_expected desc'
 
     location_id = fields.Many2one("stock.location", "Locazione")
     product_tmpl_id = fields.Many2one('product.template', "Modello Prodotto")
     product_id = fields.Many2one('product.product', "Prodotto")
-    date_excepted = fields.Datetime('Data')
+    date_expected = fields.Datetime('Data')
     usage = fields.Selection([
         ('supplier', 'Vendor Location'),
         ('view', 'View'),
@@ -42,7 +42,7 @@ class StockAdvReport(models.Model):
             x.location_id as location_id,
             x.product_tmpl_id as product_tmpl_id,
             x.product_id as product_id,
-            x.date_excepted as date_excepted,
+            x.date_expected as date_expected,
             x.state as state,
             x.usage as usage,
             sum(x.qty) as qty
@@ -54,7 +54,7 @@ class StockAdvReport(models.Model):
                         loc.id location_id,
                         move.product_id product_id,
                         prodt.id as product_tmpl_id,
-                        move.date_excepted as date_excepted,
+                        move.date_expected as date_expected,
                         move.state state,
                         loc.usage as usage,
                         (move.product_uom_qty / u.factor * u2.factor) as qty
@@ -71,7 +71,7 @@ class StockAdvReport(models.Model):
                         loc.id location_id,
                         move.product_id product_id,
                         prodt.id as product_tmpl_id,
-                        move.date_excepted as date_excepted,
+                        move.date_expected as date_expected,
                         move.state state,
                         loc.usage as usage,
                         -(move.product_uom_qty / u.factor * u2.factor) as qty
@@ -88,7 +88,7 @@ class StockAdvReport(models.Model):
                         quant.location_id location_id,
                         quant.product_id product_id,
                         prodt.id as product_tmpl_id,
-                        NOW() as date_excepted,
+                        NOW() as date_expected,
                         'remaining' as state,
                         loc.usage as usage,
                         quant.quantity as qty
@@ -102,7 +102,7 @@ class StockAdvReport(models.Model):
             x.location_id,
             x.product_tmpl_id,
             x.product_id,
-            x.date_excepted,
+            x.date_expected,
             x.usage,
             x.state
         """

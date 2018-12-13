@@ -6,8 +6,8 @@
         <field name="model">stock.rds.report</field>
         <field name="arch" type="xml">
             <search string="Attendance Analisys">
-                <field name="date_excepted"/>
-                <filter string="Data" name="year" invisible="1" date="date_excepted" default_period="this_year"/>
+                <field name="date_expected"/>
+                <filter string="Data" name="year" invisible="1" date="date_expected" default_period="this_year"/>
                 <filter name="negative" string="Sottoscorta" domain="[('qty','&lt;',0)]"/>
                 <filter name="novirtrem" string="Escludi Giacenze su Pos. non Fisiche" domain="['|', ('usage', '=', 'internal'), ('state','!=','remaining')]"/>
                 <separator/>
@@ -19,7 +19,7 @@
                     <filter string="Prodotto" name="product" context="{'group_by':'product_id'}"/>
                     <filter string="Location" name="loc" context="{'group_by':'location_id'}"/>
                     <separator/>
-                    <filter string="Date" name="date_month" context="{'group_by':'date_excepted:month'}"/>
+                    <filter string="Date" name="date_month" context="{'group_by':'date_expected:month'}"/>
                 </group>
             </search>
         </field>
@@ -53,7 +53,7 @@
         <field name="res_model">stock.rds.report</field>
         <field name="view_mode">pivot,graph</field>
         <field name="search_view_id" ref="view_rds_stock_report_search"/>
-        <field name="context" eval="{'time_ranges': {'field':'date_excepted', 'range':'last_month'}}"/>
+        <field name="context" eval="{'time_ranges': {'field':'date_expected', 'range':'last_month'}}"/>
     </record>
 
     <menuitem id="menu_rds_stock_report" 
