@@ -44,7 +44,7 @@ class StockAdvReport(models.Model):
                         loc.id location_id,
                         move.product_id product_id,
                         prodt.id as product_tmpl_id,
-                        NOW() as date_excepted,
+                        move.date_excepted as date_excepted,
                         move.state state,
                         (move.product_uom_qty / u.factor * u2.factor) as qty
                     FROM stock_location loc 
@@ -60,7 +60,7 @@ class StockAdvReport(models.Model):
                         loc.id location_id,
                         move.product_id product_id,
                         prodt.id as product_tmpl_id,
-                        NOW() as date_excepted,
+                        move.date_excepted as date_excepted,
                         move.state state,
                         -(move.product_uom_qty / u.factor * u2.factor) as qty
                     FROM stock_location loc
