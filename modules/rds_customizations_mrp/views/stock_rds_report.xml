@@ -30,7 +30,7 @@
             <field name="model">stock.rds.report</field>
             <field name="arch" type="xml">
                 <graph string="Analisi Stock" type="line">
-                    <field name="location_id" interval="day" type="row"/>
+                    <field name="location_id" type="row"/>
                     <field name="product_id" type="row"/>
                     <field name="qty" type="measure"/>
                 </graph>

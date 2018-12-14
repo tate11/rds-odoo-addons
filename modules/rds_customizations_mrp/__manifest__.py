@@ -14,7 +14,7 @@
     'category': 'Integrations', 
     'version': '12.0',
     'depends': [
-                'mrp_workorder', 'mrp_maintenance'
+                'mrp_workorder', 'mrp_maintenance', 'stock_barcode'
                ], 
     'data': [
         'security/ir.model.access.csv',
