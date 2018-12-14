@@ -10,7 +10,7 @@ class StockInventory(models.Model):
     def _add_product(self, product, qty=1.0):
         corresponding_line = self.line_ids.filtered(lambda r: r.product_id.id == product.id and (self.scan_location_id.id == r.location_id.id or not self.scan_location_id))
         if corresponding_line:
-            if selected_line == corresponding_line[0]:
+            if self.selected_line == corresponding_line[0]:
                 corresponding_line[0].product_qty += qty
             else:
                 self.selected_line = corresponding_line[0]
