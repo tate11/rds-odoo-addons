@@ -35,6 +35,8 @@ class StockInventory(models.Model):
         return True
 
     def on_barcode_scanned(self, barcode):
+        import logging
+        logging.warning(barcode)
         product = self.env['product.product'].search([('barcode', '=', barcode)])
         if product:
             self._add_product(product)
