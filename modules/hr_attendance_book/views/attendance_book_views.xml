@@ -106,8 +106,8 @@
                                 <field name="total" widget="float_time"/>
                                 <field name="total_e" widget="float_time"/>
                                 <field name="pay_extra" string="Ext." widget="boolean_toggle"/>
-                                <button name="load" type="object" icon="fa-check" aria-label="To Nominals" title="To Nominals"/>
-                                <button name="load_wnominal" type="object" icon="fa-refresh" aria-label="Reload Day" title="Reload Day"/>
+                                <button name="load_wnominal" type="object" icon="fa-check" aria-label="To Nominals" title="To Nominals"/>
+                                <button name="refresh_soft" type="object" icon="fa-refresh" aria-label="Reload Day" title="Reload Day"/>
                             </tree>
                         </field>
                     </page>
